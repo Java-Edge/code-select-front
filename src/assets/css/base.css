@@ -1,0 +1,112 @@
+
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+input,
+button,
+textarea,
+p,
+blockquote,
+th,
+td {
+  margin: 0;
+  padding: 0;
+}
+
+
+body {
+  background-color: #f9f3e8;
+}
+
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:link,
+a:visited {
+  color: #1c1f21;
+}
+
+a,
+button,
+input {
+  outline: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+div {
+  background-size: cover;
+}
+
+fieldset,
+img {
+  border: 0;
+}
+
+
+
+.l {
+  float: left;
+}
+
+.r {
+  float: right;
+}
+
+.main-content {
+  max-width: 1152px;
+  margin: 0 auto;
+}
+
+.clearfix:after {
+  content: '\0020';
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+
+/* 复选框品牌橙色：原硬写 #e98e46 + 全局 !important 改为 EP 作用域变量接管。
+   仅作用于 .el-checkbox 子树，checked/hover/focus 态复用 --el-color-primary，
+   未勾选边框走 --el-checkbox-input-border，文字走 --el-checkbox-font-color。
+   颜色统一收敛到 tokens.css 的 --app-accent，消除散落硬编码与 !important 污染。 */
+.el-checkbox {
+  --el-color-primary: var(--app-accent);
+  --el-checkbox-font-color: var(--app-accent);
+  --el-checkbox-input-border: 1px solid var(--app-accent);
+  color: var(--app-accent);
+  font-size: 12px;
+  margin-bottom: 0;
+}
+.el-checkbox__label {
+  font-size: 12px;
+}
+
+.el-checkbox__inner::after {
+  left: 4px;
+  height: 9px;
+  width: 5px;
+  top: 0;
+}

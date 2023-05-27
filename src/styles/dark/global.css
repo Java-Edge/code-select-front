@@ -1,0 +1,61 @@
+/* ============================================================================
+ * dark/global.css — 全局基础（过渡 / 页面背景 / 滚动条）
+ * ============================================================================
+ * 原 src/styles/theme.css 拆分而来，选择器逐字保留，仅调整文件归属。
+ * 设计令牌统一来自 src/styles/tokens.css（html.dark 下的 --dm-* / --el-*）。
+ * ============================================================================ */
+
+/* ---------- 暗色切换过渡（限定交互组件，避免 * 选择器全局过渡导致卡顿） ---------- */
+/* ========== 暗色切换过渡（限定交互组件，避免 * 选择器对全局元素施加过渡导致卡顿） ========== */
+html.dark .item-class,
+html.dark .special-box,
+html.dark .interview-card,
+html.dark .filter-item,
+html.dark .el-button,
+html.dark .el-input__inner,
+html.dark .el-select .el-input__inner,
+html.dark .el-cascader .el-input__inner,
+html.dark .el-checkbox,
+html.dark .el-tag,
+html.dark .el-pagination li {
+  transition: background-color 0.2s ease-in-out,
+              border-color 0.2s ease-in-out,
+              color 0.2s ease-in-out,
+              box-shadow 0.2s ease-in-out;
+}
+
+/* ---------- 页面背景 ---------- */
+/* ========== 页面背景 ========== */
+html.dark body {
+  background-color: var(--dm-bg-primary);
+}
+
+html.dark #app {
+  background-color: var(--dm-bg-primary);
+}
+
+html.dark .body {
+  background-color: var(--dm-bg-primary);
+}
+
+/* ---------- 滚动条 ---------- */
+/* ========== 滚动条优化 ========== */
+html.dark ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+html.dark ::-webkit-scrollbar-track {
+  background: var(--dm-bg-secondary);
+  border-radius: 5px;
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background: var(--dm-bg-elevated);
+  border-radius: 5px;
+  border: 2px solid var(--dm-bg-secondary);
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--dm-border-secondary);
+}

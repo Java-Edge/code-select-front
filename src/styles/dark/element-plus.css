@@ -1,0 +1,77 @@
+/* ============================================================================
+ * dark/element-plus.css — Element Plus 组件暗色集成（弹层 / 输入框 / 选项 / 加载遮罩）
+ * ============================================================================
+ * 原 src/styles/theme.css 拆分而来，选择器逐字保留，仅调整文件归属。
+ * 设计令牌统一来自 src/styles/tokens.css（html.dark 下的 --dm-* / --el-*）。
+ * ============================================================================ */
+
+/* ---------- Element Plus 组件集成 ---------- */
+/* 弹层暗色背景：EP 1.x 的弹层背景写死 var(--el-color-white)/#fff，真实渲染类是
+   .el-x__popper.el-popper[role=tooltip]（特异性 0,3,0）。下面用 html.dark 前缀把
+   特异性提到 (0,5,2) 压过默认白色，无需 !important。升级到 EP 2.x 并引入官方
+   dark/css-vars.css 后，本段可删除。 */
+html.dark .el-select__popper.el-popper[role=tooltip],
+html.dark .el-dropdown__popper.el-popper[role=tooltip],
+html.dark .el-cascader__dropdown.el-popper[role=tooltip],
+html.dark .el-picker__popper.el-popper[role=tooltip] {
+  background-color: var(--dm-card-bg);
+  border-color: var(--dm-card-border);
+}
+
+/* 弹层小箭头：EP 默认 background:var(--el-color-white)，暗色下补暗，避免白三角 */
+html.dark .el-select__popper.el-popper[role=tooltip] .el-popper__arrow::before,
+html.dark .el-dropdown__popper.el-popper[role=tooltip] .el-popper__arrow::before,
+html.dark .el-cascader__dropdown.el-popper[role=tooltip] .el-popper__arrow::before,
+html.dark .el-picker__popper.el-popper[role=tooltip] .el-popper__arrow::before {
+  background: var(--dm-card-bg);
+  border: 1px solid var(--dm-card-border);
+}
+
+/* 选项 hover 填充：EP 用 --el-background-color-base（浅色，#f5f7fa）作填充，
+   但该变量同时被 10 处用作文字色，不能全局翻转，故针对性覆盖为暗色提升层。 */
+html.dark .el-select-dropdown__item.hover,
+html.dark .el-select-dropdown__item:hover,
+html.dark .el-cascader-node:not(.is-disabled):hover,
+html.dark .el-cascader-node:not(.is-disabled):focus {
+  background-color: var(--dm-bg-elevated);
+  color: var(--dm-text-primary);
+}
+
+/* 多选 select 已选项 / 已选项 hover：EP 背景 var(--el-color-white)，暗色下改品牌蓝淡底 */
+html.dark .el-select-dropdown.is-multiple .el-select-dropdown__item.selected,
+html.dark .el-select-dropdown.is-multiple .el-select-dropdown__item.selected.hover {
+  background-color: var(--dm-accent-primary-subtle);
+}
+
+/* 多选标签蓝色 accent（等价于原 !important 写法，无 !important 靠特异性取胜） */
+html.dark .el-select .el-select__tags .el-tag {
+  background-color: var(--dm-accent-primary-subtle);
+  border-color: rgba(59, 130, 246, 0.3);
+  color: var(--dm-accent-primary-hover);
+}
+
+/* 输入框 / 文本域 / select / cascader 输入槽：EP 1.x 在 .el-input 组件作用域
+   重新定义了 --el-input-background-color:var(--el-color-white)，会覆盖 html.dark
+   根变量，导致暗色下输入框仍显白色。此处针对性在组件作用域覆盖。
+   注意：select、cascader 内部的输入框类名仍是 .el-input，因此一并生效。 */
+html.dark .el-input,
+html.dark .el-textarea {
+  --el-input-background-color: var(--dm-input-bg);
+  --el-input-border: 1px solid var(--dm-input-border);
+  --el-input-border-color: var(--dm-input-border);
+  --el-input-font-color: var(--dm-text-primary);
+  --el-input-placeholder-color: var(--dm-text-tertiary);
+  --el-input-hover-border: var(--dm-input-border-hover);
+  --el-input-focus-border: var(--dm-input-border-focus);
+  --el-input-icon-color: var(--dm-text-tertiary);
+}
+
+/* 加载遮罩背景（轻量覆盖，无 !important） */
+html.dark .el-loading-mask {
+  background-color: rgba(11, 17, 32, 0.9);
+}
+
+/* 消息提示置顶 */
+.el-message {
+  z-index: 100000 !important;
+}

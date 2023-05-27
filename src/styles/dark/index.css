@@ -1,0 +1,17 @@
+/* ============================================================================
+ * dark/index.css — 暗色主题样式聚合入口
+ * ============================================================================
+ * 由原单一 src/styles/theme.css 拆分而来：按「全局 / Header / 页面 / 组件 / EP 集成」
+ * 归组，便于定位维护。选择器逐字保留，@import 顺序 = 原文件顺序（影响层叠优先级）。
+ *
+ * 设计令牌（:root 亮色 + html.dark 暗色）统一在 src/styles/tokens.css，
+ * 本目录只放选择器级覆盖规则。
+ * ============================================================================ */
+
+@import './global.css';
+@import './header.css';
+@import './pilot.css';
+@import './special-column.css';
+@import './article-interview.css';
+@import './element-plus.css';
+@import './article-detail.css';

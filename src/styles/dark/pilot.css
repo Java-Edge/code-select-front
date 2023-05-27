@@ -1,0 +1,66 @@
+/* ============================================================================
+ * dark/pilot.css — Pilot 首页（views/pilot/pilot.vue，含 FloatMenu、CategoryComponents 子组件）
+ * ============================================================================
+ * 原 src/styles/theme.css 拆分而来，选择器逐字保留，仅调整文件归属。
+ * 设计令牌统一来自 src/styles/tokens.css（html.dark 下的 --dm-* / --el-*）。
+ * ============================================================================ */
+
+/* ---------- Pilot 页面 + FloatMenu 悬浮菜单 + CategoryComponents 卡片 ---------- */
+/* ========== Pilot 页面 ========== */
+html.dark .pilot-page {
+  background-color: var(--dm-bg-primary);
+}
+
+/* ========== FloatMenu 左侧悬浮菜单优化 ========== */
+html.dark #menu {
+  background-color: var(--dm-sidebar-bg);
+  border-right: 1px solid var(--dm-border-primary);
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
+}
+
+html.dark #menu li {
+  color: var(--dm-sidebar-text);
+  border-bottom: 1px solid var(--dm-border-primary);
+  transition: all 0.2s ease;
+}
+
+html.dark #menu li:hover {
+  color: var(--dm-sidebar-text-hover);
+  background-color: var(--dm-sidebar-bg-hover);
+}
+
+html.dark #menu li.active {
+  color: var(--dm-sidebar-text-active);
+  background-color: var(--dm-sidebar-bg-active);
+  border-right: 3px solid var(--dm-accent-primary);
+}
+
+html.dark #menu li+li::after {
+  display: none;
+}
+
+/* ========== CategoryComponents 卡片优化 ========== */
+html.dark .item-class {
+  background-color: var(--dm-card-bg);
+  background-image: none;
+  border: 1px solid var(--dm-card-border);
+  box-shadow: var(--dm-card-shadow);
+  border-radius: 8px;
+}
+
+html.dark .item-class:hover {
+  background-color: var(--dm-bg-elevated);
+  border-color: var(--dm-border-secondary);
+  box-shadow: var(--dm-card-shadow-hover);
+  transform: translateY(-2px);
+}
+
+html.dark .item-class span {
+  color: var(--dm-text-primary);
+}
+
+html.dark .head-line {
+  color: var(--dm-text-primary);
+  font-weight: 600;
+  font-size: 18px;
+}

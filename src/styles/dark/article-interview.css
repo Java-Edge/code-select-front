@@ -1,0 +1,178 @@
+/* ============================================================================
+ * dark/article-interview.css — 面经列表页（views/markdown/article-interview.vue）
+ * ============================================================================
+ * 原 src/styles/theme.css 拆分而来，选择器逐字保留，仅调整文件归属。
+ * 设计令牌统一来自 src/styles/tokens.css（html.dark 下的 --dm-* / --el-*）。
+ * ============================================================================ */
+
+/* ---------- 面经列表页（容器 / 筛选框 / 筛选按钮 / 卡片） ---------- */
+/* ========== 面经页面全面优化 ========== */
+html.dark .article-ranking-container {
+  background-color: var(--dm-bg-primary);
+  padding: 20px;
+}
+
+/* 筛选框容器 */
+html.dark .filter-box {
+  background-color: var(--dm-card-bg);
+  border: 1px solid var(--dm-card-border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: var(--dm-card-shadow);
+}
+
+/* ==========================================================================
+   面经筛选按钮 - 暗黑主题优化
+   配色方案：浅色文字(#E0E0E0)搭配深色背景(#1E1E1E)
+   WCAG 2.1 AA标准：对比度 >= 4.5:1
+   ========================================================================== */
+
+/* 基础状态 - 未选中 */
+html.dark .filter-item {
+  /* 视觉样式 */
+  background: linear-gradient(145deg, var(--dm-input-bg) 0%, #1a2230 100%);
+  border: 2px solid var(--dm-filter-border);
+  border-radius: 10px;
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  
+  /* 文字样式 - 符合WCAG AA */
+  color: var(--dm-filter-text);  /* 对比度 11.2:1 符合标准 */
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  
+  /* 动画过渡 */
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 悬停状态 - 提升交互反馈 */
+html.dark .filter-item:hover {
+  background: linear-gradient(145deg, var(--dm-bg-elevated) 0%, var(--dm-input-bg) 100%);
+  border-color: var(--dm-text-disabled);
+  color: var(--dm-btn-primary-text);
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(96, 165, 250, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+/* 点击/按下状态 */
+html.dark .filter-item:active {
+  background: linear-gradient(145deg, #1a2230 0%, #151b26 100%);
+  border-color: var(--dm-accent-primary);
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.3),
+    inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  transform: translateY(0);
+  transition: all 0.1s ease;
+}
+
+/* 选中状态 - 高对比度设计 */
+html.dark .filter-item.active {
+  /* 背景 - 使用品牌蓝色渐变 */
+  background: linear-gradient(145deg, var(--dm-accent-primary) 0%, var(--dm-accent-primary-active) 100%) !important;
+  
+  /* 边框 - 多层边框增强视觉 */
+  border: 2px solid var(--dm-border-focus) !important;
+  box-shadow: 
+    0 0 0 3px rgba(59, 130, 246, 0.25),  /* 外发光 */
+    0 4px 12px rgba(37, 99, 235, 0.4),     /* 投影 */
+    inset 0 1px 0 rgba(255, 255, 255, 0.2); /* 内高光 */
+  
+  /* 文字 - 纯白高对比 */
+  color: var(--dm-btn-primary-text) !important;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* 选中状态悬停 */
+html.dark .filter-item.active:hover {
+  background: linear-gradient(145deg, var(--dm-border-focus) 0%, var(--dm-accent-primary) 100%) !important;
+  border-color: #93c5fd !important;
+  box-shadow: 
+    0 0 0 4px rgba(59, 130, 246, 0.3),
+    0 6px 16px rgba(37, 99, 235, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+/* 选中状态点击 */
+html.dark .filter-item.active:active {
+  background: linear-gradient(145deg, var(--dm-accent-primary-active) 0%, #1d4ed8 100%) !important;
+  box-shadow: 
+    0 0 0 2px rgba(59, 130, 246, 0.2),
+    0 2px 4px rgba(37, 99, 235, 0.3),
+    inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: translateY(0);
+}
+
+/* 焦点状态 - 键盘导航支持 */
+html.dark .filter-item:focus-visible {
+  outline: none;
+  border-color: var(--dm-border-focus);
+  box-shadow: 
+    0 0 0 3px rgba(96, 165, 250, 0.4),
+    0 0 0 1px var(--dm-border-focus);
+}
+
+/* 禁用状态 */
+html.dark .filter-item.disabled,
+html.dark .filter-item:disabled {
+  background: var(--dm-input-bg);
+  border-color: var(--dm-card-border);
+  color: var(--dm-text-disabled);
+  cursor: not-allowed;
+  opacity: 0.6;
+  box-shadow: none;
+  transform: none;
+}
+
+/* 面经卡片优化 */
+html.dark .interview-card {
+  background-color: var(--dm-card-bg);
+  border: 1px solid var(--dm-card-border);
+  box-shadow: var(--dm-card-shadow);
+  border-radius: 12px;
+  margin-bottom: 16px;
+  transition: all 0.2s ease;
+}
+
+html.dark .interview-card:hover {
+  border-color: var(--dm-border-secondary);
+  box-shadow: var(--dm-card-shadow-hover);
+  transform: translateY(-2px);
+}
+
+html.dark .interview-title {
+  color: var(--dm-text-primary);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+html.dark .interview-content {
+  color: var(--dm-text-secondary);
+  line-height: 1.6;
+}
+
+html.dark .interview-type {
+  border-top: 1px solid var(--dm-border-primary);
+  color: var(--dm-text-tertiary);
+  margin-top: 16px;
+  padding-top: 12px;
+}
+
+html.dark .interview-type:hover {
+  color: var(--dm-accent-primary-hover);
+}
+
+html.dark .career-type {
+  color: var(--dm-text-tertiary);
+}

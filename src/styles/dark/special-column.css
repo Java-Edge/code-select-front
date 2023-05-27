@@ -1,0 +1,160 @@
+/* ============================================================================
+ * dark/special-column.css — 专栏页（views/special-column/index.vue，含 special-category 子组件）
+ * ============================================================================
+ * 原 src/styles/theme.css 拆分而来，选择器逐字保留，仅调整文件归属。
+ * 设计令牌统一来自 src/styles/tokens.css（html.dark 下的 --dm-* / --el-*）。
+ * ============================================================================ */
+
+/* ---------- 专栏页面 ---------- */
+/* ========== 专栏页面优化 ========== */
+html.dark .special-box {
+  background-color: var(--dm-card-bg);
+  border: 1px solid var(--dm-card-border);
+  box-shadow: var(--dm-card-shadow);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+html.dark .special-box:hover {
+  border-color: var(--dm-border-secondary);
+  box-shadow: var(--dm-card-shadow-hover);
+  transform: translateY(-2px);
+}
+
+html.dark .box-bottom {
+  color: var(--dm-text-primary);
+  background-color: var(--dm-card-bg);
+  padding: 12px;
+}
+
+html.dark .bottom-left {
+  color: var(--dm-text-primary);
+  font-weight: 600;
+}
+
+html.dark .bottom-right {
+  color: var(--dm-text-tertiary);
+  font-size: 12px;
+}
+
+/* 专栏筛选区域 */
+html.dark .filter {
+  background-color: transparent;
+  padding: 16px 0;
+}
+
+html.dark .filter .sort a {
+  color: var(--dm-text-secondary);
+  background-color: var(--dm-bg-tertiary);
+  border: 1px solid var(--dm-border-primary);
+  border-radius: 100px;
+  padding: 6px 16px;
+  margin-right: 8px;
+  transition: all 0.2s ease;
+}
+
+html.dark .filter .sort a:hover {
+  background-color: var(--dm-bg-elevated);
+  border-color: var(--dm-border-secondary);
+  color: var(--dm-text-primary);
+}
+
+html.dark .filter .sort a.on {
+  color: var(--dm-btn-primary-text);
+  background-color: var(--dm-accent-primary);
+  border-color: var(--dm-accent-primary);
+  box-shadow: 0 0 0 2px var(--dm-accent-primary-subtle);
+}
+
+html.dark .filter .other .course-line {
+  color: var(--dm-accent-warning);
+  background-color: var(--dm-accent-warning-subtle);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 100px;
+  padding: 6px 16px;
+}
+
+html.dark .filter .other .course-line:hover {
+  background-color: rgba(245, 158, 11, 0.25);
+  border-color: rgba(245, 158, 11, 0.5);
+}
+
+/* ---------- 专栏分类组件 ---------- */
+/* ========== 专栏分类组件优化 ========== */
+html.dark .top-wrap {
+  background-color: var(--dm-bg-secondary);
+  background-image: none;
+  border-bottom: 1px solid var(--dm-border-primary);
+}
+
+html.dark .shizhan-header .shizhan-header-wrap .shizhan-header-search .search-inner {
+  background-color: var(--dm-input-bg);
+  border: 1px solid var(--dm-input-border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+html.dark .shizhan-header .shizhan-header-wrap .shizhan-header-search .search-inner:hover {
+  border-color: var(--dm-input-border-hover);
+}
+
+html.dark .shizhan-header .shizhan-header-wrap .shizhan-header-search .search-inner:focus-within {
+  border-color: var(--dm-input-border-focus);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+html.dark .shizhan-search-input {
+  color: var(--dm-input-text);
+}
+
+html.dark .shizhan-search-input::placeholder {
+  color: var(--dm-input-placeholder);
+}
+
+html.dark .shizhan-header .shizhan-header-wrap .shizhan-header-search .search-hot span,
+html.dark .shizhan-header .shizhan-header-wrap .shizhan-header-search .search-hot a {
+  color: var(--dm-text-tertiary);
+}
+
+html.dark .shizhan-header .shizhan-header-wrap .shizhan-header-search .search-hot a:hover {
+  color: var(--dm-accent-primary-hover);
+}
+
+/* 方向/分类筛选 */
+html.dark .type .type-wrap .warp {
+  background-color: transparent;
+}
+
+html.dark .type .type-wrap .warp.two {
+  background-color: var(--dm-card-bg) !important;
+  border: 1px solid var(--dm-card-border);
+  box-shadow: var(--dm-card-shadow) !important;
+  border-radius: 8px;
+}
+
+html.dark .type .type-wrap .warp .name {
+  color: var(--dm-text-primary);
+  font-weight: 600;
+}
+
+html.dark .type .type-wrap .warp .items li a {
+  color: var(--dm-text-secondary);
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+html.dark .type .type-wrap .warp .items li:hover a {
+  color: var(--dm-text-primary);
+  background-color: var(--dm-bg-tertiary);
+}
+
+html.dark .type .type-wrap .warp .items li.cur {
+  background-color: var(--dm-accent-primary-subtle);
+  border-radius: 6px;
+}
+
+html.dark .type .type-wrap .warp .items li.cur a {
+  color: var(--dm-accent-primary-hover);
+  font-weight: 600;
+}
