@@ -1,5 +1,5 @@
 # education-front
-
+node.js的为16.x即可
 ## Project setup
 ```
 npm install
