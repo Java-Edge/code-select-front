@@ -16,6 +16,7 @@ import lookThisGrade from "../views/look-this-grade"
 import lookHistoryGrade from "../views/look-history-grade"
 import insertGrade from "../views/add-grade"
 import showStudentCourseGrade from "../views/look-student-course-grade"
+import courseTest from "../views/course"
 Vue.use(VueRouter)
 
 const routes = [
@@ -94,6 +95,11 @@ const routes = [
                 component: lookHistoryGrade
             }
         ]
+    },
+    {
+        path: '/courseTest',
+        name: 'courseTest',
+        component: courseTest
     },
 ]
 
