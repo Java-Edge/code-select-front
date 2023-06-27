@@ -4,7 +4,7 @@
  * @Author: 不败顽童
  * @Date: 2023-06-23 20:21:24
  * @LastEditors: 不败顽童
- * @LastEditTime: 2023-06-24 21:50:21
+ * @LastEditTime: 2023-06-27 21:36:24
 -->
 <template>
     <div class="product">
@@ -14,7 +14,7 @@
         <div class="product-info">
             <p class="product-name">{{ product.name }}</p>
             <div class="product-details">
-                <span class="product-price">{{ product.price }}</span>
+                <span class="product-price">{{ product.price }} ￥</span>
                 <span class="product-description">{{ product.description }}</span>
             </div>
         </div>
