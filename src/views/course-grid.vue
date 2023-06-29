@@ -4,22 +4,24 @@
  * @Author: 不败顽童
  * @Date: 2023-06-23 20:21:24
  * @LastEditors: 不败顽童
- * @LastEditTime: 2023-06-27 21:36:24
+ * @LastEditTime: 2023-06-29 21:42:52
 -->
 <template>
     <div class="product">
-        <div class="product-image-container">
-            <el-image class="product-image" :src="product.image" fit="cover"></el-image>
+      <div class="product-image-container">
+        <el-image class="product-image" :src="product.image" fit="cover"></el-image>
+      </div>
+      <div class="product-info">
+        <router-link :to="`/product/${product.id}`">
+          <p class="product-name">{{ product.name }}</p>
+        </router-link>
+        <div class="product-details">
+          <span class="product-price">{{ product.price }} ￥</span>
+          <span class="product-description">{{ product.description }}</span>
         </div>
-        <div class="product-info">
-            <p class="product-name">{{ product.name }}</p>
-            <div class="product-details">
-                <span class="product-price">{{ product.price }} ￥</span>
-                <span class="product-description">{{ product.description }}</span>
-            </div>
-        </div>
+      </div>
     </div>
-</template>
+  </template>
   
 
 <script>
