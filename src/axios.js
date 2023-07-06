@@ -4,7 +4,7 @@
  * @Author: 不败顽童
  * @Date: 2023-05-07 18:40:19
  * @LastEditors: 不败顽童
- * @LastEditTime: 2023-05-27 18:26:28
+ * @LastEditTime: 2023-07-06 22:47:51
  */
 import axios from 'axios'
 import Element from 'element-ui'
@@ -13,6 +13,7 @@ import router from './router'
 
 // axios.defaults.baseURL = "http://106.52.239.29:9001/back-server/"
 axios.defaults.baseURL = "/back-server"
+// axios.defaults.baseURL = "/"
 // axios.defaults.baseURL = "http://localhost:9001/back-server/"
 
 // 前置拦截
