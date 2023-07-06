@@ -4,7 +4,7 @@
  * @Author: 不败顽童
  * @Date: 2023-06-23 20:21:24
  * @LastEditors: 不败顽童
- * @LastEditTime: 2023-06-29 21:42:52
+ * @LastEditTime: 2023-07-06 23:08:20
 -->
 <template>
     <div class="product">
@@ -43,84 +43,10 @@ export default {
         }
     },
     methods: {
-        getList() {
-            const _this = this;
-            this.$axios.get("/grade/showStudentsCourseGrade?courseId=" + _this.$store.getters.getCourseId,
-                {
-                    headers: {
-                        "Authorization": _this.$store.getters.getToken
-                    }
-                }
-            ).then(response => {
-                var data = response.data.data;
-                _this.studentList = data.list;
-                _this.course = data.course;
-                _this.teacher = data.teacher;
-            })
-        },
-        getFormatDate() {
-            var date = new Date();
-            var month = date.getMonth() + 1;
-            var strDate = date.getDate();
-            if (month >= 1 && month <= 9) {
-                month = "0" + month;
-            }
-            if (strDate >= 0 && strDate <= 9) {
-                strDate = "0" + strDate;
-            }
-            var currentDate = date.getFullYear() + "年" + month + "月" + strDate
-                + "日" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-            this.date = currentDate;
-        },
-        showUpdate(index) {
-            this.showEdit[index] = true;
-            this.$set(this.showEdit, index, true); //这里要用$set方法，否则页面状态不更新
-        },
-        //取消修改
-        cancelUpdate(index) {
-            this.$confirm("取消修改？", "提示", {
-                confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                type: "warning"
-            })
-                .then(() => {
-                    this.$set(this.showEdit, index, false);
-                    this.getList();
-                    this.getTermList();
-                    this.getTeacherList();
-                })
-                .catch(() => {
-                });
-        },
-        submitUpdate(index, row) {
-            this.$confirm("确认修改？", "提示", {
-                confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                type: "warning"
-            })
-                .then(() => {
-                    this.$axios.post("/grade/update", row.grade,
-                        {
-                            headers: {
-                                "Authorization": this.$store.getters.getToken
-                            }
-                        }).then(res => {
-                            this.$message({
-                                message: res.data.message,
-                                type: "success"
-                            })
-                            this.showEdit[index] = false;
-                            this.$set(this.showEdit, index, false);
-                            this.getList();
-                        })
-                })
-                .catch(() => {
-                });
-        },
+     
     },
     created() {
-        this.getList();
-        this.getFormatDate();
+
     }
 }
 </script>

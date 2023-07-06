@@ -41,7 +41,7 @@
                         <div class="block">
                             <!-- <span class="demonstration">Click 指示器触发</span> -->
                             <el-carousel trigger="click" height="300px">
-                                <el-carousel-item v-for="item in carouselItems" :key="item">
+                                <el-carousel-item  v-for="item in carouselItems" :key="item">
                                     <el-image class="product-image" :src="item.imageUrl" fit="contain"></el-image>
                                     <h3 class="small">{{ item }}</h3>
                                 </el-carousel-item>
@@ -81,7 +81,25 @@ export default {
         // this.nickname = this.$store.getters.getUser.nickname;
     },
     methods: {
-
+        getCourses(){
+            this.$axios.get('/sourceCourse/list'
+            // ,
+            //     {
+            //         headers: {
+            //             "Authorization": this.$store.getters.getToken
+            //         }
+            //     }
+            ).then(response => {
+                const courses = response.data.result;
+                console.log(response)
+                this.courses = courses;
+                // this.$message({
+                //     type: 'success',
+                //     message: response.data.message
+                // });
+                console.log(this.courses)
+            })
+        }
     },
     data() {
 
@@ -91,7 +109,28 @@ export default {
             nickname: '',
             menuList: [],
             active: localStorage.getItem("active"),
-            courses: [],
+            courses: [
+            //     { id: 1, name: '商品1', price: 10.99, image: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230624212140615.png', info: "价格便宜" },
+            //     { id: 2, name: '商品2', price: 19.99, image: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg', info: "价格便宜" },
+            //     { id: 3, name: '商品1', price: 10.99, image: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230624212140615.png', info: "价格便宜" },
+            //     { id: 4, name: '商品2', price: 19.99, image: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg', info: "价格便宜" },
+            //     { id: 5, name: '商品1', price: 10.99, image: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230624212140615.png', info: "价格便宜" },
+            //     { id: 6, name: '商品2', price: 19.99, image: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg', info: "价格便宜" },
+            //     { id: 7, name: '商品1', price: 10.99, image: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230624212140615.png', info: "价格便宜" },
+            //     { id: 8, name: '商品1', price: 10.99, image: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230624212140615.png', info: "价格便宜" },
+            //     { id: 9, name: '商品2', price: 19.99, image: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg', info: "价格便宜" },
+            //     { id: 10, name: '商品1', price: 10.99, image: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230624212140615.png', info: "价格便宜" },
+            //     { id: 11, name: '商品2', price: 19.99, image: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg', info: "价格便宜" },
+            //     { id: 12, name: '商品1', price: 10.99, image: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230624212140615.png', info: "价格便宜" },
+            //     { id: 13, name: '商品2', price: 19.99, image: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg', info: "价格便宜" },
+            //     { id: 14, name: '商品1', price: 10.99, image: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230624212140615.png', info: "价格便宜" },
+            //     { id: 15, name: '商品2', price: 19.99, image: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg', info: "价格便宜" },
+            //     { id: 16, name: '商品1', price: 10.99, image: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230624212140615.png', info: "价格便宜" },
+            //     { id: 17, name: '商品2', price: 19.99, image: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg', info: "价格便宜" },
+            //     { id: 18, name: '商品1', price: 10.99, image: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230624212140615.png', info: "价格便宜" },
+            //     { id: 19, name: '商品2', price: 19.99, image: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg', info: "价格便宜" },
+            //     { id: 20, name: '商品2', price: 19.99, image: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg', info: "价格便宜" },
+            ],
             menuData: [
                 {
                     index: '1',
