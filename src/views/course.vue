@@ -8,7 +8,7 @@
                     <el-menu-item index="1">首页</el-menu-item>
                     <el-submenu index="2">
                         <template slot="title">VIP</template>
-                        <el-menu-item index="2-1">选项1</el-menu-item>
+                        <!-- <el-menu-item index="2-1">选项1</el-menu-item>
                         <el-menu-item index="2-2">选项2</el-menu-item>
                         <el-menu-item index="2-3">选项3</el-menu-item>
                         <el-submenu index="2-4">
@@ -16,7 +16,7 @@
                             <el-menu-item index="2-4-1">选项1</el-menu-item>
                             <el-menu-item index="2-4-2">选项2</el-menu-item>
                             <el-menu-item index="2-4-3">选项3</el-menu-item>
-                        </el-submenu>
+                        </el-submenu> -->
                     </el-submenu>
                     <el-menu-item index="3">学习路线</el-menu-item>
                     <el-menu-item index="4">系统课</el-menu-item>
@@ -57,9 +57,9 @@
                             <CourseGride v-for="product in courses" :key="product.id" :product="product" />
                         </div>
                     </el-tab-pane>
-                    <el-tab-pane label="配置管理">配置管理</el-tab-pane>
+                    <!-- <el-tab-pane label="配置管理">配置管理</el-tab-pane>
                     <el-tab-pane label="角色管理">角色管理</el-tab-pane>
-                    <el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane>
+                    <el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane> -->
                 </el-tabs>
             </el-main>
             <el-footer>Footer</el-footer>
@@ -137,8 +137,8 @@ export default {
                     title: 'Java开发',
                     icon: 'el-icon-message',
                     items: [
-                        { index: '1-1', title: '选项1' },
-                        { index: '1-2', title: '选项2' },
+                        { index: '1-1', title: 'Java基础' },
+                        { index: '1-2', title: 'Java面向对象' },
                     ],
                 },
                 {
@@ -146,8 +146,13 @@ export default {
                     title: 'JavaWeb开发',
                     icon: 'el-icon-menu',
                     items: [
-                        { index: '2-1', title: '选项1' },
-                        { index: '2-2', title: '选项2' },
+                        { index: '2-1', title: 'mysql基础' },
+                        { index: '2-2', title: 'springboot' },
+                        { index: '2-3', title: 'JavaWeb基础' },
+                        { index: '2-4', title: 'springcloud' },
+                        { index: '2-5', title: 'maven' },
+                        { index: '2-6', title: 'vue实战' },
+                        { index: '2-7', title: 'mybatis' },
                     ],
                 },
                 {
@@ -155,8 +160,11 @@ export default {
                     title: 'Java面试/进阶课程',
                     icon: 'el-icon-setting',
                     items: [
-                        { index: '3-1', title: '选项1' },
-                        { index: '3-2', title: '选项2' },
+                        { index: '3-1', title: 'juc面试题' },
+                        { index: '3-2', title: '互联网安全面试题' },
+                        { index: '3-3', title: '消息中间面试题' },
+                        { index: '3-2', title: 'mysql索引面试题' },
+                        { index: '3-2', title: 'mysql一致性面试题' },
                     ],
                 },
                 {
@@ -164,8 +172,11 @@ export default {
                     title: '运维技术',
                     icon: 'el-icon-setting',
                     items: [
-                        { index: '3-1', title: '选项1' },
-                        { index: '3-2', title: '选项2' },
+                        { index: '4-1', title: 'docker' },
+                        { index: '4-2', title: '云服务' },
+                        { index: '4-3', title: 'jekins' },
+                        { index: '4-4', title: 'nginx' },
+                        { index: '4-5', title: 'k8s' },
                     ],
                 },
                 {
@@ -173,8 +184,11 @@ export default {
                     title: 'python开发',
                     icon: 'el-icon-setting',
                     items: [
-                        { index: '3-1', title: '选项1' },
-                        { index: '3-2', title: '选项2' },
+                        { index: '5-1', title: 'python面向对象' },
+                        { index: '5-2', title: 'pythonWeb开发' },
+                        { index: '5-3', title: 'python数据爬虫' },
+                        { index: '5-4', title: '爬虫基础100到题' },
+                        { index: '5-5', title: 'python破解验证码' },
                     ],
                 },
                 {
@@ -182,8 +196,11 @@ export default {
                     title: '前端开发',
                     icon: 'el-icon-setting',
                     items: [
-                        { index: '3-1', title: '选项1' },
-                        { index: '3-2', title: '选项2' },
+                        { index: '6-1', title: 'HTML' },
+                        { index: '6-2', title: 'CSS' },
+                        { index: '6-3', title: 'Javascript' },
+                        { index: '6-4', title: 'React' },
+                        { index: '6-5', title: 'Vue' },
                     ],
                 },
             ],

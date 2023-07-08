@@ -7,21 +7,23 @@
  * @LastEditTime: 2023-07-06 23:08:20
 -->
 <template>
-    <div class="product">
-      <div class="product-image-container">
-        <el-image class="product-image" :src="product.image" fit="cover"></el-image>
-      </div>
-      <div class="product-info">
-        <router-link :to="`/product/${product.id}`">
-          <p class="product-name">{{ product.name }}</p>
-        </router-link>
-        <div class="product-details">
-          <span class="product-price">{{ product.price }} ￥</span>
-          <span class="product-description">{{ product.description }}</span>
+    <router-link :to="`/product/${product.id}`">
+        <div class="product">
+            <div class="product-image-container">
+                <el-image class="product-image" :src="product.image" fit="cover"></el-image>
+            </div>
+            <div class="product-info">
+
+                <p class="product-name">{{ product.name }}</p>
+
+                <div class="product-details">
+                    <span class="product-price">{{ product.price }} ￥</span>
+                    <span class="product-description">{{ product.description }}</span>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </template>
+    </router-link>
+</template>
   
 
 <script>
@@ -43,7 +45,7 @@ export default {
         }
     },
     methods: {
-     
+
     },
     created() {
 
