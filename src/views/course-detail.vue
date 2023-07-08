@@ -20,15 +20,16 @@
             <!-- 左侧菜单栏内容 -->
             <!-- ... -->
           </el-aside>
-          <el-main>
+          <el-main class="detail">
             <div class="rectangle">
               <div class="left">
                 <img class="product-image" :src="selectedCourse.image" fit="contain" />
               </div>
               <div class="right">
-                <h3>{{ selectedCourse.name }}</h3>
-                <p class="price">价格：{{ selectedCourse.price }}</p>
-                <el-button type="primary" size="medium">立即购买</el-button> <!-- 立即购买按钮 -->
+                <h3 class="name">{{ selectedCourse.name }}</h3>
+                <div class="price">价格：{{ selectedCourse.price }} ￥</div>
+                <div class="description">简介:{{ selectedCourse.description }}</div>
+                <el-button type="primary" size="medium" :plain="true" @click="buttonOnClick">立即购买</el-button>
                 <!-- 其他信息 -->
                 <!-- ... -->
               </div>
@@ -80,7 +81,13 @@ export default {
         // });
         console.log(this.courses)
       })
-    }
+    },
+    buttonOnClick() {
+      this.$message({
+        showClose: true,
+        message: '购买功能暂未实现，请联系管理员'
+      });
+    },
   }
   // 其他方法...
 
@@ -93,6 +100,8 @@ export default {
   align-items: center;
   padding: 20px;
   background-color: #f5f5f5;
+  width: 1000px;
+  height: 300px;
 }
 
 .rectangle .left {
@@ -113,9 +122,27 @@ export default {
   max-width: 100%;
 }
 
+
 .price {
   margin-bottom: 10px;
   /* 调整课程价格与课程名称的间距 */
 }
+
+.right {
+  align-items: center;
+  margin-bottom: 10px;
+  line-height: 20px;
+  width: 500px;
+  height: 100px;
+}
+
+/* 
+.description {
+  align-items: center;
+  margin-bottom: 10px;
+  line-height: 20px;
+  width: 300px;
+  height: 50px;
+} */
 </style>
   
