@@ -30,6 +30,11 @@
                 <!-- <div class="price">价格：{{ selectedCourse.price }} ￥</div> -->
                 <div class="description">简介:{{ selectedCourse.description }}</div>
                 <!-- <el-button type="primary" size="medium" :plain="true" @click="buttonOnClick">立即购买</el-button> -->
+                <el-button type="primary" size="medium" :plain="true" @click="goToStudy(selectedCourse)">
+                  <a :href="selectedCourse.sourceUrl" rel="external nofollow" target="_blank" style="text-decoration: none">
+                    点击学习
+                  </a>
+                </el-button>
                 <!-- 其他信息 -->
                 <!-- ... -->
               </div>
@@ -88,6 +93,9 @@ export default {
         message: '购买功能暂未实现，请联系管理员'
       });
     },
+    goToStudy(selectedCourse){
+      this.$route = selectedCourse.sourceUrl
+    }
   }
   // 其他方法...
 
@@ -133,7 +141,7 @@ export default {
   margin-bottom: 10px;
   line-height: 20px;
   width: 500px;
-  height: 100px;
+  height: 200px;
 }
 
 /* 

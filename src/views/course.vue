@@ -20,9 +20,10 @@
                     <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
                         <el-menu :default-openeds="['1']" class="menu-container">
                             <el-submenu v-for="(submenu, index) in menuData" :key="index" :index="submenu.index"
-                                popper-class="submenu-hover">
+                                :ref="'submenu-' + index" popper-class="submenu-hover" @mouseenter="showSubMenu(index)"
+                                @mouseleave="hideSubMenu(index)">
                                 <template slot="title"><i :class="submenu.icon"></i>{{ submenu.title }}</template>
-                                <el-menu-item v-for="item in submenu.items" :key="item.index" :index="item.index">
+                                <el-menu-item v-for="item in submenu.items" :key="item.index" :index="item.index" >
                                     {{ item.title }}
                                 </el-menu-item>
                             </el-submenu>
@@ -30,11 +31,12 @@
                     </el-aside>
                     <el-main>
                         <div class="block">
-                            <!-- <span class="demonstration">Click 指示器触发</span> -->
                             <el-carousel trigger="click" height="300px">
-                                <el-carousel-item  v-for="item in carouselItems" :key="item">
-                                    <el-image class="product-image" :src="item.imageUrl" fit="contain"></el-image>
-                                    <h3 class="small">{{ item }}</h3>
+                                <el-carousel-item v-for="item in fiveCourses" :key="item.id">
+                                    <router-link :to="`/product/${item.id}`">
+                                        <el-image class="product-image" :src="item.image" fit="contain"></el-image>
+                                        <h3 class="small">{{ item }}</h3>
+                                    </router-link>
                                 </el-carousel-item>
                             </el-carousel>
                         </div>
@@ -43,9 +45,9 @@
             </el-main>
             <el-main>
                 <el-tabs type="border-card">
-                        <div class="product-list">
-                            <CourseGride v-for="product in courses" :key="product.id" :product="product" />
-                        </div>
+                    <div class="product-list">
+                        <CourseGride v-for="product in courses" :key="product.id" :product="product" />
+                    </div>
                     <!-- <el-tab-pane label="VIP">
                     
                     </el-tab-pane> -->
@@ -70,17 +72,18 @@ export default {
     created() {
         // this.getMenuList();
         this.getCourses();
+        this.getFiveCourse();
         // this.nickname = this.$store.getters.getUser.nickname;
     },
     methods: {
-        getCourses(){
+        getCourses() {
             this.$axios.get('/sourceCourse/list'
-            // ,
-            //     {
-            //         headers: {
-            //             "Authorization": this.$store.getters.getToken
-            //         }
-            //     }
+                // ,
+                //     {
+                //         headers: {
+                //             "Authorization": this.$store.getters.getToken
+                //         }
+                //     }
             ).then(response => {
                 const courses = response.data.result;
                 console.log(response)
@@ -91,7 +94,36 @@ export default {
                 // });
                 console.log(this.courses)
             })
-        }
+        },
+        getFiveCourse() {
+            this.$axios.get('/sourceCourse/getFiveCourse'
+                // ,
+                //     {
+                //         headers: {
+                //             "Authorization": this.$store.getters.getToken
+                //         }
+                //     }
+            ).then(response => {
+                const courses = response.data.result;
+                console.log(response)
+                this.fiveCourses = courses;
+                // this.$message({
+                //     type: 'success',
+                //     message: response.data.message
+                // });
+                console.log(this.fiveCourses)
+            })
+        },
+        activeSubMenu(index) {
+            this.activeIndex = index;
+        },
+        showSubMenu(index) {
+            console.log(index);
+            this.$refs['submenu-' + index][0].active = true;
+        },
+        hideSubMenu(index) {
+            this.$refs['submenu-' + index][0].active = false;
+        },
     },
     data() {
 
@@ -101,28 +133,8 @@ export default {
             nickname: '',
             menuList: [],
             active: localStorage.getItem("active"),
-            courses: [
-            //     { id: 1, name: '商品1', price: 10.99, image: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230624212140615.png', info: "价格便宜" },
-            //     { id: 2, name: '商品2', price: 19.99, image: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg', info: "价格便宜" },
-            //     { id: 3, name: '商品1', price: 10.99, image: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230624212140615.png', info: "价格便宜" },
-            //     { id: 4, name: '商品2', price: 19.99, image: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg', info: "价格便宜" },
-            //     { id: 5, name: '商品1', price: 10.99, image: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230624212140615.png', info: "价格便宜" },
-            //     { id: 6, name: '商品2', price: 19.99, image: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg', info: "价格便宜" },
-            //     { id: 7, name: '商品1', price: 10.99, image: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230624212140615.png', info: "价格便宜" },
-            //     { id: 8, name: '商品1', price: 10.99, image: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230624212140615.png', info: "价格便宜" },
-            //     { id: 9, name: '商品2', price: 19.99, image: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg', info: "价格便宜" },
-            //     { id: 10, name: '商品1', price: 10.99, image: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230624212140615.png', info: "价格便宜" },
-            //     { id: 11, name: '商品2', price: 19.99, image: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg', info: "价格便宜" },
-            //     { id: 12, name: '商品1', price: 10.99, image: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230624212140615.png', info: "价格便宜" },
-            //     { id: 13, name: '商品2', price: 19.99, image: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg', info: "价格便宜" },
-            //     { id: 14, name: '商品1', price: 10.99, image: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230624212140615.png', info: "价格便宜" },
-            //     { id: 15, name: '商品2', price: 19.99, image: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg', info: "价格便宜" },
-            //     { id: 16, name: '商品1', price: 10.99, image: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230624212140615.png', info: "价格便宜" },
-            //     { id: 17, name: '商品2', price: 19.99, image: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg', info: "价格便宜" },
-            //     { id: 18, name: '商品1', price: 10.99, image: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230624212140615.png', info: "价格便宜" },
-            //     { id: 19, name: '商品2', price: 19.99, image: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg', info: "价格便宜" },
-            //     { id: 20, name: '商品2', price: 19.99, image: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg', info: "价格便宜" },
-            ],
+            courses: [],
+            fiveCourses: [],
             menuData: [
                 {
                     index: '1',
@@ -155,8 +167,8 @@ export default {
                         { index: '3-1', title: 'juc面试题' },
                         { index: '3-2', title: '互联网安全面试题' },
                         { index: '3-3', title: '消息中间面试题' },
-                        { index: '3-2', title: 'mysql索引面试题' },
-                        { index: '3-2', title: 'mysql一致性面试题' },
+                        { index: '3-4', title: 'mysql索引面试题' },
+                        { index: '3-5', title: 'mysql一致性面试题' },
                     ],
                 },
                 {
@@ -194,33 +206,6 @@ export default {
                         { index: '6-4', title: 'React' },
                         { index: '6-5', title: 'Vue' },
                     ],
-                },
-            ],
-            carouselItems: [
-                {
-                    id: 1,
-                    imageUrl: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230709132254155.png',
-                    title: 'Slide 1',
-                },
-                {
-                    id: 2,
-                    imageUrl: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230709132946157.png',
-                    title: 'Slide 2',
-                },
-                {
-                    id: 3,
-                    imageUrl: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230709133514241.png',
-                    title: 'Slide 3',
-                },
-                {
-                    id: 4,
-                    imageUrl: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230709134325831.png',
-                    title: 'Slide 4',
-                },
-                {
-                    id: 5,
-                    imageUrl: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230709134613695.png',
-                    title: 'Slide 5',
                 },
             ],
         }
@@ -285,5 +270,32 @@ body>.el-container {
     right: -200px;
     top: 0;
     z-index: 999;
+}
+
+.menu-container {
+    width: 200px;
+}
+
+.submenu-hover {
+    position: relative;
+}
+
+.submenu-hover .el-submenu__title::after {
+    content: '';
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    border-top: 1px solid #999;
+    border-right: 1px solid #999;
+    background-color: #fff;
+    transform: rotate(45deg);
+    transition: all 0.3s;
+}
+
+.submenu-hover:hover .el-submenu__title::after {
+    right: 0;
 }
 </style>
