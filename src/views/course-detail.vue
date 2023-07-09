@@ -5,12 +5,12 @@
         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect"
           background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
           <el-menu-item index="1"> <router-link :to="`/index`">首页</router-link></el-menu-item>
-          <el-submenu index="2">
+          <!-- <el-submenu index="2">
             <template slot="title">VIP</template>
           </el-submenu>
           <el-menu-item index="3">学习路线</el-menu-item>
           <el-menu-item index="4">系统课</el-menu-item>
-          <el-menu-item index="5">粉丝群</el-menu-item>
+          <el-menu-item index="5">粉丝群</el-menu-item> -->
         </el-menu>
         <div class="line"></div>
       </el-header>
@@ -23,25 +23,25 @@
           <el-main class="detail">
             <div class="rectangle">
               <div class="left">
-                <img class="product-image" :src="selectedCourse.image" fit="contain" />
+                <img class="product-image" :src="selectedCourse.image" fit="full" />
               </div>
               <div class="right">
                 <h3 class="name">{{ selectedCourse.name }}</h3>
-                <div class="price">价格：{{ selectedCourse.price }} ￥</div>
+                <!-- <div class="price">价格：{{ selectedCourse.price }} ￥</div> -->
                 <div class="description">简介:{{ selectedCourse.description }}</div>
-                <el-button type="primary" size="medium" :plain="true" @click="buttonOnClick">立即购买</el-button>
+                <!-- <el-button type="primary" size="medium" :plain="true" @click="buttonOnClick">立即购买</el-button> -->
                 <!-- 其他信息 -->
                 <!-- ... -->
               </div>
             </div>
-            <div class="long-image">
+            <!-- <div class="long-image">
               <img src="https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230624212140615.png"
                 alt="长图" />
-            </div>
+            </div> -->
           </el-main>
         </el-container>
       </el-main>
-      <el-footer>Footer</el-footer>
+      <!-- <el-footer>Footer</el-footer> -->
     </el-container>
   </div>
 </template>

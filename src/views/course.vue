@@ -6,12 +6,12 @@
                 <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect"
                     background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
                     <el-menu-item index="1">首页</el-menu-item>
-                    <el-submenu index="2">
+                    <!-- <el-submenu index="2">
                         <template slot="title">VIP</template>
                     </el-submenu>
                     <el-menu-item index="3">学习路线</el-menu-item>
                     <el-menu-item index="4">系统课</el-menu-item>
-                    <el-menu-item index="5">粉丝群</el-menu-item>
+                    <el-menu-item index="5">粉丝群</el-menu-item> -->
                 </el-menu>
                 <div class="line"></div>
             </el-header>
@@ -43,17 +43,18 @@
             </el-main>
             <el-main>
                 <el-tabs type="border-card">
-                    <el-tab-pane label="VIP">
                         <div class="product-list">
                             <CourseGride v-for="product in courses" :key="product.id" :product="product" />
                         </div>
-                    </el-tab-pane>
+                    <!-- <el-tab-pane label="VIP">
+                    
+                    </el-tab-pane> -->
                     <!-- <el-tab-pane label="配置管理">配置管理</el-tab-pane>
                     <el-tab-pane label="角色管理">角色管理</el-tab-pane>
                     <el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane> -->
                 </el-tabs>
             </el-main>
-            <el-footer>Footer</el-footer>
+            <!-- <el-footer>Footer</el-footer> -->
         </el-container>
 
     </div>
@@ -198,23 +199,28 @@ export default {
             carouselItems: [
                 {
                     id: 1,
-                    imageUrl: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230624212140615.png',
+                    imageUrl: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230709132254155.png',
                     title: 'Slide 1',
                 },
                 {
                     id: 2,
-                    imageUrl: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230613205635148.png',
+                    imageUrl: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230709132946157.png',
                     title: 'Slide 2',
                 },
                 {
                     id: 3,
-                    imageUrl: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230624212140615.png',
+                    imageUrl: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230709133514241.png',
                     title: 'Slide 3',
                 },
                 {
                     id: 4,
-                    imageUrl: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
-                    title: 'Slide 3',
+                    imageUrl: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230709134325831.png',
+                    title: 'Slide 4',
+                },
+                {
+                    id: 5,
+                    imageUrl: 'https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230709134613695.png',
+                    title: 'Slide 5',
                 },
             ],
         }
