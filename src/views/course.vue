@@ -31,10 +31,10 @@
                     </el-aside>
                     <el-main>
                         <div class="block">
-                            <el-carousel trigger="click" height="300px">
+                            <el-carousel trigger="click" height="400px">
                                 <el-carousel-item v-for="item in fiveCourses" :key="item.id">
                                     <router-link :to="`/product/${item.id}`">
-                                        <el-image class="product-image" :src="item.image" fit="contain"></el-image>
+                                        <el-image class="carousel-image" :src="item.image" fit="full"></el-image>
                                         <h3 class="small">{{ item }}</h3>
                                     </router-link>
                                 </el-carousel-item>
@@ -239,6 +239,13 @@ body>.el-container {
     margin-bottom: 100px;
 }
 
+.carousel-image{
+    width: 800px;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
 .el-container:nth-child(5) .el-aside,
 .el-container:nth-child(6) .el-aside {
     line-height: 260px;
@@ -253,49 +260,4 @@ body>.el-container {
     flex-wrap: wrap;
 }
 
-.menu-container {
-    position: relative;
-}
-
-.submenu-hover .el-submenu__title {
-    cursor: pointer;
-}
-
-.submenu-hover .el-submenu__title:hover {
-    background-color: #e6f1ff;
-}
-
-.submenu-hover .el-menu {
-    position: absolute;
-    right: -200px;
-    top: 0;
-    z-index: 999;
-}
-
-.menu-container {
-    width: 200px;
-}
-
-.submenu-hover {
-    position: relative;
-}
-
-.submenu-hover .el-submenu__title::after {
-    content: '';
-    position: absolute;
-    right: -10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 8px;
-    height: 8px;
-    border-top: 1px solid #999;
-    border-right: 1px solid #999;
-    background-color: #fff;
-    transform: rotate(45deg);
-    transition: all 0.3s;
-}
-
-.submenu-hover:hover .el-submenu__title::after {
-    right: 0;
-}
 </style>

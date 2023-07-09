@@ -23,7 +23,7 @@
           <el-main class="detail">
             <div class="rectangle">
               <div class="left">
-                <img class="product-image" :src="selectedCourse.image" fit="full" />
+                <el-image class="rectangle-image" :src="selectedCourse.image" fit="full" />
               </div>
               <div class="right">
                 <h3 class="name">{{ selectedCourse.name }}</h3>
@@ -109,7 +109,7 @@ export default {
   padding: 20px;
   background-color: #f5f5f5;
   width: 1000px;
-  height: 300px;
+  height: 500px;
 }
 
 .rectangle .left {
@@ -119,6 +119,11 @@ export default {
 .rectangle .right {
   flex: 2;
   margin-left: 20px;
+}
+
+.rectangle-image{
+  width: 500px;
+  height: 400px;
 }
 
 .long-image {

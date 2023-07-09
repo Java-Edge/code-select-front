@@ -4,7 +4,7 @@
  * @Author: 不败顽童
  * @Date: 2023-06-23 20:21:24
  * @LastEditors: 不败顽童
- * @LastEditTime: 2023-07-09 13:24:58
+ * @LastEditTime: 2023-07-09 17:27:13
 -->
 <template>
     <router-link :to="`/product/${product.id}`">
@@ -65,6 +65,9 @@ export default {
     margin-bottom: 20px;
     margin-right: 20px;
     line-height: 30px;
+    width: 400px;
+    height: 300px;
+
 }
 
 .product-image-container {
