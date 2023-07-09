@@ -16,7 +16,7 @@
       </el-header>
       <el-main>
         <el-container>
-          <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+          <el-aside width="200px" height="100px" style="background-color: rgb(238, 241, 246)">
             <!-- 左侧菜单栏内容 -->
             <!-- ... -->
           </el-aside>
@@ -31,18 +31,19 @@
                 <div class="description">简介:{{ selectedCourse.description }}</div>
                 <!-- <el-button type="primary" size="medium" :plain="true" @click="buttonOnClick">立即购买</el-button> -->
                 <el-button type="primary" size="medium" :plain="true" @click="goToStudy(selectedCourse)">
-                  <a :href="selectedCourse.sourceUrl" rel="external nofollow" target="_blank" style="text-decoration: none">
+                  <a :href="selectedCourse.sourceUrl" rel="external nofollow" target="_blank"
+                    style="text-decoration: none">
                     点击学习
                   </a>
                 </el-button>
-                <!-- 其他信息 -->
-                <!-- ... -->
               </div>
             </div>
-            <!-- <div class="long-image">
-              <img src="https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230624212140615.png"
-                alt="长图" />
-            </div> -->
+            <el-divider></el-divider>
+            <el-tabs type="border-card" class="tabs-card">
+              <div class="recommend-course-list">
+                <CourseGride v-for="course in recommendCourses" :key="course.id" :product="course" />
+              </div>
+            </el-tabs>
           </el-main>
         </el-container>
       </el-main>
@@ -52,18 +53,23 @@
 </template>
   
 <script>
+import CourseGride from "./course-grid"
 export default {
+  components: {
+    CourseGride,
+  },
   data() {
     return {
       // 其他数据...
-      selectedCourse: {
-      },
+      selectedCourse: {},
+      recommendCourses: []
     };
   },
   created() {
     // this.getMenuList();
     const productId = this.$route.params.id;
     this.getCourseDetail(productId);
+    this.getRecommendCourses();
     // this.nickname = this.$store.getters.getUser.nickname;
   },
   methods: {
@@ -93,8 +99,27 @@ export default {
         message: '购买功能暂未实现，请联系管理员'
       });
     },
-    goToStudy(selectedCourse){
+    goToStudy(selectedCourse) {
       this.$route = selectedCourse.sourceUrl
+    },
+    getRecommendCourses() {
+      this.$axios.get('/sourceCourse/getRecommendCourses/'
+        // ,
+        //     {
+        //         headers: {
+        //             "Authorization": this.$store.getters.getToken
+        //         }
+        //     }
+      ).then(response => {
+        const courses = response.data.result;
+        console.log(response)
+        this.recommendCourses = courses;
+        // this.$message({
+        //     type: 'success',
+        //     message: response.data.message
+        // });
+        console.log(this.courses)
+      })
     }
   }
   // 其他方法...
@@ -121,7 +146,7 @@ export default {
   margin-left: 20px;
 }
 
-.rectangle-image{
+.rectangle-image {
   width: 500px;
   height: 400px;
 }
@@ -147,6 +172,18 @@ export default {
   line-height: 20px;
   width: 500px;
   height: 200px;
+}
+
+.recommend-course-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tabs-card{
+  display: flex;
+  flex-wrap: wrap;
+  width: 1000px;
+  text-align: center;
 }
 
 /* 

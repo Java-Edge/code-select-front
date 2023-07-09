@@ -75,7 +75,7 @@ export default {
 }
 
 .product-image {
-    width: 200px;
+    width: 300px;
     height: 200px;
     object-fit: cover;
     border-radius: 4px;
@@ -91,9 +91,9 @@ export default {
 
 .product-info {
     text-align: center;
-    /* display: flex;
+    display: flex;
     align-items: center;
-    justify-content: center; */
+    justify-content: center;
 }
 
 .product-price {
