@@ -56,7 +56,7 @@
                     <el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane> -->
                 </el-tabs>
             </el-main>
-            <!-- <el-footer>Footer</el-footer> -->
+            <Footer></Footer>
         </el-container>
 
     </div>
@@ -64,9 +64,13 @@
 
 <script>
 import CourseGride from "./course-grid"
+import Footer from "./footer.vue"
+import Header from "./header.vue";
 export default {
     components: {
         CourseGride,
+        Footer,
+        Header,
     },
     name: "courseTest",
     created() {

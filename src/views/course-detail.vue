@@ -1,6 +1,7 @@
 <template>
   <div class="index">
     <el-container>
+      <!-- <Header/> -->
       <el-header>
         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect"
           background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
@@ -38,25 +39,34 @@
                 </el-button>
               </div>
             </div>
-            <el-divider></el-divider>
-            <el-tabs type="border-card" class="tabs-card">
-              <div class="recommend-course-list">
-                <CourseGride v-for="course in recommendCourses" :key="course.id" :product="course" />
-              </div>
-            </el-tabs>
           </el-main>
         </el-container>
       </el-main>
-      <!-- <el-footer>Footer</el-footer> -->
+      <el-divider></el-divider>
+      <el-main>
+        <el-tabs type="border-card" class="tabs-card">
+          <div class="guassYouLike">
+            <h2>猜你喜欢</h2>
+          </div>
+          <div class="recommend-course-list">
+            <CourseGride v-for="course in recommendCourses" :key="course.id" :product="course" />
+          </div>
+        </el-tabs>
+      </el-main>
+      <Footer></Footer>
     </el-container>
   </div>
 </template>
   
 <script>
-import CourseGride from "./course-grid"
+import CourseGride from "./course-grid";
+import Footer from "./footer.vue";
+import Header from "./header.vue";
 export default {
   components: {
     CourseGride,
+    Footer,
+    Header,
   },
   data() {
     return {
@@ -128,6 +138,15 @@ export default {
 </script>
   
 <style>
+
+
+.el-container {
+    flex-direction: row;
+    flex: 1;
+    flex-basis: auto;
+    box-sizing: border-box;
+    min-width: 0;
+}
 .rectangle {
   display: flex;
   align-items: center;
@@ -179,11 +198,18 @@ export default {
   flex-wrap: wrap;
 }
 
-.tabs-card{
+.tabs-card {
   display: flex;
   flex-wrap: wrap;
-  width: 1000px;
+  width: 1400px;
   text-align: center;
+}
+
+.guassYouLike {
+  /* background-color: #B3C0D1; */
+  line-height: 5px;
+  text-align: left;
+  /* height: 40px; */
 }
 
 /* 
