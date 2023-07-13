@@ -1,5 +1,12 @@
 # education-front
 node.js的为16.x即可
+
+
+
+项目文档链接：[‍‌⁢‍‌⁢‬‌﻿⁤‍‬⁡‬‍⁤⁣⁡⁤⁢⁡‬⁢⁢‬‌⁡⁢‍⁢﻿⁤⁤⁣‌教育项目 - 飞书云文档 (feishu.cn)](https://va2ct8dmzsr.feishu.cn/docx/KNtFdsMsxoyWLex0hAYcGHTfnqd)
+
+
+
 ## Project setup
 ```
 npm install
