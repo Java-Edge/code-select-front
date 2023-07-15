@@ -15,7 +15,7 @@
                 </el-menu>
                 <div class="line"></div>
             </el-header>
-            <el-main>
+            <el-main style="margin-top:50px">
                 <el-container>
                     <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
                         <el-menu :default-openeds="['1']" class="menu-container">
@@ -31,7 +31,7 @@
                     </el-aside>
                     <el-main>
                         <div class="block">
-                            <el-carousel trigger="click" height="400px">
+                            <el-carousel trigger="click" height="400px" type="card">
                                 <el-carousel-item v-for="item in fiveCourses" :key="item.id">
                                     <router-link :to="`/product/${item.id}`">
                                         <el-image class="carousel-image" :src="item.image" fit="full"></el-image>
@@ -43,8 +43,11 @@
                     </el-main>
                 </el-container>
             </el-main>
+            <div>
+                <img width="100%" height="200px" src="@/assets/background.png"></img>
+            </div>
             <el-main>
-                <el-tabs type="border-card">
+                <div type="border-card">
                     <div class="product-list">
                         <CourseGride v-for="product in courses" :key="product.id" :product="product" />
                     </div>
@@ -54,7 +57,7 @@
                     <!-- <el-tab-pane label="配置管理">配置管理</el-tab-pane>
                     <el-tab-pane label="角色管理">角色管理</el-tab-pane>
                     <el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane> -->
-                </el-tabs>
+                </div>
             </el-main>
             <Footer></Footer>
         </el-container>
@@ -217,6 +220,9 @@ export default {
 }
 </script>
 <style>
+.index {
+    background-color: #E9EEF3;
+}
 .el-header,
 .el-footer {
     background-color: #B3C0D1;
@@ -258,10 +264,20 @@ body>.el-container {
 .el-container:nth-child(7) .el-aside {
     line-height: 320px;
 }
-
+.products-content{
+  background-color: #E9EEF3;
+  color: #333;
+  text-align: center;
+  width: 80%;
+}
 .product-list {
     display: flex;
     flex-wrap: wrap;
+    width: 80%;
+    margin-left: 240px;
+}
+.el-tabs__content {
+    background-color: #E9EEF3;
 }
 
 </style>

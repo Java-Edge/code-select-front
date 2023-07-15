@@ -58,15 +58,17 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #f7f7f7;
+    background-color: white;
     /* border-radius: 4px;
     padding: 12px;
     border: 1px solid #ccc; */
     margin-bottom: 20px;
     margin-right: 20px;
     line-height: 30px;
-    width: 400px;
+    width: 310px;
     height: 300px;
+    border-radius: 5px;
+    margin: 30px 30px;
 
 }
 

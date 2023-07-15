@@ -27,16 +27,15 @@
                 <el-image class="rectangle-image" :src="selectedCourse.image" fit="full" />
               </div>
               <div class="right">
-                <h3 class="name">{{ selectedCourse.name }}</h3>
+                <div class="name">{{ selectedCourse.name }}</div>
                 <!-- <div class="price">价格：{{ selectedCourse.price }} ￥</div> -->
-                <div class="description">简介:{{ selectedCourse.description }}</div>
+                <div class="description"><span class="descrip">简介</span>：{{ selectedCourse.description }}</div>
                 <!-- <el-button type="primary" size="medium" :plain="true" @click="buttonOnClick">立即购买</el-button> -->
-                <el-button type="primary" size="medium" :plain="true" @click="goToStudy(selectedCourse)">
-                  <a :href="selectedCourse.sourceUrl" rel="external nofollow" target="_blank"
-                    style="text-decoration: none">
-                    点击学习
-                  </a>
-                </el-button>
+                <div class="study-button">
+                    <el-button type="primary" size="medium" :plain="true" @click="goToStudy(selectedCourse)" class="goStudy">
+                        点击学习
+                    </el-button>
+                </div>
               </div>
             </div>
           </el-main>
@@ -110,7 +109,7 @@ export default {
       });
     },
     goToStudy(selectedCourse) {
-      this.$route = selectedCourse.sourceUrl
+      window.open(selectedCourse.sourceUrl);
     },
     getRecommendCourses() {
       this.$axios.get('/sourceCourse/getRecommendCourses/'
@@ -150,20 +149,8 @@ export default {
 .rectangle {
   display: flex;
   align-items: center;
-  padding: 20px;
-  background-color: #f5f5f5;
-  width: 1000px;
-  height: 500px;
 }
 
-.rectangle .left {
-  flex: 1;
-}
-
-.rectangle .right {
-  flex: 2;
-  margin-left: 20px;
-}
 
 .rectangle-image {
   width: 500px;
@@ -186,10 +173,11 @@ export default {
 }
 
 .right {
-  align-items: center;
+  margin-left: 60px;
+  flex-direction: column;
   margin-bottom: 10px;
   line-height: 20px;
-  width: 500px;
+  width: 400px;
   height: 200px;
 }
 
@@ -211,14 +199,46 @@ export default {
   text-align: left;
   /* height: 40px; */
 }
-
-/* 
+.name {
+  font-size: 35px;
+  font-family: PingFangSC-Medium,PingFang SC;
+  font-weight: 600;
+  color: #222;
+  margin-top: -110px;
+  margin-bottom: 15px;
+  text-align: left;
+  width: 800px;
+}
+.goStudy{
+  width: 200px;
+  height: 60px;
+}
+.study-button {
+    margin-left: -200px;
+    margin-top: 120px;
+}
+.el-button--primary.is-plain {
+    font-size: 30px;
+    text-align: center;
+  }
+.descrip{
+  font-family: PingFangSC-Medium,PingFang SC;
+  font-weight: 400;
+  font-size: 20px;
+}
 .description {
-  align-items: center;
-  margin-bottom: 10px;
-  line-height: 20px;
-  width: 300px;
-  height: 50px;
-} */
+  font-family: PingFangSC-Medium,PingFang SC;
+  font-weight: 100;
+  font-size: 20px;
+  width: 800px;
+  height: 130px;
+  margin-top: 50px;
+  line-height: 1.5;
+  text-align: left;
+  white-space: wrap;
+}
+.description:hover {
+  background-color: rgba(0,0,0,0.1);
+}
 </style>
   
