@@ -2,18 +2,8 @@
     <div class="index">
         <el-container>
             <!-- <el-aside width="200px">Aside</el-aside> -->
+            <Header/>
             <el-header>
-                <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect"
-                    background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
-                    <el-menu-item index="1">首页</el-menu-item>
-                    <!-- <el-submenu index="2">
-                        <template slot="title">VIP</template>
-                    </el-submenu>
-                    <el-menu-item index="3">学习路线</el-menu-item>
-                    <el-menu-item index="4">系统课</el-menu-item>
-                    <el-menu-item index="5">粉丝群</el-menu-item> -->
-                </el-menu>
-                <div class="line"></div>
             </el-header>
             <el-main style="margin-top:50px">
                 <el-container>
@@ -223,14 +213,14 @@ export default {
 .index {
     background-color: #E9EEF3;
 }
-.el-header,
 .el-footer {
     background-color: #B3C0D1;
     color: #333;
     text-align: center;
-    line-height: 60px;
 }
-
+.el-footer {
+    line-height: 40px;
+}
 .el-aside {
     background-color: #D3DCE6;
     color: #333;

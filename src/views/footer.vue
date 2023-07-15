@@ -1,7 +1,28 @@
 <template>
     <el-footer class="footer" height="200px">
         <div class="footer-content">
-            <div class="footer-left">
+            <div>
+                <div>关于我们</div>
+                <div>企业介绍</div>
+                <div>加入我们</div>
+                <div>联系我们</div>
+                <div>帮助中心</div>
+            </div>
+            <div>
+                 <div>平台服务</div>
+                 <div>专栏</div>
+                 <div>导航</div>
+                 <div>课程</div>
+                 <div>江湖</div>
+             </div>
+             <div>
+                <div>{{ websiteName }}</div>
+                <div>友情链接</div>
+                <div>合作</div>
+                <div>&copy; {{ currentYear }} {{ websiteName }}. All rights reserved.</div>
+                <div>{{ contactPhone }}</div>
+             </div>
+            <!-- <div class="footer-left">
                 <h3 class="footer-title">{{ websiteName }}</h3>
                 <p class="footer-copyright">
                     &copy; {{ currentYear }} {{ websiteName }}. All rights reserved.
@@ -11,7 +32,7 @@
                 <p class="footer-contact">
                     Contact us: <span class="footer-phone">{{ contactPhone }}</span>
                 </p>
-            </div>
+            </div> -->
         </div>
     </el-footer>
 </template>
@@ -46,8 +67,11 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    > div {
+        margin: 0 240px;
+    }
 }
-
+/*
 .footer-left {
     text-align: left;
 }
@@ -67,6 +91,6 @@ export default {
 
 .footer-phone {
     color: #007bff;
-}
+}*/
 </style>
   

@@ -1,7 +1,6 @@
 <template>
   <div class="index">
     <el-container>
-      <!-- <Header/> -->
       <el-header>
         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect"
           background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
@@ -13,7 +12,7 @@
           <el-menu-item index="4">系统课</el-menu-item>
           <el-menu-item index="5">粉丝群</el-menu-item> -->
         </el-menu>
-        <div class="line"></div>
+
       </el-header>
       <el-main>
         <el-container>
