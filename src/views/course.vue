@@ -1,273 +1,289 @@
 <template>
-    <div class="index">
-        <el-container>
-            <!-- <el-aside width="200px">Aside</el-aside> -->
-            <Header/>
-            <el-header>
-            </el-header>
-            <el-main style="margin-top:50px">
-                <el-container>
-                    <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-                        <el-menu :default-openeds="['1']" class="menu-container">
-                            <el-submenu v-for="(submenu, index) in menuData" :key="index" :index="submenu.index"
-                                :ref="'submenu-' + index" popper-class="submenu-hover" @mouseenter="showSubMenu(index)"
-                                @mouseleave="hideSubMenu(index)">
-                                <template slot="title"><i :class="submenu.icon"></i>{{ submenu.title }}</template>
-                                <el-menu-item v-for="item in submenu.items" :key="item.index" :index="item.index" >
-                                    {{ item.title }}
-                                </el-menu-item>
-                            </el-submenu>
-                        </el-menu>
-                    </el-aside>
-                    <el-main>
-                        <div class="block">
-                            <el-carousel trigger="click" height="400px" type="card">
-                                <el-carousel-item v-for="item in fiveCourses" :key="item.id">
-                                    <router-link :to="`/product/${item.id}`">
-                                        <el-image class="carousel-image" :src="item.image" fit="full"></el-image>
-                                        <h3 class="small">{{ item }}</h3>
-                                    </router-link>
-                                </el-carousel-item>
-                            </el-carousel>
-                        </div>
-                    </el-main>
-                </el-container>
-            </el-main>
-            <div>
-                <img width="100%" height="200px" src="@/assets/background.png"></img>
-            </div>
-            <el-main>
-                <div type="border-card">
-                    <div class="product-list">
-                        <CourseGride v-for="product in courses" :key="product.id" :product="product" />
-                    </div>
-                    <!-- <el-tab-pane label="VIP">
-                    
-                    </el-tab-pane> -->
-                    <!-- <el-tab-pane label="配置管理">配置管理</el-tab-pane>
-                    <el-tab-pane label="角色管理">角色管理</el-tab-pane>
-                    <el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane> -->
-                </div>
-            </el-main>
-            <Footer></Footer>
-        </el-container>
-
+  <div class="course-navigation">
+    <Header /> <!-- Use the Header component -->
+    <!-- 内容区域 -->
+    <div class="content">
+      <!-- 课程分类导航栏 -->
+      <LeftSidebar />
+      <!-- 轮播图 -->
+      <RightSidebar :carouselData="carouselData" />
     </div>
+
+    <!-- 课程详情区域 -->
+    <CourseList :courses="courses" />
+    <Footer />
+  </div>
 </template>
 
 <script>
-import CourseGride from "./course-grid"
-import Footer from "./footer.vue"
-import Header from "./header.vue";
+import Swiper from 'swiper';
+import { Navigation, Pagination } from 'swiper/modules';
+// import Swiper and modules styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import Header from './Header.vue'; // Import the Header component
+import Footer from './Footer.vue'; // Import the Footer component
+import CourseList from './CourseList.vue'; // Import the CourseList component
+import LeftSidebar from './LeftSidebar.vue'; // Import the LeftSidebar component
+import RightSidebar from './RightSidebar.vue'; // Import the RightSidebar component
+
+
 export default {
-    components: {
-        CourseGride,
-        Footer,
-        Header,
+  name: "CourseNavigation",
+  components: {
+    Header, // Register the Header component
+    Footer, // Register the Footer component
+    CourseList, // Register the CourseList component
+    LeftSidebar,
+    RightSidebar,
+    // ... Rest of your components ...
+  },
+  data() {
+    return {
+      activeMenu: "home", // 默认选中首页
+      courses: [], // 所有课程数据，从后端获取或静态定义
+      swiperOptions: {
+        pagination: {
+          el: ".swiper-pagination",
+        },
+        loop: true,
+        autoplay: {
+          delay: 3000,
+        },
+      },
+      carouselData: [
+        {
+          id: 1,
+          image: "https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230709183838817.png",
+        },
+        {
+          id: 2,
+          image: "https://via.placeholder.com/800x300?text=Slide%202",
+        },
+        {
+          id: 3,
+          image: "https://via.placeholder.com/800x300?text=Slide%203",
+        },
+        // 更多轮播图数据
+      ],
+    };
+  },
+  computed: {
+    courseRows() {
+      // 将所有课程按每行4个进行分组
+      const rows = [];
+      for (let i = 0; i < this.courses.length; i += 4) {
+        rows.push(this.courses.slice(i, i + 4));
+      }
+      return rows;
     },
-    name: "courseTest",
-    created() {
-        // this.getMenuList();
-        this.getCourses();
-        this.getFiveCourse();
-        // this.nickname = this.$store.getters.getUser.nickname;
+  },
+  created() {
+    this.getCourses();
+    this.getFiveCourse();
+  },
+  methods: {
+    handleMenuSelect(index) {
+      this.activeMenu = index; // 更新选中的菜单项
+      // 可根据不同的菜单项进行相应的页面跳转或其他操作
     },
-    methods: {
-        getCourses() {
-            this.$axios.get('/sourceCourse/list'
-                // ,
-                //     {
-                //         headers: {
-                //             "Authorization": this.$store.getters.getToken
-                //         }
-                //     }
-            ).then(response => {
-                const courses = response.data.result;
-                console.log(response)
-                this.courses = courses;
-                // this.$message({
-                //     type: 'success',
-                //     message: response.data.message
-                // });
-                console.log(this.courses)
-            })
-        },
-        getFiveCourse() {
-            this.$axios.get('/sourceCourse/getFiveCourse'
-                // ,
-                //     {
-                //         headers: {
-                //             "Authorization": this.$store.getters.getToken
-                //         }
-                //     }
-            ).then(response => {
-                const courses = response.data.result;
-                console.log(response)
-                this.fiveCourses = courses;
-                // this.$message({
-                //     type: 'success',
-                //     message: response.data.message
-                // });
-                console.log(this.fiveCourses)
-            })
-        },
-        activeSubMenu(index) {
-            this.activeIndex = index;
-        },
-        showSubMenu(index) {
-            console.log(index);
-            this.$refs['submenu-' + index][0].active = true;
-        },
-        hideSubMenu(index) {
-            this.$refs['submenu-' + index][0].active = false;
-        },
+    getCourses() {
+      this.$axios.get('/sourceCourse/list'
+        // ,
+        //     {
+        //         headers: {
+        //             "Authorization": this.$store.getters.getToken
+        //         }
+        //     }
+      ).then(response => {
+        const courses = response.data.result;
+        console.log(response)
+        this.courses = courses;
+        // this.$message({
+        //     type: 'success',
+        //     message: response.data.message
+        // });
+        console.log(this.courses)
+      })
     },
-    data() {
+    getFiveCourse() {
+      this.$axios.get('/sourceCourse/getFiveCourse'
+        // ,
+        //     {
+        //         headers: {
+        //             "Authorization": this.$store.getters.getToken
+        //         }
+        //     }
+      ).then(response => {
+        const courses = response.data.result;
+        console.log(response)
+        this.carouselData = courses;
+        // this.$message({
+        //     type: 'success',
+        //     message: response.data.message
+        // });
+        console.log(this.courses)
+      })
+    },
+  },
+  mounted() {
+    // Initialize Swiper
+    const swiper = new Swiper('.swiper', {
+      modules: [Navigation, Pagination],
+      direction: 'horizontal', // Change back to horizontal
+      loop: true,
+      autoplay: {
+        delay: 3000, // Set the delay between slide transitions in milliseconds (3 seconds in this example)
+        disableOnInteraction: false, // Allow auto play to continue even when the user interacts with Swiper
+      },
 
-        return {
-            activeIndex: '1',
-            activeIndex2: '1',
-            nickname: '',
-            menuList: [],
-            active: localStorage.getItem("active"),
-            courses: [],
-            fiveCourses: [],
-            menuData: [
-                // {
-                //     index: '1',
-                //     title: 'Java开发',
-                //     icon: 'el-icon-message',
-                //     items: [
-                //         { index: '1-1', title: 'Java基础' },
-                //         { index: '1-2', title: 'Java面向对象' },
-                //     ],
-                // },
-                // {
-                //     index: '2',
-                //     title: 'JavaWeb开发',
-                //     icon: 'el-icon-menu',
-                //     items: [
-                //         { index: '2-1', title: 'mysql基础' },
-                //         { index: '2-2', title: 'springboot' },
-                //         { index: '2-3', title: 'JavaWeb基础' },
-                //         { index: '2-4', title: 'springcloud' },
-                //         { index: '2-5', title: 'maven' },
-                //         { index: '2-6', title: 'vue实战' },
-                //         { index: '2-7', title: 'mybatis' },
-                //     ],
-                // },
-                // {
-                //     index: '3',
-                //     title: 'Java面试/进阶课程',
-                //     icon: 'el-icon-setting',
-                //     items: [
-                //         { index: '3-1', title: 'juc面试题' },
-                //         { index: '3-2', title: '互联网安全面试题' },
-                //         { index: '3-3', title: '消息中间面试题' },
-                //         { index: '3-4', title: 'mysql索引面试题' },
-                //         { index: '3-5', title: 'mysql一致性面试题' },
-                //     ],
-                // },
-                // {
-                //     index: '4',
-                //     title: '运维技术',
-                //     icon: 'el-icon-setting',
-                //     items: [
-                //         { index: '4-1', title: 'docker' },
-                //         { index: '4-2', title: '云服务' },
-                //         { index: '4-3', title: 'jekins' },
-                //         { index: '4-4', title: 'nginx' },
-                //         { index: '4-5', title: 'k8s' },
-                //     ],
-                // },
-                // {
-                //     index: '5',
-                //     title: 'python开发',
-                //     icon: 'el-icon-setting',
-                //     items: [
-                //         { index: '5-1', title: 'python面向对象' },
-                //         { index: '5-2', title: 'pythonWeb开发' },
-                //         { index: '5-3', title: 'python数据爬虫' },
-                //         { index: '5-4', title: '爬虫基础100到题' },
-                //         { index: '5-5', title: 'python破解验证码' },
-                //     ],
-                // },
-                // {
-                //     index: '6',
-                //     title: '前端开发',
-                //     icon: 'el-icon-setting',
-                //     items: [
-                //         { index: '6-1', title: 'HTML' },
-                //         { index: '6-2', title: 'CSS' },
-                //         { index: '6-3', title: 'Javascript' },
-                //         { index: '6-4', title: 'React' },
-                //         { index: '6-5', title: 'Vue' },
-                //     ],
-                // },
-            ],
-        }
-    }
-}
+      // If we need pagination
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true, // Allow pagination bullets to be clickable
+      },
+
+      // Navigation arrows
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+
+      // And if we need scrollbar
+      scrollbar: {
+        el: '.swiper-scrollbar',
+      },
+
+      // Add the loopedSlides option to control how many slides are looped
+      loopedSlides: this.carouselData.length, // Set it to the total number of slides
+
+      // Add the slideChange event handler for looping
+      on: {
+        slideChange: () => {
+          if (swiper.realIndex === swiper.slides.length - 1) {
+            // If it reaches the last slide, manually go to the first slide
+            swiper.slideTo(0, 0, true); // Set the third parameter (boolean) to false for instant transition
+          }
+        },
+      },
+    });
+
+    // Now you can use the 'swiper' variable to interact with the Swiper instance if needed
+    // swiper.slideNext(); // Example: Go to the next slide programmatically
+  },
+
+
+};
 </script>
+
 <style>
-.index {
-    background-color: #E9EEF3;
-}
-.el-footer {
-    background-color: #B3C0D1;
-    color: #333;
-    text-align: center;
-}
-.el-footer {
-    line-height: 40px;
-}
-.el-aside {
-    background-color: #D3DCE6;
-    color: #333;
-    text-align: center;
-    line-height: 200px;
+/* 添加样式 */
+.course-navigation {
+  max-width: 1600px;
+  margin: 0 auto;
 }
 
-.el-main {
-    background-color: #E9EEF3;
-    color: #333;
-    text-align: center;
-    line-height: 160px;
+.menu {
+  display: flex;
+  justify-content: center;
 }
 
-body>.el-container {
-    margin-bottom: 100px;
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.carousel-image{
-    width: 800px;
-    height: 500px;
-    object-fit: cover;
-    border-radius: 4px;
+.menu li {
+  display: inline-block;
+  padding: 0 20px;
+  cursor: pointer;
 }
 
-.el-container:nth-child(5) .el-aside,
-.el-container:nth-child(6) .el-aside {
-    line-height: 260px;
+.menu li.active {
+  color: #ffd04b;
+  border-bottom: 2px solid #ffd04b;
 }
 
-.el-container:nth-child(7) .el-aside {
-    line-height: 320px;
-}
-.products-content{
-  background-color: #E9EEF3;
-  color: #333;
-  text-align: center;
-  width: 80%;
-}
-.product-list {
-    display: flex;
-    flex-wrap: wrap;
-    width: 80%;
-    margin-left: 240px;
-}
-.el-tabs__content {
-    background-color: #E9EEF3;
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  /* Wrap the sidebar and swiper to next row if necessary */
 }
 
+.left-sidebar {
+  width: 20%;
+  padding: 20px;
+  background-color: #f0f0f0;
+}
+
+.left-sidebar h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.left-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.left-sidebar li {
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.right-sidebar {
+  flex: 1;
+  padding: 20px;
+  min-width: 300px;
+  /* Set a minimum width for the sidebar */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Add the following CSS styles */
+
+.swiper-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  /* Add some margin between carousel and pagination */
+}
+
+.swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background-color: #ccc;
+  border-radius: 50%;
+  margin: 0 5px;
+  /* Adjust the space between bullets as needed */
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #555;
+}
+
+
+
+.swiper-container {
+  width: 100%;
+  height: 300px;
+  margin-bottom: 20px;
+  position: relative;
+  /* 添加以下样式以实现水平排列 */
+  display: flex;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+}
 </style>

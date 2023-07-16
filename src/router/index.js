@@ -2,35 +2,32 @@
  * @Descripttion: 
  * @version: 
  * @Author: 不败顽童
- * @Date: 2023-05-27 19:36:25
+ * @Date: 2023-07-16 17:51:44
  * @LastEditors: 不败顽童
- * @LastEditTime: 2023-07-08 15:39:31
+ * @LastEditTime: 2023-07-16 18:19:22
  */
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+// router.js
+import { createRouter, createWebHashHistory } from 'vue-router';
 
-import index from "../views/course"
-import courseDetail from "../views/course-detail"
-Vue.use(VueRouter)
+import index from '../views/course';
+import courseDetail from '../views/course-detail';
 
 const routes = [
-    {
-        path: '/index',
-        name: 'index',
-        component: index
-    },
-    {
-        path: '/product/:id',
-        name: 'courseDetail',
-        component: courseDetail
-    }
+  {
+    path: '/index',
+    name: 'index',
+    component: index,
+  },
+  {
+    path: '/course/:id',
+    name: 'courseDetail',
+    component: courseDetail,
+  },
+];
 
-]
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes,
+});
 
-const router = new VueRouter({
-    mode: 'hash',
-    base: process.env.BASE_URL,
-    routes
-})
-
-export default router
+export default router;

@@ -4,10 +4,9 @@
  * @Author: 不败顽童
  * @Date: 2023-05-07 18:40:19
  * @LastEditors: 不败顽童
- * @LastEditTime: 2023-07-06 22:47:51
+ * @LastEditTime: 2023-07-16 18:27:58
  */
 import axios from 'axios'
-import Element from 'element-ui'
 // import QS from 'qs';
 import router from './router'
 
@@ -44,14 +43,11 @@ axios.interceptors.response.use(response => {
         console.log("=================")
 
         if (res.code === 200) {
-            //Element.Message.success(res.message, {duration: 3 * 1000})
             return response
         } else if(res.code === 401){
-            Element.Message.error(res.message, {duration: 3 * 1000})
             router.push("/login")
             return Promise.reject(res.message)
         }else {
-            Element.Message.error(res.message, {duration: 3 * 1000})
             return Promise.reject(res.message)
         }
     },

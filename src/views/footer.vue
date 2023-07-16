@@ -1,96 +1,102 @@
 <template>
-    <el-footer class="footer" height="200px">
-        <div class="footer-content">
-            <div>
-                <div>关于我们</div>
-                <div>企业介绍</div>
-                <div>加入我们</div>
-                <div>联系我们</div>
-                <div>帮助中心</div>
-            </div>
-            <div>
-                 <div>平台服务</div>
-                 <div>专栏</div>
-                 <div>导航</div>
-                 <div>课程</div>
-                 <div>江湖</div>
-             </div>
-             <div>
-                <div>{{ websiteName }}</div>
-                <div>友情链接</div>
-                <div>合作</div>
-                <div>&copy; {{ currentYear }} {{ websiteName }}. All rights reserved.</div>
-                <div>{{ contactPhone }}</div>
-             </div>
-            <!-- <div class="footer-left">
-                <h3 class="footer-title">{{ websiteName }}</h3>
-                <p class="footer-copyright">
-                    &copy; {{ currentYear }} {{ websiteName }}. All rights reserved.
-                </p>
-            </div>
-            <div class="footer-right">
-                <p class="footer-contact">
-                    Contact us: <span class="footer-phone">{{ contactPhone }}</span>
-                </p>
-            </div> -->
-        </div>
-    </el-footer>
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>关于我们</h4>
+        <ul>
+          <li>企业介绍</li>
+          <li>加入我们</li>
+          <li>联系我们</li>
+          <li>帮助中心</li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>平台服务</h4>
+        <ul>
+          <li>专栏</li>
+          <li>导航</li>
+          <li>课程</li>
+          <li>江湖</li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>{{ websiteName }}</h4>
+        <ul>
+          <li>友情链接</li>
+          <li>合作</li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>联系方式</h4>
+        <p>&copy; {{ currentYear }} {{ websiteName }}. All rights reserved.</p>
+        <p>{{ contactPhone }}</p>
+      </div>
+    </div>
+  </footer>
 </template>
   
 <script>
 export default {
-    name: 'Footer',
-    data() {
-        return {
-            websiteName: 'JAVA',
-            contactPhone: '123-456-7890',
-        };
-    },
-    computed: {
-        currentYear() {
-            return new Date().getFullYear();
-        },
-    },
+  name: 'Footer',
+  data() {
+    return {
+      websiteName: 'Your Website Name',
+      currentYear: new Date().getFullYear(),
+      contactPhone: '+123-456-7890',
+    };
+  },
 };
 </script>
   
-<style>
-
+<style scoped>
+/* 添加样式 */
 .footer {
-    background-color: #f5f5f5;
-    padding: 20px;
-    text-align: center;
-    height: 300px;
+  background-color: #333;
+  color: #fff;
+  padding: 30px 0;
+  text-align: center;
 }
 
 .footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    > div {
-        margin: 0 240px;
-    }
-}
-/*
-.footer-left {
-    text-align: left;
+  display: flex;
+  justify-content: space-around;
 }
 
-.footer-title {
-    font-size: 24px;
-    font-weight: bold;
+.footer-section {
+  margin: 0 40px;
 }
 
-.footer-right {
-    text-align: right;
+.footer h4 {
+  margin-bottom: 20px;
+  font-size: 20px;
 }
 
-.footer-contact {
-    font-size: 14px;
+.footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.footer-phone {
-    color: #007bff;
-}*/
+.footer li {
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.footer li:hover {
+  color: #ffd04b;
+}
+
+.footer p {
+  margin-bottom: 10px;
+}
+
+.footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: #ffd04b;
+}
 </style>
-  

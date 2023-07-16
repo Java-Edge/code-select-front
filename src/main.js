@@ -1,20 +1,15 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
-import axios from 'axios'
-import "./axios"
-import Print from 'vue-print-nb'
+import { createApp } from 'vue'; // 使用 createApp 替换 Vue 的导入方式
+import App from './App.vue';
+import router from './router';
+import store from './store';
+import axios from 'axios';
+import './axios';
 
-Vue.use(Print);  //注册
-Vue.config.productionTip = false
-Vue.prototype.$axios = axios
-Vue.use(ElementUI);
+const app = createApp(App); // 使用 createApp 创建 Vue 应用
+app.use(router); // 使用插件方式注册路由
+app.use(store); // 使用插件方式注册 Vuex 的 store
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+app.config.productionTip = false;
+app.config.globalProperties.$axios = axios; // 在全局配置 $axios
+
+app.mount('#app'); // 挂载 Vue 应用到 DOM 节点
