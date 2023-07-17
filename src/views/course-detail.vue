@@ -157,13 +157,6 @@ export default {
   flex: 1;
 }
 
-.course-details img {
-  max-width: 200px;
-  height: auto;
-  margin-right: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
 
 h1 {
   font-size: 24px;

@@ -6,7 +6,9 @@
         <div class="swiper-wrapper">
           <!-- Slides -->
           <div class="swiper-slide" v-for="slide in carouselData" :key="slide.id">
-            <img :src="slide.image" alt="轮播图" class="carousel-image" />
+            <router-link :to="`/course/${slide.id}`">
+              <img :src="slide.image" alt="轮播图" class="carousel-image" />
+            </router-link>
           </div>
         </div>
   
