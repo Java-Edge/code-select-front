@@ -9,8 +9,7 @@
         <div class="name">{{ selectedCourse.name }}</div>
         <!-- <div class="price">价格：{{ selectedCourse.price }} ￥</div> -->
         <div class="description">
-          <span class="descrip">简介</span>：
-          {{ selectedCourse.description }}
+          <span class="descrip">简介</span>：{{ selectedCourse.description }}
         </div>
         <div class="study-button">
           <button class="learn-button" @click="goToStudy(selectedCourse)">
@@ -116,8 +115,9 @@ export default {
 /* Add styles for the course details page if needed */
 .course-details-content {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  
 }
 
 .course-details-content img {
@@ -129,15 +129,26 @@ export default {
 
 .left {
   margin-right: 40px;
+  flex: 1;
+}
+
+.left img {
+  max-width: 300px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .right {
   max-width: 600px;
+  margin-left: 40px;
+  flex: 1;
 }
 
 .course-details img {
   max-width: 200px;
   height: auto;
+  margin-right: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
@@ -170,6 +181,7 @@ p {
 .learn-button:focus {
   outline: none;
 }
+
 
 .name {
   font-size: 35px;

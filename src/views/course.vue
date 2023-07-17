@@ -8,7 +8,7 @@
       <!-- 轮播图 -->
       <RightSidebar :carouselData="carouselData" />
     </div>
-    <div>
+    <div class="background-image">
       <img width="100%" height="200px" src="@/assets/background.png" />
     </div>
     <!-- 课程详情区域 -->
@@ -292,4 +292,6 @@ export default {
   width: 100%;
   height: 100%;
 }
+
+
 </style>
