@@ -2,15 +2,23 @@
   <div class="course-details-page">
     <Header />
     <div class="course-details-content">
-      <img :src="selectedCourse.image" :alt="selectedCourse.name" />
-      <h1>{{ selectedCourse.name }}</h1>
-      <p>{{ selectedCourse.description }}</p>
-      <!-- Additional course details content -->
-      <!-- You can display other course information here -->
+      <div class="left">
+        <img :src="selectedCourse.image" :alt="selectedCourse.name" />
+      </div>
+      <div class="right">
+        <div class="name">{{ selectedCourse.name }}</div>
+        <!-- <div class="price">价格：{{ selectedCourse.price }} ￥</div> -->
+        <div class="description">
+          <span class="descrip">简介</span>：
+          {{ selectedCourse.description }}
+        </div>
+        <div class="study-button">
+          <button class="learn-button" @click="goToStudy(selectedCourse)">
+            点击学习
+          </button>
+        </div>
+      </div>
 
-      <button class="learn-button" @click="goToStudy(selectedCourse)">
-        点击学习
-      </button>
       <!-- 课程详情区域 -->
       <CourseList :courses="recommendCourses" />
 
@@ -108,8 +116,8 @@ export default {
 /* Add styles for the course details page if needed */
 .course-details-content {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .course-details-content img {
@@ -119,27 +127,19 @@ export default {
   /* To avoid image distortion */
 }
 
-/* .course-details {
-  display: flex;
-} */
+.left {
+  margin-right: 40px;
+}
+
+.right {
+  max-width: 600px;
+}
 
 .course-details img {
   max-width: 200px;
   height: auto;
-  margin-right: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-p.description {
-  font-size: 16px;
-  margin-bottom: 20px;
-  line-height: 1.6;
-  /* Increase line height for better readability */
-}
-
-.course-info {
-  flex: 1;
 }
 
 h1 {
@@ -169,5 +169,35 @@ p {
 
 .learn-button:focus {
   outline: none;
+}
+
+.name {
+  font-size: 35px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 15px;
+}
+
+.study-button {
+  margin-top: 20px;
+}
+
+.descrip {
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.description {
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 100;
+  font-size: 20px;
+  margin-top: 20px;
+  line-height: 1.6;
+}
+
+.description:hover {
+  background-color: rgba(0, 0, 0, 0.1);
 }
 </style>

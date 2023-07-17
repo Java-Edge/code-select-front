@@ -8,7 +8,9 @@
       <!-- 轮播图 -->
       <RightSidebar :carouselData="carouselData" />
     </div>
-
+    <div>
+      <img width="100%" height="200px" src="@/assets/background.png" />
+    </div>
     <!-- 课程详情区域 -->
     <CourseList :courses="courses" />
     <Footer />
@@ -178,6 +180,10 @@ export default {
 </script>
 
 <style>
+.index {
+  background-color: #E9EEF3;
+}
+
 /* 添加样式 */
 .course-navigation {
   max-width: 1600px;

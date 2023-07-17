@@ -4,7 +4,7 @@
  * @Author: 不败顽童
  * @Date: 2023-07-16 17:51:44
  * @LastEditors: 不败顽童
- * @LastEditTime: 2023-07-16 23:04:35
+ * @LastEditTime: 2023-07-17 21:25:53
 -->
 <template>
   <router-link :to="`/course/${course.id}`">
@@ -39,11 +39,14 @@ export default {
   flex-direction: column;
   align-items: center;
   width: 300px;
+  height: 300px;
   padding: 10px;
   background-color: #f0f0f0;
   border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  line-height: 30px;
+  margin: 30px 30px;
 }
 
 .image-container {
