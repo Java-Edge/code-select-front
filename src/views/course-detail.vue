@@ -17,11 +17,10 @@
           </button>
         </div>
       </div>
-
-      <!-- 课程详情区域 -->
-      <CourseList :courses="recommendCourses" />
-
     </div>
+
+    <!-- 课程详情区域 -->
+    <CourseList :courses="recommendCourses" />
     <Footer />
   </div>
 </template>
@@ -46,9 +45,10 @@ export default {
   },
   created() {
     // this.getMenuList();
-    const productId = this.$route.params.id;
-    this.getCourseDetail(productId);
-    this.getRecommendCourses();
+    // const id = this.$route.params.id;
+    // this.getCourseDetail(id);
+    // this.getRecommendCourses();
+    this.fetchData();
     // this.nickname = this.$store.getters.getUser.nickname;
   },
   data() {
@@ -58,9 +58,16 @@ export default {
       recommendCourses: []
     };
   },
+  watch: {
+    '$route': 'fetchData',
+  },
   methods: {
+    fetchData() {
+      const courseId = this.$route.params.id;
+      this.getCourseDetail(courseId);
+      this.getRecommendCourses();
+    },
     getCourseDetail(id) {
-
       this.$axios.get('/sourceCourse/course/' + id
         // ,
         //     {
@@ -115,32 +122,37 @@ export default {
 /* Add styles for the course details page if needed */
 .course-details-content {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  
+  gap: 40px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
 }
 
 .course-details-content img {
-  width: 300px;
-  height: 300px;
-  object-fit: contain;
-  /* To avoid image distortion */
+  width: 600px;
+  height: 600px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .left {
   margin-right: 40px;
   flex: 1;
+  max-width: 50%; /* Adjust the max-width as needed */
 }
 
 .left img {
-  max-width: 300px;
+  max-width: 600px;
   height: auto;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .right {
-  max-width: 600px;
+  /* max-width: 600px; */
+  max-width: 50%; /* Adjust the max-width as needed */
   margin-left: 40px;
   flex: 1;
 }
@@ -167,11 +179,12 @@ p {
   background-color: #007bff;
   color: #fff;
   border: none;
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 12px 24px;
+  font-size: 18px;
   border-radius: 6px;
   cursor: pointer;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
 }
 
 .learn-button:hover {
