@@ -8,8 +8,11 @@
       <!-- Additional course details content -->
       <!-- You can display other course information here -->
 
-          <!-- 课程详情区域 -->
-    <CourseList :courses="recommendCourses" />
+      <button class="learn-button" @click="goToStudy(selectedCourse)">
+        点击学习
+      </button>
+      <!-- 课程详情区域 -->
+      <CourseList :courses="recommendCourses" />
 
     </div>
     <Footer />
@@ -114,5 +117,57 @@ export default {
   height: 300px;
   object-fit: contain;
   /* To avoid image distortion */
+}
+
+/* .course-details {
+  display: flex;
+} */
+
+.course-details img {
+  max-width: 200px;
+  height: auto;
+  margin-right: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+p.description {
+  font-size: 16px;
+  margin-bottom: 20px;
+  line-height: 1.6;
+  /* Increase line height for better readability */
+}
+
+.course-info {
+  flex: 1;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.learn-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.learn-button:hover {
+  background-color: #0056b3;
+}
+
+.learn-button:focus {
+  outline: none;
 }
 </style>
