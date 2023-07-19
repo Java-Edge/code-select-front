@@ -35,63 +35,7 @@ export default {
       selectedCategory: null, // Default selected category
       selectedSubcategory: null, // Default selected subcategory
       menuData: [
-        // {
-        //   id: 1,
-        //   name: 'Java',
-        //   subcategories: [
-        //     {
-        //       id: 1,
-        //       name: 'Spring',
-        //       items: ['Spring Boot', 'Spring Cloud', 'Spring Security', 'Spring Data'],
-        //     },
-        //     {
-        //       id: 2,
-        //       name: 'JavaFX',
-        //       items: ['FXML', 'Controls', 'Event Handling', 'CSS Styling'],
-        //     },
-        //     {
-        //       id: 3,
-        //       name: 'Java Servlet',
-        //       items: ['Servlet API', 'Servlet Lifecycle', 'HttpServletRequest', 'HttpServletResponse'],
-        //     },
-        //     // Add more subcategories and items for Java
-        //   ],
-        // },
-        // {
-        //   id: 2,
-        //   name: 'Python',
-        //   subcategories: [
-        //     {
-        //       id: 1,
-        //       name: 'Django',
-        //       items: ['Models', 'Views', 'Templates', 'Forms'],
-        //     },
-        //     {
-        //       id: 2,
-        //       name: 'Flask',
-        //       items: ['Routing', 'Request Handling', 'Templates', 'Forms'],
-        //     },
-        //     // Add more subcategories and items for Python
-        //   ],
-        // },
-        // {
-        //   id: 3,
-        //   name: 'JavaScript',
-        //   subcategories: [
-        //     {
-        //       id: 1,
-        //       name: 'React',
-        //       items: ['Components', 'State Management', 'React Router', 'Hooks'],
-        //     },
-        //     {
-        //       id: 2,
-        //       name: 'Vue.js',
-        //       items: ['Components', 'Directives', 'Vue Router', 'Vuex'],
-        //     },
-        //     // Add more subcategories and items for JavaScript
-        //   ],
-        // },
-        // // 其他语言的分类和子分类
+
       ],
     };
   },
