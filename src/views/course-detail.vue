@@ -138,9 +138,9 @@ export default {
 }
 
 .left {
-  margin-right: 40px;
   flex: 1;
-  max-width: 50%; /* Adjust the max-width as needed */
+  margin-left: 100px;;
+  max-width: 36%; /* Adjust the max-width as needed */
 }
 
 .left img {

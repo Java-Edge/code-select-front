@@ -38,10 +38,10 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 300px;
+  width: 240px;
   height: 300px;
   padding: 10px;
-  background-color: #f0f0f0;
+  //background-color: #f0f0f0;
   border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -68,6 +68,7 @@ export default {
 .course-details h4 {
   font-size: 18px;
   margin-bottom: 5px;
+  color: #555555;
 }
 
 .course-details .description {

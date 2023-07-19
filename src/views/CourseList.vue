@@ -36,23 +36,17 @@
 .course-details {
   flex: 1;
   padding: 20px;
-  min-width: 300px;
   /* Set a minimum width for the course details */
-  align-self: flex-start;
-  /* Align to the left side */
 }
 
 .course-row {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin-bottom: 20px;
 }
 
 .course-box {
   flex: 0 0 calc(20% - 20px);
-  padding: 20px;
-  background-color: #f0f0f0;
-  margin: 10px;
   /* Add margin to create spacing between the course boxes */
 }
 
