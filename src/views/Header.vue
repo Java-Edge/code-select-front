@@ -9,37 +9,12 @@
           <router-link :to="`/index`">
             <li @click="handleMenuSelect('home')" :class="{ active: activeMenu === 'home' }">首页</li>
           </router-link>
-          <li @click="handleMenuSelect('course')" :class="{ active: activeMenu === 'course' }">课程</li>
-          <li @click="handleMenuSelect('vip')" :class="{ active: activeMenu === 'vip' }">VIP</li>
+          <!-- <li @click="handleMenuSelect('course')" :class="{ active: activeMenu === 'course' }">课程</li>
+          <li @click="handleMenuSelect('vip')" :class="{ active: activeMenu === 'vip' }">VIP</li> -->
           <!-- 其他信息 -->
         </ul>
       </nav>
 
-      <!-- Search box -->
-      <div class="search-box">
-        <!-- Implement the search input and button here -->
-        <input type="text" placeholder="搜索课程" />
-        <button>搜索</button>
-      </div>
-
-      <!-- Login and user profile information -->
-      <div class="user-info">
-        <!-- Check if the user is logged in -->
-        <template v-if="isLoggedIn">
-          <div class="user-profile">
-            <!-- Display user profile information (e.g., profile picture, username, etc.) -->
-            <img src="profile-picture.jpg" alt="User Profile" class="user-avatar" />
-            <span class="user-name">John Doe</span>
-          </div>
-          <button @click="handleLogout">退出登录</button>
-        </template>
-        <template v-else>
-          <div class="auth-buttons">
-            <router-link to="/login" class="auth-button">登录</router-link>
-            <router-link to="/signup" class="auth-button">注册</router-link>
-          </div>
-        </template>
-      </div>
     </div>
   </header>
 </template>
