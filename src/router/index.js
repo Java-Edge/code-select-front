@@ -11,6 +11,9 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 
 import index from '../views/course';
 import courseDetail from '../views/course-detail';
+import articleCreate from '../views/markdown/article-create'
+import articleDetail from '../views/markdown/article-detail'
+import articleList from '../views/markdown/article-list'
 
 const routes = [
   {
@@ -23,6 +26,27 @@ const routes = [
     name: 'courseDetail',
     component: courseDetail,
   },
+  {
+    
+    path: '/article-create',
+    name: 'articleCreate',
+    component: articleCreate
+  },
+  {
+    path: '/article-editor/:id',
+    name: 'articleEditor',
+    component: articleCreate
+  },
+  {
+    path: '/article-list',
+    name: 'articleList',
+    component: articleList
+  },
+  {
+    path: '/article/:id',
+    name: 'articleDetail',
+    component: articleDetail
+  }
 ];
 
 const router = createRouter({

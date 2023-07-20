@@ -8,6 +8,7 @@
         <ul>
           <router-link :to="`/index`">
             <li @click="handleMenuSelect('home')" :class="{ active: activeMenu === 'home' }">首页</li>
+            <router-link to="/article-list">发布文章</router-link>
           </router-link>
           <!-- <li @click="handleMenuSelect('course')" :class="{ active: activeMenu === 'course' }">课程</li>
           <li @click="handleMenuSelect('vip')" :class="{ active: activeMenu === 'vip' }">VIP</li> -->
