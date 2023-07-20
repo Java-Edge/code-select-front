@@ -9,8 +9,9 @@
       <RightSidebar :carouselData="carouselData" />
     </div>
     <div class="background-image">
-      <img width="100%" height="200px" src="@/assets/background.png" />
+      <img alt="" style="width: 1600px;height: 250px" :src="img" />
     </div>
+    <div style="font-size: 30px; text-align: center; margin-top: 30px;">课程列表</div>
     <!-- 课程详情区域 -->
     <CourseList :courses="courses" />
     <Footer />
@@ -69,6 +70,7 @@ export default {
         },
         // 更多轮播图数据
       ],
+      img: require("@/assets/background.jpg"),
     };
   },
   computed: {
@@ -276,7 +278,12 @@ export default {
 .swiper-pagination-bullet-active {
   background-color: #555;
 }
-
+  /* 背景图片样式 */
+.background-image {
+  width: 1600px;
+  height: 250px;
+  margin-top: 50px;
+}
 
 
 .swiper-container {
