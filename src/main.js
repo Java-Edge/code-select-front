@@ -4,10 +4,14 @@ import router from './router';
 import store from './store';
 import axios from 'axios';
 import './axios';
+import showdown from "showdown"
+import installElementPlus from './plugins/element'
 
 const app = createApp(App); // 使用 createApp 创建 Vue 应用
+installElementPlus(app)
 app.use(router); // 使用插件方式注册路由
 app.use(store); // 使用插件方式注册 Vuex 的 store
+app.use(showdown); // 注册markdown渲染 
 
 app.config.productionTip = false;
 app.config.globalProperties.$axios = axios; // 在全局配置 $axios

@@ -1,0 +1,128 @@
+<template>
+  <div class="markdown-container">
+    <!-- Search box -->
+    <div class="search-box">
+      <!-- Implement the search input and button here -->
+      <input type="text" v-model="title" placeholder="请输入标题" />
+    </div>
+    <!-- 渲染区 -->
+    <div id="markdown-box"></div>
+    <div class="bottom">
+      <button type="primary" @click="onSubmitClick"> 提交 </button>
+    </div>
+  </div>
+</template>
+  
+<script setup>
+import MkEditor from "@toast-ui/editor";
+import "@toast-ui/editor/dist/toastui-editor.css";
+import { ref, onMounted, watch } from "vue";
+import { useRoute, useRouter } from 'vue-router'
+import axios from 'axios'
+
+// 标题
+const title = ref('');
+// Editor实例
+let mkEditor;
+// 处理离开页面切换语言导致 dom 无法被获取
+let el;
+// dom 渲染之后再调用 initEditor 方法，因为在这里需要使用到 el
+onMounted(() => {
+  el = document.querySelector("#markdown-box");
+  initEditor();
+});
+
+// 处理编辑相关
+const route = useRoute()
+const articleId = route.params.id
+const detail = ref({})
+const getArticleDetail = async () => {
+  axios.get(`/article/getById/${articleId}`).then(res=>{
+        console.log('res', res)
+        detail.value = res.data.result
+        mkEditor.setHTML(detail.value.content)
+        title.value = detail.value.title
+    })
+}
+if (articleId) {
+  getArticleDetail()
+}
+
+// 编辑相关
+// watch(
+//   () => detail,
+//   val => {
+//     if (val && val.content) {
+//       mkEditor.setHTML(val.content)
+//     }
+//   },
+//   {
+//     immediate: true
+//   }
+// )
+
+const initEditor = () => {
+  mkEditor = new MkEditor({
+    el,
+    height: "500px",
+    previewStyle: "vertical",
+    language: "zh-CN",
+  });
+
+  mkEditor.getMarkdown();
+};
+
+const router = useRouter()
+// 处理提交
+const onSubmitClick = () => {
+  if(articleId) {
+    console.log(mkEditor.getHTML());
+    console.log('title:', title.value);
+    console.log(title)
+    const article = {'articleId': articleId, 'title': title.value, 'content': mkEditor.getHTML()}
+    axios.put('/article/updateById/', article).then(response => {
+      console.log(response)
+      router.push(`/article/${articleId}`)
+    }) 
+  } else {
+    // 发送创建文章请求
+    console.log(mkEditor.getHTML());
+    console.log('title:', title.value);
+    console.log(title)
+    const article = {'title': title.value, 'content': mkEditor.getHTML()}
+    axios.post('/article/save/', article).then(response => {
+      console.log(response)
+    }) 
+  }
+
+  // 文章提交之后清空md内容和标题内容
+  // mkEditor.reset();
+  // title.value = '';
+
+
+};
+</script>
+  
+<style lang="scss" scoped>
+.markdown-container {
+  .bottom {
+    margin-top: 20px;
+    text-align: right;
+  }
+}
+.search-box {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  font-size: 14px;
+}
+</style>
+  

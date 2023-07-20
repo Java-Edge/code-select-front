@@ -8,6 +8,15 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@toast-ui/editor": "^3.0.2",
+    "element-plus": "^1.1.0-beta.15",
+    "github-markdown-css": "^5.2.0",
+    "highlight": "^0.2.4",
+    "sass": "^1.26.5",
+    "sass-loader": "^8.0.2",
+    "showdown": "^2.1.0",
+    "vditor": "^3.9.4",
+    "wangeditor": "^4.7.6",
     "axios": "^1.4.0",
     "core-js": "^3.8.3",
     "swiper": "^10.0.4",
