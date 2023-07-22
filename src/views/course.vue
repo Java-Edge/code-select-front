@@ -11,7 +11,7 @@
     <div class="background-image">
       <img alt="" style="width: 1600px;height: 250px" :src="img" />
     </div>
-    <div style="font-size: 30px; text-align: center; margin-top: 30px;">课程列表</div>
+    <div style="font-size: 30px; text-align: center; margin-top: 30px;">-- 课程列表 --</div>
     <!-- 课程详情区域 -->
     <CourseList :courses="courses" />
     <Footer />
@@ -185,8 +185,7 @@ export default {
 .index {
   background-color: #E9EEF3;
 }
-
-/* 添加样式 */
+  /* 添加样式 */
 .course-navigation {
   max-width: 1600px;
   margin: 0 auto;
