@@ -1,14 +1,6 @@
 <template>
   <div class="course-navigation">
     <Header /> <!-- Use the Header component -->
-    <!--  logo和搜索框  -->
-    <div class="LogoAndSearch">
-      <div><img alt="" style="width: 100px;height: 100px" src="~@/assets/logo.jpg"/></div>
-      <div class="toSearch">
-        <div><el-input></el-input></div>
-        <div><el-button>搜索</el-button></div>
-      </div>
-    </div>
     <!-- 内容区域 -->
     <div class="content">
       <!-- 课程分类导航栏 -->
@@ -19,7 +11,7 @@
     <div class="background-image">
       <img alt="" style="width: 1600px;height: 250px" :src="img" />
     </div>
-    <div style="font-size: 30px; text-align: center; margin-top: 30px;">课程列表</div>
+    <div style="font-size: 30px; text-align: center; margin-top: 30px;">-- 课程列表 --</div>
     <!-- 课程详情区域 -->
     <CourseList :courses="courses" />
     <Footer />
@@ -192,22 +184,6 @@ export default {
 <style>
 .index {
   background-color: #E9EEF3;
-}
-.LogoAndSearch {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-.LogoAndSearch > div:nth-child(1) {
-  margin-right: 400px;
-}
-.toSearch {
-  display: flex;
-  justify-content: center;
-  margin-top: 30px;
-}
-.toSearch > div:nth-child(1) {
-  margin-right: 20px;
 }
   /* 添加样式 */
 .course-navigation {

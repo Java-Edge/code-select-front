@@ -6,10 +6,9 @@
 
       <nav class="menu">
         <ul>
-          <router-link :to="`/index`">
-            <li @click="handleMenuSelect('home')" :class="{ active: activeMenu === 'home' }">首页</li>
-            <router-link to="/article-list">发布文章</router-link>
-          </router-link>
+          <li @click="handleMenuSelect('home')" :class="{ active: activeMenu === 'home' }">首页</li>
+<!--          <router-link :to="`/index`"></router-link>-->
+          <li @click="handleMenuSelect('article')" :class="{ active: activeMenu === 'article' }">发布文章</li>
           <!-- <li @click="handleMenuSelect('course')" :class="{ active: activeMenu === 'course' }">课程</li>
           <li @click="handleMenuSelect('vip')" :class="{ active: activeMenu === 'vip' }">VIP</li> -->
           <!-- 其他信息 -->
@@ -33,6 +32,19 @@ export default {
     handleMenuSelect(index) {
       this.activeMenu = index; // 更新选中的菜单项
       // 可根据不同的菜单项进行相应的页面跳转或其他操作
+      switch(index){
+        case "home":
+          // 去首页
+          this.$router.push("/index");
+          break
+        case "article":
+          // 文章列表
+          this.$router.push("/article-list");
+          break
+        default:
+          //这里是没有找到对应的值处理
+          break
+      }
     },
     handleLogout() {
       // Implement the logout functionality here
