@@ -92,30 +92,6 @@ export default {
   border-bottom: 2px solid #ffd04b;
 }
 
-.search-box {
-  display: flex;
-  align-items: center;
-}
-
-.search-box input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  outline: none;
-  font-size: 14px;
-}
-
-.search-box button {
-  margin-left: 10px;
-  padding: 8px 12px;
-  background-color: #ffcc29;
-  border: none;
-  border-radius: 4px;
-  color: #333;
-  font-size: 14px;
-  cursor: pointer;
-}
-
 .user-info {
   display: flex;
   align-items: center;
