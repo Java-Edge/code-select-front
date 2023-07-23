@@ -17,7 +17,7 @@ axios.defaults.baseURL = "/back-server"
 
 // 前置拦截
 axios.interceptors.request.use(config => {
-    config.headers['Content-Type'] = 'application/json';
+    // config.headers['Content-Type'] = 'application/json';
     config.headers['Accept'] = 'application/json';
     //
     // // if (window.location.pathname != "/user/login") {
