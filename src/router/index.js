@@ -44,6 +44,11 @@ const routes = [
     component: articleList
   },
   {
+    path: '/article-interview/:type',
+    name: 'articleInterview',
+    component: articleList
+  },
+  {
     path: '/article/:id',
     name: 'articleDetail',
     component: articleDetail

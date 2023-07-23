@@ -24,9 +24,9 @@
               <el-button type="primary" size="mini" @click="onShowClick(row)">
               查看
             </el-button>
-            <el-button type="danger" size="mini" @click="onRemoveClick(row)">
+            <!-- <el-button type="danger" size="mini" @click="onRemoveClick(row)">
               删除
-            </el-button>
+            </el-button> -->
             </template>
           </el-table-column>
         </el-table>
@@ -48,7 +48,7 @@
   
   <script setup>
 import { ref, onActivated } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import axios from 'axios'
 // 数据相关
 const tableData = ref([])
@@ -56,9 +56,17 @@ const total = ref(0)
 const page = ref(1)
 const size = ref(10)
 
+// 获取数据
+const route = useRoute()
+const type = route.params.type
+console.log(type)
 // 获取数据的方法
 const getListData = async () => {
-  axios.get(`/article/getByPage?current=${page.value}&size=${size.value}`).then(res=>{
+  let path = `/article/getByPage?current=${page.value}&size=${size.value}`;
+  if(type) {
+    path += `&type=${type}`
+  }
+  axios.get(path).then(res=>{
     console.log(res)
     tableData.value = res.data.result.records
     total.value = res.data.result.total
