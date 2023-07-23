@@ -19,6 +19,10 @@
 
     </div>
   </header>
+  <div class="nav">
+    <div @click="handleMenuSelect('article')">文章列表</div>
+    <div @click="handleMenuSelect('coursePage')">课程</div>
+  </div>
 </template>
 
 <script>
@@ -48,6 +52,10 @@ export default {
           break
         case "interview":
           this.$router.push("/article-interview/1")
+          break
+        case "coursePage":
+          // 文章列表
+          this.$router.push("/coursePage");
           break
         default:
           //这里是没有找到对应的值处理
@@ -98,6 +106,24 @@ export default {
 .menu li.active {
   color: #ffd04b;
   border-bottom: 2px solid #ffd04b;
+}
+
+.nav {
+  width: 1600px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  > div {
+    display: flex;
+    font-size: 16px;
+    font-weight: 600;
+    color: #222222;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    font-family: PingFangSC-Medium, PingFang SC;
+  }
 }
 
 .user-info {
