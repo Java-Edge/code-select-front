@@ -8,7 +8,7 @@
         <ul>
           <li @click="handleMenuSelect('home')" :class="{ active: activeMenu === 'home' }">首页</li>
 <!--          <router-link :to="`/index`"></router-link>-->
-          <li @click="handleMenuSelect('article')" :class="{ active: activeMenu === 'article' }">发布文章</li>
+          <li @click="handleMenuSelect('article')" :class="{ active: activeMenu === 'article' }">文章</li>
           <li @click="handleMenuSelect('recruit')" :class="{ active: activeMenu === 'recruit' }">招聘</li>
           <li @click="handleMenuSelect('interview')" :class="{ active: activeMenu === 'interview' }">面经</li>
           <!-- <li @click="handleMenuSelect('course')" :class="{ active: activeMenu === 'course' }">课程</li>

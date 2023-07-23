@@ -2,6 +2,7 @@
   <div class="markdown-container">
     <!-- Search box -->
     <div class="search-box">
+    <span class="title">标题：</span>
       <!-- Implement the search input and button here -->
       <input type="text" v-model="title" placeholder="请输入标题" />
     </div>
@@ -153,6 +154,11 @@ const onSubmitClick = () => {
   
 <style lang="scss" scoped>
 .markdown-container {
+
+  min-height: 800px;
+  max-width: 1600px;
+  margin: 0 auto;
+
   .bottom {
     margin-top: 20px;
     text-align: right;
@@ -164,6 +170,7 @@ const onSubmitClick = () => {
   align-items: center;
   margin-top: 20px;
   margin-bottom: 20px;
+  height: 80px;
 }
 
 .search-box input {
@@ -172,6 +179,14 @@ const onSubmitClick = () => {
   border-radius: 4px;
   outline: none;
   font-size: 14px;
+  width: 100%;
+  height: 30px;
+}
+
+.title {
+  display: block;
+  width: 60px;
+  font-size: 18px;
 }
 </style>
   

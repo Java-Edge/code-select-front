@@ -1,6 +1,7 @@
 <template>
     <div class="article-ranking-container">
-      <el-card>
+      <Header /> <!-- Use the Header component -->
+      <el-card class="articles">
         <el-table ref="tableRef" :data="tableData" border>
           <!-- <el-table-column
             label="排名"
@@ -43,6 +44,7 @@
         >
         </el-pagination>
       </el-card>
+      <Footer />
     </div>
   </template>
   
@@ -50,6 +52,9 @@
 import { ref, onActivated } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import axios from 'axios'
+import Header from '../Header.vue'; // Import the Header component
+import Footer from '../Footer.vue'; // Import the Footer component
+
 // 数据相关
 const tableData = ref([])
 const total = ref(0)
@@ -110,7 +115,13 @@ const onShowClick = row => {
   </script>
   
   <style lang="scss" scoped>
+  .articles {
+    margin-bottom: 15px;
+  }
   .article-ranking-container {
+    min-height: 800px;
+    max-width: 1600px;
+    margin: 0 auto;
     .header {
       margin-bottom: 20px;
       .dynamic-box {
