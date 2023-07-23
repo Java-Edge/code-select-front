@@ -19,6 +19,7 @@
       </div>
     </div>
 
+    <div style="font-size: 30px; text-align: center; margin: 40px 0px;">-- 猜你喜欢 --</div>
     <!-- 课程详情区域 -->
     <CourseList :courses="recommendCourses" />
     <Footer />
@@ -139,7 +140,7 @@ export default {
 
 .left {
   flex: 1;
-  margin-left: 100px;;
+  margin-left: 100px;
   max-width: 36%; /* Adjust the max-width as needed */
 }
 

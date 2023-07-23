@@ -4,13 +4,14 @@
     <!-- 内容区域 -->
     <div class="content">
       <!-- 课程分类导航栏 -->
-      <LeftSidebar />
+      <!-- <LeftSidebar /> -->
       <!-- 轮播图 -->
       <RightSidebar :carouselData="carouselData" />
     </div>
     <div class="background-image">
-      <img width="100%" height="200px" src="@/assets/background.png" />
+      <img alt="" style="width: 1600px;height: 250px" :src="img" />
     </div>
+    <div style="font-size: 30px; text-align: center; margin-top: 30px;">-- 课程列表 --</div>
     <!-- 课程详情区域 -->
     <CourseList :courses="courses" />
     <Footer />
@@ -69,6 +70,7 @@ export default {
         },
         // 更多轮播图数据
       ],
+      img: require("@/assets/background.jpg"),
     };
   },
   computed: {
@@ -183,8 +185,7 @@ export default {
 .index {
   background-color: #E9EEF3;
 }
-
-/* 添加样式 */
+  /* 添加样式 */
 .course-navigation {
   max-width: 1600px;
   margin: 0 auto;
@@ -276,7 +277,12 @@ export default {
 .swiper-pagination-bullet-active {
   background-color: #555;
 }
-
+  /* 背景图片样式 */
+.background-image {
+  width: 1600px;
+  height: 250px;
+  margin-top: 50px;
+}
 
 
 .swiper-container {

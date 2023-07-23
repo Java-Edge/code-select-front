@@ -47,7 +47,7 @@ const onEditClick = row => {
     padding: 12px 0;
   }
   .header {
-    padding: 26px 0;
+    padding: 26px 200px;
     .author {
       font-size: 14px;
       color: #555666;
@@ -60,11 +60,13 @@ const onEditClick = row => {
     }
     .edit {
       float: right;
+      cursor: pointer;
+      background-color: white;
     }
   }
   .content {
     font-size: 14px;
-    padding: 20px 0;
+    padding: 20px 200px;
     border-top: 1px solid #d4d4d4;
     display: block
   }
