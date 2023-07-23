@@ -16,6 +16,9 @@ import articleDetail from '../views/markdown/article-detail'
 import articleList from '../views/markdown/article-list'
 import recruit from '../views/recruit/recruit'
 import recruitDetail from '../views/recruit/recruit-detail'
+import articleInterview from '../views/markdown/article-interview'
+
+
 const routes = [
   {
     path: '/index',
@@ -46,7 +49,7 @@ const routes = [
   {
     path: '/article-interview/:type',
     name: 'articleInterview',
-    component: articleList
+    component: articleInterview
   },
   {
     path: '/article/:id',

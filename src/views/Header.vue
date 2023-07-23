@@ -45,8 +45,10 @@ export default {
           break
         case "recruit":
           this.$router.push("/recruit/index")
+          break
         case "interview":
           this.$router.push("/article-interview/1")
+          break
         default:
           //这里是没有找到对应的值处理
           break
