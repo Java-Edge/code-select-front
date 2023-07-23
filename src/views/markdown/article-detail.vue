@@ -2,7 +2,7 @@
     <div class="article-detail-container">
         <h2 class="title"> {{detail.title}} </h2>
         <div class="header">
-            <span class="author"> 作者 ： 黑猫警长 </span>
+            <!-- <span class="author"> 作者 ： 黑猫警长 </span> -->
             <span class="time"> 发布时间 ：
                 {{ detail.createTime }}
             </span>

@@ -9,6 +9,7 @@
           <li @click="handleMenuSelect('home')" :class="{ active: activeMenu === 'home' }">首页</li>
 <!--          <router-link :to="`/index`"></router-link>-->
           <li @click="handleMenuSelect('article')" :class="{ active: activeMenu === 'article' }">发布文章</li>
+          <li @click="handleMenuSelect('recruit')" :class="{ active: activeMenu === 'recruit' }">招聘</li>
           <!-- <li @click="handleMenuSelect('course')" :class="{ active: activeMenu === 'course' }">课程</li>
           <li @click="handleMenuSelect('vip')" :class="{ active: activeMenu === 'vip' }">VIP</li> -->
           <!-- 其他信息 -->
@@ -41,6 +42,8 @@ export default {
           // 文章列表
           this.$router.push("/article-list");
           break
+        case "recruit":
+          this.$router.push("/recruit/index")
         default:
           //这里是没有找到对应的值处理
           break

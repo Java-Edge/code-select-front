@@ -2,18 +2,18 @@
     <div class="article-ranking-container">
       <el-card>
         <el-table ref="tableRef" :data="tableData" border>
-          <el-table-column
+          <!-- <el-table-column
             label="排名"
             prop="ranking"
-          ></el-table-column>
+          ></el-table-column> -->
           <el-table-column
             label="标题"
             prop="title"
           ></el-table-column>
-          <el-table-column
+          <!-- <el-table-column
             label="作者"
             prop="author"
-          ></el-table-column>
+          ></el-table-column> -->
           <el-table-column
             label="创建时间"
             prop="createTime"

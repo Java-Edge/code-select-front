@@ -14,7 +14,8 @@ import courseDetail from '../views/course-detail';
 import articleCreate from '../views/markdown/article-create'
 import articleDetail from '../views/markdown/article-detail'
 import articleList from '../views/markdown/article-list'
-
+import recruit from '../views/recruit/recruit'
+import recruitDetail from '../views/recruit/recruit-detail'
 const routes = [
   {
     path: '/index',
@@ -46,7 +47,17 @@ const routes = [
     path: '/article/:id',
     name: 'articleDetail',
     component: articleDetail
-  }
+  },  
+  {
+    path: '/recruit/index',
+    name: 'recruit',
+    component: recruit,
+  },
+  {
+    path: '/recruit/:id',
+    name: 'recruitDetail',
+    component: recruitDetail,
+  },
 ];
 
 const router = createRouter({
