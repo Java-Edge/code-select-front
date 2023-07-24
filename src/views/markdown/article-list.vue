@@ -8,9 +8,18 @@
             prop="ranking"
           ></el-table-column> -->
           <el-table-column
-            label="标题"
-            prop="title"
-          ></el-table-column>
+          label="标题"
+          prop="title"
+          >
+          <template #default="{row}"  >
+            <div class="table-row" @click="onShowClick(row)">
+              <span>{{ row.title }}</span>
+            </div>
+            <!-- <el-button type="danger" size="mini" @click="onRemoveClick(row)">
+              删除
+            </el-button> -->
+            </template>
+        </el-table-column>
           <!-- <el-table-column
             label="作者"
             prop="author"
@@ -19,17 +28,40 @@
             label="创建时间"
             prop="createTime"
           >
-          </el-table-column>
-          <el-table-column label="操作">
-            <template #default="{row}">
-              <el-button type="primary" size="mini" @click="onShowClick(row)">
-              查看
-            </el-button>
+          <template #default="{row}"  >
+            <div class="table-row" @click="onShowClick(row)">
+              <span>{{ row.createTime }}</span>
+            </div>
             <!-- <el-button type="danger" size="mini" @click="onRemoveClick(row)">
               删除
             </el-button> -->
             </template>
           </el-table-column>
+          <!--
+          <el-table-column
+            label="内容"
+            prop="createTime"
+          >
+          <template #default="{row}"  >
+            <div class="table-row" @click="onShowClick(row)">
+              <span>{{  row.content.length > 20 ? row.content.substr(0, 20) + "..." : row.content}}</span>
+            </div>
+            <el-button type="danger" size="mini" @click="onRemoveClick(row)">
+              删除
+            </el-button>
+            </template>
+          </el-table-column>-->
+
+          <!-- <el-table-column label="操作">
+            <template #default="{row}">
+              <el-button type="primary" size="mini" @click="onShowClick(row)">
+              查看
+            </el-button>
+            <el-button type="danger" size="mini" @click="onRemoveClick(row)">
+              删除
+            </el-button>
+            </template>
+          </el-table-column> -->
         </el-table>
   
         <el-pagination
@@ -157,5 +189,6 @@ watch(
       text-align: center;
     }
   }
+
   </style>
   
