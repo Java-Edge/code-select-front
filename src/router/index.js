@@ -42,7 +42,7 @@ const routes = [
     component: articleCreate
   },
   {
-    path: '/article-list',
+    path: '/article-list/:type',
     name: 'articleList',
     component: articleList
   },
