@@ -1,6 +1,5 @@
 <template>
   <div class="course-navigation">
-    <Header /> <!-- Use the Header component -->
     <!-- 内容区域 -->
     <div class="content">
       <!-- 课程分类导航栏 -->
@@ -14,7 +13,6 @@
     <div style="font-size: 30px; text-align: center; margin-top: 30px;">-- 课程列表 --</div>
     <!-- 课程详情区域 -->
     <CourseList :courses="courses" />
-    <Footer />
   </div>
 </template>
 

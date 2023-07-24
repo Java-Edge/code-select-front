@@ -1,8 +1,6 @@
 <template>
   <div>
-    <Header></Header>
     <CourseList :courses="courses" />
-    <Footer></Footer>
   </div>
 </template>
 

@@ -11,12 +11,11 @@
           <li @click="handleMenuSelect('article')" :class="{ active: activeMenu === 'article' }">动态</li>
           <li @click="handleMenuSelect('recruit')" :class="{ active: activeMenu === 'recruit' }">招聘</li>
           <li @click="handleMenuSelect('interview')" :class="{ active: activeMenu === 'interview' }">面经</li>
-          <!-- <li @click="handleMenuSelect('course')" :class="{ active: activeMenu === 'course' }">课程</li>
-          <li @click="handleMenuSelect('vip')" :class="{ active: activeMenu === 'vip' }">VIP</li> -->
+           <!-- <li @click="handleMenuSelect('course')" :class="{ active: activeMenu === 'course' }">课程</li>
+          <li @click="handleMenuSelect('vip')" :class="{ active: activeMenu === 'vip' }">VIP</li>  -->
           <!-- 其他信息 -->
         </ul>
       </nav>
-
     </div>
   </header>
   <div class="nav">
@@ -36,6 +35,7 @@ export default {
   },
   methods: {
     handleMenuSelect(index) {
+      console.log('handleMenuSelect', index);
       this.activeMenu = index; // 更新选中的菜单项
       // 可根据不同的菜单项进行相应的页面跳转或其他操作
       switch(index){

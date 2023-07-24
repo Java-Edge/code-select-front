@@ -1,11 +1,9 @@
 <template>
     <div class="course-navigation">
-      <Header /> <!-- Use the Header component -->
       <!-- 内容区域 -->
       <div style="font-size: 30px; text-align: center; margin-top: 30px;">-- 招聘列表 --</div>
       <!-- 课程详情区域 -->
       <RecruitList :recruits="recruits" />
-      <Footer />
     </div>
   </template>
   

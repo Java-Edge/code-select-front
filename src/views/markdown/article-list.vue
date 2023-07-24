@@ -1,6 +1,5 @@
 <template>
     <div class="article-ranking-container">
-      <Header /> <!-- Use the Header component -->
       <el-card class="articles">
         <el-table ref="tableRef" :data="tableData" border>
           <!-- <el-table-column
@@ -76,7 +75,6 @@
         >
         </el-pagination>
       </el-card>
-      <Footer />
     </div>
   </template>
   

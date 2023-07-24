@@ -1,6 +1,5 @@
 <template>
   <div class="course-details-page">
-    <Header />
     <div class="course-details-content">
       <!-- <div class="left">
         <img :src="selectedRecruit.image" :alt="selectedRecruit.name" />
@@ -28,7 +27,6 @@
     <div style="font-size: 30px; text-align: center; margin: 40px 0px;">-- 猜你喜欢 --</div>
     <!-- 课程详情区域 -->
     <CourseList :courses="recommendCourses" />
-    <Footer />
   </div>
 </template>
 
