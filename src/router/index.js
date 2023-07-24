@@ -18,6 +18,7 @@ import recruit from '../views/recruit/recruit'
 import recruitDetail from '../views/recruit/recruit-detail'
 import articleInterview from '../views/markdown/article-interview'
 
+import coursePage from "../views/coursePage";
 
 const routes = [
   {
@@ -55,7 +56,7 @@ const routes = [
     path: '/article/:id',
     name: 'articleDetail',
     component: articleDetail
-  },  
+  },
   {
     path: '/recruit/index',
     name: 'recruit',
@@ -66,6 +67,11 @@ const routes = [
     name: 'recruitDetail',
     component: recruitDetail,
   },
+  {
+    path: '/CoursePage',
+    name: 'CoursePage',
+    component: coursePage
+  }
 ];
 
 const router = createRouter({
