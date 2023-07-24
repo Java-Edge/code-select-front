@@ -6,9 +6,9 @@
             <span class="time"> 发布时间 ：
                 {{ detail.createTime }}
             </span>
-            <button type="text" class="edit" @click="onEditClick">
+            <!-- <button type="text" class="edit" @click="onEditClick">
                 编辑
-            </button>
+            </button> -->
         </div>
         <div class="content" v-html="detail.content"></div>
     </div>
