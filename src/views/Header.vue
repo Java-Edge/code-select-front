@@ -54,7 +54,7 @@ export default {
           this.$router.push("/article-interview/1")
           break
         case "coursePage":
-          // 文章列表
+          // 课程列表
           this.$router.push("/coursePage");
           break
         default:
@@ -123,6 +123,7 @@ export default {
     justify-content: center;
     align-items: center;
     font-family: PingFangSC-Medium, PingFang SC;
+    cursor: pointer;
   }
 }
 

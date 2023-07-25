@@ -20,10 +20,10 @@
         </ul>
       </div>
       <div class="footer-section">
-        <h4>{{ websiteName }}</h4>
+        <h4>友情链接</h4>
         <ul>
-          <li>友情链接</li>
-          <li>合作</li>
+          <li><a href="https://www.bilibili.com/">哔哩哔哩</a></li>
+          <li><a href="http://www.w3school.com.cn">W3School</a></li>
         </ul>
       </div>
       <div class="footer-section">
