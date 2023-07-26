@@ -1,21 +1,11 @@
 <template>
   <div class="article-ranking-container">
-
-    <div class='interview-card' v-for="interview in tableData" :key="interview.id" @click="onShowClick(interview.articleId)" > 
-
-      <div class="interview-title">{{ interview.title }}</div>
-      <div class='interview-content'>{{ interview.content.length > 30 ? interview.content.substr(0, 30).replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') + "..." : interview.content.replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') }}</div>
-      <div class='interview-footer'>
-        <div class='interview-create-time'>{{ interview.createTime }}</div>
-      </div>
-    </div>
-
-    <!-- <el-card class="articles">
+    <el-card class="articles">
       <el-table ref="tableRef" :data="tableData" border>
-        <el-table-column
+        <!-- <el-table-column
           label="排名"
           prop="ranking"
-        ></el-table-column>
+        ></el-table-column> -->
         <el-table-column
         label="标题"
         prop="title"
@@ -24,15 +14,15 @@
           <div class="table-row" @click="onShowClick(row)">
             <span>{{ row.title }}</span>
           </div>
-          <el-button type="danger" size="mini" @click="onRemoveClick(row)">
+          <!-- <el-button type="danger" size="mini" @click="onRemoveClick(row)">
             删除
-          </el-button>
+          </el-button> -->
           </template>
       </el-table-column>
-        <el-table-column
+        <!-- <el-table-column
           label="作者"
           prop="author"
-        ></el-table-column>
+        ></el-table-column> -->
         <el-table-column
           label="创建时间"
           prop="createTime"
@@ -41,12 +31,12 @@
           <div class="table-row" @click="onShowClick(row)">
             <span>{{ row.createTime }}</span>
           </div>
-          <el-button type="danger" size="mini" @click="onRemoveClick(row)">
+          <!-- <el-button type="danger" size="mini" @click="onRemoveClick(row)">
             删除
-          </el-button>
+          </el-button> -->
           </template>
         </el-table-column>
-        
+        <!--
         <el-table-column
           label="内容"
           prop="createTime"
@@ -59,9 +49,9 @@
             删除
           </el-button>
           </template>
-        </el-table-column>
+        </el-table-column>-->
 
-        <el-table-column label="操作">
+        <!-- <el-table-column label="操作">
           <template #default="{row}">
             <el-button type="primary" size="mini" @click="onShowClick(row)">
             查看
@@ -70,10 +60,10 @@
             删除
           </el-button>
           </template>
-        </el-table-column>
+        </el-table-column> -->
       </el-table>
-    </el-card> -->
-    <el-pagination
+
+      <el-pagination
         class="pagination"
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -84,6 +74,7 @@
         :total="total"
       >
       </el-pagination>
+    </el-card>
   </div>
 </template>
 
@@ -145,9 +136,9 @@ const handleCurrentChange = currentPage => {
 * 查看按钮点击事件
 */
 const router = useRouter()
-const onShowClick = articleId => {
-console.log('articleId', articleId)
-router.push(`/article/${articleId}`)
+const onShowClick = row => {
+console.log('row', row)
+router.push(`/article/${row.articleId}`)
 }
 
 
@@ -167,52 +158,6 @@ watch(
 </script>
 
 <style lang="scss" scoped>
-
-.interview-card {
-      // max-width: 840px;
-      // height: 146px;
-      margin: 20px auto;
-      background-color: #ffffff;
-      border: 1px solid #e0e0e0;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      border-radius: 5px;
-    }
-    .interview-card:hover {
-      cursor: pointer
-    }
-
-    .interview-title {
-      font-size: 24px;
-      font-weight: bold;
-      color: #333333;
-      margin-bottom: 10px;
-    }
-
-    .interview-content {
-      font-size: 16px;
-      color: #555555;
-      line-height: 1.6;
-    }
-
-    .interview-footer {
-      margin-top: 20px;
-      border-top: 1px solid #e0e0e0;
-      padding-top: 10px;
-      color: #888888;
-    }
-
-    .interview-create-time {
-      font-size: 14px;
-    }
-
-// .interview-card {
-//   width: 840px;
-//   height: 146px;
-//   background-color: yellow;
-//   margin: 0 auto;
-//   border-radius: 5px;
-// }
 .articles {
   margin-bottom: 15px;
 }
