@@ -51,7 +51,7 @@ export default {
           this.$router.push("/recruit/index")
           break
         case "interview":
-          this.$router.push("/article-interview/1")
+          this.$router.push("/article-interview")
           break
         case "coursePage":
           // 课程列表

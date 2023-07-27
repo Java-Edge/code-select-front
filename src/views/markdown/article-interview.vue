@@ -1,78 +1,15 @@
 <template>
   <div class="article-ranking-container">
 
-    <div class='interview-card' v-for="interview in tableData" :key="interview.id" @click="onShowClick(interview.articleId)" > 
+    <div class='interview-card' v-for="interview in tableData" :key="interview.id" @click="onShowClick(interview.id)" > 
 
       <div class="interview-title">{{ interview.title }}</div>
-      <div class='interview-content'>{{ interview.content.length > 30 ? interview.content.substr(0, 30).replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') + "..." : interview.content.replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') }}</div>
+      <div class='interview-content'>{{ interview.content.length > 300 ? interview.content.substr(0, 30).replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') + "..." : interview.content.replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') }}</div>
       <div class='interview-footer'>
-        <div class='interview-create-time'>{{ interview.createTime }}</div>
+        <div class='interview-create-time'>{{ interview.createAt }}</div>
       </div>
     </div>
-
-    <!-- <el-card class="articles">
-      <el-table ref="tableRef" :data="tableData" border>
-        <el-table-column
-          label="排名"
-          prop="ranking"
-        ></el-table-column>
-        <el-table-column
-        label="标题"
-        prop="title"
-        >
-        <template #default="{row}"  >
-          <div class="table-row" @click="onShowClick(row)">
-            <span>{{ row.title }}</span>
-          </div>
-          <el-button type="danger" size="mini" @click="onRemoveClick(row)">
-            删除
-          </el-button>
-          </template>
-      </el-table-column>
-        <el-table-column
-          label="作者"
-          prop="author"
-        ></el-table-column>
-        <el-table-column
-          label="创建时间"
-          prop="createTime"
-        >
-        <template #default="{row}"  >
-          <div class="table-row" @click="onShowClick(row)">
-            <span>{{ row.createTime }}</span>
-          </div>
-          <el-button type="danger" size="mini" @click="onRemoveClick(row)">
-            删除
-          </el-button>
-          </template>
-        </el-table-column>
-        
-        <el-table-column
-          label="内容"
-          prop="createTime"
-        >
-        <template #default="{row}"  >
-          <div class="table-row" @click="onShowClick(row)">
-            <span>{{  row.content.length > 20 ? row.content.substr(0, 20) + "..." : row.content}}</span>
-          </div>
-          <el-button type="danger" size="mini" @click="onRemoveClick(row)">
-            删除
-          </el-button>
-          </template>
-        </el-table-column>
-
-        <el-table-column label="操作">
-          <template #default="{row}">
-            <el-button type="primary" size="mini" @click="onShowClick(row)">
-            查看
-          </el-button>
-          <el-button type="danger" size="mini" @click="onRemoveClick(row)">
-            删除
-          </el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-    </el-card> -->
+    
     <el-pagination
         class="pagination"
         @size-change="handleSizeChange"
@@ -83,7 +20,7 @@
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
       >
-      </el-pagination>
+    </el-pagination>
   </div>
 </template>
 
@@ -104,23 +41,46 @@ const route = useRoute()
 const type = route.params.type
 console.log(type)
 // 获取数据的方法
-const getListData = async () => {
-let path = `/article/getByPage?current=${page.value}&size=${size.value}`;
-if(type) {
-  path += `&type=${type}`
-}
-axios.get(path).then(res=>{
-  console.log(res)
-  tableData.value = res.data.result.records
-  total.value = res.data.result.total
-  console.log('tableData', tableData.value)
-})
-// const result = await getArticleList({
-//   current: page.value,
-//   size: size.value
+// const getListData = async () => {
+// let path = `/article/getByPage?current=${page.value}&size=${size.value}`;
+// if(type) {
+//   path += `&type=${type}`
+// }
+// axios.get(path).then(res=>{
+//   console.log(res)
+//   tableData.value = res.data.result.records
+//   total.value = res.data.result.total
+//   console.log('tableData', tableData.value)
 // })
-// tableData.value = result.list
-// total.value = result.total
+// // const result = await getArticleList({
+// //   current: page.value,
+// //   size: size.value
+// // })
+// // tableData.value = result.list
+// // total.value = result.total
+// }
+
+const getListData = async () => {
+
+    let params = {
+      pageNo: page.value,
+      pageSize: size.value
+    }
+    axios.post('/interview-experience/selectByCondition',params
+            // ,
+            //     {
+            //         headers: {
+            //             "Authorization": this.$store.getters.getToken
+            //         }
+            //     }
+          ).then(response => {
+            tableData.value = response.data.result.records;
+            total.value = response.data.result.total;
+            // this.$message({
+            //     type: 'success',
+            //     message: response.data.message
+            // });
+          })
 }
 getListData()
 // 处理数据不重新加载的问题
@@ -147,7 +107,7 @@ const handleCurrentChange = currentPage => {
 const router = useRouter()
 const onShowClick = articleId => {
 console.log('articleId', articleId)
-router.push(`/article/${articleId}`)
+router.push(`/intervieArticleDetail/${articleId}`)
 }
 
 
@@ -158,9 +118,9 @@ watch(
     () => router.currentRoute.value,
     () => {
          console.log("路由变化了", router.currentRoute.value)
-         let type = route.params.type    
-         console.log(type)
-         getListData()
+        //  let type = route.params.type    
+        //  console.log(type)
+        //  getListData()
     }
 );
 

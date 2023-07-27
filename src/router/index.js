@@ -4,7 +4,7 @@
  * @Author: 不败顽童
  * @Date: 2023-07-16 17:51:44
  * @LastEditors: 不败顽童
- * @LastEditTime: 2023-07-16 18:19:22
+ * @LastEditTime: 2023-07-27 23:22:06
  */
 // router.js
 import { createRouter, createWebHashHistory } from 'vue-router';
@@ -17,7 +17,7 @@ import articleList from '../views/markdown/article-list'
 import recruit from '../views/recruit/recruit'
 import recruitDetail from '../views/recruit/recruit-detail'
 import articleInterview from '../views/markdown/article-interview'
-
+import interviewArticleDetail from '../views/markdown/interview-article-detail'
 import coursePage from "../views/coursePage";
 
 const routes = [
@@ -48,7 +48,7 @@ const routes = [
     component: articleList
   },
   {
-    path: '/article-interview/:type',
+    path: '/article-interview',
     name: 'articleInterview',
     component: articleInterview
   },
@@ -56,6 +56,11 @@ const routes = [
     path: '/article/:id',
     name: 'articleDetail',
     component: articleDetail
+  },
+  {
+    path: '/intervieArticleDetail/:id',
+    name: 'intervieArticleDetail',
+    component: interviewArticleDetail
   },
   {
     path: '/recruit/index',
