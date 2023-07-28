@@ -1,8 +1,6 @@
 <template>
   <div class="article-ranking-container">
-
     <div class='interview-card' v-for="interview in tableData" :key="interview.id" @click="onShowClick(interview.id)" > 
-
       <div class="interview-title">{{ interview.title }}</div>
       <div class='interview-content'>{{ interview.content.length > 300 ? interview.content.substr(0, 30).replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') + "..." : interview.content.replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') }}</div>
       <div class='interview-type'>
