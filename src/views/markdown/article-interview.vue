@@ -5,8 +5,9 @@
 
       <div class="interview-title">{{ interview.title }}</div>
       <div class='interview-content'>{{ interview.content.length > 300 ? interview.content.substr(0, 30).replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') + "..." : interview.content.replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') }}</div>
-      <div class='interview-footer'>
+      <div class='interview-type'>
         <div class='interview-create-time'>{{ interview.createAt }}</div>
+        <div class="career-type">分类：{{ interview.careerName }}</div>
       </div>
     </div>
     
@@ -155,15 +156,25 @@ watch(
       line-height: 1.6;
     }
 
-    .interview-footer {
+    .interview-type {
       margin-top: 20px;
       border-top: 1px solid #e0e0e0;
       padding-top: 10px;
       color: #888888;
+      display: flex;
+    }
+    .interview-type:hover {
+      color: #0a1846;
+      cursor: auto
     }
 
     .interview-create-time {
       font-size: 14px;
+    }
+    .career-type {
+      font-size: 14px;
+      margin-left: 12px;
+      border: 2px ;
     }
 
 // .interview-card {

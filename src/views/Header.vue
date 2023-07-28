@@ -18,10 +18,10 @@
       </nav>
     </div>
   </header>
-  <div class="nav">
+  <!-- <div class="nav">
     <div @click="handleMenuSelect('article')">文章列表</div>
     <div @click="handleMenuSelect('coursePage')">课程</div>
-  </div>
+  </div> -->
 </template>
 
 <script>
