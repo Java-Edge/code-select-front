@@ -11,6 +11,7 @@
           <li @click="handleMenuSelect('article')" :class="{ active: activeMenu === 'article' }">动态</li>
           <li @click="handleMenuSelect('recruit')" :class="{ active: activeMenu === 'recruit' }">招聘</li>
           <li @click="handleMenuSelect('interview')" :class="{ active: activeMenu === 'interview' }">面经</li>
+          <li @click="handleMenuSelect('pilotPage')" :class="{ active: activeMenu === 'pilotPage' }">导航</li>
            <!-- <li @click="handleMenuSelect('course')" :class="{ active: activeMenu === 'course' }">课程</li>
           <li @click="handleMenuSelect('vip')" :class="{ active: activeMenu === 'vip' }">VIP</li>  -->
           <!-- 其他信息 -->
@@ -25,6 +26,8 @@
 </template>
 
 <script>
+import pilotPage from "@/views/category/pilot.vue";
+
 export default {
   name: 'Header',
   data() {
@@ -56,6 +59,10 @@ export default {
         case "coursePage":
           // 课程列表
           this.$router.push("/coursePage");
+          break
+        case "pilotPage":
+          // 课程列表
+          this.$router.push("/pilot");
           break
         default:
           //这里是没有找到对应的值处理
