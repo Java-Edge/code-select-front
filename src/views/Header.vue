@@ -18,10 +18,10 @@
       </nav>
     </div>
   </header>
-  <div class="nav">
+  <!-- <div class="nav">
     <div @click="handleMenuSelect('article')">文章列表</div>
     <div @click="handleMenuSelect('coursePage')">课程</div>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -51,7 +51,7 @@ export default {
           this.$router.push("/recruit/index")
           break
         case "interview":
-          this.$router.push("/article-interview/1")
+          this.$router.push("/article-interview")
           break
         case "coursePage":
           // 课程列表
