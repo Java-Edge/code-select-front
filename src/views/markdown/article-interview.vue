@@ -1,5 +1,15 @@
 <template>
   <div class="article-ranking-container">
+    <div class="filter-box">
+        <el-cascader
+        v-model="value"
+        :options="options"
+        @change="handleChange"
+        collapse-tags-tooltip="true"
+        :props="props"
+        expandTrigger="hover"
+      />
+    </div>
     <div class='interview-card' v-for="interview in tableData" :key="interview.id" @click="onShowClick(interview.id)" > 
       <div class="interview-title">{{ interview.title }}</div>
       <div class='interview-content'>{{ interview.content.length > 300 ? interview.content.substr(0, 30).replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') + "..." : interview.content.replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') }}</div>
@@ -29,6 +39,109 @@ import { useRouter, useRoute } from 'vue-router'
 import axios from 'axios'
 import Header from '../Header.vue'; // Import the Header component
 import Footer from '../Footer.vue'; // Import the Footer component
+
+// 级联选择框
+const props = {
+  expandTrigger: 'hover'
+}
+const handleChange = (value) => {
+  let jobId = value[value.length - 1]
+  let condition = {
+    pageNo: page.value,
+    pageSize: size.value,
+    param: {
+      jobId: jobId
+    }
+  }
+  getListDataByCondition(condition)
+  console.log(value)
+  console.log(jobId)
+}
+
+// 获取级联筛选框数据
+const options = ref([])
+axios.get("career/getData").then(res => {
+  // console.log('res', res.data.result)
+  options.value = res.data.result
+})
+
+const getListDataByCondition = async (condition) => {
+  axios.post('/interview-experience/selectByCondition',condition
+            // ,
+            //     {
+            //         headers: {
+            //             "Authorization": this.$store.getters.getToken
+            //         }
+            //     }
+          ).then(response => {
+            tableData.value = response.data.result.records;
+            total.value = response.data.result.total;
+            // this.$message({
+            //     type: 'success',
+            //     message: response.data.message
+            // });
+          })
+}
+
+// const options = [
+//   {
+//     value: 'guide',
+//     label: 'Guide',
+//     children: [
+//       {
+//         value: 'disciplines',
+//         label: 'Disciplines',
+//         children: [
+//           {
+//             value: 'consistency',
+//             label: 'Consistency',
+//           },
+//           {
+//             value: 'feedback',
+//             label: 'Feedback',
+//           },
+//           {
+//             value: 'efficiency',
+//             label: 'Efficiency',
+//           },
+//           {
+//             value: 'controllability',
+//             label: 'Controllability',
+//           },
+//         ],
+//       },
+//     ],
+//   },
+//   {
+//     value: 'python',
+//     label: 'python',
+//     children: [
+//     {
+//         value: 'disciplines',
+//         label: 'Disciplines',
+//         children: [
+//           {
+//             value: 'consistency',
+//             label: 'Consistency',
+//           },
+//           {
+//             value: 'feedback',
+//             label: 'Feedback',
+//           },
+//           {
+//             value: 'efficiency',
+//             label: 'Efficiency',
+//           },
+//           {
+//             value: 'controllability',
+//             label: 'Controllability',
+//           },
+//         ],
+//       },
+//     ]
+//   }
+// ]
+
 
 // 数据相关
 const tableData = ref([])
@@ -126,7 +239,9 @@ watch(
 </script>
 
 <style lang="scss" scoped>
-
+.filter-box {
+  margin-top: 20px;
+}
 .interview-card {
       // max-width: 840px;
       // height: 146px;
