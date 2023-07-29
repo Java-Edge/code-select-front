@@ -41,7 +41,6 @@ import Header from '../Header.vue'; // Import the Header component
 import Footer from '../Footer.vue'; // Import the Footer component
 
 // 级联选择框
-const optionsValue = ref([])
 const props = {
   expandTrigger: 'hover'
 }
