@@ -19,6 +19,7 @@ import recruitDetail from '../views/recruit/recruit-detail'
 import articleInterview from '../views/markdown/article-interview'
 import interviewArticleDetail from '../views/markdown/interview-article-detail'
 import coursePage from "../views/coursePage";
+import pilotPage from "../views/category/pilot";
 
 const routes = [
   {
@@ -76,6 +77,12 @@ const routes = [
     path: '/CoursePage',
     name: 'CoursePage',
     component: coursePage
+  }
+  ,
+  {
+    path: '/pilot',
+    name: 'pilotPage',
+    component: pilotPage
   }
 ];
 
