@@ -42,7 +42,7 @@ import Footer from '../Footer.vue'; // Import the Footer component
 
 // 级联选择框
 const props = {
-  expandTrigger: 'hover'
+  expandTrigger: 'hover' 
 }
 const handleChange = (value) => {
   let jobId = value[value.length - 1]
@@ -54,8 +54,6 @@ const handleChange = (value) => {
     }
   }
   getListDataByCondition(condition)
-  console.log(value)
-  console.log(jobId)
 }
 
 // 获取级联筛选框数据

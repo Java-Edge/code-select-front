@@ -19,7 +19,7 @@ import { ref } from "vue";
 import axios from 'axios';
 import { useRoute, useRouter } from 'vue-router'
 import "@toast-ui/editor/dist/toastui-editor.css";
-
+import { toastui } from "@toast-ui/editor";
 // 获取数据
 const route = useRoute()
 const articleId = route.params.id

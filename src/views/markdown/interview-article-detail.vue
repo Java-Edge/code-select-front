@@ -48,6 +48,8 @@ const onEditClick = row => {
 <style lang="scss" scoped>
 .article-detail-container {
 
+  line-height: 36px;
+
 
   .title {
     font-size: 22px;
@@ -80,7 +82,7 @@ const onEditClick = row => {
   }
 
   .content {
-    font-size: 14px;
+    font-size: 18px;
     // padding: 20px 200px;
     // border-top: 1px solid #d4d4d4;
     display: block;
