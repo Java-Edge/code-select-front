@@ -105,13 +105,12 @@
   }
   
   /* Add the following CSS styles */
-  .swiper-pagination {
+.swiper-pagination {
     display: flex;
     justify-content: center;
     margin-top: 10px;
     /* Add some margin between carousel and pagination */
   }
-  
   .swiper-pagination-bullet {
     width: 10px;
     height: 10px;
@@ -127,7 +126,7 @@
   
   .swiper-container {
     width: 100%;
-    height: 300px;
+    height: 450px;
     margin-bottom: 20px;
     position: relative;
     /* 添加以下样式以实现水平排列 */
@@ -136,7 +135,7 @@
   
   .swiper-slide img {
     width: 100%;
-    height: 100%;
+    height: 95%;
   }
   </style>
   

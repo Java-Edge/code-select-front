@@ -33,56 +33,35 @@ export default {
           name: "哔哩哔哩"
         },
         {
-          link: "https://www.bilibili.com/",
-          img: "https://www.bilibili.com/favicon.ico",
-          name: "哔哩哔哩"
+          link: "https://www.csdn.net/",
+          img: "https://www.csdn.net/favicon.ico",
+          name: "CSDN"
         },
         {
-          link: "https://www.bilibili.com/",
-          img: "https://www.bilibili.com/favicon.ico",
-          name: "哔哩哔哩"
+          link: "https://element.eleme.cn/#/zh-CN",
+          img: "https://element.eleme.cn/favicon.ico",
+          name: "element-ui"
         },
         {
-          link: "https://www.bilibili.com/",
-          img: "https://www.bilibili.com/favicon.ico",
-          name: "哔哩哔哩"
+          link: "https://www.zhihu.com/",
+          img: "https://www.zhihu.com/favicon.ico",
+          name: "知乎"
         },
         {
-          link: "https://www.bilibili.com/",
-          img: "https://www.bilibili.com/favicon.ico",
-          name: "哔哩哔哩"
+          link: "https://www.jianshu.com/",
+          img: "https://www.jianshu.com/favicon.ico",
+          name: "简书"
         },
         {
-          link: "https://www.bilibili.com/",
-          img: "https://www.bilibili.com/favicon.ico",
-          name: "哔哩哔哩"
+          link: "https://mp.weixin.qq.com/",
+          img: "https://mp.weixin.qq.com/favicon.ico",
+          name: "微信公众平台"
         },
         {
-          link: "https://www.bilibili.com/",
-          img: "https://www.bilibili.com/favicon.ico",
-          name: "哔哩哔哩"
+          link: "https://open.weixin.qq.com/",
+          img: "https://open.weixin.qq.com/favicon.ico",
+          name: "微信开放平台"
         },
-        {
-          link: "https://www.bilibili.com/",
-          img: "https://www.bilibili.com/favicon.ico",
-          name: "哔哩哔哩"
-        },
-        {
-          link: "https://www.bilibili.com/",
-          img: "https://www.bilibili.com/favicon.ico",
-          name: "哔哩哔哩"
-        },
-        {
-          link: "https://www.bilibili.com/",
-          img: "https://www.bilibili.com/favicon.ico",
-          name: "哔哩哔哩"
-        },
-        {
-          link: "https://www.bilibili.com/",
-          img: "https://www.bilibili.com/favicon.ico",
-          name: "哔哩哔哩"
-        },
-
       ],
     }
   },
@@ -93,6 +72,7 @@ export default {
 
 <style>
 .category-com {
+  margin-top: 30px;
   display: flex;
   justify-content: center;
 }

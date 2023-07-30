@@ -7,10 +7,10 @@
       <!-- 轮播图 -->
       <RightSidebar :carouselData="carouselData" />
     </div>
-    <div class="background-image">
-      <img alt="" style="width: 1600px;height: 250px" :src="img" />
+    <div class="image-background">
+      <img alt="" style="width: 1600px;height: 70px" :src="img" />
     </div>
-    <div style="font-size: 30px; text-align: center; margin-top: 30px;">-- 课程列表 --</div>
+    <div style="font-size: 25px; text-align: center; margin-top: 15px;">-- 课程列表 --</div>
     <!-- 课程详情区域 -->
     <CourseList :courses="courses" />
   </div>
@@ -180,13 +180,11 @@ export default {
 </script>
 
 <style>
-.index {
-  background-color: #E9EEF3;
-}
   /* 添加样式 */
 .course-navigation {
   max-width: 1600px;
   margin: 0 auto;
+  background-color: #f9f3e8;
 }
 
 .menu {
@@ -276,12 +274,11 @@ export default {
   background-color: #555;
 }
   /* 背景图片样式 */
-.background-image {
+.image-background {
   width: 1600px;
-  height: 250px;
-  margin-top: 50px;
+  height: 90px;
+  margin-top: 5px;
 }
-
 
 .swiper-container {
   width: 100%;

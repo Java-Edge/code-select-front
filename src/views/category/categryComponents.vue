@@ -6,7 +6,7 @@
         <div class="item-class">
           <a :href="item.link" style="text-decoration:none;">
             <img :src="item.img"/>
-            <span style="margin-top: -10px">{{ item.name }}</span>
+            <span>{{ item.name }}</span>
           </a>
         </div>
       </div>
@@ -34,13 +34,12 @@ export default {
   background: #f0f0f0;
 }
 .head-line {
-  margin: 20px 20px;
+  margin: 15px 20px;
 }
 .item-list {
   display: flex;
   flex-flow: wrap;
   margin-bottom: 20px;
-  margin-left: 40px;
 }
 .item-class {
   width: 150px;
