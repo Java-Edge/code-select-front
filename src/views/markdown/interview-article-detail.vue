@@ -49,10 +49,11 @@ const onEditClick = row => {
 .article-detail-container {
 
   line-height: 36px;
+  padding: 16px;
 
 
   .title {
-    font-size: 22px;
+    font-size: 29px;
     text-align: center;
     padding: 12px 0;
   }

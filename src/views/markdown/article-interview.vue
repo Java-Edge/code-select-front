@@ -1,6 +1,7 @@
 <template>
   <div class="article-ranking-container">
     <div class="filter-box">
+      <div class="filter-box1">
         <el-cascader
         v-model="value"
         :options="options"
@@ -9,6 +10,13 @@
         :props="props"
         expandTrigger="hover"
       />
+    </div>
+    <div class="filter-box2">
+      <div class="filter-item" @click="handleFilterSelect('一面')" :class="{ active: activeMenu === '一面' }">一面</div>
+      <div class="filter-item" @click="handleFilterSelect('二面')" :class="{ active: activeMenu === '二面' }">二面</div>
+      <div class="filter-item" @click="handleFilterSelect('三面')" :class="{ active: activeMenu === '三面' }">三面</div>
+      <div class="filter-item" @click="handleFilterSelect('hr面')" :class="{ active: activeMenu === 'hr面' }">hr面</div>
+    </div>
     </div>
     <div class='interview-card' v-for="interview in tableData" :key="interview.id" @click="onShowClick(interview.id)" > 
       <div class="interview-title">{{ interview.title }}</div>
@@ -40,17 +48,53 @@ import axios from 'axios'
 import Header from '../Header.vue'; // Import the Header component
 import Footer from '../Footer.vue'; // Import the Footer component
 
+let activeMenu = ref("")
+let jobId = ref(-1)
+// 一面、二面单选框
+const handleFilterSelect = selectedItem => {
+
+  // 选中，根据选择类容进行擦汗寻
+  if (activeMenu.value != selectedItem) {
+    activeMenu.value = selectedItem
+    jobId.value = value[value.length - 1]
+    let condition = {
+      pageNo: page.value,
+      pageSize: size.value,
+      param: {
+        jobId: jobId.value, 
+        content: selectedItem
+      }
+    }
+    getListDataByCondition(condition)
+  } else {
+    // 取消选中则查询全部
+    activeMenu.value = ""
+    jobId.value = value[value.length - 1]
+    let condition = {
+      pageNo: page.value,
+      pageSize: size.value,
+      param: {
+        jobId: jobId.value, 
+      }
+    }
+    getListDataByCondition(condition)
+  }
+
+}
+
 // 级联选择框
 const props = {
   expandTrigger: 'hover' 
 }
+let value = [-1]
 const handleChange = (value) => {
-  let jobId = value[value.length - 1]
+  jobId.value = value[value.length - 1]
   let condition = {
     pageNo: page.value,
     pageSize: size.value,
     param: {
-      jobId: jobId
+      jobId: jobId.value,
+      content: activeMenu.value != ""? activeMenu.value : ""
     }
   }
   getListDataByCondition(condition)
@@ -238,6 +282,49 @@ watch(
 
 <style lang="scss" scoped>
 .filter-box {
+  display: flex;
+}
+// .filter-item {
+//   width: 50px;
+//   height: 25px;
+//   background-color: pink;
+//   border: 2px solid black;
+//   margin-right: 5px;
+//   text-align: center;
+// }
+// .filter-item:hover {
+//   cursor: pointer
+// }
+/* 初始状态下的样式 */
+.active {
+  background-color: black !important;
+  color: white;
+}
+.filter-item {
+  background-color: white;
+  width: 60px;
+  height: 33px;
+  line-height: 33px;
+  text-align: center;
+  margin-left: 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 2px;
+}
+
+/* 选中状态下的样式 */
+.filter-item.selected {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.filter-box2 {
+  display: flex;
+  margin-top: 25px;
+  margin-left: 20px;
+}
+.filter-box1 {
   margin-top: 20px;
 }
 .interview-card {
