@@ -10,14 +10,34 @@
         :props="props"
         expandTrigger="hover"
       />
+      </div>
+      <div class="filter-box2">
+        <div class="filter-item" @click="handleFilterSelect('一面')" :class="{ active: activeMenu === '一面' }">一面</div>
+        <div class="filter-item" @click="handleFilterSelect('二面')" :class="{ active: activeMenu === '二面' }">二面</div>
+        <div class="filter-item" @click="handleFilterSelect('三面')" :class="{ active: activeMenu === '三面' }">三面</div>
+        <div class="filter-item" @click="handleFilterSelect('hr面')" :class="{ active: activeMenu === 'hr面' }">hr面</div>
+      </div>
+      <div class="company-filter-box">
+        <el-select
+          v-model="companyCondition"
+          multiple
+          filterable
+          placeholder="选择公司"
+          style="width: 240px"
+          collapse-tags
+          clearable
+          @change="handleChangeCompany"
+        >
+          <el-option
+            v-for="item in companyOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </div>
     </div>
-    <div class="filter-box2">
-      <div class="filter-item" @click="handleFilterSelect('一面')" :class="{ active: activeMenu === '一面' }">一面</div>
-      <div class="filter-item" @click="handleFilterSelect('二面')" :class="{ active: activeMenu === '二面' }">二面</div>
-      <div class="filter-item" @click="handleFilterSelect('三面')" :class="{ active: activeMenu === '三面' }">三面</div>
-      <div class="filter-item" @click="handleFilterSelect('hr面')" :class="{ active: activeMenu === 'hr面' }">hr面</div>
-    </div>
-    </div>
+
     <div class='interview-card' v-for="interview in tableData" :key="interview.id" @click="onShowClick(interview.id)" > 
       <div class="interview-title">{{ interview.title }}</div>
       <div class='interview-content'>{{ interview.content.length > 300 ? interview.content.substr(0, 30).replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') + "..." : interview.content.replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') }}</div>
@@ -26,6 +46,7 @@
         <div class="career-type">分类：{{ interview.careerName }}</div>
       </div>
     </div>
+
     
     <el-pagination
         class="pagination"
@@ -48,11 +69,32 @@ import axios from 'axios'
 import Header from '../Header.vue'; // Import the Header component
 import Footer from '../Footer.vue'; // Import the Footer component
 
+
+const companyOptions = ref([])
+companyOptions.value = [{value: '阿里巴巴', label: '阿里巴巴'}, {value: '腾讯', label: '腾讯'}, {value: '字节跳动', label: '字节跳动'}]
+const remoteMethod = ()=>{}
+let companyCondition = ref("")
 let activeMenu = ref("")
 let jobId = ref(-1)
+
+// 公司筛选框
+const handleChangeCompany = () => {
+  console.log(companyCondition.value)
+  let condition = {
+      pageNo: page.value,
+      pageSize: size.value,
+      param: {
+        jobId: jobId.value, 
+        content: activeMenu.value,
+        company: companyCondition.value
+      }
+    }
+    getListDataByCondition(condition)
+}
+
 // 一面、二面单选框
 const handleFilterSelect = selectedItem => {
-
+  console.log(jobId.value)
   // 选中，根据选择类容进行擦汗寻
   if (activeMenu.value != selectedItem) {
     activeMenu.value = selectedItem
@@ -62,7 +104,8 @@ const handleFilterSelect = selectedItem => {
       pageSize: size.value,
       param: {
         jobId: jobId.value, 
-        content: selectedItem
+        content: activeMenu.value,
+        company: companyCondition.value
       }
     }
     getListDataByCondition(condition)
@@ -75,6 +118,7 @@ const handleFilterSelect = selectedItem => {
       pageSize: size.value,
       param: {
         jobId: jobId.value, 
+        company: companyCondition.value
       }
     }
     getListDataByCondition(condition)
@@ -94,7 +138,8 @@ const handleChange = (value) => {
     pageSize: size.value,
     param: {
       jobId: jobId.value,
-      content: activeMenu.value != ""? activeMenu.value : ""
+      content: activeMenu.value != ""? activeMenu.value : "", 
+      company: companyCondition.value
     }
   }
   getListDataByCondition(condition)
@@ -116,6 +161,7 @@ const getListDataByCondition = async (condition) => {
             //         }
             //     }
           ).then(response => {
+            console.log(response)
             tableData.value = response.data.result.records;
             total.value = response.data.result.total;
             // this.$message({
@@ -296,6 +342,10 @@ watch(
 //   cursor: pointer
 // }
 /* 初始状态下的样式 */
+.company-filter-box {
+  margin-top: 22px;
+  margin-left: 22px;
+}
 .active {
   background-color: black !important;
   color: white;
@@ -311,6 +361,8 @@ watch(
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-bottom: 2px;
+  font-size: 15px;
+  color: #606266;
 }
 
 /* 选中状态下的样式 */
