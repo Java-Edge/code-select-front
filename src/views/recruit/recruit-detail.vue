@@ -1,11 +1,13 @@
 <template>
   <div class="course-details-page">
+    <div class="recruit-title">
+      <div class="recruit-name">{{ selectedRecruit.title }}</div>
+    </div>
     <div class="course-details-content">
       <!-- <div class="left">
         <img :src="selectedRecruit.image" :alt="selectedRecruit.name" />
       </div> -->
       <div class="right">
-        <div class="name">{{ selectedRecruit.title }}</div>
         <!-- <div class="price">价格：{{ selectedCourse.price }} ￥</div> -->
         <div class="description">
           <span class="descrip">简介</span>：{{ selectedRecruit.des }}
@@ -125,6 +127,17 @@ export default {
 
 <style scoped>
 /* Add styles for the course details page if needed */
+.recruit-title {
+  height: 150px;
+  background-color: #38566c;
+}
+.recruit-name {
+  font-size: 35px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 600;
+  color: #222;
+  margin-left: 240px;
+}
 .course-details-content {
   display: flex;
   align-items: center;
@@ -132,6 +145,7 @@ export default {
   padding: 20px;
   background-color: #f9f9f9;
   border-radius: 10px;
+  margin-left: 220px;
 }
 
 .course-details-content img {
@@ -157,8 +171,7 @@ export default {
 
 .right {
   /* max-width: 600px; */
-  max-width: 50%; /* Adjust the max-width as needed */
-  margin-left: 40px;
+  max-width: 65%; /* Adjust the max-width as needed */
   flex: 1;
 }
 
@@ -197,13 +210,6 @@ p {
 }
 
 
-.name {
-  font-size: 35px;
-  font-family: PingFangSC-Medium, PingFang SC;
-  font-weight: 600;
-  color: #222;
-  margin-bottom: 15px;
-}
 
 .study-button {
   margin-top: 20px;
