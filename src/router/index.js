@@ -20,6 +20,7 @@ import articleInterview from '../views/markdown/article-interview'
 import interviewArticleDetail from '../views/markdown/interview-article-detail'
 import coursePage from "../views/coursePage";
 import pilotPage from "../views/category/pilot";
+import specialColumn from "../views/special-column"
 
 const routes = [
   {
@@ -87,6 +88,11 @@ const routes = [
     path: '/pilot',
     name: 'pilotPage',
     component: pilotPage
+  },
+  {
+    path: '/special',
+    name: 'special-column',
+    component: specialColumn
   }
 ];
 
