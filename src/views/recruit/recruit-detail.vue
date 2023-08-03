@@ -130,6 +130,7 @@ export default {
 .recruit-title {
   height: 150px;
   background-color: #38566c;
+  overflow:hidden;
 }
 .recruit-name {
   font-size: 35px;
@@ -137,6 +138,7 @@ export default {
   font-weight: 600;
   color: #222;
   margin-left: 240px;
+  margin-top: 20px;
 }
 .course-details-content {
   display: flex;
@@ -224,9 +226,9 @@ p {
 .description {
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 100;
-  font-size: 20px;
+  font-size: 16px;
   margin-top: 20px;
-  line-height: 1.6;
+  line-height: 2;
 }
 
 .description:hover {
