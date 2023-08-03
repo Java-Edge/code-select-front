@@ -72,7 +72,6 @@ import Footer from '../Footer.vue'; // Import the Footer component
 
 const companyOptions = ref([])
 companyOptions.value = [{value: '阿里巴巴', label: '阿里巴巴'}, {value: '腾讯', label: '腾讯'}, {value: '字节跳动', label: '字节跳动'}]
-const remoteMethod = ()=>{}
 let companyCondition = ref("")
 let activeMenu = ref("")
 let jobId = ref(-1)

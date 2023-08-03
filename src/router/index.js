@@ -23,6 +23,10 @@ import pilotPage from "../views/category/pilot";
 
 const routes = [
   {
+    path: '/',
+    redirect: '/index'
+  },
+  {
     path: '/index',
     name: 'index',
     component: index,
