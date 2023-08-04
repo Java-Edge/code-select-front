@@ -95,7 +95,7 @@ export default {
       window.open(selectedCourse.sourceUrl);
     },
     getRecommendCourses() {
-      this.$axios.get('/sourceCourse/getRecommendCourses/'
+      this.$axios.get('/sourceCourse/getRecommendCourses'
         // ,
         //     {
         //         headers: {
