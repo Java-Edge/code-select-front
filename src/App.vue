@@ -1,7 +1,7 @@
 <template>
     <div id="app" class="course-navigation">
         <Header/>
-        <router-view/>
+        <router-view class="body"/>
         <Footer/>
     </div>
 </template>
@@ -29,6 +29,9 @@
         width: 100%;
         height: 100%;
     }
+  .body {
+    min-height: 800px;
+  }
   .course-navigation {
     max-width: 1600px;
     margin: 0 auto;

@@ -1,15 +1,17 @@
 <template>
     <div class="body">
-        <a v-for="item in specialItems" :key="item.id" :href="item.sourceUrl" target="_blank" class="special-box">
-            <div class="box-head">
-                <img :src="item.image"
-                class="head-img" />
-            </div>
-            <div class="box-bottom">
-                <div class="bottom-left">{{ item.name }}</div>
-                <div class="bottom-right">所有人可见</div>
-            </div>
-        </a>
+        <div class="box-body">
+            <a v-for="item in specialItems" :key="item.id" :href="item.sourceUrl" target="_blank" class="special-box">
+                <div class="box-head">
+                    <img :src="item.image"
+                    class="head-img" />
+                </div>
+                <div class="box-bottom">
+                    <div class="bottom-left">{{ item.name }}</div>
+                    <div class="bottom-right">所有人可见</div>
+                </div>
+            </a>
+        </div>
     </div>
 </template>
 <script setup>
@@ -29,7 +31,8 @@ getSpecialColumn();
 </script>
 
 <style lang="scss" scoped>
-.body {
+
+.box-body {
     width: 80%;
     margin: 0 auto;
     padding: 20px;
@@ -51,7 +54,7 @@ getSpecialColumn();
     justify-content: space-around;
     flex-direction: column;
     margin-left: 10px;
-    margin-top: 20px;
+    margin-top: 25px;
     text-decoration: none;
     color: #666666;
 }
