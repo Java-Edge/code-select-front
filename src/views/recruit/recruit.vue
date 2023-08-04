@@ -4,6 +4,7 @@
       <div style="font-size: 30px; text-align: center; margin-top: 30px;">-- 招聘列表 --</div>
       <!-- 课程详情区域 -->
       <RecruitList :recruits="recruits" />
+<!--      <RecruitItem :recruit="recruitItem"></RecruitItem>-->
     </div>
   </template>
   
@@ -18,12 +19,14 @@
   import Footer from '../Footer.vue'; // Import the Footer component
   import RecruitList from './recruit-list.vue'; // Import the CourseList component
   import LeftSidebar from '../LeftSidebar.vue'; // Import the LeftSidebar component
-  import RightSidebar from '../RightSidebar.vue'; // Import the RightSidebar component
+  import RightSidebar from '../RightSidebar.vue';
+  import RecruitItem from "@/views/recruit/recruit-item.vue"; // Import the RightSidebar component
   
   
   export default {
     name: "RecruitNavigation",
     components: {
+      RecruitItem,
       Header, // Register the Header component
       Footer, // Register the Footer component
       RecruitList, // Register the CourseList component
@@ -60,6 +63,11 @@
           // 更多轮播图数据
         ],
         img: require("@/assets/background.jpg"),
+        // recruitItem: {
+        //   title: "Java实习",
+        //   salary: "8-10K",
+        //   companyName: "华为",
+        // },
       };
     },
     computed: {
@@ -287,7 +295,5 @@
     width: 100%;
     height: 100%;
   }
-  
-  
   </style>
   
