@@ -19,8 +19,8 @@ module.exports = {
       "/back-server": {
         // target: "http://127.0.0.1:8088/",
         // target: "http://127.0.0.1:9001/",
-        // target: "http://106.52.239.29:8088/",
-        target: "http://localhost:8088/",
+        target: "http://106.52.239.29:8088/",
+        // target: "http://localhost:8088/",
         changeOrigin: true,
         logLevel: "debug",
         pathRewrite:{
