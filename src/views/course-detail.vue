@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: 不败顽童
+ * @Date: 2023-08-04 20:00:22
+ * @LastEditors: 不败顽童
+ * @LastEditTime: 2023-08-05 20:08:44
+-->
 <template>
   <div class="course-details-page">
     <div class="course-details-content">
@@ -67,7 +75,7 @@ export default {
       this.getRecommendCourses();
     },
     getCourseDetail(id) {
-      this.$axios.get('/sourceCourse/course/' + id
+      this.$axios.get('/back/sourceCourse/course/' + id
         // ,
         //     {
         //         headers: {
@@ -95,7 +103,7 @@ export default {
       window.open(selectedCourse.sourceUrl);
     },
     getRecommendCourses() {
-      this.$axios.get('/sourceCourse/getRecommendCourses/'
+      this.$axios.get('/back/sourceCourse/getRecommendCourses'
         // ,
         //     {
         //         headers: {

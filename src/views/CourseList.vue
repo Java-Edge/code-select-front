@@ -7,7 +7,7 @@
   </template>
   
   <script>
-  import CourseBox from './CourseBox.vue';
+  import CourseBox from './CourseBox';
   
   export default {
     name: "CourseList",

@@ -4,7 +4,7 @@
  * @Author: 不败顽童
  * @Date: 2023-05-26 21:42:34
  * @LastEditors: 不败顽童
- * @LastEditTime: 2023-07-17 22:58:10
+ * @LastEditTime: 2023-08-05 20:13:39
  */
 module.exports = {
   lintOnSave: false,
@@ -16,19 +16,23 @@ module.exports = {
   parallel: false,
   devServer: {
     proxy: {
-      "/back-server": {
-        // target: "http://127.0.0.1:8088/",
-        // target: "http://127.0.0.1:9001/",
-        target: "http://106.52.239.29:8088/",
-        // target: "http://localhost:8088/",
+      "/api/back": {
+        // target: "http://106.52.239.29:8088/",
+        target: "http://localhost:8088/",
         changeOrigin: true,
         logLevel: "debug",
         pathRewrite:{
-          '^/back-server': '/'
+          '^/api/back': '/'
         }
       },
-      "/api": {
-        target: "http://s.linweiqin.com/",
+      "/api/base": {
+        // target: "http://106.52.239.29:8089/",
+        target: "http://localhost:8089/",
+        changeOrigin: true,
+        logLevel: "debug",
+        pathRewrite:{
+          '^/api/base': '/'
+        }
       },
     },
   },

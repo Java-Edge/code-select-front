@@ -96,7 +96,7 @@ const type = route.params.type
 console.log(type)
 // 获取数据的方法
 const getListData = async () => {
-  let path = `/article/getByPage?current=${page.value}&size=${size.value}`;
+  let path = `/back/article/getByPage?current=${page.value}&size=${size.value}`;
   if(type) {
     path += `&type=${type}`
   }
@@ -138,7 +138,7 @@ onActivated(getListData)
 const router = useRouter()
 const onShowClick = row => {
   console.log('row', row)
-  router.push(`/article/${row.articleId}`)
+  router.push(`/back/article/${row.articleId}`)
 }
 
 

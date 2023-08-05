@@ -25,7 +25,7 @@ const route = useRoute()
 const articleId = route.params.id
 const detail = ref({});
 const getArticleDetail = async () => {
-    axios.get(`/article/getById/${articleId}`).then(res=>{
+    axios.get(`/back/article/getById/${articleId}`).then(res=>{
         console.log(res)
         detail.value = res.data.result
     })

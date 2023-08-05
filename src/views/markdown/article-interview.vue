@@ -146,13 +146,13 @@ const handleChange = (value) => {
 
 // 获取级联筛选框数据
 const options = ref([])
-axios.get("career/getData").then(res => {
+axios.get("/back/career/getData").then(res => {
   // console.log('res', res.data.result)
   options.value = res.data.result
 })
 
 const getListDataByCondition = async (condition) => {
-  axios.post('/interview-experience/selectByCondition',condition
+  axios.post('/back/interview-experience/selectByCondition',condition
             // ,
             //     {
             //         headers: {
@@ -265,7 +265,7 @@ const getListData = async () => {
       pageNo: page.value,
       pageSize: size.value
     }
-    axios.post('/interview-experience/selectByCondition',params
+    axios.post('/back/interview-experience/selectByCondition',params
             // ,
             //     {
             //         headers: {
@@ -306,7 +306,7 @@ const handleCurrentChange = currentPage => {
 const router = useRouter()
 const onShowClick = articleId => {
 console.log('articleId', articleId)
-router.push(`/intervieArticleDetail/${articleId}`)
+router.push(`/back/intervieArticleDetail/${articleId}`)
 }
 
 

@@ -131,7 +131,7 @@ const onSubmitClick = () => {
       title: title.value,
       content: mkEditor.getHTML(),
     };
-    axios.put("/article/updateById/", article).then((response) => {
+    axios.put("/back/article/updateById/", article).then((response) => {
       console.log(response);
       router.push(`/article/${articleId}`);
     });
