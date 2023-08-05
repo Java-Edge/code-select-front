@@ -4,7 +4,7 @@
  * @Author: 不败顽童
  * @Date: 2023-08-04 20:00:22
  * @LastEditors: 不败顽童
- * @LastEditTime: 2023-08-05 20:08:44
+ * @LastEditTime: 2023-08-05 21:34:29
 -->
 <template>
   <div class="course-details-page">
@@ -103,7 +103,7 @@ export default {
       window.open(selectedCourse.sourceUrl);
     },
     getRecommendCourses() {
-      this.$axios.get('/back/sourceCourse/getRecommendCourses'
+      this.$axios.get('/sourceCourse/getRecommendCourses/'
         // ,
         //     {
         //         headers: {
