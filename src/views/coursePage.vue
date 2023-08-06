@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     getCourses() {
-      this.$axios.get('/sourceCourse/list'
+      this.$axios.get('/back/sourceCourse/list'
           // ,
           //     {
           //         headers: {

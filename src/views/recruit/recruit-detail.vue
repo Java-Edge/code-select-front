@@ -75,7 +75,7 @@ export default {
       this.getRecommendCourses();
     },
     getRecruitDetail(id) {
-      this.$axios.get('/recruit/getById/' + id
+      this.$axios.get('/back/recruit/getById/' + id
         // ,
         //     {
         //         headers: {
@@ -103,7 +103,7 @@ export default {
       window.open(selectedCourse.sourceUrl);
     },
     getRecommendCourses() {
-      this.$axios.get('/sourceCourse/getRecommendCourses'
+      this.$axios.get('/back/sourceCourse/getRecommendCourses/'
         // ,
         //     {
         //         headers: {

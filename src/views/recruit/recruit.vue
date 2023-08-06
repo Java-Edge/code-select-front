@@ -90,7 +90,7 @@
         // 可根据不同的菜单项进行相应的页面跳转或其他操作
       },
       getCourses() {
-        this.$axios.get('/recruit/list'
+        this.$axios.get('/back/recruit/list'
           // ,
           //     {
           //         headers: {
@@ -109,7 +109,7 @@
         })
       },
       getFiveCourse() {
-        this.$axios.get('/sourceCourse/getFiveCourse'
+        this.$axios.get('/back/sourceCourse/getFiveCourse'
           // ,
           //     {
           //         headers: {

@@ -21,7 +21,7 @@ import axios from 'axios';
 const specialItems = ref([])
 // specialItems.value = [{id: 1, sourceUrl: "baidu.com", name: "平台帮助中心", image: "https://kuangstudy.oss-cn-beijing.aliyuncs.com/bbs/2021/08/16/kuangstudy0ff38edc-4f3e-477a-9655-314a8f28d55b.jpg"}]
 const getSpecialColumn = async () => {
-    axios.get('/sourceCourse/listSpecialList'
+    axios.get('/back/sourceCourse/listSpecialList'
       ).then(response => {
         specialItems.value = response.data.result;
         console.log(specialItems.value)

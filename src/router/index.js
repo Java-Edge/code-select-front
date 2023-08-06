@@ -4,7 +4,7 @@
  * @Author: 不败顽童
  * @Date: 2023-07-16 17:51:44
  * @LastEditors: 不败顽童
- * @LastEditTime: 2023-07-27 23:22:06
+ * @LastEditTime: 2023-08-05 18:34:38
  */
 // router.js
 import { createRouter, createWebHashHistory } from 'vue-router';
@@ -21,7 +21,7 @@ import interviewArticleDetail from '../views/markdown/interview-article-detail'
 import coursePage from "../views/coursePage";
 import pilotPage from "../views/category/pilot";
 import specialColumn from "../views/special-column"
-import ranking from "../views/ranking"
+import login from "../views/user/login"
 
 const routes = [
   {
@@ -96,10 +96,11 @@ const routes = [
     component: specialColumn
   },
   {
-    path: '/ranking',
-    name: 'ranking',
-    component: ranking
+    path: '/login',
+    name: 'login',
+    component: login
   }
+
 ];
 
 const router = createRouter({
