@@ -103,7 +103,7 @@ export default {
       window.open(selectedCourse.sourceUrl);
     },
     getRecommendCourses() {
-      this.$axios.get('/back/sourceCourse/getRecommendCourses/'
+      this.$axios.get('/back/sourceCourse/getRecommendCourses'
         // ,
         //     {
         //         headers: {

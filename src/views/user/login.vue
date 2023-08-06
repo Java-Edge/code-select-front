@@ -6,6 +6,7 @@
             <el-form-item label="用户名：" prop="username">
                 <el-input type="username" v-model="loginForm.username" autocomplete="off"></el-input>
             </el-form-item>
+            
             <el-form-item label="密码：" prop="password">
                 <el-input type="password" v-model="loginForm.password" autocomplete="off"></el-input>
             </el-form-item>
