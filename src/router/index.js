@@ -22,6 +22,7 @@ import coursePage from "../views/coursePage";
 import pilotPage from "../views/category/pilot";
 import specialColumn from "../views/special-column"
 import login from "../views/user/login"
+import ranking from "../views/ranking"
 
 const routes = [
   {
@@ -99,8 +100,12 @@ const routes = [
     path: '/login',
     name: 'login',
     component: login
-  }
-
+  },
+  {
+    path: '/ranking',
+    name: 'ranking',
+    component: ranking
+  },
 ];
 
 const router = createRouter({
