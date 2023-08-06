@@ -21,6 +21,7 @@ import interviewArticleDetail from '../views/markdown/interview-article-detail'
 import coursePage from "../views/coursePage";
 import pilotPage from "../views/category/pilot";
 import specialColumn from "../views/special-column"
+import ranking from "../views/ranking"
 
 const routes = [
   {
@@ -93,6 +94,11 @@ const routes = [
     path: '/special',
     name: 'special-column',
     component: specialColumn
+  },
+  {
+    path: '/ranking',
+    name: 'ranking',
+    component: ranking
   }
 ];
 
