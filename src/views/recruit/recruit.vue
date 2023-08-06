@@ -40,7 +40,10 @@
       <div style="font-size: 30px; text-align: center; margin-top: 30px;">-- 招聘列表 --</div>
       <!-- 课程详情区域 -->
       <RecruitList :recruits="recruits" />
-<!--      <RecruitItem :recruit="recruitItem"></RecruitItem>-->
+
+<!--      <div class="recruit-list">-->
+<!--        <RecruitItem :recruits="recruitList"></RecruitItem>-->
+<!--      </div>-->
     </div>
   </template>
   
@@ -129,11 +132,22 @@
           },
         ],
         salaryValue: "",
-        // recruitItem: {
-        //   title: "Java实习",
-        //   salary: "8-10K",
-        //   companyName: "华为",
-        // },
+        recruitList: [
+          {
+            title: "后端开发工程师",
+            salary: "11-18k*20薪 ",
+            companyName: "交行金科",
+            positionTags: ["上海", "1-3年","本科", "java", "软件开发","后端开发"],
+            companyTags: ["金融", "未融资","500-999人"]
+          },
+          {
+            title: "后端开发工程师",
+            salary: "11-18k*20薪 ",
+            companyName: "交行金科",
+            positionTags: ["上海", "1-3年","本科", "java", "软件开发","后端开发"],
+            companyTags: ["金融", "未融资","500-999人"]
+          },
+        ],
       };
     },
     computed: {
@@ -263,6 +277,10 @@
     display: flex;
     margin-top: 25px;
     margin-left: 20px;
+  }
+  .recruit-list {
+    display: flex;
+    justify-content: center;
   }
   .filter-item {
     background-color: white;
