@@ -23,17 +23,12 @@ export default {
     return {
       list: [
         {
-          link: "https://www.baidu.com/",
-          img: "https://www.baidu.com/favicon.ico",
-          name: "百度"
-        },
-        {
           link: "https://www.bilibili.com/",
           img: "https://www.bilibili.com/favicon.ico",
           name: "哔哩哔哩"
         },
         {
-          link: "https://www.csdn.net/",
+          link: "https://blog.csdn.net/qq_33589510",
           img: "https://www.csdn.net/favicon.ico",
           name: "CSDN"
         },
@@ -43,12 +38,12 @@ export default {
           name: "element-ui"
         },
         {
-          link: "https://www.zhihu.com/",
+          link: "https://www.zhihu.com/people/11111112j",
           img: "https://www.zhihu.com/favicon.ico",
           name: "知乎"
         },
         {
-          link: "https://www.jianshu.com/",
+          link: "https://www.jianshu.com/u/32c7d1f520c2",
           img: "https://www.jianshu.com/favicon.ico",
           name: "简书"
         },
