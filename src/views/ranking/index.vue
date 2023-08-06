@@ -51,8 +51,6 @@
 
 <style lang="scss" scoped>
 
-.body {
-}
 .link-sty{
   text-decoration: none;
   color: black;
@@ -97,13 +95,6 @@
 .ranking-name {
     font-size: 16px;
     font-weight: 600;
-}
-.ranking-img {
-    // width: 67px;
-    // overflow: hidden;
-    // margin: 0 auto;
-    // transform: scale(0.5);
-    
 }
 .ranking-img img{
     width: 107px;

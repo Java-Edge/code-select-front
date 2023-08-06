@@ -104,9 +104,8 @@ const routes = [
   {
     path: '/ranking',
     name: 'ranking',
-    compoennt: ranking
-  }
-
+    component: ranking
+  },
 ];
 
 const router = createRouter({
