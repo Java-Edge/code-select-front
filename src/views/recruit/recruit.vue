@@ -1,10 +1,49 @@
 <template>
     <div class="course-navigation">
+      <!--   筛选框   -->
+      <div class="filter-box">
+        <div class="filter-box1">
+          <div class="filter-item" @click="handleFilterSelect('校招')" :class="{ active: activeMenu === '校招' }">校招</div>
+          <div class="filter-item" @click="handleFilterSelect('社招')" :class="{ active: activeMenu === '社招' }">社招</div>
+        </div>
+        <div class="time-filter-box">
+          <el-select
+              v-model="timeValue"
+              placeholder="年限"
+              style="width: 240px"
+              multiple
+          >
+            <el-option
+                v-for="item in timeRange"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+            />
+          </el-select>
+        </div>
+        <div class="salary-filter-box">
+          <el-select
+              v-model="salaryValue"
+              placeholder="薪资"
+              style="width: 240px"
+          >
+            <el-option
+                v-for="item in salaryRange"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+            />
+          </el-select>
+        </div>
+      </div>
       <!-- 内容区域 -->
       <div style="font-size: 30px; text-align: center; margin-top: 30px;">-- 招聘列表 --</div>
       <!-- 课程详情区域 -->
       <RecruitList :recruits="recruits" />
-<!--      <RecruitItem :recruit="recruitItem"></RecruitItem>-->
+
+<!--      <div class="recruit-list">-->
+<!--        <RecruitItem :recruits="recruitList"></RecruitItem>-->
+<!--      </div>-->
     </div>
   </template>
   
@@ -63,11 +102,52 @@
           // 更多轮播图数据
         ],
         img: require("@/assets/background.jpg"),
-        // recruitItem: {
-        //   title: "Java实习",
-        //   salary: "8-10K",
-        //   companyName: "华为",
-        // },
+        timeRange: [
+          {
+            value: "1",
+            label: "1年",
+          },
+          {
+            value: "3",
+            label: "3年",
+          },
+          {
+            value: "5",
+            label: "5年",
+          },
+        ],
+        timeValue: [],
+        salaryRange: [
+          {
+            value: "10000",
+            label: "10k",
+          },
+          {
+            value: "20000",
+            label: "20k",
+          },
+          {
+            value: "30000",
+            label: "30k",
+          },
+        ],
+        salaryValue: "",
+        recruitList: [
+          {
+            title: "后端开发工程师",
+            salary: "11-18k*20薪 ",
+            companyName: "交行金科",
+            positionTags: ["上海", "1-3年","本科", "java", "软件开发","后端开发"],
+            companyTags: ["金融", "未融资","500-999人"]
+          },
+          {
+            title: "后端开发工程师",
+            salary: "11-18k*20薪 ",
+            companyName: "交行金科",
+            positionTags: ["上海", "1-3年","本科", "java", "软件开发","后端开发"],
+            companyTags: ["金融", "未融资","500-999人"]
+          },
+        ],
       };
     },
     computed: {
@@ -126,6 +206,9 @@
           // });
           console.log(this.courses)
         })
+      },
+      handleFilterSelect(value) {
+        console.log(value);
       },
     },
     mounted() {
@@ -187,7 +270,46 @@
     max-width: 1600px;
     margin: 0 auto;
   }
-  
+  .filter-box {
+    display: flex;
+  }
+  .filter-box1 {
+    display: flex;
+    margin-top: 25px;
+    margin-left: 20px;
+  }
+  .recruit-list {
+    display: flex;
+    justify-content: center;
+  }
+  .filter-item {
+    background-color: white;
+    width: 60px;
+    height: 33px;
+    line-height: 33px;
+    text-align: center;
+    margin-left: 10px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 2px;
+    font-size: 15px;
+    color: #606266;
+  }
+
+  /* 选中状态下的样式 */
+  .filter-item.selected {
+    background-color: #007bff;
+    color: #fff;
+  }
+  .time-filter-box {
+    margin-top: 22px;
+    margin-left: 22px;
+  }
+  .salary-filter-box {
+    margin-top: 22px;
+    margin-left: 22px;
+  }
   .menu {
     display: flex;
     justify-content: center;

@@ -6,6 +6,7 @@
             <el-form-item label="用户名：" prop="username">
                 <el-input type="username" v-model="loginForm.username" autocomplete="off"></el-input>
             </el-form-item>
+            
             <el-form-item label="密码：" prop="password">
                 <el-input type="password" v-model="loginForm.password" autocomplete="off"></el-input>
             </el-form-item>
@@ -149,14 +150,14 @@ export default {
         register(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    this.$axios.post('base/user/register', this.registerForm).then(retDate => {
-                        if (retDate.ok) {
-                            this.$store.dispatch('setUser', retDate)
+                    this.$axios.post('base/user/register', this.registerForm).then(response => {
+                        if (response.data.code === 200) {
+                            this.$store.dispatch('setUser', response.data.result)
                             // 注册成功跳转到首页
-                            this.$message.success(retDate.message)
+                            this.$message.success(response.data.message)
                             this.$router.push({ path: '/index' })
                         } else {
-                            this.showMessage(retDate.message)
+                            this.showMessage(response.data.message)
                         }
                     })
                 } else {

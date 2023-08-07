@@ -306,7 +306,7 @@ const handleCurrentChange = currentPage => {
 const router = useRouter()
 const onShowClick = articleId => {
 console.log('articleId', articleId)
-router.push(`/back/intervieArticleDetail/${articleId}`)
+router.push(`/intervieArticleDetail/${articleId}`)
 }
 
 

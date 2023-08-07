@@ -138,7 +138,7 @@ const handleCurrentChange = currentPage => {
 const router = useRouter()
 const onShowClick = row => {
 console.log('row', row)
-router.push(`/back/article/${row.articleId}`)
+router.push(`/article/${row.articleId}`)
 }
 
 

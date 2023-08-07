@@ -13,7 +13,7 @@
       <div class="footer-section">
         <h4>平台服务</h4>
         <ul>
-          <li>专栏</li>
+          <li><a href="https://www.bilibili.com/">专栏</a></li>
           <li>导航</li>
           <li>课程</li>
           <li>江湖</li>
