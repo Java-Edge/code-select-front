@@ -1,9 +1,6 @@
 <template>
   <header class="header">
     <div class="header-content">
-      <!-- Logo or other branding elements -->
-      <!-- ... -->
-
       <nav class="menu">
         <ul>
           <li @click="handleMenuSelect('home')" :class="{ active: activeMenu === 'home' }">首页</li>

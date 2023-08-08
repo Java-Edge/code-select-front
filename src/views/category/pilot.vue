@@ -39,6 +39,11 @@ export default {
           name: "知乎"
         },
         {
+          link: "https://wx.zsxq.com/dweb2/index/group/88855184142452",
+          img: "https://wx.zsxq.com/favicon.ico",
+          name: "知识星球"
+        },
+        {
           link: "https://www.jianshu.com/u/32c7d1f520c2",
           img: "https://www.jianshu.com/favicon.ico",
           name: "简书"
@@ -54,7 +59,12 @@ export default {
           link: "https://www.planttext.com/",
           img: "https://www.planttext.com/favicon.ico",
           name: "plantUML Editor"
-        }
+        },
+        {
+          link: "https://www.pptx.cn/",
+          img: "https://www.pptx.cn//favicon.ico",
+          name: "PPT世界"
+        },
       ],
       gptList: [
         {
