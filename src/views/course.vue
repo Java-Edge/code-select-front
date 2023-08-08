@@ -3,7 +3,7 @@
     <!-- 内容区域 -->
     <div class="content">
       <!-- 课程分类导航栏 -->
-      <!-- <LeftSidebar /> -->
+      <LeftSidebar />
       <!-- 轮播图 -->
       <RightSidebar :carouselData="carouselData" />
     </div>

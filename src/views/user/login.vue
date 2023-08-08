@@ -238,5 +238,3 @@ img {
     float: right;
 }
 </style>
-  
-  
