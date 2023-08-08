@@ -4,6 +4,8 @@
 
 [开发待办项](https://lvdvl3akqn9.feishu.cn/docx/AcCAdQaiyofcxdx29wIc5JL5nmb)
 
+## 当前对应 commit 代码版本
+perf：排行榜创建新表
 
 ## Project setup
 ```

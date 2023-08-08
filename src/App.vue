@@ -25,7 +25,7 @@
   
 <style scoped>
     #app {
-      // 定位在页面的左上角、设置宽度和高度为100%
+      /*  定位在页面的左上角、设置宽度和高度为100% */
       top: 0;
         left: 0;
         width: 100%;
@@ -34,7 +34,7 @@
   .body {
     min-height: 800px;
   }
-  // 最大宽度设置为1600px，并将其水平居中对齐
+  /* 最大宽度设置为1600px，并将其水平居中对齐 */
   .course-navigation {
     max-width: 1600px;
     margin: 0 auto;

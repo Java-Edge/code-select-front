@@ -1,25 +1,26 @@
 <template>
     <div class="body">
-        <div class="ranking-body" v-for="article in articles" :key="article.id">
-            <div class="ranking-number">{{ article.ranking }}</div>
+        <div class="ranking-body" v-for="ranking in rankings" :key="ranking.id">
+            <div class="ranking-number">{{ ranking.orderVal }}</div>
             <div class="ranking-left">
-                <div class="ranking-img">
+                <div class="ranking-img" v-show="ranking.img != null">
                     <img src="https://pic.imgdb.cn/item/64cf41fe1ddac507ccff877a.png" />
                 </div>
             </div>
-            <router-link :to="`/article/${article.articleId}`" class="link-sty">
+            <!-- <router-link :to="`/ranking/${ranking.articleId}`" class="link-sty"> -->
+            <a :href="ranking.href" target="_blank" class="link-sty">
                 <div class="ranking-middle">
-                    <div class="ranking-name hide-text">{{ article.title }}</div>
-                    <div class="ranking-des hide-text">{{ article.content.replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') }}</div>
-                    <div class="ranking-likes">浏览量 {{ article.pageView }}</div>
+                    <div class="ranking-name hide-text">{{ ranking.title }}</div>
+                    <div class="ranking-des hide-text">{{ ranking.des }}</div>
+                    <!-- <div class="ranking-likes">浏览量 {{ ranking.pageView }}</div> -->
                 </div>
-            </router-link>
+            </a>
+            <!-- </router-link> -->
 
             <div class="ranking-right">
-                <div class="ranking-user-img"><img src="https://pic.imgdb.cn/item/64ce0d9b1ddac507cc4c6a38.jpg" /></div>
-                <div class="ranking-user-name hide-text">无敌少年小旋风</div>
-                <div class="ranking-button">关注</div>
-                <!-- <button>关注</button> -->
+                <div class="ranking-user-img"><img src="https://pic.imgdb.cn/item/64d1f0451ddac507ccb3ddbc.jpg" /></div>
+                <div class="ranking-user-name hide-text">Java Edge</div>
+                <a href="https://blog.csdn.net/qq_33589510" target="_blank"><div class="ranking-button">关注</div> </a>
             </div>
         </div>
     </div>
@@ -28,12 +29,10 @@
 import axios from 'axios'
 import {ref} from 'vue'
 
-const articles = ref([])
-axios.get("/back/article/getRanking").then(res => {
+const rankings = ref([])
+axios.get("/back/ranking/getRanking").then(res => {
   console.log('res', res.data.result)
-  articles.value = res.data.result
-  console.log("old", res.data.result[0].content)
-  console.log("new", res.data.result[0].content.replace(/<\/?.+?\/?>|\r|\n|\s*/g,''))
+  rankings.value = res.data.result
 //   options.value = res.data.result
 })
 </script>
@@ -111,6 +110,9 @@ axios.get("/back/article/getRanking").then(res => {
     // width: 300px;
     display: flex;
     align-items: center;
+}
+.ranking-right a {
+    text-decoration: none;
 }
 .ranking-user-img img {
     width: 37px;
