@@ -1,12 +1,15 @@
 <template>
     <div class="body">
+        <!-- 显示专栏列表 -->
         <div class="box-body">
+            <!-- 绑定每个专栏的链接 -->
             <a v-for="item in specialItems" :key="item.id" :href="item.sourceUrl" target="_blank" class="special-box">
                 <div class="box-head">
-                    <img :src="item.image"
-                    class="head-img" />
+                    <!-- 绑定每个专栏的图片 -->
+                    <img :src="item.image" class="head-img" />
                 </div>
                 <div class="box-bottom">
+                    <!-- 专栏名称-->
                     <div class="bottom-left">{{ item.name }}</div>
                     <div class="bottom-right">所有人可见</div>
                 </div>
@@ -14,6 +17,7 @@
         </div>
     </div>
 </template>
+
 <script setup>
 import {ref} from 'vue'
 import axios from 'axios';
@@ -24,7 +28,7 @@ const getSpecialColumn = async () => {
     axios.get('/back/sourceCourse/listSpecialList'
       ).then(response => {
         specialItems.value = response.data.result;
-        console.log(specialItems.value)
+        // console.log(specialItems.value)
       })
 };
 getSpecialColumn();
@@ -32,6 +36,7 @@ getSpecialColumn();
 
 <style lang="scss" scoped>
 
+/* 设置专栏列表的宽度、间距和对齐方式 */
 .box-body {
     width: 80%;
     margin: 0 auto;
@@ -40,10 +45,14 @@ getSpecialColumn();
     align-items: flex-start;
     flex-wrap: wrap;
 }
+
+/* 设置专栏列表中的图片的大小 */
 .head-img {
-    width: 268px;
-    height: 88px;
+    width: 250px;
+    height: 125px;
 }
+
+/* 设置专栏列表中的每个专栏的样式，包括背景颜色、高度、内边距、边框半径、对齐方式、文本颜色等 */
 .special-box {
     background-color: white;
     width: 268px;
@@ -63,7 +72,7 @@ getSpecialColumn();
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 }
 
-
+/* 设置专栏列表中的每个专栏的标题区域的样式，包括背景颜色、高度、定位、溢出、动画等 */
 .box-head {
 //   width: 300px;
 //   height: 500px;
@@ -105,6 +114,7 @@ getSpecialColumn();
     margin-top: 10px;
 }
 
+/* 设置专栏列表中的每个专栏的名称和状态的样式，包括字体大小、字体粗细等 */
 .bottom-left {
     font-size: 14px;
     font-weight: bold;
