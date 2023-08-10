@@ -30,9 +30,9 @@
         >
           <el-option
             v-for="item in companyOptions"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+            :key="item.companyName"
+            :label="item.companyName"
+            :value="item.companyName"
           />
         </el-select>
       </div>
@@ -71,10 +71,22 @@ import Footer from '../Footer.vue'; // Import the Footer component
 
 
 const companyOptions = ref([])
-companyOptions.value = [{value: '阿里巴巴', label: '阿里巴巴'}, {value: '腾讯', label: '腾讯'}, {value: '字节跳动', label: '字节跳动'}]
+// companyOptions.value = [{value: '阿里巴巴', label: '阿里巴巴'}, {value: '腾讯', label: '腾讯'}, {value: '字节跳动', label: '字节跳动'}, {value: '百度', label: '百度'}
+// , {value: '美团', label: '美团'}, {value: '华为', label: '华为'}, {value: '滴滴', label: '滴滴'}, {value: '京东', label: '京东'}, {value: '网易', label: '网易'}, {value: '小米', label: '小米'}]
 let companyCondition = ref("")
 let activeMenu = ref("")
 let jobId = ref(-1)
+
+
+/**
+ * 获取公司数据
+ */
+const getCompanyData = () => {
+  axios.get("/back/company/getList").then(res => {
+    companyOptions.value = res.data.result
+  }) 
+}
+getCompanyData()
 
 // 公司筛选框
 const handleChangeCompany = () => {
