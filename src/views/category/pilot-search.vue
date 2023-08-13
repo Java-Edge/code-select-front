@@ -1,11 +1,12 @@
 <template>
-    <div class="home-search">
-      <ul v-rightMenu class="menu">
-        <li v-for="(item, index) in searchs" :key="index" :data-url="item.url" :data-keyword="item.key" @click="selectEngine(index)" class="xl:text-base" :class="{ active: activeSearchIndex === index }">
-          {{ item.name }}
-        </li>
-      </ul>
-      <form @submit.prevent="doSearch" class="search-form">
+  <div class="home-search">
+    <ul class="menu">
+      <li v-for="(item, index) in searchs" :key="index" :data-url="item.url" :data-keyword="item.key"
+        @click="selectEngine(index)" class="menu-item" :class="{ active: activeSearchIndex === index }">
+        {{ item.name }}
+      </li>
+    </ul>
+    <form @submit.prevent="doSearch" class="search-form">
       <!-- 搜索引擎下拉菜单 -->
       <div class="left">
         <!-- <i class="currentSearch.iconClass"></i> -->
@@ -20,31 +21,24 @@
       </div>
       <!-- 搜索输入框 -->
       <div class="center">
-        <el-input
-          ref="searchInput"
-          @focus="handleFocus"
-          @blur="handleBlur"
-          v-model="searchText"
-          :autofocus="true"
-          :placeholder="isSearchInputFocus ? '搜索一下...' : ''"
-          clearable
-        >
+        <el-input ref="searchInput" @focus="handleFocus" @blur="handleBlur" v-model="searchText" :autofocus="true"
+          :placeholder="isSearchInputFocus ? '搜索一下...' : ''" clearable>
         </el-input>
       </div>
       <div class="right">
         <i class="iconfont icon-md-search" @click="doSearch"></i>
       </div>
     </form>
-    </div>
-  </template>
+  </div>
+</template>
 
 <script setup>
-import {ref, watch, computed} from 'vue'
-import {handleURL} from '@/utils/handleURL'
-      // 搜索相关
+import { ref, watch, computed } from 'vue'
+import { handleURL } from '@/utils/handleURL'
+// 搜索相关
 const searchText = ref('')
 const isSearchInputFocus = ref(false)
-const activeSearchIndex = ref()
+const activeSearchIndex = ref(0)
 const ideas = ref([])
 const currentSearch = ref({})
 const activeIdeaIndex = ref()
@@ -119,14 +113,14 @@ searchs.value = [
 ];
 
 const showPlaceholder = computed(() => {
-      return !searchText.value && !isSearchInputFocus.value;
- })
+  return !searchText.value && !isSearchInputFocus.value;
+})
 const handleFocus = () => {
   isSearchInputFocus.value = true;
 }
-const handleBlur = () => { 
-      isSearchInputFocus.value = false;
-    }
+const handleBlur = () => {
+  isSearchInputFocus.value = false;
+}
 // 选择搜索引擎
 const selectEngine = (index) => {
   // 搜索输入框获得光标
@@ -139,7 +133,7 @@ const selectEngine = (index) => {
 }
 watch(
   // 监听 activeSearchIndex
-  activeSearchIndex,
+  activeSearchIndex.value,
   (newV, oldV) => {
     currentSearch.value = searchs.value[newV];
   },
@@ -171,124 +165,142 @@ const doSearch = () => {
 </script>
 
 <style lang="scss" scoped>
-.home-search {
+.home-search{
   position: absolute;
-  width: 1000px;
-  // height: 300px;
+  width: 360px;
+  height: 40px;
   top: 120px;
   left: 50%;
   transform: translateX(-50%);
   border-radius: 24px;
   background-color: rgba(255, 255, 255, 0.7);
 }
- .menu {
-    position: absolute;
-    top: -50px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
-    color: #f9fafb;
-    li {
-      position: relative;
-      height: 32px;
-      margin-top: 5px;
-      cursor: pointer;
 
-      &:first-child {
-        margin-left: 0;
-      }
-    }
-    .active {
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: 0px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: block;
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background-color: #6b7280;
-      }
-    }
-  }
-  .search-form {
+.menu-item {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.menu {
+  position: absolute;
+  top: -70px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  color: black;
+  li {
+    list-style: none;
     position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-self: center;
-    align-items: center;
+    height: 32px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+
+    &:first-child {
+      margin-left: 0;
+    }
   }
-   .left {
-      position: relative;
-      width: 50px;
-      height: 100%;
+
+  .active {
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: #10b981;
+    }
+  }
+}
+
+.search-form {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-self: center;
+  align-items: center;
+}
+
+.left {
+  position: relative;
+  width: 10px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  i {
+    font-size: 24px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .left-placeholder {
+    font-size: 14px;
+    position: absolute;
+    left: 19px;
+    width: 140px;
+    height: 20px;
+    color: #6b7280;
+
+    .left-placeholder-unfocus {
       display: flex;
       align-items: center;
-      justify-content: center;
-      i {
-        font-size: 24px;
-        font-weight: 500;
-        cursor: pointer;
-      }
-      .left-placeholder {
-        position: absolute;
-        left: 65px;
-        width: 140px;
-        height: 20px;
-        color: #6b7280;
-        .left-placeholder-unfocus {
-          display: flex;
-          align-items: center;
-          .focus-icon {
-            width: 14px;
-            height: 18px;
-            margin: 0 4px;
-            border-radius: 2px;
-            border: 1px solid #6b7280;
-            text-align: center;
-            line-height: 18px;
-          }
-        }
-      }
-    }
-    .center {
-      width: calc(100% - 100px);
-      height: 100%;
-      ::v-deep .el-input__inner {
-        border: none;
-        border-radius: 0;
-        background: transparent;
-        &::placeholder {
-          color: #4b5563;
-        }
-      }
-      ::v-deep .el-input__suffix {
-        i {
-          font-size: 16px;
-          font-weight: 500;
-          color: #4b5563;
-        }
-      }
-    }
-    .right {
-      width: 50px;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      i {
-        font-size: 24px;
-        font-weight: 500;
-      }
-    }
 
+      .focus-icon {
+        width: 14px;
+        height: 18px;
+        margin: 0 4px;
+        border-radius: 2px;
+        border: 1px solid #6b7280;
+        text-align: center;
+        line-height: 18px;
+      }
+    }
+  }
+}
 
-</style>
+.center {
+  width: calc(100% - 100px);
+  height: 100%;
+
+  ::v-deep .el-input__inner {
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    &::placeholder {
+      color: #6b7280;
+    }
+  }
+
+  ::v-deep .el-input__suffix {
+    i {
+      font-size: 16px;
+      font-weight: 500;
+      color: #6b7280;
+    }
+  }
+}
+
+.right {
+  width: 50px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  i {
+    font-size: 24px;
+    font-weight: 500;
+  }
+}</style>

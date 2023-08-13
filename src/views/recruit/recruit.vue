@@ -261,7 +261,7 @@
   };
   </script>
   
-  <style>
+  <style scoped>
   .index {
     background-color: #E9EEF3;
   }
