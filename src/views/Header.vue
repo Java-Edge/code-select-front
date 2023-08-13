@@ -80,7 +80,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 /* 添加样式 */
 .header {
   background-color: #333;

@@ -3,7 +3,7 @@
         <div class="ranking-body" v-for="ranking in rankings" :key="ranking.id">
             <div class="ranking-number">{{ ranking.orderVal }}</div>
             <div class="ranking-left">
-                <div class="ranking-img" v-show="ranking.img != null">
+                <div class="ranking-img">
                     <img src="https://pic.imgdb.cn/item/64cf41fe1ddac507ccff877a.png" />
                 </div>
             </div>
@@ -38,7 +38,6 @@ axios.get("/back/ranking/getRanking").then(res => {
 </script>
 
 <style lang="scss" scoped>
-
 .link-sty{
   text-decoration: none;
   color: black;
@@ -51,6 +50,25 @@ axios.get("/back/ranking/getRanking").then(res => {
     // margin-bottom: 50px;
     margin-right: 15px;
 }
+// 带阴影
+// .ranking-body {
+//     height: 67px;
+//     width: 876px;
+//     display: flex;
+//     align-items: center;
+//     margin: 0 auto;
+//     margin-top: 25px;
+//     padding-top: 15px;
+//     padding-bottom: 15px;
+//     border-bottom: 1px solid #e9e9e9;
+//     padding-bottom: 10px;
+//     box-shadow: 2px 4px 4px hsl(0deg 0% 0% / 0.25);
+//     background-color: white;
+//     border-radius: 15px;
+//     padding: 10px;
+// }
+
+// CSDN
 .ranking-body {
     height: 67px;
     width: 876px;
@@ -63,6 +81,7 @@ axios.get("/back/ranking/getRanking").then(res => {
     border-bottom: 1px solid #e9e9e9;
     padding-bottom: 10px;
 }
+
 
 .ranking-left {
     // background-color: yellow;
