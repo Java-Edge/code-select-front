@@ -62,7 +62,7 @@ export default {
                 callback(new Error('请输入用户名！'))
             } else if (!this.showLogin) {
                 // 异步原因，不会等待返回后再执行后面流程，而是直接执行else后面的语句
-                this.$axios.get('/base/user/checkUsername?username=' + this.registerForm.username).then(response => {
+                this.$axios.get('/back/user/checkUsername?username=' + this.registerForm.username).then(response => {
                     console.log(response.data.result)
                     if (response.data.result === "1") {
                         callback(new Error('该用户名已经存在！'))
@@ -132,7 +132,7 @@ export default {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     this.loading = true
-                    this.$axios.post('base/user/login', this.loginForm).then(response => {
+                    this.$axios.post('back/user/login', this.loginForm).then(response => {
                         if (response.data.code === 200) {
                             this.$store.dispatch('setUser', response.data.result)
                             this.$router.push({ path: '/index' })
@@ -150,7 +150,7 @@ export default {
         register(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    this.$axios.post('base/user/register', this.registerForm).then(response => {
+                    this.$axios.post('back/user/register', this.registerForm).then(response => {
                         if (response.data.code === 200) {
                             this.$store.dispatch('setUser', response.data.result)
                             // 注册成功跳转到首页
@@ -177,7 +177,7 @@ export default {
             //     this.codeUrl = response.path;
             //     console.log(this.courses)
             // })
-            this.codeUrl = 'api/base/user/getCheckCode?' + new Date()
+            this.codeUrl = 'api/back/user/getCheckCode?' + new Date()
             console.log(this.$axios.baseURL)
         },
         showChange() {

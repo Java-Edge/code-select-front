@@ -4,7 +4,7 @@
  * @Author: 不败顽童
  * @Date: 2023-05-26 21:42:34
  * @LastEditors: 不败顽童
- * @LastEditTime: 2023-08-05 20:13:39
+ * @LastEditTime: 2023-08-13 22:38:12
  */
 module.exports = {
   lintOnSave: false,
@@ -25,15 +25,15 @@ module.exports = {
           '^/api/back': '/'
         }
       },
-      "/api/base": {
-        // target: "http://106.52.239.29:8089/",
-        target: "http://localhost:8089/",
-        changeOrigin: true,
-        logLevel: "debug",
-        pathRewrite:{
-          '^/api/base': '/'
-        }
-      },
+      // "/api/base": {
+      //   // target: "http://106.52.239.29:8089/",
+      //   target: "http://localhost:8089/",
+      //   changeOrigin: true,
+      //   logLevel: "debug",
+      //   pathRewrite:{
+      //     '^/api/base': '/'
+      //   }
+      // },
     },
   },
 }; 
