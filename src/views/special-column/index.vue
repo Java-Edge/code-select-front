@@ -18,24 +18,60 @@
     </div>
 </template>
 
-<script setup>
-import {ref} from 'vue'
-import axios from 'axios';
+<script>
+import axios from "axios";
+export default {
+    name: "CourseNavigation",
 
-const specialItems = ref([])
-// specialItems.value = [{id: 1, sourceUrl: "baidu.com", name: "平台帮助中心", image: "https://kuangstudy.oss-cn-beijing.aliyuncs.com/bbs/2021/08/16/kuangstudy0ff38edc-4f3e-477a-9655-314a8f28d55b.jpg"}]
-const getSpecialColumn = async () => {
-    axios.get('/back/sourceCourse/listSpecialList'
-      ).then(response => {
-        specialItems.value = response.data.result;
-        // console.log(specialItems.value)
-      })
+    data() {
+        return {
+            specialItems: []
+        };
+    },
+    computed: {
+
+    },
+    created() {
+        this.getSpecialColumn();
+    },
+    methods: {
+        // specialItems.value = [{id: 1, sourceUrl: "baidu.com", name: "平台帮助中心", image: "https://kuangstudy.oss-cn-beijing.aliyuncs.com/bbs/2021/08/16/kuangstudy0ff38edc-4f3e-477a-9655-314a8f28d55b.jpg"}]
+        getSpecialColumn() {
+            var token = this.getCookieValue("token");
+            var headers = {
+                token: token  //访问受限资源必须把token传到后端校验
+            };
+            axios.get('/back/sourceCourse/listSpecialList', headers).then(response => {
+                this.specialItems = response.data.result;
+                // console.log(specialItems.value)
+            })
+        },
+
+        //window.document.cookie可以拿到cookie所有的key=value;形式的字符串。所以从cookie拿值，遍历cookie的所有key，直到key等于keyStr，
+        //就可以拿到对应的值，例如我们要拿名为token的key，调用方法getCookieValue(token)就可以拿到key为token的值(value)
+        getCookieValue(keyStr) {
+            //cookie只能存放键值对
+            var operator = "=";
+            var value = null;
+            var s = window.document.cookie;
+            var arr = s.split("; ");
+            for (var i = 0; i < arr.length; i++) {
+                var str = arr[i];
+                var k = str.split(operator)[0];
+                var v = str.split(operator)[1];
+                if (k == keyStr) {
+                    value = v;
+                    break;
+                }
+            }
+            return value;
+        },
+
+    },
 };
-getSpecialColumn();
 </script>
 
 <style lang="scss" scoped>
-
 /* 设置专栏列表的宽度、间距和对齐方式 */
 .box-body {
     width: 80%;
@@ -74,37 +110,38 @@ getSpecialColumn();
 
 /* 设置专栏列表中的每个专栏的标题区域的样式，包括背景颜色、高度、定位、溢出、动画等 */
 .box-head {
-//   width: 300px;
-//   height: 500px;
-//   background: #333333;
-  margin: 0 auto;
-  position: relative;
-  overflow: hidden;
+    //   width: 300px;
+    //   height: 500px;
+    //   background: #333333;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
 
-  &::after {
-    content: "";
-    height: 150%;
-    width: 25px;
-    background: #fff;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom:0;
-    margin: auto;
-    opacity: .6;
-    filter: blur(6px);
-    animation: move 3s infinite ease-out;
-  }
+    &::after {
+        content: "";
+        height: 150%;
+        width: 25px;
+        background: #fff;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        opacity: .6;
+        filter: blur(6px);
+        animation: move 3s infinite ease-out;
+    }
 }
 
 @keyframes move {
-  0% {
-    transform: translate(-200px, -200px) rotate(45deg);
-  }
-  100% {
-    transform: translate(200px, 200px) rotate(45deg);
-  }
+    0% {
+        transform: translate(-200px, -200px) rotate(45deg);
+    }
+
+    100% {
+        transform: translate(200px, 200px) rotate(45deg);
+    }
 }
 
 
@@ -122,4 +159,5 @@ getSpecialColumn();
 
 .bottom-right {
     font-size: 14px;
-}</style>
+}
+</style>

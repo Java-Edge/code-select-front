@@ -6,7 +6,7 @@
             <el-form-item label="用户名：" prop="username">
                 <el-input type="username" v-model="loginForm.username" autocomplete="off"></el-input>
             </el-form-item>
-            
+
             <el-form-item label="密码：" prop="password">
                 <el-input type="password" v-model="loginForm.password" autocomplete="off"></el-input>
             </el-form-item>
@@ -134,7 +134,9 @@ export default {
                     this.loading = true
                     this.$axios.post('back/user/login', this.loginForm).then(response => {
                         if (response.data.code === 200) {
-                            this.$store.dispatch('setUser', response.data.result)
+                            var user = response.data.result;
+                            this.$store.dispatch('setUser', user)
+                            this.setCookieValue("token",user.token);
                             this.$router.push({ path: '/index' })
                         } else {
                             this.showMessage(response.data.message)
@@ -183,6 +185,32 @@ export default {
         showChange() {
             this.showLogin = !this.showLogin
             this.getValidCode()
+        },
+
+        //window.document.cookie可以拿到cookie所有的key=value;形式的字符串。所以从cookie拿值，遍历cookie的所有key，直到key等于keyStr，
+        //就可以拿到对应的值，例如我们要拿名为token的key，调用方法getCookieValue(token)就可以拿到key为token的值(value)
+        getCookieValue(keyStr) {
+            //cookie只能存放键值对
+            var operator = "=";
+            var value = null;
+            var s = window.document.cookie;
+            var arr = s.split("; ");
+            for (var i = 0; i < arr.length; i++) {
+                var str = arr[i];
+                var k = str.split(operator)[0];
+                var v = str.split(operator)[1];
+                if (k == keyStr) {
+                    value = v;
+                    break;
+                }
+            }
+            return value;
+        },
+        //往cookie中设置格式：document.cookie = key=value，例如token=fohweoif2n334023noi2r
+        setCookieValue(key, value) {
+            //cookie只能存放键值对
+            var operator = "=";
+            document.cookie = key + operator + value;
         }
     }
 }
