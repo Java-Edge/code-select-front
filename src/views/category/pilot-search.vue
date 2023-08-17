@@ -124,7 +124,6 @@ const handleBlur = () => {
 // 选择搜索引擎
 const selectEngine = (index) => {
   // 搜索输入框获得光标
-  console.log(searchInput)
   searchInput.value.focus()
   // 清空其他搜索引擎建议
   ideas.value = [];
@@ -133,8 +132,9 @@ const selectEngine = (index) => {
 }
 watch(
   // 监听 activeSearchIndex
-  activeSearchIndex.value,
+  activeSearchIndex,
   (newV, oldV) => {
+    console.log("change")
     currentSearch.value = searchs.value[newV];
   },
   { deep: true, immediate: true }

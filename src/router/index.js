@@ -23,6 +23,7 @@ import pilotPage from "../views/category/pilot";
 import specialColumn from "../views/special-column"
 import login from "../views/user/login"
 import ranking from "../views/ranking"
+import projectDetail from "../views/project/project-detail"
 
 const routes = [
   {
@@ -106,6 +107,11 @@ const routes = [
     name: 'ranking',
     component: ranking
   },
+  {
+    path: '/projectDetail',
+    name: '/projectDetail',
+    component: projectDetail
+  }
 ];
 
 const router = createRouter({
