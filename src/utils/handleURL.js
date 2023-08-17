@@ -1,10 +1,18 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: 不败顽童
+ * @Date: 2023-08-13 22:34:10
+ * @LastEditors: 不败顽童
+ * @LastEditTime: 2023-08-17 23:30:10
+ */
 /**
  * 请求参数拼接在url链接中
  * @param {String} url  链接字符串
  * @param {Object} data 参数对象
  * @returns 拼接后字符串
  */
-export function handleURL(url = '', data = {}) {
+export function c(url = '', data = {}) {
   // 判断传输data数据是否是空对象，通过Object.keys获取对象属性数值，判断如果等于零就不执行
   if (Object.keys(data).length !== 0) {
     url = url.replace(/\/$/, '') + '?' // 如果链接尾部带有"/"则替换成为空字符，拼接"?"字符
