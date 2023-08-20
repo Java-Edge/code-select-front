@@ -6,7 +6,7 @@
             <el-form-item label="用户名：" prop="username">
                 <el-input type="username" v-model="loginForm.username" autocomplete="off"></el-input>
             </el-form-item>
-            
+
             <el-form-item label="密码：" prop="password">
                 <el-input type="password" v-model="loginForm.password" autocomplete="off"></el-input>
             </el-form-item>
@@ -62,7 +62,7 @@ export default {
                 callback(new Error('请输入用户名！'))
             } else if (!this.showLogin) {
                 // 异步原因，不会等待返回后再执行后面流程，而是直接执行else后面的语句
-                this.$axios.get('/base/user/checkUsername?username=' + this.registerForm.username).then(response => {
+                this.$axios.get('/back/user/checkUsername?username=' + this.registerForm.username).then(response => {
                     console.log(response.data.result)
                     if (response.data.result === "1") {
                         callback(new Error('该用户名已经存在！'))
@@ -132,9 +132,11 @@ export default {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     this.loading = true
-                    this.$axios.post('base/user/login', this.loginForm).then(response => {
+                    this.$axios.post('back/user/login', this.loginForm).then(response => {
                         if (response.data.code === 200) {
-                            this.$store.dispatch('setUser', response.data.result)
+                            var user = response.data.result;
+                            this.$store.dispatch('setUser', user)
+                            this.setCookieValue("token",user.token);
                             this.$router.push({ path: '/index' })
                         } else {
                             this.showMessage(response.data.message)
@@ -150,7 +152,7 @@ export default {
         register(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    this.$axios.post('base/user/register', this.registerForm).then(response => {
+                    this.$axios.post('back/user/register', this.registerForm).then(response => {
                         if (response.data.code === 200) {
                             this.$store.dispatch('setUser', response.data.result)
                             // 注册成功跳转到首页
@@ -177,12 +179,38 @@ export default {
             //     this.codeUrl = response.path;
             //     console.log(this.courses)
             // })
-            this.codeUrl = 'api/base/user/getCheckCode?' + new Date()
+            this.codeUrl = 'api/back/user/getCheckCode?' + new Date()
             console.log(this.$axios.baseURL)
         },
         showChange() {
             this.showLogin = !this.showLogin
             this.getValidCode()
+        },
+
+        //window.document.cookie可以拿到cookie所有的key=value;形式的字符串。所以从cookie拿值，遍历cookie的所有key，直到key等于keyStr，
+        //就可以拿到对应的值，例如我们要拿名为token的key，调用方法getCookieValue(token)就可以拿到key为token的值(value)
+        getCookieValue(keyStr) {
+            //cookie只能存放键值对
+            var operator = "=";
+            var value = null;
+            var s = window.document.cookie;
+            var arr = s.split("; ");
+            for (var i = 0; i < arr.length; i++) {
+                var str = arr[i];
+                var k = str.split(operator)[0];
+                var v = str.split(operator)[1];
+                if (k == keyStr) {
+                    value = v;
+                    break;
+                }
+            }
+            return value;
+        },
+        //往cookie中设置格式：document.cookie = key=value，例如token=fohweoif2n334023noi2r
+        setCookieValue(key, value) {
+            //cookie只能存放键值对
+            var operator = "=";
+            document.cookie = key + operator + value;
         }
     }
 }

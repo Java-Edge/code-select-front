@@ -4,18 +4,45 @@
       <nav class="menu">
         <ul>
           <li @click="handleMenuSelect('home')" :class="{ active: activeMenu === 'home' }">首页</li>
-<!--          <router-link :to="`/index`"></router-link>-->
+          <!--          <router-link :to="`/index`"></router-link>-->
           <li @click="handleMenuSelect('article')" :class="{ active: activeMenu === 'article' }">动态</li>
           <li @click="handleMenuSelect('recruit')" :class="{ active: activeMenu === 'recruit' }">招聘</li>
           <li @click="handleMenuSelect('interview')" :class="{ active: activeMenu === 'interview' }">面经</li>
           <li @click="handleMenuSelect('pilotPage')" :class="{ active: activeMenu === 'pilotPage' }">导航</li>
           <li @click="handleMenuSelect('special')" :class="{ active: activeMenu === 'special' }">专栏</li>
           <li @click="handleMenuSelect('ranking')" :class="{ active: activeMenu === 'ranking' }">排行榜</li>
-           <!-- <li @click="handleMenuSelect('course')" :class="{ active: activeMenu === 'course' }">课程</li>
+          <!-- <li @click="handleMenuSelect('course')" :class="{ active: activeMenu === 'course' }">课程</li>
           <li @click="handleMenuSelect('vip')" :class="{ active: activeMenu === 'vip' }">VIP</li>  -->
           <!-- 其他信息 -->
         </ul>
       </nav>
+
+      <!-- Search box -->
+      <div class="search-box">
+        <!-- Implement the search input and button here -->
+        <!-- <input type="text" placeholder="搜索课程" />
+        <button>搜索</button> -->
+      </div>
+
+      <!-- Login and user profile information -->
+      <div class="user-info">
+        <!-- Check if the user is logged in -->
+        <template v-if="isLoggedIn">
+          <div class="user-profile">
+            <!-- Display user profile information (e.g., profile picture, username, etc.) -->
+            <img src="https://picx.zhimg.com/v2-d534f6d0948d7228b4173e6e1a7a3436_xl.jpg" alt="User Profile"
+              class="user-avatar" />
+            <span class="user-name">{{ username }}</span>
+          </div>
+          <button @click="handleLogout">退出登录</button>
+        </template>
+        <template v-else>
+          <div class="auth-buttons">
+            <router-link to="/login" class="auth-button">登录</router-link>
+            <router-link to="/signup" class="auth-button">注册</router-link>
+          </div>
+        </template>
+      </div>
     </div>
   </header>
   <!-- <div class="nav">
@@ -26,21 +53,25 @@
 
 <script>
 import pilotPage from "@/views/category/pilot.vue";
-
+import { getCookieValue } from "@/utils/userUtil.js";
 export default {
   name: 'Header',
   data() {
     return {
       activeMenu: 'home', // 默认选中首页
       isLoggedIn: true, // Set this to true if the user is logged in
+      username: ""
     };
+  },
+  created() {
+    this.getUserInfo();
   },
   methods: {
     handleMenuSelect(index) {
       console.log('handleMenuSelect', index);
       this.activeMenu = index; // 更新选中的菜单项
       // 可根据不同的菜单项进行相应的页面跳转或其他操作
-      switch(index){
+      switch (index) {
         case "home":
           // 去首页
           this.$router.push("/index");
@@ -76,6 +107,10 @@ export default {
       // Implement the logout functionality here
       // For example, clear the user session and redirect to the home page
     },
+    getUserInfo() {
+      let userId =  getCookieValue("userId");
+      this.username = userId === null ? "guest" : userId;
+    }
   },
 };
 </script>
@@ -124,7 +159,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  > div {
+
+  >div {
     display: flex;
     font-size: 16px;
     font-weight: 600;
