@@ -30,8 +30,8 @@
         <template v-if="isLoggedIn">
           <div class="user-profile">
             <!-- Display user profile information (e.g., profile picture, username, etc.) -->
-            <img src="https://picx.zhimg.com/v2-d534f6d0948d7228b4173e6e1a7a3436_xl.jpg" alt="User Profile"
-              class="user-avatar" />
+            <!-- <img src="https://picx.zhimg.com/v2-d534f6d0948d7228b4173e6e1a7a3436_xl.jpg" alt="User Profile"
+              class="user-avatar" /> -->
             <span class="user-name">{{ username }}</span>
           </div>
           <button @click="handleLogout">退出登录</button>
