@@ -24,6 +24,7 @@ import specialColumn from "../views/special-column"
 import login from "../views/user/login"
 import ranking from "../views/ranking"
 import projectDetail from "../views/project/project-detail"
+import projectList from "../views/project/project-list"
 
 const routes = [
   {
@@ -108,9 +109,14 @@ const routes = [
     component: ranking
   },
   {
-    path: '/projectDetail',
+    path: '/projectDetail/:id',
     name: '/projectDetail',
     component: projectDetail
+  },
+  {
+    path: '/projectList',
+    name: '/projectList',
+    component: projectList
   }
 ];
 

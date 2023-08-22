@@ -1,32 +1,28 @@
 <template>
   <div class="article-ranking-container">
 
-    <div class="ranking-body" v-for="article in articleData" :key="article.articleId">
+    <div class="ranking-body" v-for="project in projectData" :key="project.id">
             <!-- <div class="ranking-number">{{ ranking.orderVal }}</div> -->
             <div class="ranking-left">
                 <div class="ranking-img">
-                    <img src="https://pic.imgdb.cn/item/64cf45381ddac507cc07ebe1.png" />
+                    <!-- <img src="https://pic.imgdb.cn/item/64cf45381ddac507cc07ebe1.png" /> -->
+                    <img :src="project.architectureImg" />
                 </div>
             </div>
-            <router-link :to="`/article/${article.articleId}`" class="link-sty">
+            <router-link :to="`/projectDetail/${project.id}`" class="link-sty">
                 <div class="ranking-middle">
-                    <div class="ranking-name hide-text">{{ article.title }}</div>
-                    <div class="ranking-des hide-text">{{ article.content.replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') }}</div>
-                    <div class="ranking-likes">浏览量 {{ article.pageView }}</div>
+                    <div class="ranking-name hide-text">{{ project.title }}</div>
+                    <div class="ranking-des hide-text">{{ project.des }}</div>
+                    <div class="ranking-likes">创建时间 {{ project.createTime }}</div>
                 </div>
             </router-link>
 
             <div class="ranking-right">
-                <div class="ranking-user-img"><img src="https://pic.imgdb.cn/item/64d1f0451ddac507ccb3ddbc.jpg" /></div>
-                <div class="ranking-user-name hide-text">Java Edge</div>
-                <a href="https://blog.csdn.net/qq_33589510" target="_blank"><div class="ranking-button">关注</div> </a>
+                <!-- <div class="ranking-user-img"><img src="https://pic.imgdb.cn/item/64d1f0451ddac507ccb3ddbc.jpg" /></div> -->
+                <!-- <div class="ranking-user-name hide-text">Java Edge</div> -->
+                <!-- <a href="https://blog.csdn.net/qq_33589510" target="_blank"><div class="ranking-button">开始学习</div> </a> -->
             </div>
         </div>
-
-    <!-- <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange"
-      :current-page="page" :page-sizes="[5, 10, 50, 100, 200]" :page-size="size"
-      layout="total, sizes, prev, pager, next, jumper" :total="total">
-    </el-pagination> -->
   </div>
 </template>
   
@@ -34,11 +30,9 @@
 import { ref, onActivated, onMounted, watch, onUnmounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import axios from 'axios'
-import Header from '../Header.vue'; // Import the Header component
-import Footer from '../Footer.vue'; // Import the Footer component
 
 // 数据相关
-const articleData = ref([])
+const projectData = ref([])
 const total = ref(0)
 const page = ref(1)
 const size = ref(5)
@@ -49,7 +43,7 @@ const type = route.params.type
 console.log(type)
 // 获取数据的方法
 const getListData = async () => {
-  let path = `/back/article/getByPage?current=${page.value}&size=${size.value}`;
+  let path = `/back/project/getByPage?current=${page.value}&size=${size.value}`;
   if (type) {
     path += `&type=${type}`
   }
@@ -59,7 +53,7 @@ const getListData = async () => {
      * 每次查出来之后，拼接上原来的数据即可
      */
     console.log("新查询的数据", res.data.result)
-    articleData.value = articleData.value.concat(res.data.result.records)
+    projectData.value = projectData.value.concat(res.data.result.records)
     total.value = res.data.result.total
   })
 }
@@ -164,13 +158,13 @@ onUnmounted(() => {
 // 带阴影
 .ranking-body {
     height: 97px;
-    width: 976px;
+    width: 776px;
     display: flex;
     align-items: center;
     margin: 0 auto;
     margin-top: 25px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     border-bottom: 1px solid #e9e9e9;
     padding-bottom: 10px;
     box-shadow: 8px 16px 16px hsl(0deg 0% 0% / 0.25);
@@ -192,7 +186,6 @@ onUnmounted(() => {
     flex-grow: 3;
     margin-left: 15px;
     justify-content: space-between;
-    height: 100%;
 }
 
 
