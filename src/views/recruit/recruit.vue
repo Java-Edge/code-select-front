@@ -169,8 +169,15 @@
         this.activeMenu = index; // 更新选中的菜单项
         // 可根据不同的菜单项进行相应的页面跳转或其他操作
       },
-      getCourses() {
-        this.$axios.get('/back/recruit/list'
+      getCourses(condition) {
+        condition = {
+          ...condition,
+          param :{
+            companyId: "",
+            careerJobId: ""
+          }
+        }
+        this.$axios.post('/back/recruit/selectByCondition',condition
           // ,
           //     {
           //         headers: {
@@ -178,13 +185,10 @@
           //         }
           //     }
         ).then(response => {
-          const recruits = response.data.result;
-          console.log('recruits', recruits)
-          this.recruits = recruits;
-          // this.$message({
-          //     type: 'success',
-          //     message: response.data.message
-          // });
+          let result = response.data.result;
+          this.recruits = result.records;
+          this.total = result.total;
+
           console.log(this.recruits)
         })
       },

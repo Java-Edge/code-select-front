@@ -16,7 +16,16 @@
           <span class="descrip">联系方式</span>：{{ selectedRecruit.phone }}
         </div>
         <div class="description">
-          <span class="descrip">详情</span>：{{ selectedRecruit.content }}
+          <span class="descrip">详情</span>：{{ selectedRecruit.infos }}
+        </div>
+        <div class="description">
+          <span class="descrip">招聘要求</span>：{{ selectedRecruit.requirements }}
+        </div>
+         <div class="description">
+          <span class="descrip">毕业要求</span>：{{ selectedRecruit.jobStrength }}
+        </div>
+        <div class="description">
+          <span class="descrip">毕业学校</span>：{{ selectedRecruit.topSchool }}
         </div>
         <!-- <div class="study-button">
           <button class="learn-button" @click="goToStudy(selectedRecruit)">
@@ -36,12 +45,14 @@
 import Header from '../Header.vue'; // Import the Header component
 import Footer from '../Footer.vue'; // Import the Footer component
 import RecruitList from './recruit-list.vue'; // Import the CourseList component
+import CourseList from '../CourseList.vue'; // Import the CourseList component
 export default {
   name: 'RecruitDetails',
   components: {
     Header, // Register the Header component
     Footer, // Register the Footer component
     RecruitList, // Register the CourseList component
+    CourseList
     // ... Rest of your components ...
   },
   props: {
@@ -86,6 +97,11 @@ export default {
         const recruit = response.data.result;
         console.log(response)
         this.selectedRecruit = recruit;
+        let content = JSON.parse(recruit.content);
+        this.selectedRecruit.infos = content.infos;
+        this.selectedRecruit.requirements = content.requirements;
+        this.selectedRecruit.jobStrength = content.jobStrength;
+        this.selectedRecruit.topSchool = content.topSchool;
         // this.$message({
         //     type: 'success',
         //     message: response.data.message
@@ -111,14 +127,8 @@ export default {
         //         }
         //     }
       ).then(response => {
-        const courses = response.data.result;
-        console.log(response)
-        this.recommendCourses = courses;
-        // this.$message({
-        //     type: 'success',
-        //     message: response.data.message
-        // });
-        console.log(this.courses)
+        this.recommendCourses = response.data.result;
+        console.log(this.recommendCourses)
       })
     }
   }

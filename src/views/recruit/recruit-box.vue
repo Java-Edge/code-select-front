@@ -12,6 +12,7 @@
       <div class="course-details">
         {{ recruit.title }}
       </div>
+       <div class="salary">薪资：{{ recruit.salaryMin }}~{{ recruit.salaryMax }}</div>
       <div class="des">{{ recruit.des }}</div>
     </div>
   </router-link>
