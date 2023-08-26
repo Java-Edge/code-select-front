@@ -10,7 +10,7 @@
     <div class="image-background">
       <img alt="" style="width: 1600px;height: 70px" :src="img" />
     </div>
-    <QrCode></QrCode>
+
     <div style="font-size: 25px; text-align: center; margin-top: 15px;">-- 课程列表 --</div>
     <!-- 课程详情区域 -->
     <CourseList :courses="courses" />

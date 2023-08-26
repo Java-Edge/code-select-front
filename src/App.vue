@@ -3,6 +3,7 @@
         <!-- 在div元素内部，依次插入Header组件、router-view组件和Footer组件。-->
         <Header/>
         <router-view class="body"/>
+        <QrCode></QrCode>
         <Footer/>
     </div>
 </template>
@@ -10,6 +11,7 @@
   // 导入Header和Footer组件，这些组件分别位于名为Header.vue和Footer.vue的文件中
   import Header from './views/Header.vue';
   import Footer from './views/Footer.vue';
+  import QrCode from './views/QrCode.vue';
   
   
   export default {
@@ -18,6 +20,7 @@
       // 在Vue组件中，将Header和Footer组件注册为该组件的子组件
       Header,
       Footer,
+      QrCode,
     },
   
   };
