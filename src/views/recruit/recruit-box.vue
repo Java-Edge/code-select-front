@@ -6,7 +6,7 @@
           <h4 class="title">{{ shortenTitle(recruit.title) }}</h4>
           <space/>
           <div class="salary">
-            <span class="label red">{{ recruit.salaryMin }} ~ {{ recruit.salaryMax }}</span>
+            <span class="label red">{{ recruit.salary }} </span>
           </div>
         </div>
         <div class="line">

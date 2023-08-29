@@ -36,16 +36,17 @@ export default {
     // 将后端的数据解释
     transformJobInfo(job) {
       // 1. 学历
-      this.transformEducationLevel(job.eduLevel,(result) => {
+      this.transformEducationLevel(job.eduLevel, (result) => {
         job.education = result;
       });
-      console.log(job.education)
       // 2. 薪资，根据招聘类型，实习、社招、校招，确定薪资类型：k、w
-      console.log(job);
+      this.transformSalary(job,(result) => {
+        job.salary = result;
+      })
       return job;
     },
 
-    transformEducationLevel(level,callback) {
+    transformEducationLevel(level, callback) {
       // 0 学历不限 5000 本科 6000 硕士
       let educationLevel = [
         {
@@ -66,6 +67,18 @@ export default {
           callback(educationLevel[i].education);
         }
       }
+    },
+
+    transformSalary(job, callback) {
+      let salary = "薪资面谈";
+      if (job.salaryType === 0) {
+        salary = "薪资面谈";
+      } else if (job.salaryType === 1) {
+        salary = job.salaryMin + "~" + job.salaryMax + "元/天";
+      } else if (job.salaryType === 2) {
+        salary = job.salaryMin + "~" + job.salaryMax + "k * 13 薪";
+      }
+      callback(salary);
     },
   },
 };
