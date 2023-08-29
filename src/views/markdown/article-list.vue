@@ -5,16 +5,15 @@
             <!-- <div class="ranking-number">{{ ranking.orderVal }}</div> -->
             <div class="ranking-left">
                 <div class="ranking-img">
-                    <!-- <img v-if="article.img == null || article.img == ''" src="https://pic.imgdb.cn/item/64cf45381ddac507cc07ebe1.png" />
-                    <img v-else :src="article.img" /> -->
-                    <img :src="article.img" />
+                    <img v-if="article.img == null || article.img == ''" src="https://pic.imgdb.cn/item/64ed5c50661c6c8e54033681.jpg" />
+                    <img v-else :src="article.img" />
                 </div>
             </div>
             <!-- <router-link :to="`/article/${article.articleId}`" class="link-sty"> -->
               <a :href="article.href" target="_blank" class="link-sty">
                 <div class="ranking-middle">
                     <div class="ranking-name hide-text">{{ article.title }}</div>
-                    <div class="ranking-des hide-text">{{ article.content.replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') }}</div>
+                    <div class="ranking-des hide-text">{{ article.des.replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') }}</div>
                     <div class="ranking-likes">浏览量 {{ article.pageView }}</div>
                 </div>
               </a>
