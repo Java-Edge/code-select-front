@@ -1,19 +1,33 @@
-<!--
- * @Descripttion: 
- * @version: 
- * @Author: 不败顽童
- * @Date: 2023-07-16 17:51:44
- * @LastEditors: 不败顽童
- * @LastEditTime: 2023-07-17 21:25:53
--->
 <template>
   <router-link :to="`/recruit/${recruit.id}`" class="link-sty">
     <div class="course-box">
       <div class="course-details">
-        {{ recruit.title }}
+        <div class="line">
+          <h4 class="title">{{ shortenTitle(recruit.title) }}</h4>
+          <space/>
+          <div class="salary">
+            <span class="label red">{{ recruit.salaryMin }} ~ {{ recruit.salaryMax }}</span>
+          </div>
+        </div>
+        <div class="line">
+          <div class="education">
+            <span class="label">{{ recruit.education }}</span>
+          </div>
+          <div class="city">
+            <span class="label">{{ recruit.jobCity }}</span>
+          </div>
+        </div>
+        <div class="line">
+          <img :src=recruit.picUrl :alt=recruit.companyName class="company-picture" /> 
+          <div class="companyName">
+            <span class="label">{{ recruit.companyName }}</span>
+          </div>
+          <div class="experience">
+            <span class="label">{{ recruit.graduationYear }}</span>
+          </div>
+        </div>
+        <div class="des">{{ recruit.des }}</div>
       </div>
-       <div class="salary">薪资：{{ recruit.salaryMin }}~{{ recruit.salaryMax }}</div>
-      <div class="des">{{ recruit.des }}</div>
     </div>
   </router-link>
 </template>
@@ -26,50 +40,86 @@ export default {
       required: true,
     },
   },
+  methods: {
+    shortenTitle(title) {
+      if (title.length > 8) {
+        return title.slice(0,8) + "...";
+      }
+      return title;
+    },
+  },
 };
 </script>
 
-<style scoped>      
-.link-sty{
+<style scoped>
+.link-sty {
   text-decoration: none;
   color: black;
 }
 .course-box {
-      flex: 0 0 calc(50% - 20px);
-      max-width: 400px;
-      margin-bottom: 20px;
-      background-color: #ffffff;
-      border: 1px solid #e0e0e0;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      border-radius: 5px;
-      overflow: hidden;
-      text-decoration: none; /* Remove default underline style */
-      transition: transform 0.2s ease-in-out; /* Add smooth transform transition */
-      height: 120px;
-    }
+  flex: 0 0 calc(50% - 20px);
+  max-width: 400px;
+  height: 150px;
+  margin-bottom: 10px;
+  background-color: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: transform 0.2s ease-in-out;
+  padding: 10px;
+}
 
-    .course-box:hover {
-      transform: scale(1.02); /* Add slight scale effect on hover */
-    }
+.course-box:hover {
+  transform: scale(1.05);
+}
 
-    .course-details {
-      padding: 20px;
-    }
+.course-details {
+  font-size: 14px;
+  color: #777777;
+  line-height: 1.6;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
 
-    .course-details h4 {
-      font-size: 20px;
-      font-weight: bold;
-      color: #333333;
-      margin-bottom: 10px;
-    }
+.line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2px;
+}
 
-    .des {
-      padding: 0 20px 20px;
-      font-size: 14px;
-      color: #555555;
-      line-height: 1.6;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
+.title {
+  font-size: 14px;
+  color: #333333;
+  margin: 0;
+  margin-bottom: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.label {
+  font-weight: bold;
+  font-size: 12px;
+  color: #888888;
+  white-space: nowrap;
+}
+
+.red {
+  color: red;
+}
+
+.des {
+  padding-top: 10px;
+}
+
+.company-picture{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
 </style>

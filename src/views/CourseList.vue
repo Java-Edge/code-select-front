@@ -1,38 +1,38 @@
 <template>
-    <div class="course-details">
-      <div class="course-row" v-for="row in courseRows" :key="row">
-        <CourseBox v-for="course in row" :key="course.id" :course="course" />
-      </div>
+  <div class="course-details">
+    <div class="course-row" v-for="row in courseRows" :key="row">
+      <CourseBox v-for="course in row" :key="course.id" :course="course" />
     </div>
-  </template>
+  </div>
+</template>
   
   <script>
-  import CourseBox from './CourseBox';
-  
-  export default {
-    name: "CourseList",
-    components: {
-      CourseBox,
+import CourseBox from "./CourseBox";
+
+export default {
+  name: "CourseList",
+  components: {
+    CourseBox,
+  },
+  props: {
+    courses: Array,
+  },
+  computed: {
+    courseRows() {
+      // 将所有课程按每行4个进行分组
+      const rows = [];
+      for (let i = 0; i < this.courses.length; i += 4) {
+        rows.push(this.courses.slice(i, i + 4));
+      }
+      return rows;
     },
-    props: {
-      courses: Array,
-    },
-    computed: {
-      courseRows() {
-        // 将所有课程按每行4个进行分组
-        const rows = [];
-        for (let i = 0; i < this.courses.length; i += 4) {
-          rows.push(this.courses.slice(i, i + 4));
-        }
-        return rows;
-      },
-    },
-  };
-  </script>
+  },
+};
+</script>
   
   <style>
-  /* 样式略，保持原来的样式 */
-  
+/* 样式略，保持原来的样式 */
+
 .course-details {
   flex: 1;
   padding: 20px;
@@ -58,5 +58,5 @@
 .course-box p {
   color: #666;
 }
-  </style>
+</style>
   
