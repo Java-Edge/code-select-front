@@ -4,7 +4,8 @@
             <div class="ranking-number">{{ ranking.orderVal }}</div>
             <div class="ranking-left">
                 <div class="ranking-img">
-                    <img src="https://pic.imgdb.cn/item/64cf41fe1ddac507ccff877a.png" />
+                    <!-- <img src="https://pic.imgdb.cn/item/64cf41fe1ddac507ccff877a.png" /> -->
+                    <img :src="ranking.img" />
                 </div>
             </div>
             <!-- <router-link :to="`/ranking/${ranking.articleId}`" class="link-sty"> -->

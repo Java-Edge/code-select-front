@@ -6,7 +6,7 @@
             <div class="ranking-left">
                 <div class="ranking-img">
                     <!-- <img src="https://pic.imgdb.cn/item/64cf45381ddac507cc07ebe1.png" /> -->
-                    <img :src="project.architectureImg" />
+                    <img :src="project.img" />
                 </div>
             </div>
             <router-link :to="`/projectDetail/${project.id}`" class="link-sty">
