@@ -4,7 +4,8 @@
             <div class="ranking-number">{{ ranking.orderVal }}</div>
             <div class="ranking-left">
                 <div class="ranking-img">
-                    <img src="https://pic.imgdb.cn/item/64cf41fe1ddac507ccff877a.png" />
+                    <img v-if="ranking.img == null || ranking.img == ''" src="https://pic.imgdb.cn/item/64ed5b3e661c6c8e5402fc1a.jpg" />
+                    <img v-else :src="ranking.img" />
                 </div>
             </div>
             <!-- <router-link :to="`/ranking/${ranking.articleId}`" class="link-sty"> -->

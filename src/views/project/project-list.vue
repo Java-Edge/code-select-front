@@ -5,8 +5,8 @@
             <!-- <div class="ranking-number">{{ ranking.orderVal }}</div> -->
             <div class="ranking-left">
                 <div class="ranking-img">
-                    <!-- <img src="https://pic.imgdb.cn/item/64cf45381ddac507cc07ebe1.png" /> -->
-                    <img :src="project.architectureImg" />
+                    <img v-if="project.img == null || project.img == ''" src="https://pic.imgdb.cn/item/64ed5b97661c6c8e5403104c.jpg" />
+                    <img v-else :src="project.img" />
                 </div>
             </div>
             <router-link :to="`/projectDetail/${project.id}`" class="link-sty">
