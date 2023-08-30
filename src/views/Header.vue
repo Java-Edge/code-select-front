@@ -55,9 +55,12 @@
 <script>
 import pilotPage from "@/views/category/pilot.vue";
 import { getCookieValue } from "@/utils/userUtil.js";
+import { mapState, mapMutations } from 'vuex';
+
 export default {
   name: 'Header',
   data() {
+    console.log(this.$route);
     return {
       activeMenu: 'home', // 默认选中首页
       isLoggedIn: true, // Set this to true if the user is logged in
@@ -66,6 +69,11 @@ export default {
   },
   created() {
     this.getUserInfo();
+  },
+   computed: {
+    ...mapState({
+      activePath: state => state.nav.activePath
+    })
   },
   methods: {
     handleMenuSelect(index) {
@@ -114,7 +122,10 @@ export default {
     getUserInfo() {
       let userId =  getCookieValue("userId");
       this.username = userId === null ? "guest" : userId;
-    }
+    },
+    ...mapMutations({
+      setActivePath: 'nav/setActivePath'
+    })
   },
 };
 </script>
