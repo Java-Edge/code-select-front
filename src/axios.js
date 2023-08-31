@@ -1,6 +1,6 @@
 /*
- * @Descripttion: 
- * @version: 
+ * @Descripttion:
+ * @version:
  * @Author: 不败顽童
  * @Date: 2023-05-07 18:40:19
  * @LastEditors: 不败顽童
@@ -61,6 +61,9 @@ axios.interceptors.response.use(response => {
         // this.$message.error( response.data.message)
         return response
     } else if (res.code === 400002) {
+        // this.$message.error( response.data.message)
+        return response
+    } else if(res.code === 400003) {
         // this.$message.error( response.data.message)
         return response
     } else {
