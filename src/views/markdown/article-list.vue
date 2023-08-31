@@ -9,15 +9,21 @@
                     <img v-else :src="article.img" />
                 </div>
             </div>
-            <!-- <router-link :to="`/article/${article.articleId}`" class="link-sty"> -->
-              <a :href="article.href" target="_blank" class="link-sty">
-                <div class="ranking-middle">
-                    <div class="ranking-name hide-text">{{ article.title }}</div>
-                    <div class="ranking-des hide-text">{{ article.des.replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') }}</div>
-                    <div class="ranking-likes">浏览量 {{ article.pageView }}</div>
-                </div>
-              </a>
-            <!-- </router-link> -->
+            
+            <a v-if="article.href != null && article.href != ''" :href="article.href" target="_blank" class="link-sty">
+              <div class="ranking-middle">
+                  <div class="ranking-name hide-text">{{ article.title }}</div>
+                  <div class="ranking-des hide-text">{{ article.des.replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') }}</div>
+                  <div class="ranking-likes">浏览量 {{ article.pageView }}</div>
+              </div>
+            </a>
+            <router-link v-else :to="`/article/${article.articleId}`" class="link-sty">
+              <div class="ranking-middle">
+                  <div class="ranking-name hide-text">{{ article.title }}</div>
+                  <div class="ranking-des hide-text">{{ article.des.replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') }}</div>
+                  <div class="ranking-likes">浏览量 {{ article.pageView }}</div>
+              </div>
+            </router-link>
 
             <div class="ranking-right">
                 <div class="ranking-user-img"><img src="https://pic.imgdb.cn/item/64d1f0451ddac507ccb3ddbc.jpg" /></div>
