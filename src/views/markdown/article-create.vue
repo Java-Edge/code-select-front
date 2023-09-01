@@ -141,7 +141,7 @@ const onSubmitClick = () => {
     console.log("title:", title.value);
     console.log(title);
     const article = { title: title.value, content: mkEditor.getHTML() };
-    axios.post("/article/save/", article).then((response) => {
+    axios.post("/back/article/save", article).then((response) => {
       console.log(response);
     });
   }

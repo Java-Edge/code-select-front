@@ -13,14 +13,14 @@
             <a v-if="article.href != null && article.href != ''" :href="article.href" target="_blank" class="link-sty">
               <div class="ranking-middle">
                   <div class="ranking-name hide-text">{{ article.title }}</div>
-                  <div class="ranking-des hide-text">{{ article.des.replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') }}</div>
+                  <div class="ranking-des hide-text">{{ article.content != null && article.content != '' ? article.content.replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') : ''}}</div>
                   <div class="ranking-likes">浏览量 {{ article.pageView }}</div>
               </div>
             </a>
             <router-link v-else :to="`/article/${article.articleId}`" class="link-sty">
               <div class="ranking-middle">
                   <div class="ranking-name hide-text">{{ article.title }}</div>
-                  <div class="ranking-des hide-text">{{ article.des.replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') }}</div>
+                  <div class="ranking-des hide-text">{{ article.content != null && article.content != '' ? article.content.replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') : ''}}</div>
                   <div class="ranking-likes">浏览量 {{ article.pageView }}</div>
               </div>
             </router-link>
