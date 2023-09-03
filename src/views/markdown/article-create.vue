@@ -6,6 +6,11 @@
       <!-- Implement the search input and button here -->
       <input type="text" v-model="title" placeholder="请输入标题" />
     </div>
+    <div class="search-box">
+    <span class="title">外链：</span>
+      <!-- Implement the search input and button here -->
+      <input type="text" v-model="href" placeholder="请输入文章外链" />
+    </div>
     <!-- 渲染区 -->
     <div id="markdown-box" @change="onEditorChange"></div>
     <div class="bottom">
@@ -23,6 +28,7 @@ import axios from "axios";
 
 // 标题
 const title = ref("");
+const href = ref("")
 // Editor实例
 let mkEditor;
 // 处理离开页面切换语言导致 dom 无法被获取
@@ -43,6 +49,7 @@ const getArticleDetail = async () => {
     detail.value = res.data.result;
     mkEditor.setHTML(detail.value.content);
     title.value = detail.value.title;
+    hfef.value = detaile.value.href;
   });
 };
 if (articleId) {
@@ -129,6 +136,7 @@ const onSubmitClick = () => {
     const article = {
       articleId: articleId,
       title: title.value,
+      href: href.value,
       content: mkEditor.getHTML(),
     };
     axios.put("/back/article/updateById/", article).then((response) => {
@@ -140,10 +148,11 @@ const onSubmitClick = () => {
     console.log(mkEditor.getHTML());
     console.log("title:", title.value);
     console.log(title);
-    const article = { title: title.value, content: mkEditor.getHTML() };
-    axios.post("/article/save/", article).then((response) => {
+    const article = { title: title.value, href: href.value, content: mkEditor.getHTML() };
+    axios.post("/back/article/save", article).then((response) => {
       console.log(response);
     });
+    router.push('/article-list/0');
   }
 
   // 文章提交之后清空md内容和标题内容
