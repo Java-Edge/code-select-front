@@ -2,50 +2,110 @@
   <footer class="footer">
     <div class="footer-content">
       <div class="footer-section">
-        <h4>关于我们</h4>
+        <h4>{{ aboutUs.name }}</h4>
         <ul>
-          <li>企业介绍</li>
-          <li>加入我们</li>
-          <li>联系我们</li>
-          <li>帮助中心</li>
+          <li v-for="item in aboutUs.list" :key="item.id"><a :href="item.value" target="_blank">{{ item.label }}</a></li>
         </ul>
       </div>
       <div class="footer-section">
-        <h4>平台服务</h4>
+        <h4>{{ platformService.name }}</h4>
         <ul>
-          <li><a href="https://www.bilibili.com/">专栏</a></li>
-          <li>导航</li>
-          <li>课程</li>
-          <li>江湖</li>
+          <li  v-for="item in platformService.list" :key="item.id"><a :href="item.value" target="_blank">{{ item.label }}</a></li>
         </ul>
       </div>
       <div class="footer-section">
-        <h4>友情链接</h4>
+        <h4>{{ friendlyLink.name }}</h4>
         <ul>
-          <li><a href="https://www.bilibili.com/">哔哩哔哩</a></li>
-          <li><a href="http://www.w3school.com.cn">W3School</a></li>
+          <li  v-for="item in friendlyLink.list" :key="item.id"><a :href="item.value" target="_blank">{{ item.label }}</a></li>
         </ul>
       </div>
       <div class="footer-section">
-        <h4>联系方式</h4>
-        <p>&copy; {{ currentYear }} {{ websiteName }}. All rights reserved.</p>
-        <p>{{ contactPhone }}</p>
+        <h4>{{ contactInfo.name }}</h4>
+        <p v-for="item in contactInfo.list" :key="item.id">{{ item.label }}</p>
       </div>
     </div>
   </footer>
 </template>
   
-<script>
-export default {
-  name: 'Footer',
-  data() {
-    return {
-      websiteName: 'Your Website Name',
-      currentYear: new Date().getFullYear(),
-      contactPhone: '+123-456-7890',
-    };
-  },
-};
+<script setup>
+// export default {
+//   name: 'Footer',
+//   data() {
+//     return {
+//       websiteName: 'Your Website Name',
+//       currentYear: new Date().getFullYear(),
+//       contactPhone: '+123-456-7890',
+//     };
+//   },
+// };
+import {ref} from 'vue'
+import axios from 'axios'
+const aboutUs = ref({})
+const platformService = ref({})
+const friendlyLink = ref({})
+const contactInfo = ref({})
+const getDictionaryData = () => {
+  axios.get('/back/dictionary/list?typeKey=about_us').then(res => {
+    // console.log(res)
+    /**
+     * 每次查出来之后，拼接上原来的数据即可
+     */
+    console.log("新查询的数据", res.data.result)
+    aboutUs.value = res.data.result
+  })
+  axios.get('/back/dictionary/list?typeKey=platform_service').then(res => {
+    // console.log(res)
+    /**
+     * 每次查出来之后，拼接上原来的数据即可
+     */
+    console.log("新查询的数据", res.data.result)
+    platformService.value = res.data.result
+  })
+  axios.get('/back/dictionary/list?typeKey=friendly_link').then(res => {
+    // console.log(res)
+    /**
+     * 每次查出来之后，拼接上原来的数据即可
+     */
+    console.log("新查询的数据", res.data.result)
+    friendlyLink.value = res.data.result
+  })
+  axios.get('/back/dictionary/list?typeKey=contact_info').then(res => {
+    // console.log(res)
+    /**
+     * 每次查出来之后，拼接上原来的数据即可
+     */
+    console.log("新查询的数据", res.data.result)
+    contactInfo.value = res.data.result
+  })
+}
+getDictionaryData()
+// axios.get('/back/dictionary/list?typekey=platform_service').then(res => {
+//     // console.log(res)
+//     /**
+//      * 每次查出来之后，拼接上原来的数据即可
+//      */
+//     console.log("新查询的数据", res.data.result)
+//     articleData.value = articleData.value.concat(res.data.result.records)
+//     total.value = res.data.result.total
+// })
+// axios.get('/back/dictionary/list?typekey=friendly_link').then(res => {
+//     // console.log(res)
+//     /**
+//      * 每次查出来之后，拼接上原来的数据即可
+//      */
+//     console.log("新查询的数据", res.data.result)
+//     articleData.value = articleData.value.concat(res.data.result.records)
+//     total.value = res.data.result.total
+// })
+// axios.get('/back/dictionary/list?typekey=contact_info').then(res => {
+//     // console.log(res)
+//     /**
+//      * 每次查出来之后，拼接上原来的数据即可
+//      */
+//     console.log("新查询的数据", res.data.result)
+//     articleData.value = articleData.value.concat(res.data.result.records)
+//     total.value = res.data.result.total
+// })
 </script>
   
 <style scoped>
