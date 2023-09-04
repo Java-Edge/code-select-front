@@ -33,6 +33,11 @@
           <!-- 工作地点 -->
           <span class="company-name">工作地点</span>：{{ selectedRecruit.jobCity }}
         </div>
+        <div class="study-button">
+          <button class="deliver-button" @click="deliver(selectedRecruit.sourceUrl)">
+            点击投递
+          </button>
+        </div>
         <div class="description">
           <span class="descrip">学历要求</span>：{{ selectedRecruit.education }}
         </div>
@@ -55,11 +60,6 @@
         <div class="description">
           <span class="descrip">毕业学校</span>：{{ selectedRecruit.topSchool }}
         </div>
-        <!-- <div class="study-button">
-          <button class="learn-button" @click="goToStudy(selectedRecruit)">
-            点击投递
-          </button>
-        </div> -->
       </div>
     </div>
 
@@ -151,8 +151,13 @@ export default {
         message: "购买功能暂未实现，请联系管理员",
       });
     },
-    goToStudy(selectedCourse) {
-      window.open(selectedCourse.sourceUrl);
+    deliver(sourceUrl) {
+      console.log(sourceUrl);
+      if(sourceUrl === null){
+         this.$message.error("暂时无法投递，请联系管理员");
+      }else{
+        window.open(sourceUrl);
+      }
     },
     getRecommendCourses() {
       this.$axios
@@ -216,6 +221,9 @@ export default {
         salary = job.salaryMin + "~" + job.salaryMax + "k * 13 薪";
       }
       callback(salary);
+    },
+    goToStudy(selectedCourse) {
+      window.open(selectedCourse.sourceUrl);
     },
   },
 };
@@ -281,7 +289,7 @@ p {
   margin-bottom: 20px;
 }
 
-.learn-button {
+.deliver-button {
   background-color: #007bff;
   color: #fff;
   border: none;
@@ -293,11 +301,11 @@ p {
   transition: background-color 0.3s;
 }
 
-.learn-button:hover {
+.deliver-button:hover {
   background-color: #0056b3;
 }
 
-.learn-button:focus {
+.deliver-button:focus {
   outline: none;
 }
 
