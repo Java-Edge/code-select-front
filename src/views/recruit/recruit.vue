@@ -40,10 +40,6 @@
       <div style="font-size: 30px; text-align: center; margin-top: 30px;">-- 招聘列表 --</div>
       <!-- 课程详情区域 -->
       <RecruitList :recruits="recruits" />
-
-<!--      <div class="recruit-list">-->
-<!--        <RecruitItem :recruits="recruitList"></RecruitItem>-->
-<!--      </div>-->
     </div>
   </template>
   
@@ -169,9 +165,11 @@
         this.activeMenu = index; // 更新选中的菜单项
         // 可根据不同的菜单项进行相应的页面跳转或其他操作
       },
-      getCourses(condition) {
+      getCourses() {
+        let condition
         condition = {
-          ...condition,
+          pageNo: 1,
+          pageSize: 20,
           param :{
             companyId: "",
             careerJobId: ""
