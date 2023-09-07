@@ -1,6 +1,6 @@
 <template>
   <router-link :to="`/recruit/${recruit.id}`" class="link-sty">
-    <div class="course-box">
+    <div class="course-box" @click="deliver(recruit.sourceUrl)">
       <div class="course-details">
         <div class="line">
           <h4 class="title">{{ shortenTitle(recruit.title) }}</h4>
@@ -27,6 +27,9 @@
           </div>
         </div>
         <div class="des">{{ recruit.des }}</div>
+        <!-- <button class="learn-button" @click="deliver(selectedRecruit.sourceUrl)">
+            点击投递
+        </button> -->
       </div>
     </div>
   </router-link>
@@ -46,6 +49,12 @@ export default {
         return title.slice(0,8) + "...";
       }
       return title;
+    },
+    deliver(sourceUrl) {
+      console.log(sourceUrl);
+      if(sourceUrl !== null){
+        window.open(sourceUrl);
+      }
     },
   },
 };
@@ -121,5 +130,25 @@ export default {
   height: 40px;
   border-radius: 50%;
   margin-right: 10px;
+}
+
+.learn-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  font-size: 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+}
+
+.learn-button:hover {
+  background-color: #0056b3;
+}
+
+.learn-button:focus {
+  outline: none;
 }
 </style>
