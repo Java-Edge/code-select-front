@@ -38,7 +38,7 @@
       </div>
     </div>
 
-    <div class='interview-card' v-for="interview in tableData" :key="interview.id" @click="onShowClick(interview.id)" > 
+    <div class='interview-card' v-for="interview in tableData" :key="interview.id" @click="onShowClick(interview.id)" >
       <div class="interview-title">{{ interview.title }}</div>
       <div class='interview-content'>{{ interview.content.length > 300 ? interview.content.substr(0, 30).replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') + "..." : interview.content.replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') }}</div>
       <div class='interview-type'>
@@ -47,7 +47,7 @@
       </div>
     </div>
 
-    
+
     <el-pagination
         class="pagination"
         @size-change="handleSizeChange"
@@ -84,7 +84,7 @@ let jobId = ref(-1)
 const getCompanyData = () => {
   axios.get("/back/company/getList").then(res => {
     companyOptions.value = res.data.result
-  }) 
+  })
 }
 getCompanyData()
 
@@ -95,7 +95,7 @@ const handleChangeCompany = () => {
       pageNo: page.value,
       pageSize: size.value,
       param: {
-        jobId: jobId.value, 
+        jobId: jobId.value,
         content: activeMenu.value,
         company: companyCondition.value
       }
@@ -114,7 +114,7 @@ const handleFilterSelect = selectedItem => {
       pageNo: page.value,
       pageSize: size.value,
       param: {
-        jobId: jobId.value, 
+        jobId: jobId.value,
         content: activeMenu.value,
         company: companyCondition.value
       }
@@ -128,7 +128,7 @@ const handleFilterSelect = selectedItem => {
       pageNo: page.value,
       pageSize: size.value,
       param: {
-        jobId: jobId.value, 
+        jobId: jobId.value,
         company: companyCondition.value
       }
     }
@@ -139,7 +139,7 @@ const handleFilterSelect = selectedItem => {
 
 // 级联选择框
 const props = {
-  expandTrigger: 'hover' 
+  expandTrigger: 'hover'
 }
 let value = [-1]
 const handleChange = (value) => {
@@ -149,7 +149,7 @@ const handleChange = (value) => {
     pageSize: size.value,
     param: {
       jobId: jobId.value,
-      content: activeMenu.value != ""? activeMenu.value : "", 
+      content: activeMenu.value != ""? activeMenu.value : "",
       company: companyCondition.value
     }
   }
@@ -165,82 +165,12 @@ axios.get("/back/career/getData").then(res => {
 
 const getListDataByCondition = async (condition) => {
   axios.post('/back/interview-experience/selectByCondition',condition
-            // ,
-            //     {
-            //         headers: {
-            //             "Authorization": this.$store.getters.getToken
-            //         }
-            //     }
           ).then(response => {
             console.log(response)
             tableData.value = response.data.result.records;
             total.value = response.data.result.total;
-            // this.$message({
-            //     type: 'success',
-            //     message: response.data.message
-            // });
           })
 }
-
-// const options = [
-//   {
-//     value: 'guide',
-//     label: 'Guide',
-//     children: [
-//       {
-//         value: 'disciplines',
-//         label: 'Disciplines',
-//         children: [
-//           {
-//             value: 'consistency',
-//             label: 'Consistency',
-//           },
-//           {
-//             value: 'feedback',
-//             label: 'Feedback',
-//           },
-//           {
-//             value: 'efficiency',
-//             label: 'Efficiency',
-//           },
-//           {
-//             value: 'controllability',
-//             label: 'Controllability',
-//           },
-//         ],
-//       },
-//     ],
-//   },
-//   {
-//     value: 'python',
-//     label: 'python',
-//     children: [
-//     {
-//         value: 'disciplines',
-//         label: 'Disciplines',
-//         children: [
-//           {
-//             value: 'consistency',
-//             label: 'Consistency',
-//           },
-//           {
-//             value: 'feedback',
-//             label: 'Feedback',
-//           },
-//           {
-//             value: 'efficiency',
-//             label: 'Efficiency',
-//           },
-//           {
-//             value: 'controllability',
-//             label: 'Controllability',
-//           },
-//         ],
-//       },
-//     ]
-//   }
-// ]
-
 
 // 数据相关
 const tableData = ref([])
@@ -251,25 +181,6 @@ const size = ref(10)
 const route = useRoute()
 const type = route.params.type
 console.log(type)
-// 获取数据的方法
-// const getListData = async () => {
-// let path = `/article/getByPage?current=${page.value}&size=${size.value}`;
-// if(type) {
-//   path += `&type=${type}`
-// }
-// axios.get(path).then(res=>{
-//   console.log(res)
-//   tableData.value = res.data.result.records
-//   total.value = res.data.result.total
-//   console.log('tableData', tableData.value)
-// })
-// // const result = await getArticleList({
-// //   current: page.value,
-// //   size: size.value
-// // })
-// // tableData.value = result.list
-// // total.value = result.total
-// }
 
 const getListData = async () => {
 
@@ -278,19 +189,9 @@ const getListData = async () => {
       pageSize: size.value
     }
     axios.post('/back/interview-experience/selectByCondition',params
-            // ,
-            //     {
-            //         headers: {
-            //             "Authorization": this.$store.getters.getToken
-            //         }
-            //     }
           ).then(response => {
             tableData.value = response.data.result.records;
             total.value = response.data.result.total;
-            // this.$message({
-            //     type: 'success',
-            //     message: response.data.message
-            // });
           })
 }
 getListData()
@@ -329,9 +230,6 @@ watch(
     () => router.currentRoute.value,
     () => {
          console.log("路由变化了", router.currentRoute.value)
-        //  let type = route.params.type    
-        //  console.log(type)
-        //  getListData()
     }
 );
 

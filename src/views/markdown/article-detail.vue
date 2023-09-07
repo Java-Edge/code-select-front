@@ -13,7 +13,7 @@
         <div class="content" v-html="detail.content"></div>
     </div>
 </template>
-  
+
 <script setup>
 import { ref } from "vue";
 import axios from 'axios';
@@ -38,7 +38,7 @@ const onEditClick = row => {
   router.push(`/article-editor/${articleId}`)
 }
 </script>
-  
+
 <style lang="scss" scoped>
 .article-detail-container {
   .title {

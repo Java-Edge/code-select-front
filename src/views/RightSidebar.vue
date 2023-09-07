@@ -11,20 +11,20 @@
             </router-link>
           </div>
         </div>
-  
+
         <!-- If we need navigation buttons -->
         <div class="swiper-button-prev"></div>
         <div class="swiper-button-next"></div>
-  
+
         <!-- If we need scrollbar -->
         <div class="swiper-scrollbar"></div>
-  
+
         <!-- If we need pagination -->
         <div class="swiper-pagination"></div>
       </div>
     </div>
   </template>
-  
+
   <script>
   import Swiper from 'swiper';
   import { Navigation, Pagination } from 'swiper/modules';
@@ -32,7 +32,7 @@
   import 'swiper/css';
   import 'swiper/css/navigation';
   import 'swiper/css/pagination';
-  
+
   export default {
     name: 'RightSidebar',
     props: {
@@ -51,27 +51,27 @@
           delay: 3000, // Set the delay between slide transitions in milliseconds (3 seconds in this example)
           disableOnInteraction: false, // Allow auto play to continue even when the user interacts with Swiper
         },
-  
+
         // If we need pagination
         pagination: {
           el: '.swiper-pagination',
           clickable: true, // Allow pagination bullets to be clickable
         },
-  
+
         // Navigation arrows
         navigation: {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev',
         },
-  
+
         // And if we need scrollbar
         scrollbar: {
           el: '.swiper-scrollbar',
         },
-  
+
         // Add the loopedSlides option to control how many slides are looped
         loopedSlides: this.carouselData.length, // Set it to the total number of slides
-  
+
         // Add the slideChange event handler for looping
         on: {
           slideChange: () => {
@@ -85,7 +85,7 @@
     },
   };
   </script>
-  
+
   <style scoped>
   /* 添加样式 */
   .right-sidebar {
@@ -97,13 +97,13 @@
     flex-direction: column;
     align-items: center;
   }
-  
+
   .carousel-image {
     width: 100%;
     height: 100%;
     object-fit: contain;
   }
-  
+
   /* Add the following CSS styles */
 .swiper-pagination {
     display: flex;
@@ -119,11 +119,11 @@
     margin: 0 5px;
     /* Adjust the space between bullets as needed */
   }
-  
+
   .swiper-pagination-bullet-active {
     background-color: #555;
   }
-  
+
   .swiper-container {
     width: 100%;
     height: 450px;
@@ -132,10 +132,9 @@
     /* 添加以下样式以实现水平排列 */
     display: flex;
   }
-  
+
   .swiper-slide img {
     width: 100%;
     height: 95%;
   }
   </style>
-  

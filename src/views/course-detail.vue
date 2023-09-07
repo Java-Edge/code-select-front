@@ -1,11 +1,3 @@
-<!--
- * @Descripttion: 
- * @version: 
- * @Author: 不败顽童
- * @Date: 2023-08-04 20:00:22
- * @LastEditors: 不败顽童
- * @LastEditTime: 2023-08-05 20:08:44
--->
 <template>
   <div class="course-details-page">
     <div class="course-details-content">
@@ -33,14 +25,10 @@
 </template>
 
 <script>
-import Header from './Header.vue'; // Import the Header component
-import Footer from './Footer.vue'; // Import the Footer component
 import CourseList from './CourseList.vue'; // Import the CourseList component
 export default {
   name: 'CourseDetails',
   components: {
-    Header, // Register the Header component
-    Footer, // Register the Footer component
     CourseList, // Register the CourseList component
     // ... Rest of your components ...
   },
@@ -51,12 +39,7 @@ export default {
     },
   },
   created() {
-    // this.getMenuList();
-    // const id = this.$route.params.id;
-    // this.getCourseDetail(id);
-    // this.getRecommendCourses();
     this.fetchData();
-    // this.nickname = this.$store.getters.getUser.nickname;
   },
   data() {
     return {

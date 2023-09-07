@@ -43,58 +43,6 @@ export default {
             menus: ['Vue.js', 'Typescript', 'React.js', 'HTML/CSS', 'Javascript', 'Angular', 'Node.js', 'JQuery', 'Bootstrap',
               'Sass/Less', 'WebApp', '小程序', '前端工具', 'CSS', 'HTML5', 'CSS3']
           },
-            // {
-            //   menu_title: '手机配件',
-            //   menus: ['手机壳', '手机存储卡', '数据线', '充电器', '电池']
-            // },
-            // {
-            //   menu_title: '运营商',
-            //   menus: ['中国联通', '中国移动', '中国电信']
-            // },
-            // {
-            //   menu_title: '智能设备',
-            //   menus: ['智能手环', '智能家居', '智能手表', '其他配件']
-            // },
-            // {
-            //   menu_title: '智能设备',
-            //   menus: ['智能手环', '智能家居', '智能手表', '其他配件']
-            // },
-            // {
-            //   menu_title: '智能设备',
-            //   menus: ['智能手环', '智能家居', '智能手表', '其他配件']
-            // },
-            // {
-            //   menu_title: '智能设备',
-            //   menus: ['智能手环', '智能家居', '智能手表', '其他配件']
-            // },
-            // {
-            //   menu_title: '智能设备',
-            //   menus: ['智能手环', '智能家居', '智能手表', '其他配件']
-            // },
-            // {
-            //   menu_title: '智能设备',
-            //   menus: ['智能手环', '智能家居', '智能手表', '其他配件']
-            // },
-            // {
-            //   menu_title: '智能设备',
-            //   menus: ['智能手环', '智能家居', '智能手表', '其他配件']
-            // },
-            // {
-            //   menu_title: '智能设备',
-            //   menus: ['智能手环', '智能家居', '智能手表', '其他配件']
-            // },
-            // {
-            //   menu_title: '智能设备',
-            //   menus: ['智能手环', '智能家居', '智能手表', '其他配件']
-            // },
-            // {
-            //   menu_title: '智能设备',
-            //   menus: ['智能手环', '智能家居', '智能手表', '其他配件']
-            // },
-            // {
-            //   menu_title: '娱乐',
-            //   menus: ['耳机', '音响', '收音机', '麦克风']
-            // }
           ]
         },
         {
@@ -104,22 +52,6 @@ export default {
             menus: ['Java', 'SpringBoot', 'SpringCloud', 'SSM', 'PHP', '.net', 'Python', '爬虫', 'Django', 'Flask', 'Tornado', 'Go', 'C', 'C++'
               , 'C#', 'Ruby', 'ThinkPHP']
           },
-            // {
-            //   menu_title: '电脑配件',
-            //   menus: ['显示器', 'CPU', '主板', '硬盘', '电源', '显卡', '其他配件']
-            // },
-            // {
-            //   menu_title: '游戏设备',
-            //   menus: ['游戏机', '耳机', '游戏软件']
-            // },
-            // {
-            //   menu_title: '网络产品',
-            //   menus: ['路由器', '网络机顶盒', '交换机', '存储卡', '网卡']
-            // },
-            // {
-            //   menu_title: '外部产品',
-            //   menus: ['鼠标', '键盘', 'U盘', '移动硬盘', '鼠标垫', '电脑清洁']
-            // }
           ]
         },
         {
@@ -128,22 +60,6 @@ export default {
             menu_title: '知识点',
             menus: ['Android', 'IOS', 'React Native', 'WEEX', 'Swift']
           },
-            // {
-            //   menu_title: '空调',
-            //   menus: ['显示器', '柜式', '中央', '壁挂式']
-            // },
-            // {
-            //   menu_title: '冰箱',
-            //   menus: ['多门', '对开门', '三门', '双门']
-            // },
-            // {
-            //   menu_title: '洗衣机',
-            //   menus: ['滚筒式洗衣机', '迷你洗衣机', '洗烘一体机']
-            // },
-            // {
-            //   menu_title: '厨房电器',
-            //   menus: ['油烟机', '洗碗机', '燃气灶']
-            // }
           ]
         },
         {
@@ -156,18 +72,6 @@ export default {
             menu_title: '数据库',
             menus: ['MySQL', 'Redis', 'MongoDB', 'Oracle', 'SQL Server', 'NoSQL']
           },
-            // {
-            //   menu_title: '厨具',
-            //   menus: ['烹饪锅具', '餐具', '菜板刀具']
-            // },
-            // {
-            //   menu_title: '家装',
-            //   menus: ['地毯', '沙发垫套', '装饰字画', '照片墙', '窗帘']
-            // },
-            // {
-            //   menu_title: '生活日用',
-            //   menus: ['收纳用品', '浴室用品', '雨伞雨衣']
-            // }
           ]
         },
         {
@@ -180,18 +84,6 @@ export default {
             menu_title: '云计算&大数据',
             menus: ['大数据', 'Hadoop', 'Spark', 'Hbase', 'Flink', 'Storm', '云计算', 'AWS', 'DOcker', 'Kubernetes']
           },
-            // {
-            //   menu_title: '厨具',
-            //   menus: ['烹饪锅具', '餐具', '菜板刀具']
-            // },
-            // {
-            //   menu_title: '家装',
-            //   menus: ['地毯', '沙发垫套', '装饰字画', '照片墙', '窗帘']
-            // },
-            // {
-            //   menu_title: '生活日用',
-            //   menus: ['收纳用品', '浴室用品', '雨伞雨衣']
-            // }
           ]
         },
         {
@@ -200,22 +92,6 @@ export default {
             menu_title: '知识点',
             menus: ['运维', '自动化运维', '运维工具', '中间件', 'Linux', '测试', '功能测试', '性能测试', '自动化测试', '接口测试', '安全测试']
           },
-            // {
-            //   menu_title: '灯具',
-            //   menus: ['台灯', '顶灯', '节能灯', '应急灯']
-            // },
-            // {
-            //   menu_title: '厨具',
-            //   menus: ['烹饪锅具', '餐具', '菜板刀具']
-            // },
-            // {
-            //   menu_title: '家装',
-            //   menus: ['地毯', '沙发垫套', '装饰字画', '照片墙', '窗帘']
-            // },
-            // {
-            //   menu_title: '生活日用',
-            //   menus: ['收纳用品', '浴室用品', '雨伞雨衣']
-            // }
           ]
         },
         {
@@ -228,18 +104,6 @@ export default {
             menu_title: '游戏',
             menus: ['Unity 3D', 'Cocos2d-x']
           },
-            // {
-            //   menu_title: '厨具',
-            //   menus: ['烹饪锅具', '餐具', '菜板刀具']
-            // },
-            // {
-            //   menu_title: '家装',
-            //   menus: ['地毯', '沙发垫套', '装饰字画', '照片墙', '窗帘']
-            // },
-            // {
-            //   menu_title: '生活日用',
-            //   menus: ['收纳用品', '浴室用品', '雨伞雨衣']
-            // }
           ]
         }],
 

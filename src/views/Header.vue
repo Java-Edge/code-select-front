@@ -53,7 +53,6 @@
 </template>
 
 <script>
-import pilotPage from "@/views/category/pilot.vue";
 import { getCookieValue } from "@/utils/userUtil.js";
 import { mapState, mapMutations } from 'vuex';
 

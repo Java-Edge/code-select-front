@@ -18,44 +18,23 @@
 </template>
 
 <script>
-import Header from './Header.vue'; // Import the Header component
-import Footer from './Footer.vue'; // Import the Footer component
 import CourseList from './CourseList.vue'; // Import the CourseList component
 import LeftSidebar from './LeftSidebar.vue'; // Import the LeftSidebar component
 import RightSidebar from './RightSidebar.vue'; // Import the RightSidebar component
-import QrCode from './QrCode'
 
 
 export default {
   name: "CourseNavigation",
   components: {
-    Header, // Register the Header component
-    Footer, // Register the Footer component
     CourseList, // Register the CourseList component
     LeftSidebar,
     RightSidebar,
-    QrCode
-    // ... Rest of your components ...
   },
   data() {
     return {
       activeMenu: "home", // 默认选中首页
       courses: [], // 所有课程数据，从后端获取或静态定义
-      carouselData: [
-        {
-          id: 1,
-          image: "https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230709183838817.png",
-        },
-        {
-          id: 2,
-          image: "https://via.placeholder.com/800x300?text=Slide%202",
-        },
-        {
-          id: 3,
-          image: "https://via.placeholder.com/800x300?text=Slide%203",
-        },
-        // 更多轮播图数据
-      ],
+      carouselData: [],
       img: require("@/assets/background.jpg"),
     };
   },
