@@ -45,12 +45,10 @@
           <span class="descrip">薪资待遇</span>：{{ selectedRecruit.salary }}
         </div>
         <div class="description">
-          <span class="descrip">岗位职责</span>：{{ selectedRecruit.content }}
+          <span class="descrip" v-html="selectedRecruit.content"></span>
         </div>
         <div class="description">
-          <span class="descrip">招聘要求</span>：{{
-            selectedRecruit.requirements
-          }}
+          <span class="descrip"  v-html="selectedRecruit.requirements"></span>
         </div>
         <div class="description">
           <span class="descrip">毕业要求</span>：{{
@@ -77,6 +75,8 @@ import Header from "../Header.vue"; // Import the Header component
 import Footer from "../Footer.vue"; // Import the Footer component
 import RecruitList from "./recruit-list.vue"; // Import the CourseList component
 import CourseList from "../CourseList.vue"; // Import the CourseList component
+import "@toast-ui/editor/dist/toastui-editor.css";
+import { toastui } from "@toast-ui/editor";
 export default {
   name: "RecruitDetails",
   components: {
@@ -180,6 +180,9 @@ export default {
       this.transformSalary(job, (result) => {
         job.salary = result;
       });
+
+      job.value.infos = job.value.infos.replace(/\n/g, '<br/>')
+      job.value.requirements = job.value.requirements.replace(/\n/g, '<br/>')
       return job;
     },
 
