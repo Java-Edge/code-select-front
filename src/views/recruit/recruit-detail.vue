@@ -45,7 +45,7 @@
           <span class="descrip">薪资待遇</span>：{{ selectedRecruit.salary }}
         </div>
         <div class="description">
-          <span class="descrip">岗位职责</span>：{{ selectedRecruit.infos }}
+          <span class="descrip">岗位职责</span>：{{ selectedRecruit.content }}
         </div>
         <div class="description">
           <span class="descrip">招聘要求</span>：{{
@@ -131,11 +131,6 @@ export default {
           const recruit = response.data.result;
           console.log(response);
           this.selectedRecruit = recruit;
-          let content = JSON.parse(recruit.content);
-          this.selectedRecruit.infos = content.infos;
-          this.selectedRecruit.requirements = content.requirements;
-          this.selectedRecruit.jobStrength = content.jobStrength;
-          this.selectedRecruit.topSchool = content.topSchool;
           // this.$message({
           //     type: 'success',
           //     message: response.data.message
