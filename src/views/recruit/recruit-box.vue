@@ -72,7 +72,7 @@ export default {
   margin-bottom: 10px;
   background-color: #f5f5f5;
   border: 1px solid #e0e0e0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   box-shadow: 8px 16px 16px hsl(0deg 0% 0% / 0.25);
   border-radius: 5px;
   overflow: hidden;
   text-decoration: none;
