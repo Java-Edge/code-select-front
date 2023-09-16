@@ -173,16 +173,16 @@ export default {
     // 将后端的数据解释
     transformJobInfo(job) {
       // 1. 学历
-      this.transformEducationLevel(job.eduLevel, (result) => {
-        job.education = result;
+      this.transformEducationLevel(job.eduLevel, (education) => {
+        job.education = education;
       });
       // 2. 薪资，根据招聘类型，实习、社招、校招，确定薪资类型：k、w
-      this.transformSalary(job, (result) => {
-        job.salary = result;
+      this.transformSalary(job, (salary) => {
+        job.salary = salary;
       });
 
-      job.value.infos = job.value.infos.replace(/\n/g, '<br/>')
-      job.value.requirements = job.value.requirements.replace(/\n/g, '<br/>')
+      job.content = job.content.replace(/\n/g, '<br/>')
+      job.requirements = job.requirements.replace(/\n/g, '<br/>')
       return job;
     },
 
