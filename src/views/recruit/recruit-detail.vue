@@ -184,6 +184,8 @@ export default {
       this.transformSalary(job, (salary) => {
         job.salary = salary;
       });
+      // 3. 公司图片
+      job.picUrl = job.picUrl === null ? "https://picx.zhimg.com/v2-d534f6d0948d7228b4173e6e1a7a3436_xl.jpg":job.picUrl;
 
       job.content = job.content.replace(/\n/g, "<br/>");
       job.requirements = job.requirements.replace(/\n/g, "<br/>");

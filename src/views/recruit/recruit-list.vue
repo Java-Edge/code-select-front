@@ -43,6 +43,7 @@ export default {
       this.transformSalary(job,(result) => {
         job.salary = result;
       })
+      job.picUrl = job.picUrl === null ? "https://picx.zhimg.com/v2-d534f6d0948d7228b4173e6e1a7a3436_xl.jpg":job.picUrl;
       return job;
     },
 
