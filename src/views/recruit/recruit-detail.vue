@@ -8,15 +8,14 @@
         <img :src="selectedRecruit.image" :alt="selectedRecruit.name" />
       </div> -->
       <div class="right">
-        <!-- <div class="price">价格：{{ selectedCourse.price }} ￥</div> -->
-        <!-- <div class="description">
-          <span class="descrip">简介</span>：{{ selectedRecruit.des }}
-        </div> -->
-        
         <div class="company">
-          <span><img :src=selectedRecruit.picUrl :alt=selectedRecruit.companyName class="company-picture" /> </span>
+          <div>
+            <img :src="selectedRecruit.picUrl" :alt="selectedRecruit.companyName"  class="company-picture" />
+          </div>
           <!-- 公司名称 -->
-          <span class="company-name">公司名称</span>：{{ selectedRecruit.companyName }}
+          <div class="company-name">
+            <span class="company-name-info">公司名称</span>：{{ selectedRecruit.companyName }}
+          </div>
 
           <!-- HR联系电话 -->
           <!-- <span class="company-name">联系电话</span>：{{    selectedRecruit.hrPhoneNumber   }} -->
@@ -31,10 +30,15 @@
           <!-- <span class="company-name">在线时间</span>：{{  selectedRecruit.hrOnlineTime  }} -->
 
           <!-- 工作地点 -->
-          <span class="company-name">工作地点</span>：{{ selectedRecruit.jobCity }}
+          <div class="job-city">
+            <span class="job-city-info">工作地点</span>：{{ selectedRecruit.jobCity }}
+          </div>
         </div>
         <div class="study-button">
-          <button class="deliver-button" @click="deliver(selectedRecruit.sourceUrl)">
+          <button
+            class="deliver-button"
+            @click="deliver(selectedRecruit.sourceUrl)"
+          >
             点击投递
           </button>
         </div>
@@ -48,7 +52,7 @@
           <span class="descrip" v-html="selectedRecruit.content"></span>
         </div>
         <div class="description">
-          <span class="descrip"  v-html="selectedRecruit.requirements"></span>
+          <span class="descrip" v-html="selectedRecruit.requirements"></span>
         </div>
         <div class="description">
           <span class="descrip">毕业要求</span>：{{
@@ -148,9 +152,9 @@ export default {
     },
     deliver(sourceUrl) {
       console.log(sourceUrl);
-      if(sourceUrl === null){
-         this.$message.error("暂时无法投递，请联系管理员");
-      }else{
+      if (sourceUrl === null) {
+        this.$message.error("暂时无法投递，请联系管理员");
+      } else {
         window.open(sourceUrl);
       }
     },
@@ -181,8 +185,8 @@ export default {
         job.salary = salary;
       });
 
-      job.content = job.content.replace(/\n/g, '<br/>')
-      job.requirements = job.requirements.replace(/\n/g, '<br/>')
+      job.content = job.content.replace(/\n/g, "<br/>");
+      job.requirements = job.requirements.replace(/\n/g, "<br/>");
       return job;
     },
 
@@ -338,11 +342,17 @@ p {
 }
 
 /* 公司名称样式 */
-.company-name {
+.company-name-info {
   font-weight: bold;
 }
 
-.company-picture{
+/* 工作地点样式 */
+.job-city-info {
+  font-weight: bold;
+}
+
+
+.company-picture {
   width: 80px;
   height: 80px;
   border-radius: 50%;
