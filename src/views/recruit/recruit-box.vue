@@ -20,7 +20,7 @@
         <div class="line">
           <img :src=recruit.picUrl :alt=recruit.companyName class="company-picture" /> 
           <div class="companyName">
-            <span class="label">{{ recruit.companyName }}</span>
+            <span class="label">{{ recruit.companyShortName }}</span>
           </div>
           <div class="experience">
             <span class="label">{{ recruit.graduationYear }}</span>
@@ -97,7 +97,8 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2px;
+  width: 200px;
+  margin-bottom: 1px;
 }
 
 .title {
