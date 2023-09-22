@@ -1,8 +1,6 @@
 <template>
   <div class="content-class">
-    <div class="category-com"><categry-components :list="mediaList" title="媒体"></categry-components></div>
-    <div class="category-com"><categry-components :list="toolList" title="工具"></categry-components></div>
-    <div class="category-com"><categry-components :list="gptList" title="ChatGPT"></categry-components></div>
+    <div v-for="(value, key) in pilotList" :key="key"><categry-components :list="value" :title="key"></categry-components></div>
   </div>
 </template>
 
@@ -11,6 +9,7 @@ import CategryComponents from "@/views/category/categryComponents.vue";
 
 import axios from 'axios'
 import { ref } from "vue";
+let pilotList = ref({})
 const mediaList = ref([])
 const toolList = ref([])
 const gptList = ref([])
@@ -21,6 +20,17 @@ const getPilotType = () => {
     mediaList.value = res.data.result['媒体']
     toolList.value = res.data.result['工具']
     gptList.value = res.data.result['ChatGPT']
+    // pilotList.value = res.data.result
+    // console.log("11", pilotList.value)
+    // Object.entries(res.data.result).forEach(item => console.log(item[0], item[1]))
+    // Object.entries(res.data.result).forEach(item => pilotList.set(item[0], item[1]))
+    pilotList.value = res.data.result
+    console.log("p", pilotList)
+
+    // for((k, v) in pilotList.value) {
+    //   console.log(k, v)
+    // }
+    // pilotList.value.push()
     // console.log(response)
   }).catch(err => {
     console.log('err', err)
