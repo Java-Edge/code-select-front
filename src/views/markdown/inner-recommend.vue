@@ -11,36 +11,6 @@
           expandTrigger="hover"
         />
       </div>
-      <div class="filter-box2">
-        <div
-          class="filter-item"
-          @click="handleFilterSelect('一面')"
-          :class="{ active: activeMenu === '一面' }"
-        >
-          一面
-        </div>
-        <div
-          class="filter-item"
-          @click="handleFilterSelect('二面')"
-          :class="{ active: activeMenu === '二面' }"
-        >
-          二面
-        </div>
-        <div
-          class="filter-item"
-          @click="handleFilterSelect('三面')"
-          :class="{ active: activeMenu === '三面' }"
-        >
-          三面
-        </div>
-        <div
-          class="filter-item"
-          @click="handleFilterSelect('hr面')"
-          :class="{ active: activeMenu === 'hr面' }"
-        >
-          hr面
-        </div>
-      </div>
       <div class="company-filter-box">
         <el-select
           v-model="companyCondition"
@@ -102,10 +72,8 @@
 import { ref, onActivated, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import axios from "axios";
-import Header from "../Header.vue"; // Import the Header component
-import Footer from "../Footer.vue"; // Import the Footer component
-
 const companyOptions = ref([]);
+
 let companyCondition = ref("");
 let activeMenu = ref("");
 let jobId = ref(-1);
@@ -135,71 +103,13 @@ const handleChangeCompany = () => {
   getListDataByCondition(condition);
 };
 
-// 一面、二面单选框
-const handleFilterSelect = (selectedItem) => {
-  console.log(jobId.value);
-  // 选中，根据选择类容进行擦汗寻
-  if (activeMenu.value != selectedItem) {
-    activeMenu.value = selectedItem;
-    jobId.value = value[value.length - 1];
-    let condition = {
-      pageNo: page.value,
-      pageSize: size.value,
-      param: {
-        jobId: jobId.value,
-        content: activeMenu.value,
-        company: companyCondition.value,
-      },
-    };
-    getListDataByCondition(condition);
-  } else {
-    // 取消选中则查询全部
-    activeMenu.value = "";
-    jobId.value = value[value.length - 1];
-    let condition = {
-      pageNo: page.value,
-      pageSize: size.value,
-      param: {
-        jobId: jobId.value,
-        company: companyCondition.value,
-      },
-    };
-    getListDataByCondition(condition);
-  }
-};
 
-// 级联选择框
-const props = {
-  expandTrigger: "hover",
-};
-let value = [-1];
-const handleChange = (value) => {
-  jobId.value = value[value.length - 1];
-  let condition = {
-    pageNo: page.value,
-    pageSize: size.value,
-    param: {
-      jobId: jobId.value,
-      content: activeMenu.value != "" ? activeMenu.value : "",
-      company: companyCondition.value,
-      articleType: 1,
-    },
-  };
-  getListDataByCondition(condition);
-};
-
-// 获取级联筛选框数据
-const options = ref([]);
-axios.get("/back/career/getData").then((res) => {
-  // console.log('res', res.data.result)
-  options.value = res.data.result;
-});
 
 const getListDataByCondition = async (condition) => {
-  condition.param = {
+  condition.param  = {
     ...condition.param,
-    articleType: 1,
-  };
+    articleType: 2
+  }
   axios
     .post("/back/interview/selectByCondition", condition)
     .then((response) => {
@@ -219,18 +129,47 @@ const route = useRoute();
 const type = route.params.type;
 console.log(type);
 
+// 获取级联筛选框数据
+const options = ref([]);
+axios.get("/back/career/getData").then((res) => {
+  // console.log('res', res.data.result)
+  options.value = res.data.result;
+});
+
+// 级联选择框
+const props = {
+  expandTrigger: "hover",
+};
+let value = [-1];
+const handleChange = (value) => {
+  jobId.value = value[value.length - 1];
+  let condition = {
+    pageNo: page.value,
+    pageSize: size.value,
+    param: {
+      jobId: jobId.value,
+      content: activeMenu.value != "" ? activeMenu.value : "",
+      company: companyCondition.value,
+      articleType: 2,
+    },
+  };
+  getListDataByCondition(condition);
+};
+
 const getListData = async () => {
   let params = {
     pageNo: page.value,
     pageSize: size.value,
-    param: {
-      articleType: 1,
-    },
+    param:{
+      articleType: 2
+    }
   };
-  axios.post("/back/interview/selectByCondition", params).then((response) => {
-    tableData.value = response.data.result.records;
-    total.value = response.data.result.total;
-  });
+  axios
+    .post("/back/interview/selectByCondition", params)
+    .then((response) => {
+      tableData.value = response.data.result.records;
+      total.value = response.data.result.total;
+    });
 };
 getListData();
 // 处理数据不重新加载的问题
@@ -275,6 +214,18 @@ watch(
 .filter-box {
   display: flex;
 }
+// .filter-item {
+//   width: 50px;
+//   height: 25px;
+//   background-color: pink;
+//   border: 2px solid black;
+//   margin-right: 5px;
+//   text-align: center;
+// }
+// .filter-item:hover {
+//   cursor: pointer
+// }
+/* 初始状态下的样式 */
 .company-filter-box {
   margin-top: 22px;
   margin-left: 22px;

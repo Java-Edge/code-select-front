@@ -8,6 +8,7 @@
           <li @click="handleMenuSelect('article')" :class="{ active: activeMenu === 'article' }">动态</li>
           <li @click="handleMenuSelect('recruit')" :class="{ active: activeMenu === 'recruit' }">招聘</li>
           <li @click="handleMenuSelect('interview')" :class="{ active: activeMenu === 'interview' }">面经</li>
+          <li @click="handleMenuSelect('recommend')" :class="{ active: activeMenu === 'recommend' }">内推</li>
           <li @click="handleMenuSelect('pilotPage')" :class="{ active: activeMenu === 'pilotPage' }">导航</li>
           <li @click="handleMenuSelect('special')" :class="{ active: activeMenu === 'special' }">专栏</li>
           <li @click="handleMenuSelect('ranking')" :class="{ active: activeMenu === 'ranking' }">排行榜</li>
@@ -93,6 +94,9 @@ export default {
           break
         case "interview":
           this.$router.push("/article-interview")
+          break
+        case "recommend":
+          this.$router.push("/inner-recommend")
           break
         case "coursePage":
           this.$router.push("/coursePage");
