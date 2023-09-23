@@ -12,6 +12,7 @@
           <li @click="handleMenuSelect('special')" :class="{ active: activeMenu === 'special' }">专栏</li>
           <li @click="handleMenuSelect('ranking')" :class="{ active: activeMenu === 'ranking' }">排行榜</li>
           <li @click="handleMenuSelect('project')" :class="{ active: activeMenu === 'project' }">项目</li>
+          <li @click="handleMenuSelect('sideline')" :class="{ active: activeMenu === 'sideline' }">副业</li>
           <!-- <li @click="handleMenuSelect('course')" :class="{ active: activeMenu === 'course' }">课程</li>
           <li @click="handleMenuSelect('vip')" :class="{ active: activeMenu === 'vip' }">VIP</li>  -->
           <!-- 其他信息 -->
@@ -108,6 +109,9 @@ export default {
           break
         case "project":
           this.$router.push("/projectList");
+          break
+        case "sideline":
+          this.$router.push("/sidelineList");
           break
         default:
           //这里是没有找到对应的值处理

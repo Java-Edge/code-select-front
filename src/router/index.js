@@ -25,6 +25,8 @@ import login from "../views/user/login"
 import ranking from "../views/ranking"
 import projectDetail from "../views/project/project-detail"
 import projectList from "../views/project/project-list"
+import sidelineDetail from "../views/sideline/sideline-detail"
+import sidelineList from "../views/sideline/sideline-list"
 
 const routes = [
   {
@@ -117,6 +119,16 @@ const routes = [
     path: '/projectList',
     name: '/projectList',
     component: projectList
+  },
+  {
+    path: '/sidelineDetail/:id',
+    name: '/sidelineDetail',
+    component: sidelineDetail
+  },
+  {
+    path: '/sidelineList',
+    name: '/sidelineList',
+    component: sidelineList
   }
 ];
 
