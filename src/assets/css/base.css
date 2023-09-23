@@ -3,10 +3,6 @@
   margin: 0;
 }
 
-html {
-  /* 缅怀黑白 */
-  /* filter: grayscale(100%); */
-}
 
 body {
   /* element色卡 */
@@ -67,5 +63,48 @@ body {
 }
 
 /* 暗夜模式 */
-:root[theme-mode='dark'] {
+:root[theme-mode='dark'] {}
+
+a {
+  text-decoration: none;
+}
+
+a:link,
+a:visited {
+  color: #1c1f21;
+}
+
+a,
+button,
+input {
+  outline: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+div {
+  background-size: cover;
+}
+
+fieldset,
+img {
+  border: 0;
+}
+
+.clearfix:after {
+  content: '\0020';
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+.l {
+  float: left;
+}
+
+.r {
+  float: right;
 }
