@@ -1,8 +1,8 @@
 <template>
-  <div id="app" class="course-navigation">
+  <div id="app">
     <!-- 在div元素内部，依次插入Header组件、router-view组件和Footer组件。-->
     <Header />
-    <router-view class="body" />
+    <router-view class="body"/>
     <QrCode></QrCode>
     <Footer />
   </div>
@@ -43,6 +43,5 @@ export default {
 
 /* 最大宽度设置为1600px，并将其水平居中对齐 */
 .course-navigation {
-  max-width: 1600px;
   margin: 0 auto;
 }</style>

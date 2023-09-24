@@ -12,8 +12,9 @@
       <div class="image-container">
         <img :src="course.image" alt="课程图片" />
       </div>
-      <div class="course-details">
-        <h4>{{ course.name }}</h4>
+      <div class="course-text">
+        <p>{{ course.name }}</p>
+        <!-- <span class="difficulty">中级 · 118人报名 </span> -->
         <!-- <p class="description">{{ course.description }}</p> -->
         <p class="price">{{ course.price }}</p>
         <!-- You can add more course details as needed -->
@@ -33,51 +34,71 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .course-box {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 240px;
+  width: 270px;
   height: 300px;
-  padding: 10px;
-  background-color: #f0f0f0;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-   box-shadow: 8px 16px 16px hsl(0deg 0% 0% / 0.25);
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 6px 10px 0 rgba(95, 101, 105, .15);
   line-height: 30px;
-  margin: 30px 30px;
+  margin: 0 24px 24px 0;
 }
 
 .image-container {
-  border-radius: 5px;
   overflow: hidden;
+  margin-bottom: 10px;
 }
 
 .course-box img {
   width: 100%;
-  height: 100%;
+  max-height: 200px;
+  margin-bottom: 8px;
+  border-radius: 8px 8px 0 0;
   object-fit: contain;
 }
 
-.course-details {
-  text-align: center;
-  margin-top: 10px;
+
+.course-text {
+  p {
+    color: #545c63;
+    line-height: 20px;
+    height: 40px;
+    margin-bottom: 8px;
+    padding: 0 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+
+  }
+
+  .description {
+    color: #666;
+    margin-bottom: 5px;
+  }
+
+  .difficulty {
+    display: block;
+    color: #9199a1;
+    font-size: 12px;
+    margin-bottom: 8px;
+    padding: 0 8px;
+  }
+
+  .price {
+    font-weight: bold;
+    color: #ff8800;
+  }
+
 }
 
-.course-details h4 {
-  font-size: 18px;
-  margin-bottom: 5px;
-  color: #555555;
-}
 
-.course-details .description {
-  color: #666;
-  margin-bottom: 5px;
-}
-
-.course-details .price {
-  font-weight: bold;
-  color: #ff8800;
-}
-</style>
+.course-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 20px 0 rgba(95, 101, 105, .15)
+}</style>

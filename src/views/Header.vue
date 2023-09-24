@@ -4,7 +4,7 @@
       <div class="index-menu clearfix">
         <div class="logo">
           <a href="/" target="_self" title="首页">
-            <img title="慕课网" src="@/assets/logo.png" style="margin-left: 4px;">
+            <img src="@/assets/logo.png" />
           </a>
         </div>
         <nav class="menu">
@@ -109,11 +109,12 @@ export default {
 
 <style lang="scss" scoped>
 .header {
-  background: #07111b;
+  // background: #07111b;
   border-bottom: 1px solid #f3f5f6;
 
   .header-content {
     width: auto;
+    max-width: 1600px;
     z-index: 900;
     position: relative;
     background-size: cover;
@@ -122,16 +123,16 @@ export default {
 
     .index-menu {
       min-width: 1152px;
-      margin: 0 auto;
+      // margin: 0 auto;
 
       .logo {
         float: left;
-        margin: 0 20px;
+        // margin: 0 20px;
 
         a {
           display: block;
           background: 0 0 !important;
-          width: 140px;
+          // width: 140px;
           height: 71px;
 
           img {
@@ -162,9 +163,6 @@ export default {
       .login-area {
         float: right;
         position: relative;
-
-
-
         .newcomer-box {
           position: relative;
         }
@@ -314,112 +312,4 @@ export default {
     }
   }
 }
-
-
-// .menu {
-//   display: flex;
-//   justify-content: center;
-// }
-
-// .menu ul {
-//   padding: 0;
-//   margin: 0;
-
-// }
-
-// .menu li {
-//   display: inline-block;
-//   position: relative;
-//   padding: 0 20px;
-//   cursor: pointer;
-//   height: 50px;
-//   line-height: 50px;
-//   font-size: 16px;
-// }
-
-// .menu li.active {
-//   color: #ffd04b;
-// }
-
-// .menu li.active::after {
-//   content: '';
-//   width: 28px;
-//   height: 2px;
-//   border-radius: 2px;
-//   background-color: #ffd04b;
-//   position: absolute;
-//   left: 50%;
-//   margin-left: -14px;
-//   bottom: 0px;
-// }
-
-// .nav {
-//   width: 1600px;
-//   margin: 0 auto;
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-evenly;
-
-//   >div {
-//     display: flex;
-//     font-size: 16px;
-//     font-weight: 600;
-//     color: #222222;
-//     height: 50px;
-//     justify-content: center;
-//     align-items: center;
-//     font-family: PingFangSC-Medium, PingFang SC;
-//     cursor: pointer;
-//   }
-// }
-
-// .user-info {
-//   display: flex;
-//   align-items: center;
-// }
-
-// .user-profile {
-//   display: flex;
-//   align-items: center;
-// }
-
-// .user-avatar {
-//   width: 40px;
-//   height: 40px;
-//   border-radius: 50%;
-//   margin-right: 10px;
-// }
-
-// .user-name {
-//   font-size: 14px;
-// }
-
-// .user-info button {
-//   margin-left: 20px;
-//   padding: 8px 12px;
-//   background-color: #ffcc29;
-//   border: none;
-//   border-radius: 4px;
-//   color: #333;
-//   font-size: 14px;
-//   cursor: pointer;
-// }
-
-// .auth-buttons {
-//   display: flex;
-//   align-items: center;
-// }
-
-// .auth-button {
-//   padding: 8px 12px;
-//   background-color: #ffcc29;
-//   border: none;
-//   border-radius: 4px;
-//   color: #333;
-//   font-size: 14px;
-//   cursor: pointer;
-//   text-decoration: none;
-//   margin-right: 10px;
-// }
-
-/* Add any other additional styles you need for the header */</style>
+</style>

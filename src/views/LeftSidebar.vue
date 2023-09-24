@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="left-content">
     <!-- 分类菜单 -->
     <div class="menu-content" @mouseout="hideSubMenu">
       <div class="menu-item" v-for="(item, index) in menu_list" :key="index" @mouseover="showSubMenu(index)">
@@ -135,11 +135,9 @@ export default {
 
 <style scoped>
 /* 根节点 */
-.content {
+.left-content {
   position: relative;
   width: 20%;
-  /* padding: 30px; */
-  /* background-color: #f0f0f0; */
 }
 
 /* END */
