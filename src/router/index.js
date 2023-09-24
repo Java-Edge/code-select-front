@@ -17,6 +17,7 @@ import articleList from '../views/markdown/article-list'
 import recruit from '../views/recruit/recruit'
 import recruitDetail from '../views/recruit/recruit-detail'
 import articleInterview from '../views/markdown/article-interview'
+import innerRecommend from '../views/markdown/inner-recommend'
 import interviewArticleDetail from '../views/markdown/interview-article-detail'
 import coursePage from "../views/coursePage";
 import pilotPage from "../views/category/pilot";
@@ -63,6 +64,11 @@ const routes = [
     path: '/article-interview',
     name: 'articleInterview',
     component: articleInterview
+  },
+  {
+    path: '/inner-recommend',
+    name: 'innerRecommend',
+    component: innerRecommend
   },
   {
     path: '/article/:id',
