@@ -73,7 +73,10 @@ export default {
         { name: '导航', value: 'pilotPage', path: '/coursePage' },
         { name: '专栏', value: 'special', path: '/special' },
         { name: '排行版', value: 'ranking', path: '/ranking' },
-        { name: '项目', value: 'project', path: '/projectList' }]
+        { name: '项目', value: 'project', path: '/projectList' },
+        { name: '副业', value: 'sideline', path: '/sidelineList' }
+      ]
+
     };
   },
   created() {
