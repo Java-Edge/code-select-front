@@ -5,7 +5,8 @@
       <!-- 课程分类导航栏 -->
       <LeftSidebar />
       <!-- 轮播图 -->
-      <RightSidebar :carouselData="carouselData" />
+      <RightSidebar v-if="carouselData.length > 0" :carouselData="carouselData" />
+      <el-skeleton style="width: 1440px;" v-else :rows="10" animated />
     </div>
     <div class="image-background">
       <img alt="" style="width: 1600px;height: 70px" :src="img" />
@@ -70,9 +71,9 @@ export default {
       this.$axios.get('/back/sourceCourse/getFiveCourse'
       ).then(response => {
         const courses = response.data.result;
-        console.log(response)
+        // console.log(response)
         this.carouselData = courses;
-        console.log(this.courses)
+        // console.log(this.courses)
       })
     },
   },
