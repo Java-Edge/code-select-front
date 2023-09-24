@@ -4,7 +4,8 @@
     <div class="bg banner-box">
       <div class="content flex">
         <LeftSidebar />
-        <RightSidebar :carouselData="carouselData" />
+        <RightSidebar v-if="carouselData.length > 0" :carouselData="carouselData" />
+        <el-skeleton style="width: 1440px;" v-else :rows="10" animated />
       </div>
     </div>
     <div class="bg000">
