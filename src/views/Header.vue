@@ -1,25 +1,5 @@
 <template>
   <header class="header">
-<<<<<<< HEAD
-    <div class="header-content">
-      <nav class="menu">
-        <ul>
-          <li @click="handleMenuSelect('home')" :class="{ active: activeMenu === 'home' }">首页</li>
-          <!--          <router-link :to="`/index`"></router-link>-->
-          <li @click="handleMenuSelect('article')" :class="{ active: activeMenu === 'article' }">动态</li>
-          <li @click="handleMenuSelect('recruit')" :class="{ active: activeMenu === 'recruit' }">招聘</li>
-          <li @click="handleMenuSelect('interview')" :class="{ active: activeMenu === 'interview' }">面经</li>
-          <li @click="handleMenuSelect('pilotPage')" :class="{ active: activeMenu === 'pilotPage' }">导航</li>
-          <li @click="handleMenuSelect('special')" :class="{ active: activeMenu === 'special' }">专栏</li>
-          <li @click="handleMenuSelect('ranking')" :class="{ active: activeMenu === 'ranking' }">排行榜</li>
-          <li @click="handleMenuSelect('project')" :class="{ active: activeMenu === 'project' }">项目</li>
-          <li @click="handleMenuSelect('sideline')" :class="{ active: activeMenu === 'sideline' }">副业</li>
-          <!-- <li @click="handleMenuSelect('course')" :class="{ active: activeMenu === 'course' }">课程</li>
-          <li @click="handleMenuSelect('vip')" :class="{ active: activeMenu === 'vip' }">VIP</li>  -->
-          <!-- 其他信息 -->
-        </ul>
-      </nav>
-=======
     <div class="clearfix header-content">
       <div class="index-menu clearfix">
         <div class="logo">
@@ -38,7 +18,6 @@
           <ul class="header-unlogin clearfix newcomer-box">
             <li class="shop-cart">
               <a href="//order.imooc.com/pay/cart" class="shop-cart-icon" target="_blank">
->>>>>>> 31eace691364da926219ddaf67c862103a9fcbcc
 
                 <span class="icon-shopping-cart js-endcart">
                   <el-icon><ShoppingCartFull /></el-icon>
@@ -106,53 +85,9 @@ export default {
     })
   },
   methods: {
-<<<<<<< HEAD
-    handleMenuSelect(index) {
-      console.log('handleMenuSelect', index);
-      this.activeMenu = index; // 更新选中的菜单项
-      // 可根据不同的菜单项进行相应的页面跳转或其他操作
-      switch (index) {
-        case "home":
-          // 去首页
-          this.$router.push("/index");
-          break
-        case "article":
-          // 文章列表
-          this.$router.push("/article-list/0");
-          break
-        case "recruit":
-          this.$router.push("/recruit/index")
-          break
-        case "interview":
-          this.$router.push("/article-interview")
-          break
-        case "coursePage":
-          this.$router.push("/coursePage");
-          break
-        case "pilotPage":
-          this.$router.push("/pilot");
-          break
-        case "special":
-          this.$router.push("/special");
-          break
-        case "ranking":
-          this.$router.push("/ranking");
-          break
-        case "project":
-          this.$router.push("/projectList");
-          break
-        case "sideline":
-          this.$router.push("/sidelineList");
-          break
-        default:
-          //这里是没有找到对应的值处理
-          break
-      }
-=======
     handleMenuSelect(item) {
       this.activeMenu = item.value; // 更新选中的菜单项
       this.$router.push(item.path);
->>>>>>> 31eace691364da926219ddaf67c862103a9fcbcc
     },
     handleLogout() {
       // Implement the logout functionality here
