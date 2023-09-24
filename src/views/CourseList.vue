@@ -14,15 +14,20 @@ export default {
   },
   props: {
     courses: Array,
-  }
+  },
 };
 </script>
   
-<style>
+<style lang="scss">
 .course-details {
   display: flex;
   justify-content: start;
   flex-wrap: wrap;
+}
+.course-details a:nth-child(5n){
+  .course-box{
+    margin-right: 0px;
+  }
 }
 
 .course-box {

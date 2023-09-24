@@ -44,7 +44,7 @@ export default {
   border-radius: 8px;
   box-shadow: 0 6px 10px 0 rgba(95, 101, 105, .15);
   line-height: 30px;
-  margin: 0 24px 24px 0;
+  margin: 0 62px 24px 0;
 }
 
 .image-container {
