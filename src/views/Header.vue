@@ -109,6 +109,7 @@ export default {
 
 <style lang="scss" scoped>
 .header {
+  background-color: #fff;
   // background: #07111b;
   border-bottom: 1px solid #f3f5f6;
 

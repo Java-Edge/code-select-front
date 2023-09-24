@@ -86,6 +86,10 @@ export default {
 
 <style>
 /* Add styles for the course details page if needed */
+.course-details-page{
+  max-width: 1600px;
+  margin: 0 auto;
+}
 .course-details-content {
   display: flex;
   align-items: center;
