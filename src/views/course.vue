@@ -9,7 +9,11 @@
     </div>
     <div class="bg000">
       <div class="content">
-        <h3 class="list-title">课程列表</h3>
+        <div class="floorhd">
+          <div class="grid_c1 floorhd_inner">
+            <h3 class="floorhd_tit">课程列表</h3>
+          </div>
+        </div>
         <CourseList :courses="courses" />
       </div>
     </div>
@@ -70,7 +74,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 /* 添加样式 */
 .bg {
   background-color: #f9f3e8;
@@ -81,7 +85,7 @@ export default {
 }
 
 .banner-box {
- 
+
   box-shadow: 0 2px 8px 0 rgba(7, 17, 27, .06);
 }
 
@@ -90,7 +94,8 @@ export default {
   margin: 0 auto;
   padding: 32px 0px;
 }
-.flex{
+
+.flex {
   display: flex;
   flex-wrap: wrap;
 }
@@ -108,7 +113,52 @@ export default {
   height: 90px;
   margin-top: 5px;
 }
-.list-title{
+
+.list-title {
   margin-bottom: 20px;
+}
+
+.floorhd {
+  height: 65px;
+
+  .grid_c1 {
+    margin: 0 auto;
+    width: 1600px;
+
+    .floorhd_tit {
+      position: relative;
+      width: 150px;
+      height: 45px;
+      font-size: 28px;
+      font-weight: 700;
+      text-align: center;
+      line-height: 45px;
+      padding: 0 30px;
+      margin: 0 auto 20px;
+      overflow: hidden;
+      color: #333;
+    }
+
+
+  }
+}
+
+.floorhd_tit::before {
+  background-position: 0 0;
+  left: 0;
+}
+.floorhd_tit:after {
+    background-position: -25px 0;
+    right: 0;
+}
+.floorhd_tit:after,
+.floorhd_tit:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  margin-top: -10px;
+  background-image: url('@/assets/sprite.png');
+  width: 25px;
+  height: 20px;
 }
 </style>
