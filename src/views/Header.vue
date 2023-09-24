@@ -14,7 +14,7 @@
             </li>
           </ul>
         </nav>
-        <div class="login-area">
+        <!-- <div class="login-area">
           <ul class="header-unlogin clearfix newcomer-box">
             <li class="shop-cart">
               <a href="//order.imooc.com/pay/cart" class="shop-cart-icon" target="_blank">
@@ -47,7 +47,7 @@
           <div class="showhide-search" data-show="no"><el-icon>
               <Search />
             </el-icon></div>
-        </div>
+        </div> -->
       </div>
     </div>
   </header>
@@ -70,9 +70,9 @@ export default {
         { name: '招聘', value: 'recruit', path: '/recruit/index' },
         { name: '面经', value: 'interview', path: '/article-interview' },
         { name: '内推', value: 'recommend', path: '/inner-recommend' },
-        { name: '导航', value: 'pilotPage', path: '/coursePage' },
+        { name: '导航', value: 'pilotPage', path: '/pilot' },
         { name: '专栏', value: 'special', path: '/special' },
-        { name: '排行版', value: 'ranking', path: '/ranking' },
+        { name: '排行榜', value: 'ranking', path: '/ranking' },
         { name: '项目', value: 'project', path: '/projectList' },
         { name: '副业', value: 'sideline', path: '/sidelineList' }
       ]
