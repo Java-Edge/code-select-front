@@ -1,5 +1,5 @@
 # 设置基础镜像，这里使用最新的nginx镜像，前面已经拉取过了
-FROM nginx
+FROM bubaiwantong/nginx:latest
 #作者
 MAINTAINER JavaGPT 2631416434@qq.com
 #执行命令，主要用来安装相关的软件
