@@ -60,3 +60,4 @@ jobs:
           password: ${{secrets.SERVER_PASSWORD}}
           script:
             sh /develop/work/education-front/start.sh
+
