@@ -15,7 +15,7 @@ import QrCode from './views/QrCode.vue';
 
 
 export default {
-  name: "RecruitNavigation",
+  name: "App",
   components: {
     // 在Vue组件中，将Header和Footer组件注册为该组件的子组件
     Header,
