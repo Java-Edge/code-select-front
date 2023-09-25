@@ -44,29 +44,13 @@
   </template>
   
   <script>
-  import Swiper from 'swiper';
-  import { Navigation, Pagination } from 'swiper/modules';
-  // import Swiper and modules styles
-  import 'swiper/css';
-  import 'swiper/css/navigation';
-  import 'swiper/css/pagination';
-  import Header from '../Header.vue'; // Import the Header component
-  import Footer from '../Footer.vue'; // Import the Footer component
   import RecruitList from './recruit-list.vue'; // Import the CourseList component
-  import LeftSidebar from '../LeftSidebar.vue'; // Import the LeftSidebar component
-  import RightSidebar from '../RightSidebar.vue';
-  import RecruitItem from "@/views/recruit/recruit-item.vue"; // Import the RightSidebar component
   
   
   export default {
     name: "RecruitNavigation",
     components: {
-      RecruitItem,
-      Header, // Register the Header component
-      Footer, // Register the Footer component
       RecruitList, // Register the CourseList component
-      LeftSidebar,
-      RightSidebar,
       // ... Rest of your components ...
     },
     data() {
@@ -212,51 +196,6 @@
       handleFilterSelect(value) {
         console.log(value);
       },
-    },
-    mounted() {
-      // Initialize Swiper
-      const swiper = new Swiper('.swiper', {
-        modules: [Navigation, Pagination],
-        direction: 'horizontal', // Change back to horizontal
-        loop: true,
-        autoplay: {
-          delay: 3000, // Set the delay between slide transitions in milliseconds (3 seconds in this example)
-          disableOnInteraction: false, // Allow auto play to continue even when the user interacts with Swiper
-        },
-  
-        // If we need pagination
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true, // Allow pagination bullets to be clickable
-        },
-  
-        // Navigation arrows
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        },
-  
-        // And if we need scrollbar
-        scrollbar: {
-          el: '.swiper-scrollbar',
-        },
-  
-        // Add the loopedSlides option to control how many slides are looped
-        loopedSlides: this.carouselData.length, // Set it to the total number of slides
-  
-        // Add the slideChange event handler for looping
-        on: {
-          slideChange: () => {
-            if (swiper.realIndex === swiper.slides.length - 1) {
-              // If it reaches the last slide, manually go to the first slide
-              swiper.slideTo(0, 0, true); // Set the third parameter (boolean) to false for instant transition
-            }
-          },
-        },
-      });
-  
-      // Now you can use the 'swiper' variable to interact with the Swiper instance if needed
-      // swiper.slideNext(); // Example: Go to the next slide programmatically
     },
   
   
