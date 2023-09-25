@@ -1,20 +1,24 @@
 <template>
-  <div class="course-navigation">
+  <div class="main">
     <!-- 内容区域 -->
-    <div class="content">
-      <!-- 课程分类导航栏 -->
-      <LeftSidebar />
-      <!-- 轮播图 -->
-      <RightSidebar v-if="carouselData.length > 0" :carouselData="carouselData" />
-      <el-skeleton style="width: 1440px;" v-else :rows="10" animated />
+    <div class="bg banner-box">
+      <div class="content flex">
+        <LeftSidebar />
+        <RightSidebar v-if="carouselData.length > 0" :carouselData="carouselData" />
+        <el-skeleton style="width: 1440px;" v-else :rows="10" animated />
+      </div>
     </div>
-    <div class="image-background">
-      <img alt="" style="width: 1600px;height: 70px" :src="img" />
+    <div class="bg000">
+      <div class="content">
+        <div class="floorhd">
+          <div class="grid_c1 floorhd_inner">
+            <h3 class="floorhd_tit">课程列表</h3>
+          </div>
+        </div>
+        <CourseList :courses="courses" />
+      </div>
     </div>
 
-    <div style="font-size: 25px; text-align: center; margin-top: 15px;">-- 课程列表 --</div>
-    <!-- 课程详情区域 -->
-    <CourseList :courses="courses" />
   </div>
 </template>
 
@@ -39,16 +43,6 @@ export default {
       img: require("@/assets/background.jpg"),
     };
   },
-  computed: {
-    courseRows() {
-      // 将所有课程按每行4个进行分组
-      const rows = [];
-      for (let i = 0; i < this.courses.length; i += 4) {
-        rows.push(this.courses.slice(i, i + 4));
-      }
-      return rows;
-    },
-  },
   created() {
     this.getCourses();
     this.getFiveCourse();
@@ -62,9 +56,7 @@ export default {
       this.$axios.get('/back/sourceCourse/list'
       ).then(response => {
         const courses = response.data.result;
-        console.log(response)
         this.courses = courses;
-        console.log(this.courses)
       })
     },
     getFiveCourse() {
@@ -85,18 +77,30 @@ export default {
 };
 </script>
 
-<style>
-  /* 添加样式 */
-.course-navigation {
-  max-width: 1600px;
-  margin: 0 auto;
+<style lang="scss" scoped>
+/* 添加样式 */
+.bg {
   background-color: #f9f3e8;
 }
 
+.bg000 {
+  background-color: #e8f7f9;
+}
+
+.banner-box {
+
+  box-shadow: 0 2px 8px 0 rgba(7, 17, 27, .06);
+}
+
 .content {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 32px 0px;
+}
+
+.flex {
   display: flex;
   flex-wrap: wrap;
-  /* Wrap the sidebar and swiper to next row if necessary */
 }
 
 
@@ -106,10 +110,58 @@ export default {
   object-fit: contain;
 }
 
-  /* 背景图片样式 */
+/* 背景图片样式 */
 .image-background {
   width: 1600px;
   height: 90px;
   margin-top: 5px;
+}
+
+.list-title {
+  margin-bottom: 20px;
+}
+
+.floorhd {
+  height: 65px;
+
+  .grid_c1 {
+    margin: 0 auto;
+    width: 1600px;
+
+    .floorhd_tit {
+      position: relative;
+      width: 150px;
+      height: 45px;
+      font-size: 28px;
+      font-weight: 700;
+      text-align: center;
+      line-height: 45px;
+      padding: 0 30px;
+      margin: 0 auto 20px;
+      overflow: hidden;
+      color: #333;
+    }
+
+
+  }
+}
+
+.floorhd_tit::before {
+  background-position: 0 0;
+  left: 0;
+}
+.floorhd_tit:after {
+    background-position: -25px 0;
+    right: 0;
+}
+.floorhd_tit:after,
+.floorhd_tit:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  margin-top: -10px;
+  background-image: url('@/assets/sprite.png');
+  width: 25px;
+  height: 20px;
 }
 </style>

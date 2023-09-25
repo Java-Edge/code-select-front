@@ -59,21 +59,9 @@ export default {
     },
     getCourseDetail(id) {
       this.$axios.get('/back/sourceCourse/course/' + id
-        // ,
-        //     {
-        //         headers: {
-        //             "Authorization": this.$store.getters.getToken
-        //         }
-        //     }
       ).then(response => {
         const courses = response.data.result;
-        console.log(response)
         this.selectedCourse = courses;
-        // this.$message({
-        //     type: 'success',
-        //     message: response.data.message
-        // });
-        console.log(this.courses)
       })
     },
     buttonOnClick() {
@@ -87,21 +75,9 @@ export default {
     },
     getRecommendCourses() {
       this.$axios.get('/back/sourceCourse/getRecommendCourses'
-        // ,
-        //     {
-        //         headers: {
-        //             "Authorization": this.$store.getters.getToken
-        //         }
-        //     }
       ).then(response => {
         const courses = response.data.result;
-        console.log(response)
         this.recommendCourses = courses;
-        // this.$message({
-        //     type: 'success',
-        //     message: response.data.message
-        // });
-        console.log(this.courses)
       })
     }
   }
@@ -110,6 +86,10 @@ export default {
 
 <style>
 /* Add styles for the course details page if needed */
+.course-details-page{
+  max-width: 1600px;
+  margin: 0 auto;
+}
 .course-details-content {
   display: flex;
   align-items: center;

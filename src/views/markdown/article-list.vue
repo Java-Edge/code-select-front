@@ -1,42 +1,45 @@
 <template>
-  <div class="article-ranking-container">
+  <div style="background-color: #f9f3e8;overflow: hidden;">
+    <div class="article-ranking-container">
 
-    <div class="ranking-body" v-for="article in articleData" :key="article.articleId">
-            <!-- <div class="ranking-number">{{ ranking.orderVal }}</div> -->
-            <div class="ranking-left">
-                <div class="ranking-img">
-                    <img v-if="article.img == null || article.img == ''" src="https://pic.imgdb.cn/item/64ed5c50661c6c8e54033681.jpg" />
-                    <img v-else :src="article.img" />
-                </div>
-            </div>
-            
-            <a v-if="article.href != null && article.href != ''" :href="article.href" target="_blank" class="link-sty">
-              <div class="ranking-middle">
-                  <div class="ranking-name hide-text">{{ article.title }}</div>
-                  <div class="ranking-des hide-text">{{ article.content != null && article.content != '' ? article.content.replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') : ''}}</div>
-                  <div class="ranking-likes">浏览量 {{ article.pageView }}</div>
-              </div>
-            </a>
-            <router-link v-else :to="`/article/${article.articleId}`" class="link-sty">
-              <div class="ranking-middle">
-                  <div class="ranking-name hide-text">{{ article.title }}</div>
-                  <div class="ranking-des hide-text">{{ article.content != null && article.content != '' ? article.content.replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') : ''}}</div>
-                  <div class="ranking-likes">浏览量 {{ article.pageView }}</div>
-              </div>
-            </router-link>
-
-            <div class="ranking-right">
-                <div class="ranking-user-img"><img src="https://pic.imgdb.cn/item/64d1f0451ddac507ccb3ddbc.jpg" /></div>
-                <div class="ranking-user-name hide-text">Java Edge</div>
-                <a href="https://blog.csdn.net/qq_33589510" target="_blank"><div class="ranking-button">关注</div> </a>
+<div class="ranking-body" v-for="article in articleData" :key="article.articleId">
+        <!-- <div class="ranking-number">{{ ranking.orderVal }}</div> -->
+        <div class="ranking-left">
+            <div class="ranking-img">
+                <img v-if="article.img == null || article.img == ''" src="https://pic.imgdb.cn/item/64ed5c50661c6c8e54033681.jpg" />
+                <img v-else :src="article.img" />
             </div>
         </div>
+        
+        <a v-if="article.href != null && article.href != ''" :href="article.href" target="_blank" class="link-sty">
+          <div class="ranking-middle">
+              <div class="ranking-name hide-text">{{ article.title }}</div>
+              <div class="ranking-des hide-text">{{ article.content != null && article.content != '' ? article.content.replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') : ''}}</div>
+              <div class="ranking-likes">浏览量 {{ article.pageView }}</div>
+          </div>
+        </a>
+        <router-link v-else :to="`/article/${article.articleId}`" class="link-sty">
+          <div class="ranking-middle">
+              <div class="ranking-name hide-text">{{ article.title }}</div>
+              <div class="ranking-des hide-text">{{ article.content != null && article.content != '' ? article.content.replace(/<\/?.+?\/?>|\r|\n|\s*/g,'') : ''}}</div>
+              <div class="ranking-likes">浏览量 {{ article.pageView }}</div>
+          </div>
+        </router-link>
 
-    <!-- <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange"
-      :current-page="page" :page-sizes="[5, 10, 50, 100, 200]" :page-size="size"
-      layout="total, sizes, prev, pager, next, jumper" :total="total">
-    </el-pagination> -->
+        <div class="ranking-right">
+            <div class="ranking-user-img"><img src="https://pic.imgdb.cn/item/64d1f0451ddac507ccb3ddbc.jpg" /></div>
+            <div class="ranking-user-name hide-text">Java Edge</div>
+            <a href="https://blog.csdn.net/qq_33589510" target="_blank"><div class="ranking-button">关注</div> </a>
+        </div>
+    </div>
+
+<!-- <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange"
+  :current-page="page" :page-sizes="[5, 10, 50, 100, 200]" :page-size="size"
+  layout="total, sizes, prev, pager, next, jumper" :total="total">
+</el-pagination> -->
+</div>
   </div>
+  
 </template>
   
 <script setup>
