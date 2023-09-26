@@ -5,24 +5,47 @@
       <div class="course-container">
         <!-- 上板块 -->
         <div class="course-group-first">
-          <div class="course-group-wrapper">
+          <div class="course-group-wrapper course-group-wrapper-first">
             <div class="course-group-header">
               <span class="course-group-header-title">{{ recruit.title }}</span>
             </div>
             <div class="course-group-treatment">
-              <div class="course-group-treatment-item course-group-salary">{{ recruit.salary }} </div>
-              <div class="course-group-treatment-item course-group-treatment-item-block label">{{ recruit.education }}</div>
-              <div class="course-group-treatment-item course-group-treatment-item-block label">{{ recruit.jobCity }}</div>
+              <div class="course-group-tag-item course-group-salary">{{ recruit.salary }} </div>
+              <div class="course-group-tag-item course-group-tag-item-block label" v-if="recruit.education">{{
+                recruit.education }}</div>
+              <div class="course-group-tag-item course-group-tag-item-block label">{{ recruit.jobCity }}</div>
             </div>
           </div>
           <div class="course-group-wrapper">
-            <img :src=recruit.picUrl :alt=recruit.companyName class="company-picture" /> 
-            <span class="course-group-header-title company-name">{{ recruit.companyName }}</span>
+            <div class="course-group-company-container">
+              <img :src=recruit.picUrl :alt=recruit.companyName class="company-picture" />
+              <span class="course-group-header-title company-name">{{ recruit.companyName }}</span>
+              <div class="course-group-company-status">
+                <div class="course-group-tag-item course-group-tag-item-block">
+                  移动互联网
+                </div>
+                <div class="course-group-tag-item course-group-tag-item-block">
+                  已上市
+                </div>
+                <div class="course-group-tag-item course-group-tag-item-block">
+                  10000人以上
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <!-- 下板块 -->
         <div class="course-group-second">
-          
+          <div class="course-group-footer-wrapper course-group-footer-wrapper-first">
+            <div class="course-group-tag-item course-group-tag-item-footer course-group-tag-item-block">Java </div>
+            <div class="course-group-tag-item course-group-tag-item-footer course-group-tag-item-block">Go</div>
+            <div class="course-group-tag-item course-group-tag-item-footer course-group-tag-item-block">MySQL</div>
+          </div>
+          <div class="course-group-footer-wrapper">
+            <div class="course-group-tag-item course-group-tag-item-footer course-group-tag-item-block">生日福利 </div>
+            <div class="course-group-tag-item course-group-tag-item-footer course-group-tag-item-block">餐饮及下午茶</div>
+            <div class="course-group-tag-item course-group-tag-item-footer course-group-tag-item-block">节日奖品</div>
+          </div>
           <!-- <div class="des">{{ recruit }}</div> -->
         </div>
       </div>
@@ -52,7 +75,7 @@ export default {
     // },
     deliver(sourceUrl) {
       // console.log(sourceUrl);
-      if(sourceUrl !== null){
+      if (sourceUrl !== null) {
         window.open(sourceUrl);
       }
     },
@@ -65,20 +88,22 @@ export default {
   text-decoration: none;
   color: black;
 }
+
 .course-box {
   flex: 0 0 calc(50% - 20px);
   max-width: 1000px;
   width: 1000px;
   height: 150px;
   margin-bottom: 10px;
-  background-color: #f5f5f5;
+  background-color: #fff;
   border: 1px solid #e0e0e0;
-   box-shadow: 8px 16px 16px hsl(0deg 0% 0% / 0.25);
+  box-shadow: 8px 16px 16px hsl(0deg 0% 0% / 0.25);
   border-radius: 5px;
   overflow: hidden;
   text-decoration: none;
   transition: transform 0.2s ease-in-out;
-  padding: 10px;
+  padding-top: 10px;
+  /* padding: 10px; */
 }
 
 .course-box:hover {
@@ -108,15 +133,6 @@ export default {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-
-.course-group-second {
-  height: 30%;
-  width: 100%;
-  /* border: 1px solid blue; */
-  padding-left: 15px;
 }
 
 .course-group-wrapper {
@@ -125,11 +141,37 @@ export default {
   /* border: 1px solid pink; */
 }
 
+.course-group-wrapper-first {
+  margin-left: 20px;
+}
+
 .course-group-header {
   width: 100%;
   height: 30%;
   /* border: 1px solid purple; */
 }
+
+
+.course-group-second {
+  height: 30%;
+  line-height: 30%;
+  width: 100%;
+  /* border: 1px solid blue; */
+  background-color: rgb(252, 251, 250);
+  display: flex;
+  justify-content: space-around;
+}
+
+.course-group-footer-wrapper {
+  width: 50%;
+  height: 100%;
+}
+
+/* 第一个内边距 20px */
+.course-group-footer-wrapper-first {
+  padding-left: 20px;
+}
+
 
 .course-group-treatment {
   /* border: 1px solid orangered; */
@@ -138,7 +180,7 @@ export default {
   padding-top: 15px;
 }
 
-.course-group-treatment-item {
+.course-group-tag-item {
   height: 30px;
   width: fit-content;
   font-size: 16px;
@@ -149,13 +191,33 @@ export default {
   white-space: nowrap;
 }
 
-.course-group-treatment-item-block {
+.course-group-tag-item-block {
   background-color: #eee;
+  padding: 2px 5px;
   border-radius: 8px;
+}
+
+.course-group-tag-item-footer {
+  margin-top: 7px;
 }
 
 .course-group-salary {
   color: #fe574a;
+}
+
+.course-group-company-container {
+  /* border: 1px solid red; */
+  width: 600px;
+  height: 100px;
+}
+
+.course-group-company-status {
+  /* border: 1px solid orangered; */
+  margin-left: 75px;
+  padding-top: 10px;
+  width: 590px;
+  height: 50px;
+  line-height: 50px;
 }
 
 .label {
@@ -193,14 +255,6 @@ export default {
   margin-left: 5px;
 }
 
-.red {
-  color: red;
-}
-
-.des {
-  padding-top: 10px;
-}
-
 .company-picture {
   width: 60px;
   height: 60px;
@@ -227,5 +281,4 @@ export default {
 
 .learn-button:focus {
   outline: none;
-}
-</style>
+}</style>
