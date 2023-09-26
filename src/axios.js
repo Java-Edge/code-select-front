@@ -57,6 +57,10 @@ axios.interceptors.response.use(response => {
         // });
         router.push("/login")
         return Promise.reject(res.message)
+    } else if (res.code == 403) {
+        console.log("1111111111")
+        router.push("/index")
+        return Promise.reject(res.message)
     } else if (res.code === 400001) {
         // this.$message.error( response.data.message)
         return response
