@@ -63,7 +63,9 @@ export default {
       this.$axios.get('/back/sourceCourse/getFiveCourse'
       ).then(response => {
         const courses = response.data.result;
+        // console.log(response)
         this.carouselData = courses;
+        // console.log(this.courses)
       })
     },
   },

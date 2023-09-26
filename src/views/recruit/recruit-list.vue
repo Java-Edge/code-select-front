@@ -20,8 +20,8 @@ export default {
     recruitRows() {
       // 将所有课程按每行5个进行分组
       const rows = [];
-      for (let i = 0; i < this.recruits.length; i += 5) {
-        let formatJobs = this.recruits.slice(i, i + 5);
+      for (let i = 0; i < this.recruits.length; i += 1) {
+        let formatJobs = this.recruits.slice(i, i + 1);
         // 将后端的数据遍历解释
         formatJobs = formatJobs.map((item) => {
           let formatJob = this.transformJobInfo(item);
@@ -91,12 +91,14 @@ export default {
 .course-details {
   flex: 1;
   padding: 20px;
+  /* border: 1px solid green; */
   /* Set a minimum width for the course details */
 }
 
 .course-row {
   display: flex;
   justify-content: center;
+  /* border: 1px solid red; */
   margin-bottom: 20px;
 }
 

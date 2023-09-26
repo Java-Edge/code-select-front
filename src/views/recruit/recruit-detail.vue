@@ -1,7 +1,19 @@
 <template>
   <div class="recruit-details-page">
     <div class="recruit-title">
-      <div class="recruit-name">{{ selectedRecruit.title }}</div>
+      <div class="recruit-name">
+        <span>{{ selectedRecruit.title }}</span>
+        <div class="description">
+          <span class="descrip">薪资待遇</span>：<span class="recruit-salary">
+            {{ selectedRecruit.salary }}
+          </span>
+          <div class="study-button">
+            <button class="deliver-button" @click="deliver(selectedRecruit.sourceUrl)">
+              点击投递
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="recruit-details-content">
       <!-- <div class="left">
@@ -9,8 +21,8 @@
       </div> -->
       <div class="right">
         <div class="company">
-          <div>
-            <img :src="selectedRecruit.picUrl" :alt="selectedRecruit.companyName"  class="company-picture" />
+          <div class="company-logo">
+            <img :src="selectedRecruit.picUrl" :alt="selectedRecruit.companyName" class="company-picture" />
           </div>
           <!-- 公司名称 -->
           <div class="company-name">
@@ -34,20 +46,11 @@
             <span class="job-city-info">工作地点</span>：{{ selectedRecruit.jobCity }}
           </div>
         </div>
-        <div class="study-button">
-          <button
-            class="deliver-button"
-            @click="deliver(selectedRecruit.sourceUrl)"
-          >
-            点击投递
-          </button>
-        </div>
+
         <div class="description">
           <span class="descrip">学历要求</span>：{{ selectedRecruit.education }}
         </div>
-        <div class="description">
-          <span class="descrip">薪资待遇</span>：{{ selectedRecruit.salary }}
-        </div>
+
         <div class="description">
           <span class="descrip" v-html="selectedRecruit.content"></span>
         </div>
@@ -75,18 +78,12 @@
 
 
 <script>
-import Header from "../Header.vue"; // Import the Header component
-import Footer from "../Footer.vue"; // Import the Footer component
-import RecruitList from "./recruit-list.vue"; // Import the CourseList component
 import CourseList from "../CourseList.vue"; // Import the CourseList component
 import "@toast-ui/editor/dist/toastui-editor.css";
-import { toastui } from "@toast-ui/editor";
+
 export default {
   name: "RecruitDetails",
   components: {
-    Header, // Register the Header component
-    Footer, // Register the Footer component
-    RecruitList, // Register the CourseList component
     CourseList,
     // ... Rest of your components ...
   },
@@ -185,7 +182,7 @@ export default {
         job.salary = salary;
       });
       // 3. 公司图片
-      job.picUrl = job.picUrl === null ? "https://picx.zhimg.com/v2-d534f6d0948d7228b4173e6e1a7a3436_xl.jpg":job.picUrl;
+      job.picUrl = job.picUrl === null ? "https://picx.zhimg.com/v2-d534f6d0948d7228b4173e6e1a7a3436_xl.jpg" : job.picUrl;
 
       job.content = job.content.replace(/\n/g, "<br/>");
       job.requirements = job.requirements.replace(/\n/g, "<br/>");
@@ -236,20 +233,23 @@ export default {
 <style scoped>
 /* Add styles for the course details page if needed */
 .recruit-title {
-  height: 150px;
+  height: fit-content;
   background-color: #38566c;
   overflow: hidden;
   font-size: 24px;
+  padding-bottom: 20px;
   margin-bottom: 20px;
 }
+
 .recruit-name {
   font-size: 35px;
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 600;
-  color: #222;
+  color: #FFF;
   margin-left: 240px;
   margin-top: 20px;
 }
+
 .recruit-details-content {
   display: flex;
   align-items: center;
@@ -263,7 +263,8 @@ export default {
 .left {
   flex: 1;
   margin-left: 100px;
-  max-width: 36%; /* Adjust the max-width as needed */
+  max-width: 36%;
+  /* Adjust the max-width as needed */
 }
 
 .left img {
@@ -275,7 +276,8 @@ export default {
 
 .right {
   /* max-width: 600px; */
-  max-width: 65%; /* Adjust the max-width as needed */
+  max-width: 65%;
+  /* Adjust the max-width as needed */
   flex: 1;
 }
 
@@ -321,6 +323,12 @@ p {
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 400;
   font-size: 20px;
+}
+
+.recruit-salary {
+  color: #f26d49;
+  font-size: 34px;
+  font-weight: 400;
 }
 
 .description {
