@@ -84,7 +84,7 @@ const routes = [
   {
     path: "/special",
     name: "special-column",
-    component: loadComponent("special-column"),
+    component: loadComponent("special-column/index"),
   },
   {
     path: "/login",
