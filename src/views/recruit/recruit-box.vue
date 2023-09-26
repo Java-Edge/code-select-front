@@ -11,9 +11,9 @@
             </div>
             <div class="course-group-treatment">
               <div class="course-group-tag-item course-group-salary">{{ recruit.salary }} </div>
-              <div class="course-group-tag-item course-group-tag-item-block label" v-if="recruit.education">{{
+              <div class="course-group-tag-item course-group-tag-item-block" v-if="recruit.education">{{
                 recruit.education }}</div>
-              <div class="course-group-tag-item course-group-tag-item-block label">{{ recruit.jobCity }}</div>
+              <div class="course-group-tag-item course-group-tag-item-block">{{ recruit.jobCity }}</div>
             </div>
           </div>
           <div class="course-group-wrapper">
@@ -37,16 +37,16 @@
         <!-- 下板块 -->
         <div class="course-group-second">
           <div class="course-group-footer-wrapper course-group-footer-wrapper-first">
-            <div class="course-group-tag-item course-group-tag-item-footer course-group-tag-item-block">Java </div>
-            <div class="course-group-tag-item course-group-tag-item-footer course-group-tag-item-block">Go</div>
-            <div class="course-group-tag-item course-group-tag-item-footer course-group-tag-item-block">MySQL</div>
+            <!-- 招聘技术栈要求 -->
+            <!-- TODO：当文案过长时，是否过滤掉超出部分 -->
+            <div class="course-group-tag-item course-group-tag-item-footer" v-for="(item, index) in ['Java', 'Go', 'MySQL', '嵌入式','单片机/开发经验', '教师']" :key="index">
+              {{ item }}
+            </div>
           </div>
           <div class="course-group-footer-wrapper">
-            <div class="course-group-tag-item course-group-tag-item-footer course-group-tag-item-block">生日福利 </div>
-            <div class="course-group-tag-item course-group-tag-item-footer course-group-tag-item-block">餐饮及下午茶</div>
-            <div class="course-group-tag-item course-group-tag-item-footer course-group-tag-item-block">节日奖品</div>
+            <!-- 福利待遇，显示字符串 -->
+            <div class="course-group-tag-item course-group-tag-item-footer course-group-tag-item-footer-benefits">生日福利、餐饮及下午茶、节日奖品、五险一金、全勤奖、零食、带薪年假</div>
           </div>
-          <!-- <div class="des">{{ recruit }}</div> -->
         </div>
       </div>
       <!-- <button class="learn-button" @click="deliver(selectedRecruit.sourceUrl)">
@@ -170,6 +170,9 @@ export default {
 /* 第一个内边距 20px */
 .course-group-footer-wrapper-first {
   padding-left: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 
@@ -199,6 +202,13 @@ export default {
 
 .course-group-tag-item-footer {
   margin-top: 7px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.course-group-tag-item-footer-benefits {
+  width: 470px;
 }
 
 .course-group-salary {
