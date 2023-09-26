@@ -6,6 +6,7 @@ import axios from 'axios';
 import './axios';
 import showdown from "showdown"
 import installElementPlus from './plugins/element'
+import './assets/css/base.css'
 
 const app = createApp(App); // 使用 createApp 创建 Vue 应用
 installElementPlus(app)

@@ -3,6 +3,25 @@
     <div class="course-row" v-for="row in recruitRows" :key="row">
       <RecruitBox v-for="recruit in row" :key="recruit.id" :recruit="recruit" />
     </div>
+    <div class="course-right-side-container">
+      <el-card class="box-card">
+        <template #header>
+          <div class="card-header">
+            <span>热门职位</span>
+          </div>
+        </template>
+        <div v-for="o in 4" :key="o" class="posts-list" @click="handleClickPosts(o)">
+          <div class="posts-header">
+            <span>技术总监</span>
+            <span class="salary">30—40K</span>
+          </div>
+          <div class="posts-supplement">
+            <span>北京新东方</span>
+            <span>北京朝阳区</span>
+          </div>
+        </div>
+      </el-card>
+    </div>
   </div>
 </template>
 <script>
@@ -40,10 +59,10 @@ export default {
         job.education = result;
       });
       // 2. 薪资，根据招聘类型，实习、社招、校招，确定薪资类型：k、w
-      this.transformSalary(job,(result) => {
+      this.transformSalary(job, (result) => {
         job.salary = result;
       })
-      job.picUrl = job.picUrl === null ? "https://picx.zhimg.com/v2-d534f6d0948d7228b4173e6e1a7a3436_xl.jpg":job.picUrl;
+      job.picUrl = job.picUrl === null ? "https://picx.zhimg.com/v2-d534f6d0948d7228b4173e6e1a7a3436_xl.jpg" : job.picUrl;
       return job;
     },
 
@@ -81,25 +100,38 @@ export default {
       }
       callback(salary);
     },
+    handleClickPosts(id) {
+      if (id) {
+        // TODO：页面跳转
+      }
+    }
   },
 };
 </script>
   
-  <style scoped>
+<style scoped>
 /* 样式略，保持原来的样式 */
 
 .course-details {
-  flex: 1;
+  position: relative;
   padding: 20px;
-  /* border: 1px solid green; */
   /* Set a minimum width for the course details */
 }
 
+/* 招聘列表 */
 .course-row {
   display: flex;
   justify-content: center;
   /* border: 1px solid red; */
   margin-bottom: 20px;
+}
+
+.course-right-side-container {
+  position: absolute;
+  right: 40px;
+  width: 28%;
+  height: fit-content;
+  /* border: 1px solid red; */
 }
 
 .course-box {
@@ -115,5 +147,46 @@ export default {
 .course-box p {
   color: #666;
 }
+
+/* 职位列表 */
+.posts-list {
+  width: 100%;
+  height: 60px;
+  /* background-color: #e3d3d3; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.posts-header {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  font-size: 18px;
+  font-weight: 600;
+  /* background-color: aqua; */
+  display: flex;
+  justify-content: space-between;
+}
+
+.salary {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--salary);
+}
+
+.posts-supplement {
+  width: 100%;
+  height: 20px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #bbb;
+  /* background-color: antiquewhite; */
+  display: flex;
+  justify-content: space-between;
+}
+
 </style>
   

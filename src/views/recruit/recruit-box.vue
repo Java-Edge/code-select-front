@@ -103,7 +103,6 @@ export default {
   text-decoration: none;
   transition: transform 0.2s ease-in-out;
   padding-top: 10px;
-  /* padding: 10px; */
 }
 
 .course-box:hover {
