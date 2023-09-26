@@ -4,19 +4,25 @@
       <div class="footer-section">
         <h4>{{ aboutUs.name }}</h4>
         <ul>
-          <li v-for="item in aboutUs.list" :key="item.id"><a :href="item.value" target="_blank">{{ item.label }}</a></li>
+          <li v-for="item in aboutUs.list" :key="item.id">
+            <a :href="item.value" target="_blank">{{ item.label }}</a>
+          </li>
         </ul>
       </div>
       <div class="footer-section">
         <h4>{{ platformService.name }}</h4>
         <ul>
-          <li  v-for="item in platformService.list" :key="item.id"><a :href="item.value" target="_blank">{{ item.label }}</a></li>
+          <li v-for="item in platformService.list" :key="item.id">
+            <a :href="item.value" target="_blank">{{ item.label }}</a>
+          </li>
         </ul>
       </div>
       <div class="footer-section">
         <h4>{{ friendlyLink.name }}</h4>
         <ul>
-          <li  v-for="item in friendlyLink.list" :key="item.id"><a :href="item.value" target="_blank">{{ item.label }}</a></li>
+          <li v-for="item in friendlyLink.list" :key="item.id">
+            <a :href="item.value" target="_blank">{{ item.label }}</a>
+          </li>
         </ul>
       </div>
       <div class="footer-section">
@@ -26,88 +32,31 @@
     </div>
   </footer>
 </template>
-  
+
 <script setup>
-// export default {
-//   name: 'Footer',
-//   data() {
-//     return {
-//       websiteName: 'Your Website Name',
-//       currentYear: new Date().getFullYear(),
-//       contactPhone: '+123-456-7890',
-//     };
-//   },
-// };
-import {ref} from 'vue'
-import axios from 'axios'
-const aboutUs = ref({})
-const platformService = ref({})
-const friendlyLink = ref({})
-const contactInfo = ref({})
+import { ref } from "vue";
+import axios from "axios";
+const aboutUs = ref({});
+const platformService = ref({});
+const friendlyLink = ref({});
+const contactInfo = ref({});
 const getDictionaryData = () => {
-  axios.get('/back/dictionary/list?typeKey=about_us').then(res => {
-    // console.log(res)
-    /**
-     * 每次查出来之后，拼接上原来的数据即可
-     */
-    console.log("新查询的数据", res.data.result)
-    aboutUs.value = res.data.result
-  })
-  axios.get('/back/dictionary/list?typeKey=platform_service').then(res => {
-    // console.log(res)
-    /**
-     * 每次查出来之后，拼接上原来的数据即可
-     */
-    console.log("新查询的数据", res.data.result)
-    platformService.value = res.data.result
-  })
-  axios.get('/back/dictionary/list?typeKey=friendly_link').then(res => {
-    // console.log(res)
-    /**
-     * 每次查出来之后，拼接上原来的数据即可
-     */
-    console.log("新查询的数据", res.data.result)
-    friendlyLink.value = res.data.result
-  })
-  axios.get('/back/dictionary/list?typeKey=contact_info').then(res => {
-    // console.log(res)
-    /**
-     * 每次查出来之后，拼接上原来的数据即可
-     */
-    console.log("新查询的数据", res.data.result)
-    contactInfo.value = res.data.result
-  })
-}
-getDictionaryData()
-// axios.get('/back/dictionary/list?typekey=platform_service').then(res => {
-//     // console.log(res)
-//     /**
-//      * 每次查出来之后，拼接上原来的数据即可
-//      */
-//     console.log("新查询的数据", res.data.result)
-//     articleData.value = articleData.value.concat(res.data.result.records)
-//     total.value = res.data.result.total
-// })
-// axios.get('/back/dictionary/list?typekey=friendly_link').then(res => {
-//     // console.log(res)
-//     /**
-//      * 每次查出来之后，拼接上原来的数据即可
-//      */
-//     console.log("新查询的数据", res.data.result)
-//     articleData.value = articleData.value.concat(res.data.result.records)
-//     total.value = res.data.result.total
-// })
-// axios.get('/back/dictionary/list?typekey=contact_info').then(res => {
-//     // console.log(res)
-//     /**
-//      * 每次查出来之后，拼接上原来的数据即可
-//      */
-//     console.log("新查询的数据", res.data.result)
-//     articleData.value = articleData.value.concat(res.data.result.records)
-//     total.value = res.data.result.total
-// })
+  axios.get("/back/dictionary/list?typeKey=about_us").then((res) => {
+    aboutUs.value = res.data.result;
+  });
+  axios.get("/back/dictionary/list?typeKey=platform_service").then((res) => {
+    platformService.value = res.data.result;
+  });
+  axios.get("/back/dictionary/list?typeKey=friendly_link").then((res) => {
+    friendlyLink.value = res.data.result;
+  });
+  axios.get("/back/dictionary/list?typeKey=contact_info").then((res) => {
+    contactInfo.value = res.data.result;
+  });
+};
+getDictionaryData();
 </script>
-  
+
 <style scoped>
 /* 添加样式 */
 .footer {
@@ -118,12 +67,10 @@ getDictionaryData()
 }
 
 .footer-content {
+  max-width: 1600px;
+  margin: 0 auto;
   display: flex;
-  justify-content: space-around;
-}
-
-.footer-section {
-  margin: 0 40px;
+  justify-content: space-between;
 }
 
 .footer h4 {
