@@ -116,6 +116,16 @@ const routes = [
     name: "/sidelineList",
     component: loadComponent("sideline/sideline-list"),
   },
+  {
+    path: "/study-list",
+    name: "/studyList",
+    component: loadComponent("study/list"),
+  },
+  {
+    path: "/study-detail/:id",
+    name: "/studyDetail",
+    component: loadComponent("study/detail"),
+  },
 ];
 
 const router = createRouter({

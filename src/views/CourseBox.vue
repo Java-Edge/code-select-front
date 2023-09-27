@@ -9,8 +9,8 @@
 <template>
   <router-link :to="`/course/${course.id}`">
     <div class="course-box">
-      <div class="image-container">
-        <img :src="course.image" alt="课程图片" />
+      <div class="image-container" :style="{backgroundImage:`url(${course.image})`}">
+        <!-- <img :src="course.image" alt="课程图片" /> -->
       </div>
       <div class="course-text">
         <p>{{ course.name }}</p>
@@ -34,7 +34,12 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
+.course-details a:nth-child(5n){
+  .course-box{
+    margin-right: 0px;
+  }
+}
 .course-box {
   display: flex;
   flex-direction: column;
@@ -50,15 +55,14 @@ export default {
 .image-container {
   overflow: hidden;
   margin-bottom: 10px;
-}
-
-.course-box img {
-  width: 100%;
+  height: 170px;
   max-height: 200px;
   margin-bottom: 8px;
   border-radius: 8px 8px 0 0;
   object-fit: contain;
 }
+
+
 
 
 .course-text {

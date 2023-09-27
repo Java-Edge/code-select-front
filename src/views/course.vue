@@ -17,64 +17,43 @@
         </div>
         <CourseList :courses="courses" />
       </div>
+      <study/>
     </div>
 
   </div>
 </template>
 
-<script>
-import CourseList from './CourseList.vue'; // Import the CourseList component
-import LeftSidebar from './LeftSidebar.vue'; // Import the LeftSidebar component
-import RightSidebar from './RightSidebar.vue'; // Import the RightSidebar component
+<script setup>
+import { onMounted, ref } from 'vue'
+import CourseList from './CourseList.vue';
+import LeftSidebar from './LeftSidebar.vue';
+import RightSidebar from './RightSidebar.vue';
+import study from './home/study.vue';
+import {getList,getCarouselData} from '@/api/sourceCourse'
+const activeMenu = ref('home')
+const courses = ref([])
+const carouselData = ref([])
+const handleMenuSelect = (index) => {
+  activeMenu.value = index; // 更新选中的菜单项
+  // 可根据不同的菜单项进行相应的页面跳转或其他操作
+}
+const getCourses = () => {
+  getList().then(response => {
+    const coursesData = response.data.result;
+    courses.value = coursesData;
+  })
+}
+const getFiveCourse = () => {
+  getCarouselData().then(response => {
+    const courses = response.data.result;
+    carouselData.value = courses;
+  })
+}
+onMounted(() => {
+  getCourses();
+  getFiveCourse();
+})
 
-
-export default {
-  name: "CourseNavigation",
-  components: {
-    CourseList, // Register the CourseList component
-    LeftSidebar,
-    RightSidebar,
-  },
-  data() {
-    return {
-      activeMenu: "home", // 默认选中首页
-      courses: [], // 所有课程数据，从后端获取或静态定义
-      carouselData: [],
-      img: require("@/assets/background.jpg"),
-    };
-  },
-  created() {
-    this.getCourses();
-    this.getFiveCourse();
-  },
-  methods: {
-    handleMenuSelect(index) {
-      this.activeMenu = index; // 更新选中的菜单项
-      // 可根据不同的菜单项进行相应的页面跳转或其他操作
-    },
-    getCourses() {
-      this.$axios.get('/back/sourceCourse/list'
-      ).then(response => {
-        const courses = response.data.result;
-        this.courses = courses;
-      })
-    },
-    getFiveCourse() {
-      this.$axios.get('/back/sourceCourse/getFiveCourse'
-      ).then(response => {
-        const courses = response.data.result;
-        // console.log(response)
-        this.carouselData = courses;
-        // console.log(this.courses)
-      })
-    },
-  },
-  mounted() {
-
-  },
-
-
-};
 </script>
 
 <style lang="scss" scoped>
@@ -102,6 +81,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
 }
+
 
 
 .carousel-image {
@@ -150,10 +130,12 @@ export default {
   background-position: 0 0;
   left: 0;
 }
+
 .floorhd_tit:after {
-    background-position: -25px 0;
-    right: 0;
+  background-position: -25px 0;
+  right: 0;
 }
+
 .floorhd_tit:after,
 .floorhd_tit:before {
   content: "";

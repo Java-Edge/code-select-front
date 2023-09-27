@@ -18,17 +18,13 @@ export default {
 };
 </script>
   
-<style lang="scss">
+<style lang="scss" scoped>
 .course-details {
   display: flex;
   justify-content: start;
   flex-wrap: wrap;
 }
-.course-details a:nth-child(5n){
-  .course-box{
-    margin-right: 0px;
-  }
-}
+
 
 .course-box {
   flex: 0 0 calc(20% - 20px);

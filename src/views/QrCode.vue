@@ -78,7 +78,7 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
 .qr-code-container {
   position: fixed;
   top: 50%;
