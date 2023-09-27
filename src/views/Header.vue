@@ -124,8 +124,6 @@ export default {
 
     .index-menu {
       min-width: 1152px;
-      // margin: 0 auto;
-
       .logo {
         float: left;
         // margin: 0 20px;

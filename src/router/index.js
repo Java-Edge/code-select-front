@@ -1,141 +1,121 @@
 /*
- * @Descripttion: 
- * @version: 
+ * @Descripttion:
+ * @version:
  * @Author: 不败顽童
  * @Date: 2023-07-16 17:51:44
  * @LastEditors: 不败顽童
  * @LastEditTime: 2023-08-05 18:34:38
  */
 // router.js
-import { createRouter, createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from "vue-router";
 
-import index from '../views/course';
-import courseDetail from '../views/course-detail';
-import articleCreate from '../views/markdown/article-create'
-import articleDetail from '../views/markdown/article-detail'
-import articleList from '../views/markdown/article-list'
-import recruit from '../views/recruit/recruit'
-import recruitDetail from '../views/recruit/recruit-detail'
-import articleInterview from '../views/markdown/article-interview'
-import innerRecommend from '../views/markdown/inner-recommend'
-import interviewArticleDetail from '../views/markdown/interview-article-detail'
-import coursePage from "../views/coursePage";
-import pilotPage from "../views/category/pilot";
-import specialColumn from "../views/special-column"
-import login from "../views/user/login"
-import ranking from "../views/ranking"
-import projectDetail from "../views/project/project-detail"
-import projectList from "../views/project/project-list"
-import sidelineDetail from "../views/sideline/sideline-detail"
-import sidelineList from "../views/sideline/sideline-list"
-
+const loadComponent = (componentName) => () =>
+  import(`@/views/${componentName}.vue`);
 const routes = [
   {
-    path: '/',
-    redirect: '/index'
+    path: "/",
+    redirect: "/index",
   },
   {
-    path: '/index',
-    name: 'index',
-    component: index,
+    path: "/index",
+    name: "index",
+    component: loadComponent("course"),
   },
   {
-    path: '/course/:id',
-    name: 'courseDetail',
-    component: courseDetail,
+    path: "/course/:id",
+    name: "courseDetail",
+    component: loadComponent("course-detail"),
   },
   {
-    
-    path: '/article-create',
-    name: 'articleCreate',
-    component: articleCreate
+    path: "/article-create",
+    name: "articleCreate",
+    component: loadComponent("markdown/article-create"),
   },
   {
-    path: '/article-editor/:id',
-    name: 'articleEditor',
-    component: articleCreate
+    path: "/article-editor/:id",
+    name: "articleEditor",
+    component: loadComponent("markdown/article-create"),
   },
   {
-    path: '/article-list/:type',
-    name: 'articleList',
-    component: articleList
+    path: "/article-list/:type",
+    name: "articleList",
+    component: loadComponent("markdown/article-list"),
   },
   {
-    path: '/article-interview',
-    name: 'articleInterview',
-    component: articleInterview
+    path: "/article-interview",
+    name: "articleInterview",
+    component: loadComponent("markdown/article-interview"),
   },
   {
-    path: '/inner-recommend',
-    name: 'innerRecommend',
-    component: innerRecommend
+    path: "/inner-recommend",
+    name: "innerRecommend",
+    component: loadComponent("markdown/inner-recommend"),
   },
   {
-    path: '/article/:id',
-    name: 'articleDetail',
-    component: articleDetail
+    path: "/article/:id",
+    name: "articleDetail",
+    component: loadComponent("markdown/article-detail"),
   },
   {
-    path: '/intervieArticleDetail/:id',
-    name: 'intervieArticleDetail',
-    component: interviewArticleDetail
+    path: "/intervieArticleDetail/:id",
+    name: "intervieArticleDetail",
+    component: loadComponent("markdown/interview-article-detail"),
   },
   {
-    path: '/recruit/index',
-    name: 'recruit',
-    component: recruit,
+    path: "/recruit/index",
+    name: "recruit",
+    component: loadComponent("recruit/recruit"),
   },
   {
-    path: '/recruit/:id',
-    name: 'recruitDetail',
-    component: recruitDetail,
+    path: "/recruit/:id",
+    name: "recruitDetail",
+    component: loadComponent("recruit/recruit-detail"),
   },
   {
-    path: '/CoursePage',
-    name: 'CoursePage',
-    component: coursePage
-  }
-  ,
-  {
-    path: '/pilot',
-    name: 'pilotPage',
-    component: pilotPage
+    path: "/CoursePage",
+    name: "CoursePage",
+    component: loadComponent("coursePage"),
   },
   {
-    path: '/special',
-    name: 'special-column',
-    component: specialColumn
+    path: "/pilot",
+    name: "pilotPage",
+    component: loadComponent("category/pilot"),
   },
   {
-    path: '/login',
-    name: 'login',
-    component: login
+    path: "/special",
+    name: "special-column",
+    component: loadComponent("special-column/index"),
   },
   {
-    path: '/ranking',
-    name: 'ranking',
-    component: ranking
+    path: "/login",
+    name: "login",
+    component: loadComponent("user/login"),
   },
   {
-    path: '/projectDetail/:id',
-    name: '/projectDetail',
-    component: projectDetail
+    path: "/ranking",
+    name: "ranking",
+    component: loadComponent("ranking/index"),
   },
   {
-    path: '/projectList',
-    name: '/projectList',
-    component: projectList
+    path: "/projectDetail/:id",
+    name: "/projectDetail",
+    component: loadComponent("project/project-detail"),
   },
   {
-    path: '/sidelineDetail/:id',
-    name: '/sidelineDetail',
-    component: sidelineDetail
+    path: "/projectList",
+    name: "/projectList",
+    component: loadComponent("project/project-list"),
   },
   {
-    path: '/sidelineList',
-    name: '/sidelineList',
-    component: sidelineList
-  }
+    path: "/sidelineDetail/:id",
+    name: "/sidelineDetail",
+    component: loadComponent("sideline/sideline-detail"),
+  },
+  {
+    path: "/sidelineList",
+    name: "/sidelineList",
+    component: loadComponent("sideline/sideline-list"),
+  },
 ];
 
 const router = createRouter({

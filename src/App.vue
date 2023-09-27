@@ -38,7 +38,7 @@ export default {
 }
 
 .body {
-  min-height: 800px;
+  min-height: 92.5vh;
 }
 
 /* 最大宽度设置为1600px，并将其水平居中对齐 */
