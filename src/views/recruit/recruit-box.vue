@@ -37,9 +37,10 @@ export default {
 }
 
 .course-box {
-  flex: 0 0 calc(50% - 20px);
-  max-width: 1000px;
-  width: 1000px;
+  /* flex: 0 0 calc(50% - 20px); */
+
+  /* max-width: 100%; */
+  width: 1100px;
   height: 150px;
   margin-bottom: 10px;
   background-color: #fff;

@@ -110,26 +110,29 @@ export default {
 </script>
   
 <style scoped>
-/* 样式略，保持原来的样式 */
 
+/* 招聘列表容器外边框 */
 .course-details {
   position: relative;
   padding: 20px;
+  /* border: 1px solid red; */
   /* Set a minimum width for the course details */
 }
 
 /* 招聘列表 */
 .course-row {
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
+  align-items: center;
   /* border: 1px solid red; */
   margin-bottom: 20px;
 }
 
 .course-right-side-container {
   position: absolute;
-  right: 40px;
-  width: 28%;
+  right: 45px;
+  top: 20px;
+  width: 25%;
   height: fit-content;
   /* border: 1px solid red; */
 }

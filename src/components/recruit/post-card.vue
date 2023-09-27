@@ -126,7 +126,7 @@ export default {
   /* border: 1px solid orangered; */
   width: 100%;
   height: 65%;
-  padding-top: 15px;
+  padding-top: 10px;
 }
 
 .course-group-tag-item {
@@ -154,7 +154,9 @@ export default {
 }
 
 .course-group-tag-item-footer-benefits {
-  width: 470px;
+  /* border: 1px solid red; */
+  width: fit-content;
+  max-width: 500px;
 }
 
 .course-group-salary {
@@ -163,12 +165,13 @@ export default {
 
 .course-group-company-container {
   /* border: 1px solid red; */
-  width: 600px;
+  width: 500px;
   height: 100px;
 }
 
 .course-group-company-status {
   /* border: 1px solid orangered; */
+  margin-top: 5px;
   margin-left: 75px;
   padding-top: 10px;
   width: 590px;
