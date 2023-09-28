@@ -2,41 +2,31 @@
   <div class="content">
     <div class="study-header">
       <ul class="menu">
-        <li class="curr" data-type="推荐" data-tab="推荐">
-          <a href="javascript:;">推荐</a>
+
+        <li :class="{ curr: currentMenu === item.category }" v-for="item in menus" :key="item.category">
+          <a @click="changeMenu(item.category)" href="javascript:;">{{ item.name }}</a>
         </li>
-        <li class="" data-type="前端开发" data-tab="前端开发">
-          <a href="javascript:;">前端开发</a>
-        </li>
-        <li class="" data-type="后端开发" data-tab="后端开发">
-          <a href="javascript:;">后端开发</a>
-        </li>
-        <li class="" data-type="移动开发" data-tab="移动开发">
-          <a href="javascript:;">移动开发</a>
-        </li>
+
       </ul>
-      <router-link class="more" to="/study-list"
-        >全部
+      <router-link class="more" to="/study-list">全部
         <el-icon>
-          <ArrowRight /> </el-icon
-      ></router-link>
-      <!-- <a class="more" @click="goAll">全部
-                <el-icon>
-                    <ArrowRight />
-                </el-icon>
-            </a> -->
+          <ArrowRight />
+        </el-icon>
+      </router-link>
     </div>
     <List />
   </div>
 </template>
 
 <script setup>
-import { useRouter } from "vue-router";
+
+import { ref } from "vue";
 import List from "./study-list";
-const router = useRouter();
-const goAll = () => {
-  router.push("/study-list");
-};
+const menus = [{ name: '推荐', category: '1' }, { name: '前端开发', category: '2' }, { name: '后端开发', category: '3' }, { name: '移动端开发', category: '4' }]
+const currentMenu = ref('1')
+const changeMenu = (category) => {
+  currentMenu.value = category
+}
 </script>
 
 <style lang="scss" scoped>
@@ -66,7 +56,7 @@ const goAll = () => {
       position: relative;
     }
 
-    li > a:hover {
+    li>a:hover {
       color: #e02020;
     }
 

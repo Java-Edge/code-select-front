@@ -6,37 +6,19 @@
           <img src="@/assets/study-route.png" class="logo" />
         </router-link>
         <div class="tabnav">
-          <a
-            @click="getList(item.category)"
-            :class="{ on: currentMenu === item.category }"
-            v-for="item in menus"
-            :key="item.category"
-            >{{ item.name }}</a
-          >
+          <a @click="getList(item.category)" :class="{ on: currentMenu === item.category }" v-for="item in menus"
+            :key="item.category">{{ item.name }}</a>
         </div>
       </div>
     </div>
     <div class="main-content mainbox">
       <div class="listview">
-        <a
-          target="_blank"
-          class="box js-click-zhuge"
-          v-for="item in list"
-          :key="item.id"
-        >
+        <router-link :to="`/study-detail/${item.id}`" target="_blank" class="box js-click-zhuge" v-for="item in list"
+          :key="item.id">
           <div class="imgcontainer">
-            <div
-              class="img-up"
-              :style="{ backgroundImage: `url(${item.img})` }"
-            ></div>
-            <div
-              class="img-mid"
-              :style="{ backgroundImage: `url(${item.img})` }"
-            ></div>
-            <div
-              class="img-down"
-              :style="{ backgroundImage: `url(${item.img})` }"
-            ></div>
+            <div class="img-up" :style="{ backgroundImage: `url(${item.img})` }"></div>
+            <div class="img-mid" :style="{ backgroundImage: `url(${item.img})` }"></div>
+            <div class="img-down" :style="{ backgroundImage: `url(${item.img})` }"></div>
           </div>
           <div class="courseitem">
             <h2>{{ item.title }}</h2>
@@ -47,20 +29,32 @@
               <span>{{ item.buzhou }}步骤</span>
               <i>·</i>
               <span>{{ item.course }}门课</span>
-              <span class="collectnum"
-                ><el-icon class="sz-star"><StarFilled /></el-icon
-                >{{ item.collect }}人收藏</span
-              >
+              <span class="collectnum"><el-icon class="sz-star">
+                  <StarFilled />
+                </el-icon>{{ item.collect }}人收藏</span>
             </div>
           </div>
-        </a>
+        </router-link>
       </div>
+
     </div>
+    <!-- <div class="paginaTion">
+      <a @click="handleFirst" v-show="page !== 1">首页</a>
+      <span v-show="page === 1">首页</span>
+      <el-pagination @current-change="handleCurrentChange" :current-page="page" :page-size="size"
+        layout="prev, pager, next" prev-text="上一页" next-text="下一页" :total="total">
+      </el-pagination>
+      <a @click="handleLast" v-show="page !== totalPage">尾页</a>
+      <span v-show="page === totalPage">尾页</span>
+    </div> -->
+    <pagination :page="page" :total="total" @pageChange="handlePageChange"/>
   </div>
 </template>
 
 <script setup>
+import pagination from "@/components/pagination.vue";
 import { onMounted, ref } from "vue";
+
 const menus = [
   { name: "热门", category: "0" },
   { name: "前端", category: "1" },
@@ -77,7 +71,7 @@ const allData = [
   {
     category: "0",
     data: {
-      img: "https://img.mukewang.com/szimg/604f267309536a1b03240324.jpg",
+      img: new URL("../../assets/demo/study0.jpg", import.meta.url).href,
       title: "大学计算机专业数学学习路线",
       desc: "提升编程内功，精选程序员必修的数学基础课，带你打好人工智能等领域的数学基础。",
       buzhou: 4,
@@ -88,7 +82,7 @@ const allData = [
   {
     category: "1",
     data: {
-      img: "https://img.mukewang.com/szimg/604f2bab0952610803240324-140-140.jpg",
+      img: new URL("../../assets/demo/study1.jpg", import.meta.url).href,
       title: "Vue.js 从入门到精通",
       desc: "路线专为想学Vue却无从下手的人群设计，以实际项目为例，逐层深入，学透Vue。",
       buzhou: 4,
@@ -99,7 +93,7 @@ const allData = [
   {
     category: "2",
     data: {
-      img: "https://img.mukewang.com/szimg/604f29ea090f076203240324-140-140.jpg",
+      img: new URL("../../assets/demo/study2.jpg", import.meta.url).href,
       title: "Java Web电商前后端与全流程进阶之路",
       desc: "以Java和vue为技术栈，覆盖数据库-后端-前端完整电商业务，遵循企业级流程，进军全栈工程师。",
       buzhou: 3,
@@ -110,7 +104,7 @@ const allData = [
   {
     category: "3",
     data: {
-      img: "https://img.mukewang.com/szimg/604f29de09fd844103240324-140-140.jpg",
+      img: new URL("../../assets/demo/study3.jpg", import.meta.url).href,
       title: "5G时代音视频开发与视频直播技术高手之路",
       desc: "对标大厂岗位需求，从音视频基础入门、处理核心技术到服务器设计开发 ，全面培养5G时代人才。",
       buzhou: 5,
@@ -121,7 +115,7 @@ const allData = [
   {
     category: "4",
     data: {
-      img: "https://img.mukewang.com/szimg/62ac1de5094b3d3404860486-140-140.jpg",
+      img: new URL("../../assets/demo/study4.jpg", import.meta.url).href,
       title: "算法面试求职、思维提升一站式全面解决",
       desc: "大厂校招、社招 算法数据结构类问题一网打尽。",
       buzhou: 4,
@@ -132,7 +126,7 @@ const allData = [
   {
     category: "5",
     data: {
-      img: "https://img.mukewang.com/szimg/604f2b8d0901f67d03240324-140-140.jpg",
+      img: new URL("../../assets/demo/study5.jpg", import.meta.url).href,
       title: "大数据零基础入门求职路线",
       desc: "面向零基础用户，从Hadoop开始，以Flink和Spark两个核心框架为重心，配合生态圈周边框架进行实战，为您进军大数据领域铺平道路，助力快速入行转型！",
       buzhou: 4,
@@ -143,7 +137,7 @@ const allData = [
   {
     category: "6",
     data: {
-      img: "https://img.mukewang.com/szimg/63f80f07099f9f6b04860486-140-140.jpg",
+      img: new URL("../../assets/demo/study6.jpg", import.meta.url).href,
       title: "从Python接口自动化测试到测试开发成长之路",
       desc: "1.Python接口自动化从设计到开发   2.搞定分布式场景开发   3.测试高薪必学--大厂全链路质量保障体系   4.百度资深工程量亲授搞定测试面试，助你轻松拿offer",
       buzhou: 4,
@@ -154,7 +148,7 @@ const allData = [
   {
     category: "7",
     data: {
-      img: "https://img.mukewang.com/szimg/604f2af40952361403240324-140-140.jpg",
+      img: new URL("../../assets/demo/study7.jpg", import.meta.url).href,
       title: "从0入门人工智能学习",
       desc: "路线面向0基础用户，从最基础的开发语言Python学起，带你进入人工智能的世界。",
       buzhou: 4,
@@ -164,8 +158,8 @@ const allData = [
   },
   {
     category: "8",
-     data: {
-      img: "https://img.mukewang.com/szimg/604f267309536a1b03240324.jpg",
+    data: {
+      img: new URL("../../assets/demo/study0.jpg", import.meta.url).href,
       title: "大学计算机专业数学学习路线",
       desc: "提升编程内功，精选程序员必修的数学基础课，带你打好人工智能等领域的数学基础。",
       buzhou: 4,
@@ -176,12 +170,12 @@ const allData = [
 ];
 const list = ref([]);
 const handleSelected = () => {
-   list.value = [];
+  list.value = [];
   for (let i = 0; i < 10; i++) {
     const selected = allData.find(
       (item) => item.category === currentMenu.value
     );
-    list.value.push({...selected.data,id: currentMenu.value +i});
+    list.value.push({ ...selected.data, id: currentMenu.value + i });
   }
 };
 
@@ -189,6 +183,12 @@ const getList = (category) => {
   currentMenu.value = category;
   handleSelected()
 };
+const page = ref(1)
+const size = ref(10)
+const total = ref(100)
+const handlePageChange=val=>{
+  page.value=val
+}
 onMounted(() => {
   handleSelected();
 });
@@ -200,6 +200,7 @@ onMounted(() => {
   height: 143px;
   background: #fff;
   box-shadow: 0 2px 4px 0 rgba(28, 31, 33, 0.06);
+
   //   .main-content{
   //     max-width: 1152px;
   //     margin: 0 auto;
@@ -210,6 +211,7 @@ onMounted(() => {
     padding: 5px 0;
     display: block;
   }
+
   .tabnav {
     border-top: 1px solid rgba(28, 31, 33, 0.2);
     display: flex;
@@ -220,14 +222,17 @@ onMounted(() => {
     height: 40px;
     line-height: 40px;
     padding-top: 16px;
+
     a {
       margin-right: 28px;
       position: relative;
       color: #545c63;
     }
-    a.on{
+
+    a.on {
       color: #f20d0d;
     }
+
     a.on::after {
       content: "";
       position: absolute;
@@ -241,6 +246,7 @@ onMounted(() => {
     }
   }
 }
+
 .mainbox {
   min-height: 750px;
   margin-top: 32px;
@@ -248,22 +254,26 @@ onMounted(() => {
   padding: 24px;
   position: relative;
   box-sizing: border-box;
+
   .listview {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+
     .box {
       margin-bottom: 16px;
       height: 155px;
       display: flex;
       flex-direction: row;
       margin-left: 24px;
+
       .imgcontainer {
         width: 140px;
         height: 140px;
         position: relative;
         border-radius: 8px;
         transition: 0.3s all linear;
+
         .img-up {
           left: 0;
           top: 0;
@@ -271,6 +281,7 @@ onMounted(() => {
           height: 140px;
           z-index: 3;
         }
+
         .img-mid {
           left: 4px;
           top: 11px;
@@ -279,6 +290,7 @@ onMounted(() => {
           opacity: 0.5;
           z-index: 2;
         }
+
         .img-down {
           left: 8px;
           top: 22px;
@@ -288,12 +300,14 @@ onMounted(() => {
           z-index: 1;
         }
       }
+
       .courseitem {
         position: relative;
         border-bottom: 1px solid rgba(28, 31, 33, 0.1);
         width: 318px;
         overflow: hidden;
         margin-left: 24px;
+
         h2 {
           font-weight: 700;
           font-size: 16px;
@@ -304,6 +318,7 @@ onMounted(() => {
           overflow: hidden;
           text-overflow: ellipsis;
         }
+
         p {
           font-size: 14px;
           color: #545c63;
@@ -314,6 +329,7 @@ onMounted(() => {
           -webkit-line-clamp: 2;
           overflow: hidden;
         }
+
         .pathinfo {
           display: flex;
           flex-direction: row;
@@ -324,6 +340,7 @@ onMounted(() => {
           line-height: 18px;
           position: absolute;
           bottom: 23px;
+
           i.sz-star {
             display: inline-block;
 
@@ -333,6 +350,7 @@ onMounted(() => {
             margin: 0 4px;
             margin-top: -3px;
           }
+
           .collectnum {
             margin-left: 33px;
           }
@@ -341,16 +359,15 @@ onMounted(() => {
     }
   }
 }
-.page {
-  margin: 25px 0 auto;
-  overflow: hidden;
-  clear: both;
-  text-align: center;
-}
+
+
+
+
 a:link,
 a:visited {
   color: #1c1f21;
 }
+
 .listview .imgcontainer .img-down,
 .listview .imgcontainer .img-mid,
 .listview .imgcontainer .img-up {
