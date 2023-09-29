@@ -41,17 +41,24 @@ const platformService = ref({});
 const friendlyLink = ref({});
 const contactInfo = ref({});
 const getDictionaryData = () => {
-  axios.get("/back/dictionary/list?typeKey=about_us").then((res) => {
-    aboutUs.value = res.data.result;
-  });
-  axios.get("/back/dictionary/list?typeKey=platform_service").then((res) => {
-    platformService.value = res.data.result;
-  });
-  axios.get("/back/dictionary/list?typeKey=friendly_link").then((res) => {
-    friendlyLink.value = res.data.result;
-  });
-  axios.get("/back/dictionary/list?typeKey=contact_info").then((res) => {
-    contactInfo.value = res.data.result;
+  axios.get("/back/dictionary/listByMultiTypeKey?typeKeys=about_us,platform_service,friendly_link,contact_info").then((res) => {
+    for(let i = 0; i < res.data.result.length; i ++) {
+      console.log(res.data.result[i])
+      switch(res.data.result[i].typeKey){
+        case "about_us":
+          aboutUs.value = res.data.result[i];      
+          break;
+        case "platform_service":
+          platformService.value = res.data.result[i];
+          break;
+        case "friendly_link":
+          friendlyLink.value = res.data.result[i];
+          break;
+        case "contact_info":
+          contactInfo.value = res.data.result[i];
+          break;
+      }
+    }
   });
 };
 getDictionaryData();
