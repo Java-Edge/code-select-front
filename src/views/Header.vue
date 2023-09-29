@@ -58,7 +58,7 @@ import { getCookieValue } from "@/utils/userUtil.js";
 import { mapState, mapMutations } from 'vuex';
 
 export default {
-  name: 'Header',
+  name: 'Header-Navi',
   data() {
     return {
       activeMenu: 'home', // 默认选中首页
@@ -81,6 +81,7 @@ export default {
   },
   created() {
     this.getUserInfo();
+    this.activeMenu = this.handleUpdateActivePath();
   },
   computed: {
     ...mapState({
@@ -90,6 +91,7 @@ export default {
   methods: {
     handleMenuSelect(item) {
       this.activeMenu = item.value; // 更新选中的菜单项
+      localStorage.setItem("currentActiveMenu", this.activeMenu);
       this.$router.push(item.path);
     },
     handleLogout() {
@@ -102,7 +104,17 @@ export default {
     },
     ...mapMutations({
       setActivePath: 'nav/setActivePath'
-    })
+    }),
+    handleUpdateActivePath() {
+      let item = "";
+      const currentActiveMenu = localStorage.getItem("currentActiveMenu")
+      if (currentActiveMenu) {
+        item = currentActiveMenu;
+      } else {
+        item = 'home';
+      }
+      return item;
+    }
   },
 };
 </script>
@@ -156,7 +168,8 @@ export default {
 
       .menu li.active {
         color: #1C1F21;
-        font-weight: 500;
+        font-weight: 550;
+        font-size: 18px;
       }
 
       .login-area {
