@@ -15,7 +15,8 @@ module.exports = {
   devServer: {
     proxy: {
       "/api/back": {
-        target: "http://106.52.239.29:8088/",
+        // target: "http://106.52.239.29:8088/",
+        target: "http://47.99.69.109:8088/",
         // target: "http://localhost:8088/",
         changeOrigin: true,
         logLevel: "debug",
