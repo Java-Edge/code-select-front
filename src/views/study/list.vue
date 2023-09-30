@@ -16,17 +16,17 @@
         <router-link :to="`/study-detail/${item.id}`" target="_blank" class="box js-click-zhuge" v-for="item in list"
           :key="item.id">
           <div class="imgcontainer">
-            <div class="img-up" :style="{ backgroundImage: `url(${item.img})` }"></div>
-            <div class="img-mid" :style="{ backgroundImage: `url(${item.img})` }"></div>
-            <div class="img-down" :style="{ backgroundImage: `url(${item.img})` }"></div>
+            <div class="img-up" :style="{ backgroundImage: `url(${item.image})` }"></div>
+            <div class="img-mid" :style="{ backgroundImage: `url(${item.image})` }"></div>
+            <div class="img-down" :style="{ backgroundImage: `url(${item.image})` }"></div>
           </div>
           <div class="courseitem">
-            <h2>{{ item.title }}</h2>
+            <h2>{{ item.name }}</h2>
             <p>
-              {{ item.desc }}
+              {{ item.description }}
             </p>
             <div class="pathinfo">
-              <span>{{ item.buzhou }}步骤</span>
+              <span>{{ item.step }}步骤</span>
               <i>·</i>
               <span>{{ item.course }}门课</span>
               <span class="collectnum"><el-icon class="sz-star">
@@ -54,18 +54,20 @@
 <script setup>
 import pagination from "@/components/pagination.vue";
 import { onMounted, ref } from "vue";
+import axios from 'axios'
 
-const menus = [
-  { name: "热门", category: "0" },
-  { name: "前端", category: "1" },
-  { name: "后端", category: "2" },
-  { name: "移动端", category: "3" },
-  { name: "计算机基础", category: "4" },
-  { name: "大数据", category: "5" },
-  { name: "测试", category: "6" },
-  { name: "人工智能", category: "7" },
-  { name: "程序员数学", category: "8" },
-];
+const menus = ref([])
+// const menus = [
+//   { name: "热门", category: "0" },
+//   { name: "前端", category: "1" },
+//   { name: "后端", category: "2" },
+//   { name: "移动端", category: "3" },
+//   { name: "计算机基础", category: "4" },
+//   { name: "大数据", category: "5" },
+//   { name: "测试", category: "6" },
+//   { name: "人工智能", category: "7" },
+//   { name: "程序员数学", category: "8" },
+// ];
 const currentMenu = ref("0");
 const allData = [
   {
@@ -168,15 +170,43 @@ const allData = [
     },
   },
 ];
+
+/**
+ * 
+ *     data: {
+      img: new URL("../../assets/demo/study1.jpg", import.meta.url).href,
+      title: "Vue.js 从入门到精通",
+      desc: "路线专为想学Vue却无从下手的人群设计，以实际项目为例，逐层深入，学透Vue。",
+      buzhou: 4,
+      courses: 6,
+      collect: 20191,
+    },
+ */
+const getRoadMap = async (categoryId) => {
+  let path = `/back/roadmap/route?categoryId=${categoryId}&current=${page.value}&size=${size.value}`;
+  console.log('path', path)
+  axios.get(path).then(res => {
+    // console.log(res)
+    /**
+     * 每次查出来之后，拼接上原来的数据即可
+     */
+    console.log("getRoadMap", res.data.result.records)
+    list.value = res.data.result.records
+    total.value = res.data.result.total
+
+  })
+}
+
 const list = ref([]);
 const handleSelected = () => {
   list.value = [];
-  for (let i = 0; i < 10; i++) {
-    const selected = allData.find(
-      (item) => item.category === currentMenu.value
-    );
-    list.value.push({ ...selected.data, id: currentMenu.value + i });
-  }
+  getRoadMap(currentMenu.value)
+  // for (let i = 0; i < 10; i++) {
+  //   const selected = allData.find(
+  //     (item) => item.category === currentMenu.value
+  //   );
+  //   list.value.push({ ...selected.data, id: currentMenu.value + i });
+  // }
 };
 
 const getList = (category) => {
@@ -184,7 +214,7 @@ const getList = (category) => {
   handleSelected()
 };
 const page = ref(1)
-const size = ref(10)
+const size = ref(12)
 const total = ref(100)
 const handlePageChange=val=>{
   page.value=val
@@ -192,6 +222,27 @@ const handlePageChange=val=>{
 onMounted(() => {
   handleSelected();
 });
+
+
+const getCategoryList = async () => {
+  let path = '/back/courseCategory/mainCategoryList';
+  axios.get(path).then(res => {
+    // console.log(res)
+    /**
+     * 每次查出来之后，拼接上原来的数据即可
+     */
+    // console.log("mainCategoryList", res.data.result)
+    menus.value = res.data.result;
+  })
+}
+
+
+getCategoryList()
+
+
+
+
+
 </script>
 
 <style lang="scss" scoped>
