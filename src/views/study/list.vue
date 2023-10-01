@@ -16,9 +16,9 @@
         <router-link :to="`/study-detail/${item.id}`" target="_blank" class="box js-click-zhuge" v-for="item in list"
           :key="item.id">
           <div class="imgcontainer">
-            <div class="img-up" :style="{ backgroundImage: `url(${item.image})` }"></div>
-            <div class="img-mid" :style="{ backgroundImage: `url(${item.image})` }"></div>
-            <div class="img-down" :style="{ backgroundImage: `url(${item.image})` }"></div>
+            <div class="img-up" :style="{ backgroundImage: `url(${item.img})` }"></div>
+            <div class="img-mid" :style="{ backgroundImage: `url(${item.img})` }"></div>
+            <div class="img-down" :style="{ backgroundImage: `url(${item.img})` }"></div>
           </div>
           <div class="courseitem">
             <h2>{{ item.name }}</h2>
