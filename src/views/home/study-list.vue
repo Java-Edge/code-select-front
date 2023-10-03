@@ -1,24 +1,34 @@
 <template>
     <div class="course-details">
-        <Item v-for="course in courses" :key="course.id" :course="course" />
+        <Item v-for="item in list" :key="item.id" :item="item" />
     </div>
 </template>
     
 <script setup>
 import { onMounted, ref } from "vue";
 import Item from "./study-item.vue";
-import {getList} from '@/api/sourceCourse'
-const courses = ref([{
+import axios from 'axios'
+const courses = ref([{}])
+const list = ref([]);
+const props = defineProps({
+    categoryId: {
+      type: String,
+      required: true
+    }
+});
+const categoryId = ref(props.categoryId)
+console.log('categoryId', categoryId.value)
 
-}])
-const getCourses = () => {
-  getList().then(response => {
-    const coursesData = response.data.result;
-    courses.value = coursesData;
+const getRoadMap = () => {
+  let path = `/back/roadmap/route?categoryId=${categoryId.value}&current=1&size=3`;
+  axios.get(path).then(res => {
+    list.value = res.data.result.records
+    // console.log('list.value', list.value)
+    // console.log('list.value', res)
   })
 }
 onMounted(()=>{
-    getCourses()
+  getRoadMap()
 })
 </script>
     

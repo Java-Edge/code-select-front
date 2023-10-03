@@ -7,17 +7,17 @@
  * @LastEditTime: 2023-07-17 21:25:53
 -->
 <template>
-    <router-link :to="`/course/${course.id}`">
+    <router-link :to="`/study-detail/${item.id}`">
         <div class="course-box">
-            <div class="image-container" :style="{ backgroundImage: `url(${course.image})` }">
+            <div class="image-container" :style="{ backgroundImage: `url(${item.img})` }">
             </div>
-            <p class="title ellipsis2">{{ course.desc }}从Python入门/统计学基础到工业级量化交易策略实战，能力逐步提升，让你成为职业的量化交易开发工程师，进军前景可观的金融高薪领域。</p>
+            <p class="title ellipsis2">{{ item.description }}</p>
             <div class="bottom">
                 <div class="left">
-                    <span>4步骤</span> ·
-                    <span>4门课</span>
+                    <span>{{ item.step }}步骤</span> ·
+                    <span>{{ item.course }}门课</span>
                 </div>
-                <div class="right">150收藏</div>
+                <div class="right">{{ item.collect }}收藏</div>
             </div>
         </div>
     </router-link>
@@ -26,7 +26,7 @@
 <script>
 export default {
     props: {
-        course: {
+        item: {
             type: Object,
             required: true,
         },

@@ -14,7 +14,7 @@
         </el-icon>
       </router-link>
     </div>
-    <List />
+    <List :categoryId="currentMenu" :key="currentMenu"/>
   </div>
 </template>
 
@@ -22,11 +22,32 @@
 
 import { ref } from "vue";
 import List from "./study-list";
-const menus = [{ name: '推荐', category: '1' }, { name: '前端开发', category: '2' }, { name: '后端开发', category: '3' }, { name: '移动端开发', category: '4' }]
+import axios from 'axios'
+// const menus = [{ name: '推荐', category: '0' }, { name: '前端开发', category: '1' }, { name: '后端开发', category: '2' }, { name: '移动端开发', category: '3' }]
+const menus = ref([])
+// const menus = ref([])
 const currentMenu = ref('1')
 const changeMenu = (category) => {
   currentMenu.value = category
 }
+
+const getCategoryList = async () => {
+  let path = '/back/courseCategory/mainCategoryList';
+  axios.get(path).then(res => {
+    // console.log(res)
+    /**
+     * 每次查出来之后，拼接上原来的数据即可
+     */
+    // console.log("mainCategoryList", res.data.result)
+    menus.value = res.data.result.slice(0, 4);
+
+    // console.log('menus', menus.slice(0, 4))
+  })
+}
+
+
+getCategoryList()
+
 </script>
 
 <style lang="scss" scoped>
