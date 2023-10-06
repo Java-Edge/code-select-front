@@ -23,6 +23,14 @@
                   <div class="ranking-likes">创建时间 {{ sideline.createTime }}</div>
               </div>
             </a>
+            <!-- 如果 href 为空，先设置成 div，不进行跳转，如果后期需要跳转详情页，再考虑添加 -->
+            <div v-else class="link-sty">
+              <div class="ranking-middle">
+                  <div class="ranking-name hide-text">{{ sideline.title }}</div>
+                  <div class="ranking-des hide-text">{{ sideline.des }}</div>
+                  <div class="ranking-likes">创建时间 {{ sideline.createTime }}</div>
+              </div>
+            </div>
 
             <div class="ranking-right">
                 <!-- <div class="ranking-user-img"><img src="https://pic.imgdb.cn/item/64d1f0451ddac507ccb3ddbc.jpg" /></div> -->
