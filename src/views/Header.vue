@@ -14,7 +14,7 @@
             </li>
           </ul>
         </nav>
-        <div class="login-area">
+        <!-- <div class="login-area">
           <ul class="header-unlogin clearfix newcomer-box">
             <li class="shop-cart">
               <a href="//order.imooc.com/pay/cart" class="shop-cart-icon" target="_blank">
@@ -47,7 +47,7 @@
           <div class="showhide-search" data-show="no"><el-icon>
               <Search />
             </el-icon></div>
-        </div>
+        </div> -->
       </div>
     </div>
   </header>
