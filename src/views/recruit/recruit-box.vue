@@ -24,6 +24,8 @@ export default {
     deliver(sourceUrl) {
       if (sourceUrl !== null) {
         window.open(sourceUrl);
+      }else{
+        console.log(333)
       }
     },
   },

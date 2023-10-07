@@ -14,7 +14,7 @@
             </li>
           </ul>
         </nav>
-        <!-- <div class="login-area">
+        <div class="login-area">
           <ul class="header-unlogin clearfix newcomer-box">
             <li class="shop-cart">
               <a href="//order.imooc.com/pay/cart" class="shop-cart-icon" target="_blank">
@@ -29,8 +29,8 @@
               </div>
             </li>
             <li class="header-signin">
-              <a href="//www.imooc.com/user/newlogin">登录</a> /
-              <a href="//www.imooc.com/user/newsignup">注册</a>
+              <a @click="handleToLogin(1)">登录</a> /
+              <a @click="handleToLogin(0)">注册</a>
             </li>
           </ul>
         </div>
@@ -47,7 +47,7 @@
           <div class="showhide-search" data-show="no"><el-icon>
               <Search />
             </el-icon></div>
-        </div> -->
+        </div>
       </div>
     </div>
   </header>
@@ -93,6 +93,9 @@ export default {
       this.activeMenu = item.value; // 更新选中的菜单项
       localStorage.setItem("currentActiveMenu", this.activeMenu);
       this.$router.push(item.path);
+    },
+    handleToLogin(isToLogin){
+      this.$router.push({path:"/login",query:{sl:isToLogin}});
     },
     handleLogout() {
       // Implement the logout functionality here
