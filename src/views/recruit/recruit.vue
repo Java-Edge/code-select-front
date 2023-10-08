@@ -2,7 +2,7 @@
   <div class="course-navigation">
     <!--   筛选框   -->
     <div class="filter-box">
-      <div class="filter-box1">
+      <!-- <div class="filter-box1">
         <div
           class="filter-item"
           @click="handleFilterSelect('校招')"
@@ -17,30 +17,116 @@
         >
           社招
         </div>
-      </div>
-      <div class="time-filter-box">
+      </div> -->
+
+        <div class="education-level-filter-box">
         <el-select
-          v-model="timeValue"
-          placeholder="年限"
+          v-model="recruitTypeValue"
+          placeholder="招聘类型"
           style="width: 240px"
-          multiple
+          collapse-tags
+          clearable
+          filterable
+          @change="handleRecruitType"
         >
           <el-option
-            v-for="item in timeRange"
+            v-for="item in recruitType"
             :key="item.value"
             :label="item.label"
             :value="item.value"
           />
         </el-select>
       </div>
+
+      <div class="education-level-filter-box">
+        <el-select
+          v-model="educationLevelValue"
+          placeholder="学历要求"
+          style="width: 240px"
+          collapse-tags
+          clearable
+          filterable
+          @change="handleChangeEducation"
+        >
+          <el-option
+            v-for="item in educationLevel"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </div>
+
+      <div class="graduate-year-filter-box">
+        <el-select
+          v-model="graduateYearValue"
+          placeholder="毕业年限"
+          style="width: 240px"
+          multiple
+          collapse-tags
+          clearable
+          filterable
+          @change="handleChangeGraduateYear"
+        >
+          <el-option
+            v-for="item in graduateYear"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </div>
+
       <div class="salary-filter-box">
         <el-select
           v-model="salaryValue"
-          placeholder="薪资"
+          placeholder="薪资要求"
           style="width: 240px"
+          collapse-tags
+          clearable
+          filterable
+          @change="handleChangesalary"
         >
           <el-option
             v-for="item in salaryRange"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </div>
+
+      <div class="finance-filter-box">
+        <el-select
+          v-model="financeStageValue"
+          placeholder="融资阶段"
+          style="width: 240px"
+          collapse-tags
+          clearable
+          filterable
+          @change="handleChangeFinanceStage"
+        >
+          <el-option
+            v-for="item in financeStage"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </div>
+
+      <div class="person-scale-filter-box">
+        <el-select
+          v-model="personScaleValue"
+          placeholder="公司规模"
+          style="width: 240px"
+          collapse-tags
+          clearable
+          filterable
+          @change="handleChangePersonScale"
+        >
+          <el-option
+            v-for="item in personScale"
             :key="item.value"
             :label="item.label"
             :value="item.value"
@@ -61,7 +147,7 @@
   </div>
 </template>
   
-  <script>
+<script>
 import RecruitList from "./recruit-list.vue"; // Import the CourseList component
 
 export default {
@@ -100,36 +186,29 @@ export default {
         // 更多轮播图数据
       ],
       img: require("@/assets/background.jpg"),
-      timeRange: [
-        {
-          value: "1",
-          label: "1年",
-        },
-        {
-          value: "3",
-          label: "3年",
-        },
-        {
-          value: "5",
-          label: "5年",
-        },
-      ],
-      timeValue: [],
+      graduateYear: [],
       salaryRange: [
-        {
-          value: "10000",
-          label: "10k",
-        },
-        {
-          value: "20000",
-          label: "20k",
-        },
-        {
-          value: "30000",
-          label: "30k",
-        },
+        // {
+        //   value: "10000",
+        //   label: "10k",
+        // },
+        // {
+        //   value: "20000",
+        //   label: "20k",
+        // },
+        // {
+        //   value: "30000",
+        //   label: "30k",
+        // },
       ],
+      scaleTag: [],
+      personScale: [],
       salaryValue: "",
+      educationLevelValue: "",
+      graduateYearValue: "",
+      personScaleValue: "",
+      financeStageValue: "",
+      recruitTypeValue: "",
       recruitList: [
         {
           title: "后端开发工程师",
@@ -173,28 +252,29 @@ export default {
     },
   },
   created() {
-    this.getCourses();
+    this.getRecruits();
     this.getFiveCourse();
+    this.getSelections();
   },
   methods: {
     handleMenuSelect(index) {
       this.activeMenu = index; // 更新选中的菜单项
       // 可根据不同的菜单项进行相应的页面跳转或其他操作
     },
-    getCourses() {
-      let condition;
-      condition = {
+    getRecruits(condition) {
+      let params = {
         pageNo: 1,
         pageSize: 20,
         param: {
           companyId: "",
           careerJobId: "",
+          ...condition
         },
       };
       this.$axios
         .post(
           "/back/recruit/selectByCondition",
-          condition
+          params
           // ,
           //     {
           //         headers: {
@@ -234,6 +314,138 @@ export default {
     },
     handleFilterSelect(value) {
       console.log(value);
+    },
+
+    getSelections() {
+      // 1. 学历要求
+      this.getDctionary("education_level", (result) => {
+        this.educationLevel = result;
+      });
+
+      // 2. 毕业年限
+      this.getDctionary("graduate_year", (result) => {
+        this.graduateYear = result;
+      });
+
+      // 3. 薪资要求
+      this.getDctionary("salary_range", (result) => {
+        this.salaryRange = result;
+      });
+
+      // 4. 融资阶段
+      this.getDctionary("finance_stage", (result) => {
+        this.financeStage = result;
+      });
+
+      // 5. 公司规模
+      this.getDctionary("person_scale", (result) => {
+        this.personScale = result;
+      });
+
+      // 6. 招聘类型
+      this.getDctionary("recruit_type", (result) => {
+        this.recruitType = result;
+      });
+    },
+
+    getDctionary(typeKey, callback) {
+      this.$axios
+        .get(
+          "/back/dictionary/list?typeKey=" + typeKey
+          // ,
+          //     {
+          //         headers: {
+          //             "Authorization": this.$store.getters.getToken
+          //         }
+          //     }
+        )
+        .then((response) => {
+          const result = response.data.result;
+          console.log(response);
+          // this.$message({
+          //     type: 'success',
+          //     message: response.data.message
+          // });
+          console.log(result);
+          callback(result.list);
+        });
+    },
+
+    handleChangeEducation() {
+      console.log(this.educationLevelValue);
+      let param = {
+        eduLevel: this.educationLevelValue,
+        graduateYear: this.graduateYearValue,
+        personScale: this.personScaleValue,
+        salaryRange: this.salaryValue,
+        scaleTag: this.financeStageValue,
+        recruitType: this.recruitTypeValue,
+      };
+      this.getRecruits(param);
+    },
+
+    handleChangeGraduateYear() {
+      console.log(this.educationLevelValue);
+      let param = {
+        eduLevel: this.educationLevelValue,
+        graduateYear: this.graduateYearValue,
+        personScale: this.personScaleValue,
+        salaryRange: this.salaryValue,
+        scaleTag: this.financeStageValue,
+        recruitType: this.recruitTypeValue,
+      };
+      this.getRecruits(param);
+    },
+
+    handleChangesalary() {
+      console.log(this.educationLevelValue);
+      let param = {
+        eduLevel: this.educationLevelValue,
+        graduateYear: this.graduateYearValue,
+        personScale: this.personScaleValue,
+        salaryRange: this.salaryValue,
+        scaleTag: this.financeStageValue,
+        recruitType: this.recruitTypeValue,
+      };
+      this.getRecruits(param);
+    },
+
+    handleChangeFinanceStage() {
+      console.log(this.educationLevelValue);
+      let param = {
+        eduLevel: this.educationLevelValue,
+        graduateYear: this.graduateYearValue,
+        personScale: this.personScaleValue,
+        salaryRange: this.salaryValue,
+        scaleTag: this.financeStageValue,
+        recruitType: this.recruitTypeValue,
+      };
+      this.getRecruits(param);
+    },
+
+    handleChangePersonScale() {
+      console.log(this.educationLevelValue);
+      let param = {
+        eduLevel: this.educationLevelValue,
+        graduateYear: this.graduateYearValue,
+        personScale: this.personScaleValue,
+        salaryRange: this.salaryValue,
+        scaleTag: this.financeStageValue,
+        recruitType: this.recruitTypeValue,
+      };
+      this.getRecruits(param);
+    },
+    handleRecruitType() {
+      console.log(this.educationLevelValue);
+      let param = {
+        eduLevel: this.educationLevelValue,
+        graduateYear: this.graduateYearValue,
+        personScale: this.personScaleValue,
+        salaryRange: this.salaryValue,
+        scaleTag: this.financeStageValue,
+        recruitType: this.recruitTypeValue,
+      };
+      this.getRecruits(param);
     },
   },
 };
@@ -280,7 +492,19 @@ export default {
   background-color: #007bff;
   color: #fff;
 }
-.time-filter-box {
+.education-level-filter-box {
+  margin-top: 22px;
+  margin-left: 22px;
+}
+.graduate-year-filter-box {
+  margin-top: 22px;
+  margin-left: 22px;
+}
+.finance-filter-box {
+  margin-top: 22px;
+  margin-left: 22px;
+}
+.person-scale-filter-box {
   margin-top: 22px;
   margin-left: 22px;
 }
@@ -434,7 +658,7 @@ export default {
   position: absolute;
   top: 50%;
   margin-top: -10px;
-  background-image: url('@/assets/sprite.png');
+  background-image: url("@/assets/sprite.png");
   width: 25px;
   height: 20px;
 }
