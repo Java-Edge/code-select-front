@@ -146,7 +146,7 @@
     </div>
   </div>
 </template>
-  
+
 <script>
 import RecruitList from "./recruit-list.vue"; // Import the CourseList component
 
@@ -253,7 +253,6 @@ export default {
   },
   created() {
     this.getRecruits();
-    this.getFiveCourse();
     this.getSelections();
   },
   methods: {
@@ -288,28 +287,6 @@ export default {
           this.total = result.total;
 
           console.log(this.recruits);
-        });
-    },
-    getFiveCourse() {
-      this.$axios
-        .get(
-          "/back/sourceCourse/getFiveCourse"
-          // ,
-          //     {
-          //         headers: {
-          //             "Authorization": this.$store.getters.getToken
-          //         }
-          //     }
-        )
-        .then((response) => {
-          const courses = response.data.result;
-          console.log(response);
-          this.carouselData = courses;
-          // this.$message({
-          //     type: 'success',
-          //     message: response.data.message
-          // });
-          console.log(this.courses);
         });
     },
     handleFilterSelect(value) {
@@ -450,7 +427,7 @@ export default {
   },
 };
 </script>
-  
+
 <style lang="scss" scoped>
 .index {
   background-color: #e9eef3;
@@ -663,4 +640,3 @@ export default {
   height: 20px;
 }
 </style>
-  
