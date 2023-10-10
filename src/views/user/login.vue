@@ -1,4 +1,5 @@
 <template>
+    <div class="login">
     <div id="login" v-loading="loading" element-loading-text="登录中...">
         <el-form class="container" :model="loginForm" status-icon :rules="rules" ref="loginForm" v-show="showLogin"
             label-width="100px">
@@ -44,6 +45,7 @@
             </el-form-item>
         </el-form>
     </div>
+</div>
 </template>
   
 <script>
@@ -122,6 +124,11 @@ export default {
         }
     },
     created() {
+        if(this.$route.query.sl==1){
+            this.showLogin = true
+        }else{
+            this.showLogin =false
+        }
         this.getValidCode()
     },
     methods: {
@@ -180,7 +187,7 @@ export default {
             //     console.log(this.courses)
             // })
             this.codeUrl = 'api/back/user/getCheckCode?' + new Date()
-            console.log(this.$axios.baseURL)
+            //console.log(this.$axios.baseURL)
         },
         showChange() {
             this.showLogin = !this.showLogin

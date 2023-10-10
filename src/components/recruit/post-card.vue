@@ -23,10 +23,10 @@
                             移动互联网
                         </div>
                         <div class="course-group-tag-item course-group-tag-item-block">
-                            已上市
+                            {{ recruit.scaleTagName }}
                         </div>
                         <div class="course-group-tag-item course-group-tag-item-block">
-                            10000人以上
+                            {{ recruit.personScales }}
                         </div>
                     </div>
                 </div>

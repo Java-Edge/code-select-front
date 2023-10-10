@@ -3,7 +3,7 @@
     <!-- 分类菜单 -->
     <div class="menu-content" @mouseout="hideSubMenu">
       <div class="menu-item" v-for="(item, index) in menu_list" :key="index" @mouseover="showSubMenu(index)">
-        <a href="">
+        <a href="javascript:;">
           <span>{{ item.title }}</span>
           <img src="https://s1.ax1x.com/2023/04/20/p9klxA0.png" class="icon-stle">
         </a>
@@ -158,7 +158,7 @@ a:visited {
 .menu-content {
   width: 244px;
   height: 454px;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: #39364D;
   position: absolute;
   top: 0;
   left: 0;
@@ -173,7 +173,7 @@ a:visited {
 }
 
 .menu-item:hover {
-  background: rgba(0, 0, 0, .2);
+  background:#4D4A5F;
   /* .2 就是过渡的时间 */
   transition: all .2s linear;
 }
