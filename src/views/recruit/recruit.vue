@@ -62,7 +62,6 @@
           v-model="graduateYearValue"
           placeholder="毕业年限"
           style="width: 240px"
-          multiple
           collapse-tags
           clearable
           filterable
