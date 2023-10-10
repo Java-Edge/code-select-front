@@ -49,7 +49,7 @@
                                 </div>
                             </div>
                             <div class="item-course">
-                                <a :href="item.href" target="_blank" data-name="5G时代音视频开发与视频直播技术高手之路"
+                                <a :href="item.course.sourceUrl" target="_blank" data-name="5G时代音视频开发与视频直播技术高手之路"
                                     class="js-click-zhuge">
                                     <div style="background-image:url('https://pic.imgdb.cn/item/65241999c458853aef6c2ef4.png')"
                                         class="courseimg"></div>
