@@ -52,33 +52,14 @@
               </div>
             </div>
           </div> -->
-        </div>
-      </div>
-      <div
-        class="condition-filter-select open is-select"
-        :class="{ open: joyTypeVisable }"
-        @mouseenter="changeVisable(true)"
-      >
-        <div class="current-select">
-          <span class="placeholder-text">求职类型</span>
-          <em class="select-num" v-if="jobTypeCount">({{ jobTypeCount }})</em>
-        </div>
-        <div
-          class="filter-select-dropdown"
-          @mouseenter="changeVisable(true)"
-          v-show="joyTypeVisable"
-        >
-          <ul>
-            <li ka="sel-jobType-0" class="active">
-              不限<el-icon><Check /></el-icon>
-            </li>
-            <li ka="sel-jobType-1901" class="">
-              全职<el-icon><Check /></el-icon>
-            </li>
-            <li ka="sel-jobType-1903" class="">
-              兼职<el-icon><Check /></el-icon>
-            </li>
-          </ul>
+          <my-select
+            :list="item.data"
+            :multiple="item.multiple"
+            v-for="(item, key) in selectList"
+            :key="key"
+            :name="item.name"
+            @changeCheck="(data) => changeCheck(key, data)"
+          />
         </div>
       </div>
     </div>
@@ -88,6 +69,7 @@
 <script setup>
 import { reactive, ref } from "vue";
 import CityDialog from "./cityDialog.vue";
+import mySelect from "./mySelect.vue";
 import data from "../city.json";
 const cityDialogRef = ref(null);
 const openDialog = () => {
@@ -97,11 +79,90 @@ const name = ref();
 const confirm = (item) => {
   name.value = item.name;
 };
-const jobTypeCount = ref(1);
-const joyTypeVisable = ref(false);
-const changeVisable = (val) => {
-  console.log(1);
-  joyTypeVisable.value = val;
+const selectList = reactive({
+  
+  jobTypeList: {
+    name: "求职类型",
+    data: [
+      { id: 1, name: "全职", active: false },
+      { id: 2, name: "兼职", active: false },
+    ],
+  },
+  expList: {
+    name: "工作经验",
+    multiple: true,
+    data: [
+      { id: 1, name: "在校生", active: false },
+      { id: 2, name: "应届生", active: false },
+      { id: 3, name: "经验不限", active: false },
+      { id: 4, name: "1年以内", active: false },
+      { id: 5, name: "1-3年", active: false },
+      { id: 6, name: "3-5年", active: false },
+      { id: 7, name: "5-10年", active: false },
+      { id: 7, name: "10年以上", active: false },
+    ],
+  },
+  salaryList: {
+    name: "薪资待遇",
+    data: [
+      { id: 1, name: "3K以下", active: false },
+      { id: 2, name: "3-5K", active: false },
+      { id: 3, name: "5-10K", active: false },
+      { id: 4, name: "10-20K", active: false },
+      { id: 5, name: "20-50K", active: false },
+      { id: 6, name: "50K以上", active: false },
+    ],
+  },
+  degressList: {
+    name: "学历要求",
+    multiple: true,
+    data: [
+      { id: 1, name: "初中及以下", active: false },
+      { id: 2, name: "中专/中技", active: false },
+      { id: 3, name: "高中", active: false },
+      { id: 4, name: "大专", active: false },
+      { id: 5, name: "本科", active: false },
+      { id: 6, name: "硕士", active: false },
+      { id: 7, name: "博士", active: false },
+    ],
+  },
+   sizeList: {
+    name: "公司规模",
+    multiple: true,
+    data: [
+      { id: 1, name: "0-20人", active: false },
+      { id: 2, name: "20-99人", active: false },
+      { id: 3, name: "100-499人", active: false },
+      { id: 4, name: "500-999人", active: false },
+      { id: 5, name: "1000-9999人", active: false },
+      { id: 6, name: "10000以上", active: false }
+    ],
+  },
+   stageList: {
+    name: "融资阶段",
+    multiple: true,
+    data: [
+      { id: 1, name: "未融资", active: false },
+      { id: 2, name: "天使轮", active: false },
+      { id: 3, name: "A轮", active: false },
+      { id: 4, name: "B轮", active: false },
+      { id: 5, name: "C轮", active: false },
+      { id: 6, name: "D轮及以上", active: false },
+      { id: 7, name: "已上市", active: false },
+      { id: 8, name: "不需要融资", active: false },
+    ],
+  },
+});
+const changeCheck = (key, id) => {
+  if (id) {
+    const item = selectList[key].data.find((item) => item.id === id);
+    item.active = !item.active;
+  } else {
+    selectList[key].data = selectList[key].data.map((item) => ({
+      ...item,
+      active: false,
+    }));
+  }
 };
 // const tabs = [
 //   { type: "city", name: "城市和区域" },
@@ -323,124 +384,6 @@ const changeVisable = (val) => {
           }
         }
       }
-    }
-    .condition-filter-select,
-    .condition-industry-select,
-    .condition-position-cascade,
-    .condition-position-select {
-      float: left;
-      margin-top: 20px;
-      margin-right: 20px;
-    }
-    .condition-filter-select {
-      display: inline-block;
-      position: relative;
-      background: #f8f8f8;
-      border-radius: 4px;
-      overflow: hidden;
-      box-sizing: border-box;
-      .current-select {
-        position: relative;
-        display: inline-block;
-        font-size: 14px;
-        font-weight: 400;
-        color: #222;
-        line-height: 20px;
-        padding: 6px 24px 6px 12px;
-        cursor: pointer;
-        transition: all 0.2s linear;
-
-        .placeholder-text {
-          display: inline-block;
-          max-width: 100px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          vertical-align: bottom;
-        }
-        .select-num {
-          font-style: normal;
-          display: inline-block;
-          margin-left: 2px;
-          vertical-align: bottom;
-        }
-      }
-
-      .current-select:after {
-        content: "";
-        position: absolute;
-        top: 12px;
-        right: 12px;
-        width: 4px;
-        height: 7px;
-        background: url(@/assets/arrow.png) -6px -16px/10px auto no-repeat;
-        transform: rotate(90deg);
-        z-index: 1;
-      }
-      .filter-select-dropdown {
-        position: absolute;
-        top: 40px;
-        left: 0;
-        width: 168px;
-        background: #fff;
-        border-radius: 8px;
-        border: 1px solid #ededed;
-        z-index: 4;
-        transition: opacity 0.2s linear;
-        ul {
-          padding: 4px 8px;
-          li {
-            position: relative;
-            display: block;
-            border-radius: 4px;
-            font-size: 14px;
-            font-weight: 400;
-            color: #333;
-            line-height: 20px;
-            padding: 8px 24px 8px 8px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            cursor: pointer;
-            transition: all 0.2s linear;
-            .el-icon {
-              position: absolute;
-              font-weight: 700;
-              font-size: 12px;
-              top: 12px;
-              right: 8px;
-              z-index: 1;
-              color: #00a6a7;
-            }
-          }
-
-          li.active {
-            color: #00a6a7;
-            font-weight: 500;
-          }
-          li:hover {
-            color: #00a6a7;
-            font-weight: 500;
-            background: #f8f8f8;
-          }
-        }
-      }
-    }
-    .condition-filter-select.open {
-      background: #e5f8f8;
-      overflow: visible;
-    }
-    .condition-filter-select.open .current-select:after {
-      background-position: -6px -8px;
-      transform: rotate(270deg);
-    }
-    .condition-filter-select.is-select .current-select:after {
-      background: url(@/assets/arrow.png) -6px -8px/10px auto no-repeat;
-    }
-    .condition-filter-select.is-select .current-select {
-      color: #00a6a7;
-      background: #e5f8f8;
-      font-weight: 500;
     }
   }
 }
