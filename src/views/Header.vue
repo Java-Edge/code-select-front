@@ -3,7 +3,7 @@
     <div class="clearfix header-content">
       <div class="index-menu clearfix">
         <div class="logo">
-          <a href="/" target="_self" title="首页">
+          <a href="/" target="_self" title="编程严选">
             <img src="@/assets/logo.png" />
           </a>
         </div>
@@ -29,8 +29,8 @@
               </div>
             </li>
             <li class="header-signin">
-              <a href="//www.imooc.com/user/newlogin">登录</a> /
-              <a href="//www.imooc.com/user/newsignup">注册</a>
+              <a @click="handleToLogin(1)">登录</a> /
+              <a @click="handleToLogin(0)">注册</a>
             </li>
           </ul>
         </div>
@@ -93,6 +93,9 @@ export default {
       this.activeMenu = item.value; // 更新选中的菜单项
       localStorage.setItem("currentActiveMenu", this.activeMenu);
       this.$router.push(item.path);
+    },
+    handleToLogin(isToLogin){
+      this.$router.push({path:"/login",query:{sl:isToLogin}});
     },
     handleLogout() {
       // Implement the logout functionality here
