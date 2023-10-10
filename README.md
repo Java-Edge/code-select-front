@@ -1,11 +1,8 @@
-# education-front
+# Code-Selected 编程严选网站
 
 [建设全国性可移植软件生态项目](https://va2ct8dmzsr.feishu.cn/docx/KNtFdsMsxoyWLex0hAYcGHTfnqd)
 
 [开发待办项](https://lvdvl3akqn9.feishu.cn/docx/AcCAdQaiyofcxdx29wIc5JL5nmb)
-
-## 当前对应 commit 代码版本
-perf：排行榜创建新表
 
 ## Project setup
 ```

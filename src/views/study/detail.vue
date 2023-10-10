@@ -35,50 +35,43 @@
         </div>
         <div class="main-content content mainbox js-comp-tab">
             <div class="routeview">
-                <h2><b>路线详情：</b><span>5步骤</span><i>·</i><span>5门课</span></h2>
-                <div class="step">
+                <h2><b>路线详情：</b><span>{{roadMap.step}}步骤</span><i>·</i><span>{{roadMap.course}}门课</span></h2>
+                <div class="step" v-for="item in roadmapDetail" :key="item.id">
                     <div class="title">
                         <span class="updateicon"></span>
-                        <span class="txt">Step1: 音视频开发基础入门</span>
+                        <span class="txt">Step{{ item.mapOrder }}: {{ item.title }}</span>
                     </div>
                     <div class="substance">
-                        <p class="brief">带你系统全面的入门，轻松掌握音视频采集、音视频编解码、RTMP传输协议等核心基础，低门槛进入音视频行业。</p>
+                        <p class="brief">{{ item.des }}</p>
                         <div class="item clearfix">
                             <div class="item-desc">
                                 <h3>学习目标：</h3>
-                                <p class="mb24">从音视频采集、编解码原理等基础到CDN实现商业娱乐直播，系统掌握音视频必备基础</p>
+                                <p class="mb24">{{ item.target }}</p>
                                 <h3>课程重点：</h3>
-                                <p class="targetlist">1、系统的掌握音视频的的工作原理、处理流程；<br>
-                                    2、掌握FFmpeg如何从音视频设备上采集数据；<br>
-                                    3、掌握使用不同的编码器对采集的数据进行编/解码；<br>
-                                    4、掌握音视频编码和渲染基础。</p>
+                                <p class="targetlist">{{ item.courseFocus }}</p>
                                 <div class="tag">
-                                    <span data-index="0">音视频编码原理</span>
-                                    <span data-index="1">FFmpeg应用（音视频采集、编码）</span>
-                                    <span data-index="2">流媒体服务器的构建与使用</span>
-                                    <span data-index="3">音视频处理的核心思想</span>
-                                    <span data-index="4">RTPM协议</span>
+                                    <span data-index="0" v-for="tag in item.tags" :key="tag">{{ tag }}</span>
                                 </div>
                             </div>
                             <div class="item-course">
-                                <a href="/class/415.html" target="_blank" data-name="5G时代音视频开发与视频直播技术高手之路"
+                                <a :href="item.href" target="_blank" data-name="5G时代音视频开发与视频直播技术高手之路"
                                     class="js-click-zhuge">
-                                    <div style="background-image:url(//img.mukewang.com/szimg/5e5621d0092c054612000676.jpg)"
+                                    <div style="background-image:url('https://pic.imgdb.cn/item/65241999c458853aef6c2ef4.png')"
                                         class="courseimg"></div>
                                     <div class="course-info">
-                                        <h3>音视频小白系统入门课 音视频基础+ffmpeg原理</h3>
+                                        <h3>{{ item.course.name }}</h3>
                                         <div class="study-info">
                                             <div class="course-num">
                                                 <span>入门</span>
                                                 <i>·</i>
-                                                <span>2093人学习</span>
+                                                <span>{{item.course.pageView}}人学习</span>
                                             </div>
                                             <div class="course-stars">
                                                 <span>948 人评价</span>
                                             </div>
                                         </div>
                                         <div class="desc">
-                                            <span>系统补足程序员缺乏的音视频知识</span>
+                                            <span>{{ item.course.description }}</span>
                                         </div>
                                     </div>
                                 </a>
@@ -86,213 +79,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="step">
-                    <div class="title">
-                        <span class="updateicon"></span>
-                        <span class="txt">Step2: FFmpeg音视频开发</span>
-                    </div>
-                    <div class="substance">
-                        <p class="brief">一站式掌握FFmpeg音视频渲染，不依赖第三方SDK的播放器开发等核心技术，助你成为一个高效、高薪的音视频工程师。</p>
-                        <div class="item clearfix">
-                            <div class="item-desc">
-                                <h3>学习目标：</h3>
-                                <p class="mb24">从FFmpeg基础到播放器核心功能开发，系统掌握音视频核心技术</p>
-                                <h3>课程重点：</h3>
-                                <p class="targetlist">1、系统化掌握FFmpeg基础；<br>
-                                    2、使用FFmpeg开发播放器核心功能；<br>
-                                    3、音视频编码和渲染基础与实战；<br>
-                                    4、FFmpeg在Android中的应用。</p>
-                                <div class="tag">
-                                    <span data-index="0">Fmpeg核心技术</span>
-                                    <span data-index="1">音视频渲染</span>
-                                    <span data-index="2">SDL库</span>
-                                    <span data-index="3">播放器开发</span>
-                                    <span data-index="4">音视频同步</span>
-                                </div>
-                            </div>
-                            <div class="item-course">
-                                <a href="/class/279.html" target="_blank" data-name="5G时代音视频开发与视频直播技术高手之路"
-                                    class="js-click-zhuge">
-                                    <div style="background-image:url(//img.mukewang.com/szimg/636866f009a5d83e12000676.jpg)"
-                                        class="courseimg"></div>
-                                    <div class="course-info">
-                                        <h3>经典再升级-FFmpeg5.0核心技术精讲，打造音视频播放器</h3>
-                                        <div class="study-info">
-                                            <div class="course-num">
-                                                <span>中级</span>
-                                                <i>·</i>
-                                                <span>2533人学习</span>
-                                            </div>
-                                            <div class="course-stars">
-                                                <span>1076 人评价</span>
-                                            </div>
-                                        </div>
-                                        <div class="desc">
-                                            <span>成就有竞争力的音视频工程师</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="title">
-                        <span class="updateicon"></span>
-                        <span class="txt">Step3: 实时互动直播技术</span>
-                    </div>
-                    <div class="substance">
-                        <p class="brief">音视频核心技术即实时互动直播技术，通过系统掌握WebRTC技术快速构建实时互动直播系统，助你成为企业急需的音视频工程师。</p>
-                        <div class="item clearfix">
-                            <div class="item-desc">
-                                <h3>学习目标：</h3>
-                                <p class="mb24">掌握客户端1V1通信技术开发，使用WebRTC实现实时互动直播技术</p>
-                                <h3>课程重点：</h3>
-                                <p class="targetlist">1、掌握WebRTC原理与架构；<br>
-                                    2、掌握WebRTC音视频数据采集与约束、录制技术；<br>
-                                    3、实战1V1音视频实时互动直播系统；<br>
-                                    4、使用WebRTC实现各端互通。</p>
-                                <div class="tag">
-                                    <span data-index="0">实时互动直播技术</span>
-                                    <span data-index="1">WebRTC</span>
-                                    <span data-index="2">音视频数据采集及约束</span>
-                                    <span data-index="3">1V1通信</span>
-                                </div>
-                            </div>
-                            <div class="item-course">
-                                <a href="/class/329.html" target="_blank" data-name="5G时代音视频开发与视频直播技术高手之路"
-                                    class="js-click-zhuge">
-                                    <div style="background-image:url(//img.mukewang.com/szimg/5c9dfe8d08cfab1106000338.jpg)"
-                                        class="courseimg"></div>
-                                    <div class="course-info">
-                                        <h3>5G时代必备音视频WebRTC实时互动直播技术入门与实战</h3>
-                                        <div class="study-info">
-                                            <div class="course-num">
-                                                <span>中级</span>
-                                                <i>·</i>
-                                                <span>2380人学习</span>
-                                            </div>
-                                            <div class="course-stars">
-                                                <span>1054 人评价</span>
-                                            </div>
-                                        </div>
-                                        <div class="desc">
-                                            <span>抢占5G时代的直播技术先机</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="title">
-                        <span class="updateicon"></span>
-                        <span class="txt">Step4: 企业级流媒体服务器设计与开发</span>
-                    </div>
-                    <div class="substance">
-                        <p class="brief">围绕与浏览器互通、级联、可扩展等6大痛点。系统化学习流媒体服务器的开发，打造可负载百万用户量的，企业级的流媒体服务器。</p>
-                        <div class="item clearfix">
-                            <div class="item-desc">
-                                <h3>学习目标：</h3>
-                                <p class="mb24">掌握WebRTC服务端多对多通信技术，掌握高负载、高性能、“多方”实时互动音视频服务器设计与开发</p>
-                                <h3>课程重点：</h3>
-                                <p class="targetlist">1、掌握C/CPP语言开发Socket 网络程序；<br>
-                                    2、掌握Linux系统下异步IO 事件处理的原理和使用；<br>
-                                    3、掌握TCP/UDP, RTP/RTCP, SRTP/SRTCP, DTLS, SDP等网络协议；<br>
-                                    4、Mediasoup源码剖析，领略WebRTC 流媒体服务器的设计精髓；<br>
-                                    5、掌握流媒体服务器与浏览器对接技术实现方式；<br>
-                                    6、了解企业级流媒体服务器架构及问题解决方案。</p>
-                                <div class="tag">
-                                    <span data-index="0">Socket</span>
-                                    <span data-index="1">网络协议</span>
-                                    <span data-index="2">WebRTC协议栈</span>
-                                    <span data-index="3">流媒体服务器</span>
-                                    <span data-index="4">Mediasoup</span>
-                                </div>
-                            </div>
-                            <div class="item-course">
-                                <a href="/class/387.html" target="_blank" data-name="5G时代音视频开发与视频直播技术高手之路"
-                                    class="js-click-zhuge">
-                                    <div style="background-image:url(//img.mukewang.com/szimg/5d843d26092f474812000676.jpg)"
-                                        class="courseimg"></div>
-                                    <div class="course-info">
-                                        <h3>百万级高并发WebRTC流媒体服务器设计与开发</h3>
-                                        <div class="study-info">
-                                            <div class="course-num">
-                                                <span>高级</span>
-                                                <i>·</i>
-                                                <span>1937人学习</span>
-                                            </div>
-                                            <div class="course-stars">
-                                                <span>764 人评价</span>
-                                            </div>
-                                        </div>
-                                        <div class="desc">
-                                            <span>揭秘万人互动直播背后的深层奥秘</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="title">
-                        <span class="updateicon"></span>
-                        <span class="txt">Step5: WebRTC源码级解析</span>
-                    </div>
-                    <div class="substance">
-                        <p class="brief">深入理解WebRTC库的实现原理，掌握WebRTC是如何解决互动直播产品的痛点，让你获得更好的职业发展机会。</p>
-                        <div class="item clearfix">
-                            <div class="item-desc">
-                                <h3>学习目标：</h3>
-                                <p class="mb24">真正的掌握WebRTC的底层原理，实际生产环境下可以进行适用性改造</p>
-                                <h3>课程重点：</h3>
-                                <p class="targetlist">1.掌握WebRTC的整体架构<br>
-                                    2.WebRTC源码分析环境的搭建<br>
-                                    3.深入理解WebRTC的线程模型<br>
-                                    4.掌握媒体协商过程原理<br>
-                                    5.掌握WebRTC中的音频数据的采集<br>
-                                    6.掌握WebRTC中的视频数据的采集<br>
-                                    7.掌握音频的编解码<br>
-                                    8.视频的编解码<br>
-                                    9.深入理解WebRTC的网络传输<br>
-                                    10.WebRTC的服务质量（Qos）<br>
-                                    11.NetEQ整体结构<br>
-                                    12.如何实现Simulcast与SVC</p>
-                                <div class="tag">
-                                    <span data-index="0">深入分析WebRTC源码</span>
-                                    <span data-index="1">深度理解WebRTC的工作原理，</span>
-                                    <span data-index="2">入职各大厂音视频团队必杀利器</span>
-                                </div>
-                            </div>
-                            <div class="item-course">
-                                <a href="/class/532.html" target="_blank" data-name="5G时代音视频开发与视频直播技术高手之路"
-                                    class="js-click-zhuge">
-                                    <div style="background-image:url(//img.mukewang.com/szimg/6176195408ce663412000676.jpg)"
-                                        class="courseimg"></div>
-                                    <div class="course-info">
-                                        <h3>WebRTC源码级深度解析，进阶大厂高级音视频开发者</h3>
-                                        <div class="study-info">
-                                            <div class="course-num">
-                                                <span>高级</span>
-                                                <i>·</i>
-                                                <span>536人学习</span>
-                                            </div>
-                                            <div class="course-stars">
-                                                <span>24 人评价</span>
-                                            </div>
-                                        </div>
-                                        <div class="desc">
-                                            <span>WebRTC源码级深度解析，进阶大厂高级音视频开发者</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+             
                 <p class="explain">*说明：路线内每门课程都具有完整独立的学习价值，因此一部分知识点可能重合，选择前请知晓！</p>
             </div>
             <div class="offside">
@@ -385,7 +172,30 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
+import axios from 'axios'
 
+import { useRoute } from 'vue-router'
+const route = useRoute()
+const roadmapDetail = ref([])
+const roadMapId = route.params.id
+const roadMap = ref({})
+console.log('roadMapId', roadMapId)
+const getDetail = async () => {
+  let path = `/back/roadmap/getRoadMapDetail/${roadMapId}`;
+  axios.get(path).then(res => {
+    // console.log("roadmap---",res.data.result)
+    roadmapDetail.value = res.data.result
+  })
+}
+const getRoadMap = async () => {
+  let path = `/back/roadmap/getById/${roadMapId}`;
+  axios.get(path).then(res => {
+    roadMap.value = res.data.result
+  })
+}
+getRoadMap()
+getDetail()
 </script>
 
 <style lang="scss" scoped>
