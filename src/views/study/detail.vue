@@ -5,14 +5,10 @@
                 <router-link to href="/study-list" target="_blank">
                     <img src="@/assets/study-route-detail.png" class="logo">
                 </router-link>
-                <h2>5G时代音视频开发与视频直播技术高手之路</h2>
-                <p>对标大厂岗位需求，从音视频基础入门、处理核心技术到服务器设计开发&nbsp;，全面培养5G时代人才。</p>
+                <h2>{{ roadMap.title }}</h2>
+                <p>{{ roadMap.description }}</p>
                 <div class="tail">
-                    <span>音视频开发基础入门</span>
-                    <span>FFmpeg音视频开发</span>
-                    <span>实时互动直播技术</span>
-                    <span>企业级流媒体服务器设计与开发</span>
-                    <span>WebRTC源码级解析</span>
+                    <span v-for="item in roadmapDetail" :key="item.id">{{ item.title }}</span>
                 </div>
             </div>
         </div>
@@ -21,15 +17,14 @@
                 <!-- 大活动倒计时 -->
                 <div class="timeout-bigactivity js-timeout-bigactivity" data-endtime="" data-time="1695864152"></div>
                 <div class="wrap-box">
-                    <span class="huabei">花呗支付</span>
-                    <span class="jd">京东支付</span>
+                    <span class="jifen">积分兑换</span>
                 </div>
                 <div>
                     <span class="collect js-path-collect" data-name="5G时代音视频开发与视频直播技术高手之路" data-isfollow="" data-num="1203">
-                        <i class="sz-star-o"></i><em class="js-collect-num">1203</em>人收藏
+                        <i class="sz-star-o"></i><em class="js-collect-num">{{roadMap.collect}}</em>人收藏
                     </span>
                     <a href="javascript:void(0);" data-isshow="0" class="js-order-line orderpath">
-                        购买路线 </a>
+                        积分兑换 </a>
                 </div>
             </div>
         </div>
@@ -67,7 +62,7 @@
                                                 <span>{{item.course.pageView}}人学习</span>
                                             </div>
                                             <div class="course-stars">
-                                                <span>948 人评价</span>
+                                                <!-- <span>948 人评价</span> -->
                                             </div>
                                         </div>
                                         <div class="desc">
@@ -83,7 +78,7 @@
                 <p class="explain">*说明：路线内每门课程都具有完整独立的学习价值，因此一部分知识点可能重合，选择前请知晓！</p>
             </div>
             <div class="offside">
-                <div class="masterknowledge">
+                <!-- <div class="masterknowledge">
                     <h2>如果该路线学起来吃力，您需要掌握如下知识</h2>
                     <p class="suggestion">1、至少掌握一门开发语言基础；<br>
                         2、对Linux有一定了解。</p>
@@ -129,42 +124,26 @@
                             </div>
                         </div>
                     </a>
-                </div>
+                </div> -->
                 <div class="morelearnpath js-more-learnpath">
                     <h2>更多学习路线</h2>
                     <p class="mb18 moredesc">阶梯式系统化学习，有章有序，助您小步快跑</p>
-                    <a href="/learningpath/route?pathId=14" data-id="14" data-title="移动端进阶高级工程师成长路线" target="_blank"
-                        class="box js-more-zhuge">
-                        <img src="@/assets/demo/study4.jpg">
+                    <router-link :to="`/study-detail/${item.id}`" :data-id="item.id" data-title="移动端进阶高级工程师成长路线" target="_blank"
+                        class="box js-more-zhuge" v-for="item in recomendCourses" :key="item.id">
+                        <img :src="item.img">
                         <div class="recommoncourse">
-                            <h2 class="moretitle">移动端进阶高级工程师成长路线</h2>
-                            <p>精准对标移动端高级工程师的岗位要求，技能步步拔高，是移动端工程师进阶高工不二之选。</p>
+                            <h2 class="moretitle">{{ item.title }}</h2>
+                            <p>{{ item.description }}</p>
                             <div class="pathinfo">
                                 <div class="step">
-                                    <span>3步骤</span>
+                                    <span>{{item.step}}步骤</span>
                                     <i>·</i>
-                                    <span>4门课</span>
+                                    <span>{{item.course}}门课</span>
                                 </div>
-                                <div class="collectnum">5766人收藏</div>
+                                <div class="collectnum">{{item.collect}}人收藏</div>
                             </div>
                         </div>
-                    </a>
-                    <a href="/learningpath/route?pathId=36" data-id="36" data-title="Android工程师升职加薪之路" target="_blank"
-                        class="box js-more-zhuge">
-                        <img src="@/assets/demo/study1.jpg">
-                        <div class="recommoncourse">
-                            <h2 class="moretitle">Android工程师升职加薪之路</h2>
-                            <p>涵盖初中高级Android工程师的升职加薪关键技术，带你突破晋升过程中的技术瓶颈。聚合热门技术，向架构师迈进。</p>
-                            <div class="pathinfo">
-                                <div class="step">
-                                    <span>4步骤</span>
-                                    <i>·</i>
-                                    <span>4门课</span>
-                                </div>
-                                <div class="collectnum">180人收藏</div>
-                            </div>
-                        </div>
-                    </a>
+                    </router-link>
                 </div>
             </div>
         </div>
@@ -184,18 +163,28 @@ console.log('roadMapId', roadMapId)
 const getDetail = async () => {
   let path = `/back/roadmap/getRoadMapDetail/${roadMapId}`;
   axios.get(path).then(res => {
-    // console.log("roadmap---",res.data.result)
+    // console.log("getDetail---",res.data.result)
     roadmapDetail.value = res.data.result
   })
 }
 const getRoadMap = async () => {
-  let path = `/back/roadmap/getById/${roadMapId}`;
+  let path = `/back/roadmap/getRoadMapById/${roadMapId}`;
   axios.get(path).then(res => {
+    // console.log("getRoadMap---",res.data.result)
     roadMap.value = res.data.result
   })
 }
+const recomendCourses = ref([])
+const getRecommendCourses = () => {
+      axios.get("/back/roadmap/getRecommentRoad").then(res => {
+        console.log("rec", res.data.result)
+        recomendCourses.value = res.data.result;
+      })
+}
+
 getRoadMap()
 getDetail()
+getRecommendCourses()
 </script>
 
 <style lang="scss" scoped>
