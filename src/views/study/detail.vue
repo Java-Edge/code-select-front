@@ -51,7 +51,7 @@
                             <div class="item-course">
                                 <a :href="item.course.sourceUrl" target="_blank" data-name="5G时代音视频开发与视频直播技术高手之路"
                                     class="js-click-zhuge">
-                                    <div style="background-image:url('https://pic.imgdb.cn/item/65241999c458853aef6c2ef4.png')"
+                                    <div :style="{ backgroundImage: `url(${item.course.image})` }"
                                         class="courseimg"></div>
                                     <div class="course-info">
                                         <h3>{{ item.course.name }}</h3>
@@ -188,6 +188,15 @@ getRecommendCourses()
 </script>
 
 <style lang="scss" scoped>
+.courseimg{
+    overflow: hidden;
+    margin-bottom: 10px;
+    height: 140px;
+    max-height: 200px;
+    margin-bottom: 8px;
+    border-radius: 8px 8px 0 0;
+    object-fit: contain;
+}
 .pathmain {
     position: relative;
     padding-bottom: 60px;
