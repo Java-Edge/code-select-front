@@ -43,7 +43,7 @@
                                 <h3>学习目标：</h3>
                                 <p class="mb24">{{ item.target }}</p>
                                 <h3>课程重点：</h3>
-                                <p class="targetlist">{{ item.courseFocus }}</p>
+                                <p class="targetlist" v-html="item.courseFocus"></p>
                                 <div class="tag">
                                     <span data-index="0" v-for="tag in item.tags" :key="tag">{{ tag }}</span>
                                 </div>
