@@ -52,6 +52,8 @@
               </div>
             </div>
           </div> -->
+          <industry-select/>
+          <!-- <position-select/> -->
           <my-select
             :list="item.data"
             :multiple="item.multiple"
@@ -70,6 +72,8 @@
 import { reactive, ref } from "vue";
 import CityDialog from "./cityDialog.vue";
 import mySelect from "./mySelect.vue";
+import industrySelect from "./industrySelect.vue";
+import positionSelect from "./positionSelect.vue";
 import data from "../city.json";
 const cityDialogRef = ref(null);
 const openDialog = () => {

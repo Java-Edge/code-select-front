@@ -24,7 +24,7 @@
           :class="{ active: ids.includes(item.id) }"
         >
           {{ item.name }}
-          <el-icon v-if="ids.includes(item.id)"><Check /></el-icon>
+          <el-icon v-show="ids.includes(item.id)"><Check /></el-icon>
         </li>
       </ul>
     </div>
