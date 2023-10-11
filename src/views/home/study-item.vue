@@ -9,7 +9,7 @@
 <template>
     <router-link :to="`/study-detail/${item.id}`">
         <div class="course-box">
-            <div class="image-container" :style="{ backgroundImage: `url(${item.img})` }">
+            <div class="image-container" :style="{ backgroundImage: `url(${item.img})` }"> 
             </div>
             <p class="title ellipsis2">{{ item.description }}</p>
             <div class="bottom">
