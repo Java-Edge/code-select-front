@@ -94,9 +94,9 @@ export default {
       localStorage.setItem("currentActiveMenu", this.activeMenu);
       this.$router.push(item.path);
     },
-    handleToLogin(isToLogin){
-      this.$router.push({path:"/login",query:{sl:isToLogin}});
-    },
+    // handleToLogin(isToLogin){
+    //   this.$router.push({path:"/login",query:{sl:isToLogin}});
+    // },
     handleLogout() {
       // Implement the logout functionality here
       // For example, clear the user session and redirect to the home page
@@ -114,8 +114,17 @@ export default {
       if (currentActiveMenu) {
         item = currentActiveMenu;
       } else {
-        item = 'home';
-      }
+        let url = window.location.href;
+        url = url.match(/#(\S*)/)[1];
+        for(let i=0;i<this.menus.length;i++){
+          if(this.menus[i].path==url){
+            item = this.menus[i].value
+            break
+          }else{
+            item='home'
+          }
+        }
+      };
       return item;
     }
   },
