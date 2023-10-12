@@ -1,11 +1,3 @@
-/*
- * @Descripttion:
- * @version:
- * @Author: 不败顽童
- * @Date: 2023-05-26 21:42:34
- * @LastEditors: 不败顽童
- * @LastEditTime: 2023-08-13 22:38:12
- */
 const path = require('path'); // 先引入path模块
 module.exports = {
   lintOnSave: false,
@@ -15,7 +7,6 @@ module.exports = {
   devServer: {
     proxy: {
       "/api/back": {
-        // target: "http://106.52.239.29:8088/",
         target: "http://47.99.69.109:8088/",
         // target: "http://localhost:8088/",
         changeOrigin: true,
@@ -23,16 +14,7 @@ module.exports = {
         pathRewrite:{
           '^/api/back': '/'
         }
-      },
-      // "/api/base": {
-      //   // target: "http://106.52.239.29:8089/",
-      //   target: "http://localhost:8089/",
-      //   changeOrigin: true,
-      //   logLevel: "debug",
-      //   pathRewrite:{
-      //     '^/api/base': '/'
-      //   }
-      // },
+      }
     },
   },
   configureWebpack: {
