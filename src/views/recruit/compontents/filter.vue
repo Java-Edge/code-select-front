@@ -20,7 +20,7 @@
         <a href="javascript:;" class="search-btn">搜索</a>
       </div>
       <city-dialog ref="cityDialogRef" @confirm="confirm" />
-      <a @click="$router.push('/login')" class="go-login-btn"
+      <a @click="$router.push('/login')" class="go-login-btn" v-if="!store.state.userInfo"
         >登录，查看更多岗位</a
       >
     </div>
@@ -52,18 +52,25 @@
               </div>
             </div>
           </div> -->
-          <industry-select/>
-          <!-- <position-select/> -->
-          <my-select
-            :list="item.data"
-            :multiple="item.multiple"
-            v-for="(item, key) in selectList"
-            :key="key"
-            :name="item.name"
-            @changeCheck="(data) => changeCheck(key, data)"
-          />
         </div>
       </div>
+      <industry-select
+        :clear="clear"
+        @changeCheck="(data) => changeComCheck('industry', data)"
+      />
+      <position-select
+        :clear="clear"
+        @changeCheck="(data) => changeComCheck('position', data)"
+      />
+      <my-select
+        :list="item.data"
+        :multiple="item.multiple"
+        v-for="(item, key) in selectList"
+        :key="key"
+        :name="item.name"
+        @changeCheck="(type, data) => changeCheck(key, type, data)"
+      />
+      <a @click="reset" class="clear-search-btn">清空筛选条件</a>
     </div>
   </div>
 </template>
@@ -75,6 +82,7 @@ import mySelect from "./mySelect.vue";
 import industrySelect from "./industrySelect.vue";
 import positionSelect from "./positionSelect.vue";
 import data from "../city.json";
+import { useStore } from "vuex";
 const cityDialogRef = ref(null);
 const openDialog = () => {
   cityDialogRef.value.showDialog();
@@ -83,8 +91,9 @@ const name = ref();
 const confirm = (item) => {
   name.value = item.name;
 };
+const store = useStore();
+const queryParams = ref({});
 const selectList = reactive({
-  
   jobTypeList: {
     name: "求职类型",
     data: [
@@ -130,7 +139,7 @@ const selectList = reactive({
       { id: 7, name: "博士", active: false },
     ],
   },
-   sizeList: {
+  sizeList: {
     name: "公司规模",
     multiple: true,
     data: [
@@ -139,10 +148,10 @@ const selectList = reactive({
       { id: 3, name: "100-499人", active: false },
       { id: 4, name: "500-999人", active: false },
       { id: 5, name: "1000-9999人", active: false },
-      { id: 6, name: "10000以上", active: false }
+      { id: 6, name: "10000以上", active: false },
     ],
   },
-   stageList: {
+  stageList: {
     name: "融资阶段",
     multiple: true,
     data: [
@@ -157,8 +166,14 @@ const selectList = reactive({
     ],
   },
 });
-const changeCheck = (key, id) => {
+const changeCheck = (key, type, id) => {
   if (id) {
+    if (!type) {
+      selectList[key].data = selectList[key].data.map((item) => ({
+        ...item,
+        active: false,
+      }));
+    }
     const item = selectList[key].data.find((item) => item.id === id);
     item.active = !item.active;
   } else {
@@ -167,6 +182,12 @@ const changeCheck = (key, id) => {
       active: false,
     }));
   }
+  queryParams.value[key] = selectList[key].data
+    .filter((item) => item.active)
+    .map((item) => item.id);
+};
+const changeComCheck = (key, data) => {
+  queryParams.value[key] = data;
 };
 // const tabs = [
 //   { type: "city", name: "城市和区域" },
@@ -189,8 +210,17 @@ const changeCheck = (key, id) => {
 //   { code: "10", name: "雨花台区" },
 //   { code: "11", name: "江宁区" },
 // ];
+const clear = ref(false);
+const reset = () => {
+  for (var item in selectList) {
+    selectList[item].data = selectList[item].data.map((item) => ({
+      ...item,
+      active: false,
+    }));
+  }
+  clear.value = true;
+};
 </script>
-
 <style lang="scss" scoped>
 .job-search-wrapper {
   background: #fff;
@@ -389,6 +419,20 @@ const changeCheck = (key, id) => {
         }
       }
     }
+  }
+}
+.search-condition-wrapper {
+  .clear-search-btn {
+    float: right;
+    font-size: 14px;
+    font-weight: 400;
+    color: #999;
+    line-height: 20px;
+    margin-top: 26px;
+    transition: all 0.2s linear;
+  }
+  .clear-search-btn:hover {
+    color: #00a6a7;
   }
 }
 </style>
