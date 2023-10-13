@@ -189,13 +189,19 @@ getRecommendCourses()
 
 <style lang="scss" scoped>
 .courseimg{
-    overflow: hidden;
-    margin-bottom: 10px;
-    height: 140px;
-    max-height: 200px;
-    margin-bottom: 8px;
-    border-radius: 8px 8px 0 0;
-    object-fit: contain;
+    // overflow: hidden;
+    // margin-bottom: 10px;
+    // height: 140px;
+    // max-height: 200px;
+    // margin-bottom: 8px;
+    // border-radius: 8px 8px 0 0;
+    // object-fit: contain;
+  overflow: hidden;
+  margin-bottom: 10px;
+  height: 170px;
+  margin-bottom: 8px;
+  border-radius: 8px 8px 0 0;
+  object-fit: contain;
 }
 .pathmain {
     position: relative;
@@ -530,7 +536,8 @@ getRecommendCourses()
                     }
 
                     .item-course {
-                        width: 470px;
+                        // width: 470px;
+                        width: 270px;
                         height: auto;
                         float: right;
                         border-radius: 8px;
