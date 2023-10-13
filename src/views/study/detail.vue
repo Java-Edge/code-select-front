@@ -17,7 +17,7 @@
                 <!-- 大活动倒计时 -->
                 <div class="timeout-bigactivity js-timeout-bigactivity" data-endtime="" data-time="1695864152"></div>
                 <div class="wrap-box">
-                    <span class="jifen">积分兑换</span>
+                    <span class="jifen">更多学习路线详情，可咨询站长公众号【JavaEdge】</span>
                 </div>
                 <div>
                     <span class="collect js-path-collect" data-name="5G时代音视频开发与视频直播技术高手之路" data-isfollow="" data-num="1203">
