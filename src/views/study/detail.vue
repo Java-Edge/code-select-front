@@ -40,9 +40,9 @@
                         <p class="brief">{{ item.des }}</p>
                         <div class="item clearfix">
                             <div class="item-desc">
-                                <h3>学习目标：</h3>
+                                <h3>技术目标：</h3>
                                 <p class="mb24">{{ item.target }}</p>
-                                <h3>课程重点：</h3>
+                                <h3>技术重难点：</h3>
                                 <p class="targetlist" v-html="item.courseFocus"></p>
                                 <div class="tag">
                                     <span data-index="0" v-for="tag in item.tags" :key="tag">{{ tag }}</span>
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-             
+
                 <p class="explain">*说明：路线内每门课程都具有完整独立的学习价值，因此一部分知识点可能重合，选择前请知晓！</p>
             </div>
             <div class="offside">
