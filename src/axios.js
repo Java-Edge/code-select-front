@@ -10,7 +10,6 @@ import axios from 'axios'
 // import QS from 'qs';
 import router from './router'
 
-// axios.defaults.baseURL = "http://106.52.239.29:9001/back-server/"
 axios.defaults.baseURL = "/api"
 // axios.defaults.baseURL = "/"
 // axios.defaults.baseURL = "http://localhost:9001/back-server/"
