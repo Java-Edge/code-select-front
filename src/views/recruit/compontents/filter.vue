@@ -104,6 +104,7 @@ const getDctionary = (typeKey, callback) => {
         let data = {};
         data.id = item.id;
         data.name = item.label;
+        data.value = item.value;
         data.active = false;
         list.push(data);
       });
@@ -233,6 +234,36 @@ const getData = () => {
   });
 };
 getData();
+
+const getRecruit = () => {
+  let condition;
+  condition = {
+    pageNo: 1,
+    pageSize: 20,
+    param: {
+      eduLevel: this.educationLevelValue,
+      graduateYear: this.graduateYearValue,
+      personScale: this.personScaleValue,
+      salaryRange: this.salaryValue,
+      scaleTag: this.financeStageValue,
+      recruitType: this.recruitTypeValue,
+    },
+  };
+  axios.post( "/back/recruit/selectByCondition",condition
+      // ,
+      //     {
+      //         headers: {
+      //             "Authorization": this.$store.getters.getToken
+      //         }
+      //     }
+    )
+    .then((response) => {
+      let result = response.data.result;
+      this.recruits = result.records;
+      this.total = result.total;
+    });
+};
+
 // const tabs = [
 //   { type: "city", name: "城市和区域" },
 //   { type: "subway", name: "地铁" },

@@ -24,26 +24,7 @@ export default {
       name: "",
       activeMenu: "home", // 默认选中首页
       recruits: [], // 所有课程数据，从后端获取或静态定义
-      swiperOptions: {
-        pagination: {
-          el: ".swiper-pagination",
-        },
-        loop: true,
-        autoplay: {
-          delay: 3000,
-        },
-      },
     };
-  },
-  computed: {
-    recruitRows() {
-      // 将所有课程按每行4个进行分组
-      const rows = [];
-      for (let i = 0; i < this.recruits.length; i += 4) {
-        rows.push(this.recruits.slice(i, i + 4));
-      }
-      return rows;
-    },
   },
   created() {
     this.getRecruit();
