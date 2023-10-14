@@ -2,15 +2,23 @@
   <div class="course-navigation">
     <filterVue />
     <!-- 内容区域 -->
-    <div style="font-size: 30px; text-align: center; margin-top: 30px">
+    <!-- <div style="font-size: 30px; text-align: center; margin-top: 30px">
       -- 招聘列表 --
+    </div> -->
+    <div class="content">
+      <!-- 内容区域 -->
+      <div class="floorhd">
+        <div class="grid_c1 floorhd_inner">
+          <h3 class="floorhd_tit">招聘列表</h3>
+        </div>
+      </div>
+      <!-- 课程详情区域 -->
+      <RecruitList :recruits="recruits" />
     </div>
-    <!-- 课程详情区域 -->
-    <RecruitList :recruits="recruits" />
   </div>
 </template>
 
-  <script>
+<script>
 import RecruitList from "./recruit-list.vue"; // Import the CourseList component
 import filterVue from "./compontents/filter.vue";
 
@@ -40,9 +48,7 @@ export default {
           careerJobId: "",
         },
       };
-      this.$axios
-        .post(
-          "/back/recruit/selectByCondition", condition
+      this.$axios.post(  "/back/recruit/selectByCondition", condition
           // ,
           //     {
           //         headers: {
@@ -223,6 +229,56 @@ export default {
   min-width: 300px;
   vertical-align: middle;
   line-height: normal;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  /* Wrap the sidebar and swiper to next row if necessary */
+}
+
+.floorhd {
+  height: 65px;
+
+  .grid_c1 {
+    margin: 0 auto;
+    width: 1600px;
+
+    .floorhd_tit {
+      position: relative;
+      width: 150px;
+      height: 45px;
+      font-size: 28px;
+      font-weight: 700;
+      text-align: center;
+      line-height: 45px;
+      padding: 0 30px;
+      margin: 0 auto 20px;
+      overflow: hidden;
+      color: #333;
+    }
+  }
+}
+
+.floorhd_tit::before {
+  background-position: 0 0;
+  left: 0;
+}
+
+.floorhd_tit:after {
+  background-position: -25px 0;
+  right: 0;
+}
+
+.floorhd_tit:after,
+.floorhd_tit:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  margin-top: -10px;
+  background-image: url('@/assets/sprite.png');
+  width: 25px;
+  height: 20px;
 }
 
 </style>
