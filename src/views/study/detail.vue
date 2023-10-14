@@ -17,7 +17,7 @@
                 <!-- 大活动倒计时 -->
                 <div class="timeout-bigactivity js-timeout-bigactivity" data-endtime="" data-time="1695864152"></div>
                 <div class="wrap-box">
-                    <span class="jifen">积分兑换</span>
+                    <span class="jifen">更多学习路线详情，可咨询站长公众号【JavaEdge】</span>
                 </div>
                 <div>
                     <span class="collect js-path-collect" data-name="5G时代音视频开发与视频直播技术高手之路" data-isfollow="" data-num="1203">
@@ -40,9 +40,9 @@
                         <p class="brief">{{ item.des }}</p>
                         <div class="item clearfix">
                             <div class="item-desc">
-                                <h3>学习目标：</h3>
+                                <h3>技术目标：</h3>
                                 <p class="mb24">{{ item.target }}</p>
-                                <h3>课程重点：</h3>
+                                <h3>技术重难点：</h3>
                                 <p class="targetlist" v-html="item.courseFocus"></p>
                                 <div class="tag">
                                     <span data-index="0" v-for="tag in item.tags" :key="tag">{{ tag }}</span>
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-             
+
                 <p class="explain">*说明：路线内每门课程都具有完整独立的学习价值，因此一部分知识点可能重合，选择前请知晓！</p>
             </div>
             <div class="offside">
