@@ -142,7 +142,7 @@ export default {
                     this.$axios.post('back/user/login', this.loginForm).then(response => {
                         if (response.data.code === 200) {
                             var user = response.data.result;
-                            this.$store.dispatch('setUser', user)
+                            this.$store.commit("SET_USERINFO", user);
                             this.setCookieValue("token",user.token);
                             this.$router.push({ path: '/index' })
                         } else {
@@ -161,7 +161,7 @@ export default {
                 if (valid) {
                     this.$axios.post('back/user/register', this.registerForm).then(response => {
                         if (response.data.code === 200) {
-                            this.$store.dispatch('setUser', response.data.result)
+                           this.$store.commit("SET_USERINFO", response.data.result);
                             // 注册成功跳转到首页
                             this.$message.success(response.data.message)
                             this.$router.push({ path: '/index' })

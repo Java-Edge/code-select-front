@@ -2,8 +2,8 @@
   <div
     class="condition-industry-select"
     :class="{ open: visable, 'is-select': count }"
-    @mouseenter="changeVisable(true)"
-    @mouseleave="changeFatherVisable(false)"
+    @mouseenter="visable = true"
+    @mouseleave="visable = false"
   >
     <div class="current-select">
       <span class="placeholder-text">公司行业</span>
@@ -11,8 +11,8 @@
     </div>
     <div
       class="filter-select-dropdown"
-      @mouseenter="changeVisable(true, 'child')"
-      @mouseleave="changeVisable(false)"
+      @mouseenter="visable = true"
+      @mouseleave="visable = false"
     >
       <ul>
         <li class="clearfix" v-for="item in list" :key="item.code">
@@ -23,7 +23,9 @@
               v-for="cItem in item.subLevelModelList"
               :key="cItem.code"
               :class="{ active: ids.includes(cItem.code) }"
-              >{{ cItem.name }} <el-icon v-show="ids.includes(cItem.code)"><Check /></el-icon></a>
+              >{{ cItem.name }}
+              <el-icon v-show="ids.includes(cItem.code)"><Check /></el-icon
+            ></a>
           </div>
         </li>
       </ul>
@@ -33,7 +35,19 @@
 
 <script setup>
 import { ElMessage } from "element-plus";
-import { ref, reactive, computed } from "vue";
+import { ref, reactive, computed, watch } from "vue";
+const props = defineProps({
+  clear: {
+    type: Boolean,
+    default: false,
+  },
+});
+watch(
+  () => props.clear,
+  () => {
+    ids.value = [];
+  }
+);
 const list = [
   {
     code: 100000,
@@ -2144,31 +2158,21 @@ const allData = ref(
     .flat()
 );
 const ids = ref([]);
-const count=computed(()=> ids.value.length);
+const count = computed(() => ids.value.length);
 const visable = ref(false);
-const isChild = ref(false);
-const changeVisable = (val, child) => {
-  visable.value = val;
-  isChild.value = child && val;
-};
-const changeFatherVisable = () => {
-  setTimeout(() => {
-    if (!isChild.value) {
-      visable.value = false;
-    }
-  }, 50);
-};
 
+const emits = defineEmits(["changeCheck"]);
 const changeCheck = (item) => {
   if (ids.value.includes(item.code)) {
     ids.value.splice(ids.value.indexOf(item.code), 1);
   } else {
-    if(ids.value.length===3){
-      ElMessage.error('最多选择3个哦')
-      return false
+    if (ids.value.length === 3) {
+      ElMessage.error("最多选择3个哦");
+      return false;
     }
     ids.value.push(item.code);
   }
+  emits("changeCheck", ids.value);
 };
 </script>
 
@@ -2199,12 +2203,12 @@ const changeCheck = (item) => {
       white-space: nowrap;
       vertical-align: bottom;
     }
-    .select-num{
-    font-style: normal;
-    display: inline-block;
-    margin-left: 2px;
-    vertical-align: bottom;
-}
+    .select-num {
+      font-style: normal;
+      display: inline-block;
+      margin-left: 2px;
+      vertical-align: bottom;
+    }
   }
   .current-select:after {
     content: " ";

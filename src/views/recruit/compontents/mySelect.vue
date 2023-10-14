@@ -2,8 +2,8 @@
   <div
     class="condition-filter-select"
     :class="{ open: visable, 'is-select': count }"
-    @mouseenter="changeVisable(true)"
-    @mouseleave="changeFatherVisable(false)"
+    @mouseenter="visable = true"
+    @mouseleave="visable = false"
   >
     <div class="current-select">
       <span class="placeholder-text">{{ name }}</span>
@@ -11,8 +11,8 @@
     </div>
     <div
       class="filter-select-dropdown"
-      @mouseenter="changeVisable(true, 'child')"
-      @mouseleave="changeVisable(false)"
+      @mouseenter="visable = true"
+      @mouseleave="visable = false"
       v-show="visable"
     >
       <ul>
@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import { computed, reactive, ref } from "vue";
+import { computed, reactive, ref, watch } from "vue";
 const props = defineProps({
   list: {
     type: Array,
@@ -46,6 +46,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  clear: {
+    type: Boolean,
+    default: false,
+  },
 });
 const count = computed(() => {
   return props.list.filter((item) => item.active).length;
@@ -55,31 +59,13 @@ const ids = computed(() => {
 });
 const jobTypeCount = ref(1);
 const visable = ref(false);
-const isChild = ref(false);
-const changeVisable = (val, child) => {
-  visable.value = val;
-  isChild.value = child && val;
-};
-const changeFatherVisable = () => {
-  setTimeout(() => {
-    if (!isChild.value) {
-      visable.value = false;
-    }
-  }, 50);
-};
 const emits = defineEmits(["changeCheck", "cancelCheck"]);
 const cancelCheck = () => {
   emits("changeCheck");
 };
 const changeCheck = (item) => {
-  if (props.multiple) {
-    emits("changeCheck", item.id);
-  } else {
-    emits("changeCheck");
-    emits("changeCheck", item.id);
-    visable.value = false;
-    isChild.value = false;
-  }
+  emits("changeCheck", props.multiple, item.id);
+  visable.value = false;
 };
 </script>
 
@@ -204,5 +190,18 @@ const changeCheck = (item) => {
   color: #00a6a7;
   background: #e5f8f8;
   font-weight: 500;
+}
+.condition-filter-select:after {
+  content: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: 8px;
+  z-index: 4;
+  background: transparent;
+}
+.condition-filter-select.open:after {
+  content: " ";
 }
 </style>
