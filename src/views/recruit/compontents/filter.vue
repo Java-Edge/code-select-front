@@ -52,7 +52,7 @@
               </div>
             </div>
           </div> -->
-          <industry-select/>
+          <industry-select />
           <!-- <position-select/> -->
           <my-select
             :list="item.data"
@@ -74,7 +74,9 @@ import CityDialog from "./cityDialog.vue";
 import mySelect from "./mySelect.vue";
 import industrySelect from "./industrySelect.vue";
 import positionSelect from "./positionSelect.vue";
+import axios from "axios";
 import data from "../city.json";
+
 const cityDialogRef = ref(null);
 const openDialog = () => {
   cityDialogRef.value.showDialog();
@@ -83,77 +85,101 @@ const name = ref();
 const confirm = (item) => {
   name.value = item.name;
 };
+
+const getDctionary = (typeKey, callback) => {
+  axios
+    .get(
+      "/back/dictionary/list?typeKey=" + typeKey
+      // ,
+      //     {
+      //         headers: {
+      //             "Authorization": this.$store.getters.getToken
+      //         }
+      //     }
+    )
+    .then((response) => {
+      const result = response.data.result;
+      let list = [];
+      result.list.map((item) => {
+        let data = {};
+        data.id = item.id;
+        data.name = item.label;
+        data.active = false;
+        list.push(data);
+      });
+      callback(list);
+    });
+};
 const selectList = reactive({
-  
   jobTypeList: {
     name: "求职类型",
     data: [
-      { id: 1, name: "全职", active: false },
-      { id: 2, name: "兼职", active: false },
+      // { id: 1, name: "全职", active: false },
+      // { id: 2, name: "兼职", active: false },
     ],
   },
   expList: {
     name: "工作经验",
     multiple: true,
     data: [
-      { id: 1, name: "在校生", active: false },
-      { id: 2, name: "应届生", active: false },
-      { id: 3, name: "经验不限", active: false },
-      { id: 4, name: "1年以内", active: false },
-      { id: 5, name: "1-3年", active: false },
-      { id: 6, name: "3-5年", active: false },
-      { id: 7, name: "5-10年", active: false },
-      { id: 7, name: "10年以上", active: false },
+      // { id: 1, name: "在校生", active: false },
+      // { id: 2, name: "应届生", active: false },
+      // { id: 3, name: "经验不限", active: false },
+      // { id: 4, name: "1年以内", active: false },
+      // { id: 5, name: "1-3年", active: false },
+      // { id: 6, name: "3-5年", active: false },
+      // { id: 7, name: "5-10年", active: false },
+      // { id: 7, name: "10年以上", active: false },
     ],
   },
   salaryList: {
     name: "薪资待遇",
     data: [
-      { id: 1, name: "3K以下", active: false },
-      { id: 2, name: "3-5K", active: false },
-      { id: 3, name: "5-10K", active: false },
-      { id: 4, name: "10-20K", active: false },
-      { id: 5, name: "20-50K", active: false },
-      { id: 6, name: "50K以上", active: false },
+      // { id: 1, name: "3K以下", active: false },
+      // { id: 2, name: "3-5K", active: false },
+      // { id: 3, name: "5-10K", active: false },
+      // { id: 4, name: "10-20K", active: false },
+      // { id: 5, name: "20-50K", active: false },
+      // { id: 6, name: "50K以上", active: false },
     ],
   },
   degressList: {
     name: "学历要求",
     multiple: true,
     data: [
-      { id: 1, name: "初中及以下", active: false },
-      { id: 2, name: "中专/中技", active: false },
-      { id: 3, name: "高中", active: false },
-      { id: 4, name: "大专", active: false },
-      { id: 5, name: "本科", active: false },
-      { id: 6, name: "硕士", active: false },
-      { id: 7, name: "博士", active: false },
+      // { id: 1, name: "初中及以下", active: false },
+      // { id: 2, name: "中专/中技", active: false },
+      // { id: 3, name: "高中", active: false },
+      // { id: 4, name: "大专", active: false },
+      // { id: 5, name: "本科", active: false },
+      // { id: 6, name: "硕士", active: false },
+      // { id: 7, name: "博士", active: false },
     ],
   },
-   sizeList: {
+  sizeList: {
     name: "公司规模",
     multiple: true,
     data: [
-      { id: 1, name: "0-20人", active: false },
-      { id: 2, name: "20-99人", active: false },
-      { id: 3, name: "100-499人", active: false },
-      { id: 4, name: "500-999人", active: false },
-      { id: 5, name: "1000-9999人", active: false },
-      { id: 6, name: "10000以上", active: false }
+      // { id: 1, name: "0-20人", active: false },
+      // { id: 2, name: "20-99人", active: false },
+      // { id: 3, name: "100-499人", active: false },
+      // { id: 4, name: "500-999人", active: false },
+      // { id: 5, name: "1000-9999人", active: false },
+      // { id: 6, name: "10000以上", active: false },
     ],
   },
-   stageList: {
+  stageList: {
     name: "融资阶段",
     multiple: true,
     data: [
-      { id: 1, name: "未融资", active: false },
-      { id: 2, name: "天使轮", active: false },
-      { id: 3, name: "A轮", active: false },
-      { id: 4, name: "B轮", active: false },
-      { id: 5, name: "C轮", active: false },
-      { id: 6, name: "D轮及以上", active: false },
-      { id: 7, name: "已上市", active: false },
-      { id: 8, name: "不需要融资", active: false },
+      // { id: 1, name: "未融资", active: false },
+      // { id: 2, name: "天使轮", active: false },
+      // { id: 3, name: "A轮", active: false },
+      // { id: 4, name: "B轮", active: false },
+      // { id: 5, name: "C轮", active: false },
+      // { id: 6, name: "D轮及以上", active: false },
+      // { id: 7, name: "已上市", active: false },
+      // { id: 8, name: "不需要融资", active: false },
     ],
   },
 });
@@ -168,6 +194,45 @@ const changeCheck = (key, id) => {
     }));
   }
 };
+
+const getData = () => {
+  // 1. 学历要求
+  getDctionary("education_level", (result) => {
+    console.log(result);
+    selectList["degressList"].data = result;
+  });
+
+  // 2. 毕业年限
+  getDctionary("graduate_year", (result) => {
+    console.log(result);
+    selectList["expList"].data = result;
+  });
+
+  // 3. 薪资要求
+  getDctionary("salary_range", (result) => {
+    console.log(result);
+    selectList["salaryList"].data = result;
+  });
+
+  // 4. 融资阶段
+  getDctionary("finance_stage", (result) => {
+    console.log(result);
+    selectList["stageList"].data = result;
+  });
+
+  // 5. 公司规模
+  getDctionary("person_scale", (result) => {
+    console.log(result);
+    selectList["sizeList"].data = result;
+  });
+
+  // 6. 招聘类型
+  getDctionary("recruit_type", (result) => {
+    console.log(result);
+    selectList["jobTypeList"].data = result;
+  });
+};
+getData();
 // const tabs = [
 //   { type: "city", name: "城市和区域" },
 //   { type: "subway", name: "地铁" },

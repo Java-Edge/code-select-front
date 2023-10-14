@@ -1,53 +1,6 @@
 <template>
   <div class="course-navigation">
-    <filterVue/>
-    <div class="filter-box">
-      <div class="filter-box1">
-        <div
-          class="filter-item"
-          @click="handleFilterSelect('校招')"
-          :class="{ active: activeMenu === '校招' }"
-        >
-          校招
-        </div>
-        <div
-          class="filter-item"
-          @click="handleFilterSelect('社招')"
-          :class="{ active: activeMenu === '社招' }"
-        >
-          社招
-        </div>
-      </div>
-      <div class="time-filter-box">
-        <el-select
-          v-model="timeValue"
-          placeholder="年限"
-          style="width: 240px"
-          multiple
-        >
-          <el-option
-            v-for="item in timeRange"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
-      </div>
-      <div class="salary-filter-box">
-        <el-select
-          v-model="salaryValue"
-          placeholder="薪资"
-          style="width: 240px"
-        >
-          <el-option
-            v-for="item in salaryRange"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
-      </div>
-    </div>
+    <filterVue />
     <!-- 内容区域 -->
     <div style="font-size: 30px; text-align: center; margin-top: 30px">
       -- 招聘列表 --
@@ -80,83 +33,6 @@ export default {
           delay: 3000,
         },
       },
-      carouselData: [
-        {
-          id: 1,
-          image:
-            "https://csdn-blog-picture.oss-cn-guangzhou.aliyuncs.com/img/image-20230709183838817.png",
-        },
-        {
-          id: 2,
-          image: "https://via.placeholder.com/800x300?text=Slide%202",
-        },
-        {
-          id: 3,
-          image: "https://via.placeholder.com/800x300?text=Slide%203",
-        },
-        // 更多轮播图数据
-      ],
-      img: require("@/assets/background.jpg"),
-      timeRange: [
-        {
-          value: "1",
-          label: "1年",
-        },
-        {
-          value: "3",
-          label: "3年",
-        },
-        {
-          value: "5",
-          label: "5年",
-        },
-      ],
-      timeValue: [],
-      salaryRange: [
-        {
-          value: "10000",
-          label: "10k",
-        },
-        {
-          value: "20000",
-          label: "20k",
-        },
-        {
-          value: "30000",
-          label: "30k",
-        },
-      ],
-      salaryValue: "",
-      recruitList: [
-        {
-          title: "后端开发工程师",
-          salary: "11-18k*20薪 ",
-          companyName: "交行金科",
-          positionTags: [
-            "上海",
-            "1-3年",
-            "本科",
-            "java",
-            "软件开发",
-            "后端开发",
-          ],
-          companyTags: ["金融", "未融资", "500-999人"],
-        },
-        {
-          title: "后端开发工程师",
-          salary: "11-18k*20薪 ",
-          companyName: "交行金科",
-          positionTags: [
-            "上海",
-            "1-3年",
-            "本科",
-            "java",
-            "软件开发",
-            "后端开发",
-          ],
-          companyTags: ["金融", "未融资", "500-999人"],
-        },
-      ],
     };
   },
   computed: {
@@ -170,17 +46,10 @@ export default {
     },
   },
   created() {
-    this.getCourses();
-    this.getFiveCourse();
+    this.getRecruit();
   },
   methods: {
-
-
-    handleMenuSelect(index) {
-      this.activeMenu = index; // 更新选中的菜单项
-      // 可根据不同的菜单项进行相应的页面跳转或其他操作
-    },
-    getCourses() {
+    getRecruit() {
       let condition;
       condition = {
         pageNo: 1,
@@ -192,8 +61,7 @@ export default {
       };
       this.$axios
         .post(
-          "/back/recruit/selectByCondition",
-          condition
+          "/back/recruit/selectByCondition", condition
           // ,
           //     {
           //         headers: {
@@ -208,31 +76,6 @@ export default {
 
           console.log(this.recruits);
         });
-    },
-    getFiveCourse() {
-      this.$axios
-        .get(
-          "/back/sourceCourse/getFiveCourse"
-          // ,
-          //     {
-          //         headers: {
-          //             "Authorization": this.$store.getters.getToken
-          //         }
-          //     }
-        )
-        .then((response) => {
-          const courses = response.data.result;
-          console.log(response);
-          this.carouselData = courses;
-          // this.$message({
-          //     type: 'success',
-          //     message: response.data.message
-          // });
-          console.log(this.courses);
-        });
-    },
-    handleFilterSelect(value) {
-      console.log(value);
     },
   },
 };
