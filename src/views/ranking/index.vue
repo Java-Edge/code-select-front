@@ -49,7 +49,6 @@ const getListData = async () => {
     console.log("res", res.data.result);
     rankings.value = res.data.result.records;
     total.value = res.data.result.total;
-    //  options.value = res.data.result
   });
 };
 getListData()

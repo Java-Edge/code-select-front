@@ -73,7 +73,7 @@
 </template>
   
 <script setup>
-import { ref, onActivated, onMounted, watch, onUnmounted } from "vue";
+import { ref, onActivated, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import pagination from "@/components/pagination.vue";
 import axios from "axios";
@@ -83,7 +83,6 @@ const articleData = ref([]);
 const total = ref(0);
 const page = ref(1);
 const size = ref(5);
-const step = 5; // 每次下拉到底部，多查询的数据条数
 // 获取数据
 const route = useRoute();
 const type = route.params.type;
@@ -135,38 +134,6 @@ const throttle = (fun, time) => {
     }
   };
 };
-// 触底触发函数
-const listenBottomOut = () => {
-  const scrollTop =
-    document.documentElement.scrollTop || document.body.scrollTop;
-  const clientHeight = document.documentElement.clientHeight;
-  const scrollHeight = document.documentElement.scrollHeight;
-  // 这里要判断下拉到底部，并且需要查询的数量大于总数量加上每次增加的数量
-  // 说明一下第二个判断：如果已经查询出的条数 page*size 已经大于总条数 total，那么就不需要再查询了
-  console.log("12312", page.value, size.value, total.value);
-  if (
-    scrollTop + clientHeight >= scrollHeight &&
-    page.value * size.value <= total.value
-  ) {
-    console.log("触底了~");
-    // 此处可以调用获取数据的方法
-    // size.value = size.value + step
-    page.value = page.value + 1;
-    console.log(page.value, size.value);
-    getListData();
-    // if (size.value > total.value) size.value = total.value
-  }
-};
-// 下拉加载数据
-onMounted(() => {
-  // 事件监听
-  window.addEventListener("scroll", throttle(listenBottomOut, 1000));
-});
-onUnmounted(() => {
-  // 离开页面取消监听
-  window.removeEventListener("scroll", throttle(listenBottomOut, 1000), false);
-});
-
 const handleCurrentChange = (currentPage) => {
   page.value = currentPage;
   getListData();

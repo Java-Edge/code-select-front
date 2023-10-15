@@ -28,8 +28,8 @@
 </template>
   
 <script setup>
-import { ref, onActivated, onMounted, watch, onUnmounted } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { ref } from 'vue'
+import { useRoute } from 'vue-router'
 import pagination from "@/components/pagination.vue";
 import axios from 'axios'
 
@@ -38,7 +38,6 @@ const projectData = ref([])
 const total = ref(0)
 const page = ref(1)
 const size = ref(5)
-const step = 5; // 每次下拉到底部，多查询的数据条数
 // 获取数据
 const route = useRoute()
 const type = route.params.type
@@ -50,12 +49,7 @@ const getListData = async () => {
     path += `&type=${type}`
   }
   axios.get(path).then(res => {
-    // console.log(res)
-    /**
-     * 每次查出来之后，拼接上原来的数据即可
-     */
-    console.log("新查询的数据", res.data.result)
-    projectData.value = projectData.value.concat(res.data.result.records)
+    projectData.value = res.data.result.records
     total.value = res.data.result.total
   })
 }
@@ -66,65 +60,6 @@ const handleCurrentChange = (currentPage) => {
 };
 
 getListData()
-// 处理数据不重新加载的问题
-onActivated(getListData)
-
-/**
-* 查看按钮点击事件
-*/
-const router = useRouter()
-/**
- * 监听路由的变化，文章的面经使用的是同一个界面，因此要监听路有变化，及时刷新数据
- */
-watch(
-  () => router.currentRoute.value,
-  () => {
-    console.log("路由变化了", router.currentRoute.value)
-    let type = route.params.type
-    console.log(type)
-    getListData()
-  }
-);
-
-// 滚动节流
- const throttle = (fun, time) => {
-  let start = 0;
-    return function () {
-      let now = new Date()
-      if(now - start > time) {
-        fun()
-      }
-    };
-  }
-// 触底触发函数
-const listenBottomOut = () => {
-    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    const clientHeight = document.documentElement.clientHeight;
-    const scrollHeight = document.documentElement.scrollHeight;
-    // 这里要判断下拉到底部，并且需要查询的数量大于总数量加上每次增加的数量
-    // 说明一下第二个判断：如果已经查询出的条数 page*size 已经大于总条数 total，那么就不需要再查询了
-    console.log("12312", page.value, size.value, total.value)
-    if (scrollTop + clientHeight >= scrollHeight && (page.value * size.value <= total.value)) {
-      console.log("触底了~");
-      // 此处可以调用获取数据的方法
-      // size.value = size.value + step
-      page.value = page.value + 1
-      console.log(page.value, size.value)
-      getListData()
-      // if (size.value > total.value) size.value = total.value
-    }
-  }
-// 下拉加载数据
-onMounted(() => {
-    // 事件监听
-    window.addEventListener("scroll", throttle(listenBottomOut, 1000));
-});
-onUnmounted(() => {
-  // 离开页面取消监听
-  window.removeEventListener("scroll", throttle(listenBottomOut, 1000), false);
-})
-
-
 </script>
   
 <style lang="scss" scoped>
