@@ -37,13 +37,15 @@
                 <!-- <div class="ranking-user-name hide-text">Java Edge</div> -->
                 <!-- <a href="https://blog.csdn.net/qq_33589510" target="_blank"><div class="ranking-button">开始学习</div> </a> -->
             </div>
-        </div>
+    </div>
+    <pagination :page="page" :total="total" @pageChange="handleCurrentChange" />
   </div>
 </template>
   
 <script setup>
 import { ref, onActivated, onMounted, watch, onUnmounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import pagination from "@/components/pagination.vue";
 import axios from 'axios'
 
 // 数据相关
@@ -126,6 +128,10 @@ onUnmounted(() => {
   window.removeEventListener("scroll", throttle(listenBottomOut, 1000), false);
 })
 
+const handleCurrentChange = (currentPage) => {
+  page.value = currentPage;
+  getListData();
+};
 
 </script>
   

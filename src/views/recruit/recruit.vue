@@ -1,6 +1,6 @@
 <template>
   <div class="course-navigation">
-    <filterVue @result="getRecruits" />
+    <filterVue @getRecruit="getRecruit" />
     <!-- 内容区域 -->
     <!-- <div style="font-size: 30px; text-align: center; margin-top: 30px">
       -- 招聘列表 --
@@ -14,63 +14,70 @@
       </div>
       <!-- 课程详情区域 -->
       <RecruitList :recruits="recruits" />
+      <pagination
+        :page="page"
+        :total="total"
+        @pageChange="handleCurrentChange"
+      />
     </div>
   </div>
 </template>
 
-<script>
+<script setup >
 import RecruitList from "./recruit-list.vue"; // Import the CourseList component
 import filterVue from "./compontents/filter.vue";
+import pagination from "@/components/pagination.vue";
+import { ref } from "vue";
+import axios from "axios";
+const total = ref(0);
+const page = ref(1);
+const size = ref(10);
+// const param = ref({});
+const recruits =ref([])
 
-export default {
-  name: "RecruitNavigation",
-  components: {
-    RecruitList,filterVue
-  },
-  data() {
-    return {
-      name: "",
-      activeMenu: "home", // 默认选中首页
-      recruits: [], // 所有课程数据，从后端获取或静态定义
-    };
-  },
-  // created() {
-  //   this.getRecruits();
-  // },
-  methods: {
-    // getRecruit() {
-    //   let condition;
-    //   condition = {
-    //     pageNo: 1,
-    //     pageSize: 20,
-    //     param: {
-    //       companyId: "",
-    //       careerJobId: "",
-    //     },
-    //   };
-    //   this.$axios.post(  "/back/recruit/selectByCondition", condition
-    //       // ,
-    //       //     {
-    //       //         headers: {
-    //       //             "Authorization": this.$store.getters.getToken
-    //       //         }
-    //       //     }
-    //     )
-    //     .then((response) => {
-    //       let result = response.data.result;
-    //       this.recruits = result.records;
-    //       this.total = result.total;
-
-    //       console.log(this.recruits);
-    //     });
-    // },
-
-    getRecruits(result){
-      this.recruits = result.records
-      this.total = result.total
-    }
-  },
+const getRecruit = (param) => {
+  let condition;
+  // console.log(param);
+  condition = {
+    pageNo: page.value,
+    pageSize: size.value,
+    param: {
+      // ...condition.param,
+      ...param
+      // eduLevel: param.value["degressList"],
+      // graduateYear: param.value["expList"],
+      // personScale: param.value["sizeList"],
+      // salaryRange:param.value["salaryList"],
+      // scaleTag: param.value["stageList"],
+      // recruitType: param.value["jobTypeList"],
+    },
+  };
+   axios.post(
+      "/back/recruit/selectByCondition",
+      condition
+      // ,
+      //     {
+      //         headers: {
+      //             "Authorization": this.$store.getters.getToken
+      //         }
+      //     }
+    )
+    .then((response) => {
+      let result = response.data.result;
+      recruits.value = result.records;
+      total.value = result.total;
+      // emits("result", result);
+    });
 };
+getRecruit();
+const getParam = (param) => {
+  param.value = param;
+};
+const handleCurrentChange = (currentPage) => {
+  page.value = currentPage;
+  getRecruit();
+};
+// };
 </script>
 
 <style lang="scss" scoped>
@@ -281,10 +288,9 @@ export default {
   position: absolute;
   top: 50%;
   margin-top: -10px;
-  background-image: url('@/assets/sprite.png');
+  background-image: url("@/assets/sprite.png");
   width: 25px;
   height: 20px;
-} 
-
+}
 </style>
   

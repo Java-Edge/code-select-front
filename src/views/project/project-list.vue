@@ -22,13 +22,15 @@
                 <!-- <div class="ranking-user-name hide-text">Java Edge</div> -->
                 <!-- <a href="https://blog.csdn.net/qq_33589510" target="_blank"><div class="ranking-button">开始学习</div> </a> -->
             </div>
-        </div>
+    </div>
+    <pagination :page="page" :total="total" @pageChange="handleCurrentChange" />
   </div>
 </template>
   
 <script setup>
 import { ref, onActivated, onMounted, watch, onUnmounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import pagination from "@/components/pagination.vue";
 import axios from 'axios'
 
 // 数据相关
@@ -57,6 +59,12 @@ const getListData = async () => {
     total.value = res.data.result.total
   })
 }
+
+const handleCurrentChange = (currentPage) => {
+  page.value = currentPage;
+  getListData();
+};
+
 getListData()
 // 处理数据不重新加载的问题
 onActivated(getListData)

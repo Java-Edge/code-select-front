@@ -17,10 +17,15 @@
           </div>
           <!-- <a href="javascript:;" class="search-map-btn">地图</a> -->
         </div>
-        <a href="javascript:;" class="search-btn" @click="getRecruit">搜索</a>
+        <a href="javascript:;" class="search-btn" @click="queryRecruits"
+          >搜索</a
+        >
       </div>
       <city-dialog ref="cityDialogRef" @confirm="confirm" />
-      <a @click="$router.push('/login')" class="go-login-btn" v-if="!store.state.userInfo"
+      <a
+        @click="$router.push('/login')"
+        class="go-login-btn"
+        v-if="!store.state.userInfo"
         >登录，查看更多岗位</a
       >
     </div>
@@ -76,7 +81,7 @@
 </template>
 
 <script setup>
-import { reactive, ref ,defineEmits} from "vue";
+import { reactive, ref, defineEmits } from "vue";
 import CityDialog from "./cityDialog.vue";
 import mySelect from "./mySelect.vue";
 import industrySelect from "./industrySelect.vue";
@@ -85,7 +90,7 @@ import axios from "axios";
 import data from "../city.json";
 import { useStore } from "vuex";
 const cityDialogRef = ref(null);
-const emits = defineEmits(['message']);
+const emits = defineEmits(["message"]);
 const openDialog = () => {
   cityDialogRef.value.showDialog();
 };
@@ -97,30 +102,29 @@ const store = useStore();
 const queryParams = ref({});
 const getDctionary = (typeKey, callback) => {
   axios
-      .get(
-          "/back/dictionary/list?typeKey=" + typeKey
-          // ,
-          //     {
-          //         headers: {
-          //             "Authorization": this.$store.getters.getToken
-          //         }
-          //     }
-      )
-      .then((response) => {
-        const result = response.data.result;
-        let list = [];
-        result.list.map((item) => {
-          let data = {};
-          data.id = parseInt(item.value);
-          data.name = item.label;
-          data.active = false;
-          list.push(data);
-        });
-        callback(list);
+    .get(
+      "/back/dictionary/list?typeKey=" + typeKey
+      // ,
+      //     {
+      //         headers: {
+      //             "Authorization": this.$store.getters.getToken
+      //         }
+      //     }
+    )
+    .then((response) => {
+      const result = response.data.result;
+      let list = [];
+      result.list.map((item) => {
+        let data = {};
+        data.id = parseInt(item.value);
+        data.name = item.label;
+        data.active = false;
+        list.push(data);
       });
+      callback(list);
+    });
 };
 const selectList = reactive({
-  
   jobTypeList: {
     name: "求职类型",
     data: [
@@ -220,72 +224,84 @@ const changeComCheck = (key, data) => {
 const getData = () => {
   // 1. 学历要求
   getDctionary("education_level", (result) => {
-    console.log(result);
+    // console.log(result);
     selectList["degressList"].data = result;
   });
 
   // 2. 毕业年限
   getDctionary("graduate_year", (result) => {
-    console.log(result);
+    // console.log(result);
     selectList["expList"].data = result;
   });
 
   // 3. 薪资要求
   getDctionary("salary_range", (result) => {
-    console.log(result);
+    // console.log(result);
     selectList["salaryList"].data = result;
   });
 
   // 4. 融资阶段
   getDctionary("finance_stage", (result) => {
-    console.log(result);
+    // console.log(result);
     selectList["stageList"].data = result;
   });
 
   // 5. 公司规模
   getDctionary("person_scale", (result) => {
-    console.log(result);
+    // console.log(result);
     selectList["sizeList"].data = result;
   });
 
   // 6. 招聘类型
   getDctionary("recruit_type", (result) => {
-    console.log(result);
+    // console.log(result);
     selectList["jobTypeList"].data = result;
   });
 };
 getData();
 
-const getRecruit = () => {
-  let condition;
-  condition = {
-    pageNo: 1,
-    pageSize: 20,
-    param: {
-      eduLevel: queryParams.value["degressList"],
-      graduateYear: queryParams.value["expList"],
-      personScale: queryParams.value["sizeList"],
-      salaryRange:queryParams.value["salaryList"],
-      scaleTag: queryParams.value["stageList"],
-      recruitType: queryParams.value["jobTypeList"]
-    },
+// const getRecruit = () => {
+//   let condition;
+//   condition = {
+//     pageNo: 1,
+//     pageSize: 20,
+//     param: {
+//       eduLevel: queryParams.value["degressList"],
+//       graduateYear: queryParams.value["expList"],
+//       personScale: queryParams.value["sizeList"],
+//       salaryRange:queryParams.value["salaryList"],
+//       scaleTag: queryParams.value["stageList"],
+//       recruitType: queryParams.value["jobTypeList"]
+//     },
+//   };
+//   axios.post( "/back/recruit/selectByCondition",condition
+//       // ,
+//       //     {
+//       //         headers: {
+//       //             "Authorization": this.$store.getters.getToken
+//       //         }
+//       //     }
+//     )
+//     .then((response) => {
+//       let result = response.data.result;
+//       // this.recruits = result.records;
+//       // this.total = result.total;
+//       emits('result', result);
+//     });
+// };
+// getRecruit();
+const queryRecruits = () => {
+  let param = {
+    eduLevel: queryParams.value["degressList"],
+    graduateYear: queryParams.value["expList"],
+    personScale: queryParams.value["sizeList"],
+    salaryRange: queryParams.value["salaryList"],
+    scaleTag: queryParams.value["stageList"],
+    recruitType: queryParams.value["jobTypeList"],
   };
-  axios.post( "/back/recruit/selectByCondition",condition
-      // ,
-      //     {
-      //         headers: {
-      //             "Authorization": this.$store.getters.getToken
-      //         }
-      //     }
-    )
-    .then((response) => {
-      let result = response.data.result;
-      // this.recruits = result.records;
-      // this.total = result.total;
-      emits('result', result);
-    });
+  emits("getRecruit", param);
 };
-getRecruit();
+
 // const tabs = [
 //   { type: "city", name: "城市和区域" },
 //   { type: "subway", name: "地铁" },
