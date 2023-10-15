@@ -11,7 +11,7 @@
           expandTrigger="hover"
         />
       </div>
-      <div class="company-filter-box">
+      <!-- <div class="company-filter-box">
         <el-select
           v-model="companyCondition"
           multiple
@@ -29,16 +29,41 @@
             :value="item.companyName"
           />
         </el-select>
+      </div> -->
+      <div class="company-filter-box">
+        <el-input
+        v-model="keyword" 
+        @change="handleChangeCompany"
+        placeholder="请输入内容">
+        </el-input>
       </div>
     </div>
 
-    <div
+    <el-table :data="tableData" height="1000" border style="width: 100%">
+      <el-table-column prop="index" label="序号" width="80"> </el-table-column>
+      <!-- <el-table-column prop="companyName" label="公司名称" width="180"> </el-table-column> -->
+      <el-table-column prop="title" label="标题" width="180"> </el-table-column>
+      <el-table-column prop="content" label="备注" width="400"> </el-table-column>
+      <el-table-column prop="createAt" label="开始时间" width="180"> </el-table-column>
+      <el-table-column prop="recommendCode" label="内推码"  width="250"> </el-table-column>
+      <el-table-column prop="recommendEmail" label="内推邮箱" width="250"> </el-table-column>
+      <el-table-column prop="recommendUrl" label="内推链接" width="250"> </el-table-column>
+    </el-table>
+
+    <!-- <div
       class="interview-card"
       v-for="interview in tableData"
       :key="interview.id"
       @click="onShowClick(interview.id)"
     >
       <div class="interview-title">{{ interview.title }}</div>
+      <div class="recommed-info">
+        <div class="recommed-code">{{ interview.recommendCode }}</div>
+        <div class="recommed-email">
+          内推邮箱：{{ interview.recommedEmail }}
+        </div>
+        <div class="recommed-email">内推地址：{{ interview.recommedUrl }}</div>
+      </div>
       <div class="interview-content">
         {{
           interview.content.length > 300
@@ -52,32 +77,23 @@
         <div class="interview-create-time">{{ interview.createAt }}</div>
         <div class="career-type">分类：{{ interview.careerName }}</div>
       </div>
-    </div>
+    </div> -->
 
-    <el-pagination
-      class="pagination"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="page"
-      :page-sizes="[5, 10, 50, 100, 200]"
-      :page-size="size"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="total"
-    >
-    </el-pagination>
+    <pagination :page="page" :total="total" @pageChange="handleCurrentChange" />
   </div>
 </template>
 
 <script setup>
 import { ref, onActivated, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
+import pagination from "@/components/pagination.vue";
 import axios from "axios";
 const companyOptions = ref([]);
 
-let companyCondition = ref("");
+// let companyCondition = ref("");
 let activeMenu = ref("");
 let jobId = ref(-1);
-
+let keyword = ref("");
 /**
  * 获取公司数据
  */
@@ -90,26 +106,25 @@ getCompanyData();
 
 // 公司筛选框
 const handleChangeCompany = () => {
-  console.log(companyCondition.value);
+  // console.log(companyCondition.value);
   let condition = {
     pageNo: page.value,
     pageSize: size.value,
     param: {
       jobId: jobId.value,
       content: activeMenu.value,
-      company: companyCondition.value,
+      // company: companyCondition.value,
+      keyword: keyword.value,
     },
   };
   getListDataByCondition(condition);
 };
 
-
-
 const getListDataByCondition = async (condition) => {
-  condition.param  = {
+  condition.param = {
     ...condition.param,
-    articleType: 2
-  }
+    articleType: 2,
+  };
   axios
     .post("/back/interview/selectByCondition", condition)
     .then((response) => {
@@ -149,7 +164,8 @@ const handleChange = (value) => {
     param: {
       jobId: jobId.value,
       content: activeMenu.value != "" ? activeMenu.value : "",
-      company: companyCondition.value,
+      // company: companyCondition.value,
+      keyword: keyword.value,
       articleType: 2,
     },
   };
@@ -160,16 +176,14 @@ const getListData = async () => {
   let params = {
     pageNo: page.value,
     pageSize: size.value,
-    param:{
-      articleType: 2
-    }
+    param: {
+      articleType: 2,
+    },
   };
-  axios
-    .post("/back/interview/selectByCondition", params)
-    .then((response) => {
-      tableData.value = response.data.result.records;
-      total.value = response.data.result.total;
-    });
+  axios.post("/back/interview/selectByCondition", params).then((response) => {
+    tableData.value = response.data.result.records;
+    total.value = response.data.result.total;
+  });
 };
 getListData();
 // 处理数据不重新加载的问题
