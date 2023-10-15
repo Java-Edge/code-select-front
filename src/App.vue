@@ -41,7 +41,7 @@ export default {
   min-height: 92.5vh;
 }
 
-/* 最大宽度设置为1600px，并将其水平居中对齐 */
+/* 最大宽度设置为1152px，并将其水平居中对齐 */
 .course-navigation {
   margin: 0 auto;
 }</style>

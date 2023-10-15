@@ -3,7 +3,7 @@
   <router-link :to="`/recruit/${recruit.id}`" class="link-sty">
     <div class="course-box" @click="deliver(recruit.sourceUrl)">
       <PostCard :recruit="recruit" v-if="recruit"/>
-      <el-skeleton style="width: 1000px;" v-else :rows="5" animated />
+      <el-skeleton style="width: 600px;" v-else :rows="5" animated />
     </div>
   </router-link>
 </template>
@@ -42,7 +42,7 @@ export default {
   /* flex: 0 0 calc(50% - 20px); */
 
   /* max-width: 100%; */
-  width: 1100px;
+  width: 880px;
   height: 150px;
   margin-bottom: 10px;
   background-color: #fff;

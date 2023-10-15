@@ -1,6 +1,6 @@
 <template>
   <div style="background-color: #f9f3e8;overflow: hidden;">
-    <div class="article-ranking-container">
+    <div class="article-ranking-container main-content">
 
 <div class="ranking-body" v-for="article in articleData" :key="article.articleId">
         <!-- <div class="ranking-number">{{ ranking.orderVal }}</div> -->
@@ -140,9 +140,6 @@ onUnmounted(() => {
 <style lang="scss" scoped>
 .article-ranking-container {
   min-height: 800px;
-  max-width: 1600px;
-  margin: 0 auto;
-
   .header {
     margin-bottom: 20px;
 
@@ -171,12 +168,12 @@ onUnmounted(() => {
   text-decoration: none;
   color: black;
   display: block;
-  width: 600px;
+  width: 810px;
 }
 // 带阴影
 .ranking-body {
     height: 97px;
-    width: 976px;
+    // width: 976px;
     display: flex;
     align-items: center;
     margin: 0 auto;

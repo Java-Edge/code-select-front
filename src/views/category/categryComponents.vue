@@ -1,5 +1,5 @@
 <template>
-  <div class="view-box">
+  <div class="view-box main-content">
     <div class="head-line">{{ title }}</div>
     <div class="item-list">
       <div v-for="(item, index) in list" :key="index">

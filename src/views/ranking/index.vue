@@ -1,5 +1,5 @@
 <template>
-    <div class="body">
+    <div class="body main-content">
         <div class="ranking-body" v-for="ranking in rankings" :key="ranking.id">
             <div class="ranking-number">{{ ranking.orderVal }}</div>
             <div class="ranking-left">
@@ -43,7 +43,7 @@ axios.get("/back/ranking/getRanking").then(res => {
   text-decoration: none;
   color: black;
   display: block;
-  width: 600px;
+  width: 830px;
 }
 .ranking-number {
     color: #999AAA;
@@ -72,7 +72,7 @@ axios.get("/back/ranking/getRanking").then(res => {
 // CSDN
 .ranking-body {
     height: 67px;
-    width: 876px;
+    // width: 876px;
     display: flex;
     align-items: center;
     margin: 0 auto;

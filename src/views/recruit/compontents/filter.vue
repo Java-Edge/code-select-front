@@ -20,7 +20,13 @@
         <a href="javascript:;" class="search-btn">搜索</a>
       </div>
       <city-dialog ref="cityDialogRef" @confirm="confirm" />
-      <a @click="$router.push('/login')" class="go-login-btn" v-if="!store.state.userInfo"
+      <a
+        @click="$router.push('/login')"
+        class="go-login-btn"
+        v-if="!store.state.userInfo"
+        >登录，查看更多岗位</a
+      >
+      <a @click="$router.push('/login')" class="go-login-btn"
         >登录，查看更多岗位</a
       >
     </div>
@@ -96,31 +102,30 @@ const store = useStore();
 const queryParams = ref({});
 const getDctionary = (typeKey, callback) => {
   axios
-      .get(
-          "/back/dictionary/list?typeKey=" + typeKey
-          // ,
-          //     {
-          //         headers: {
-          //             "Authorization": this.$store.getters.getToken
-          //         }
-          //     }
-      )
-      .then((response) => {
-        const result = response.data.result;
-        let list = [];
-        result.list.map((item) => {
-          let data = {};
-          data.id = item.id;
-          data.name = item.label;
-          data.value = item.value;
-          data.active = false;
-          list.push(data);
-        });
-        callback(list);
+    .get(
+      "/back/dictionary/list?typeKey=" + typeKey
+      // ,
+      //     {
+      //         headers: {
+      //             "Authorization": this.$store.getters.getToken
+      //         }
+      //     }
+    )
+    .then((response) => {
+      const result = response.data.result;
+      let list = [];
+      result.list.map((item) => {
+        let data = {};
+        data.id = item.id;
+        data.name = item.label;
+        data.value = item.value;
+        data.active = false;
+        list.push(data);
       });
+      callback(list);
+    });
 };
 const selectList = reactive({
-  
   jobTypeList: {
     name: "求职类型",
     data: [
@@ -270,42 +275,12 @@ const getRecruit = () => {
       recruitType: this.recruitTypeValue,
     },
   };
-  axios.post( "/back/recruit/selectByCondition",condition
-      // ,
-      //     {
-      //         headers: {
-      //             "Authorization": this.$store.getters.getToken
-      //         }
-      //     }
-    )
-    .then((response) => {
-      let result = response.data.result;
-      this.recruits = result.records;
-      this.total = result.total;
-    });
+  axios.post("/back/recruit/selectByCondition", condition).then((response) => {
+    let result = response.data.result;
+    this.recruits = result.records;
+    this.total = result.total;
+  });
 };
-
-// const tabs = [
-//   { type: "city", name: "城市和区域" },
-//   { type: "subway", name: "地铁" },
-// ];
-// const currentTab = ref("city");
-// const changeTab = (item) => {
-//   currentTab.value = item.type;
-// };
-// const currentArea = [
-//   { code: "1", name: "玄武区" },
-//   { code: "2", name: "浦口区" },
-//   { code: "3", name: "秦淮区" },
-//   { code: "4", name: "建邺区" },
-//   { code: "5", name: "鼓楼区" },
-//   { code: "6", name: "六合区" },
-//   { code: "7", name: "溧水区" },
-//   { code: "8", name: "高淳区" },
-//   { code: "9", name: "栖霞区" },
-//   { code: "10", name: "雨花台区" },
-//   { code: "11", name: "江宁区" },
-// ];
 const clear = ref(false);
 const reset = () => {
   for (var item in selectList) {
@@ -321,7 +296,7 @@ const reset = () => {
 <style lang="scss" scoped>
 .job-search-wrapper {
   background: #fff;
-  width: 1600px;
+  max-width: 1152px;
   margin: 20px auto 0;
   border-radius: 12px;
   padding: 24px 24px 16px;
@@ -330,7 +305,7 @@ const reset = () => {
     .job-search-form {
       position: relative;
       float: left;
-      width: 1324px;
+      width: 844px;
       height: 50px;
       background: #00bebd;
       border-radius: 12px;
@@ -376,7 +351,7 @@ const reset = () => {
         position: relative;
         float: left;
         background: #fff;
-        width: 1072px;
+        width: 588px;
         border-radius: 0 10px 10px 0;
       }
       .input {

@@ -1,5 +1,5 @@
 <template>
-    <div class="body">
+    <div class="body main-content">
         <!-- 显示专栏列表 -->
         <div class="box-body">
             <!-- 绑定每个专栏的链接 -->
@@ -22,7 +22,6 @@
 import axios from "axios";
 export default {
     name: "CourseNavigation",
-
     data() {
         return {
             specialItems: []
@@ -74,9 +73,8 @@ export default {
 <style lang="scss" scoped>
 /* 设置专栏列表的宽度、间距和对齐方式 */
 .box-body {
-    width: 80%;
     margin: 0 auto;
-    padding: 20px;
+    // padding: 20px;
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
@@ -102,6 +100,7 @@ export default {
     margin-top: 25px;
     text-decoration: none;
     color: #666666;
+    box-sizing: border-box;
 }
 
 .special-box:hover {
