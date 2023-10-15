@@ -40,14 +40,21 @@
     </div>
 
     <el-table :data="tableData" height="1000" border style="width: 100%">
-      <el-table-column prop="index" label="序号" width="80"> </el-table-column>
+      <el-table-column type="index" label="序号" width="80"></el-table-column>
       <!-- <el-table-column prop="companyName" label="公司名称" width="180"> </el-table-column> -->
       <el-table-column prop="title" label="标题" width="180"> </el-table-column>
       <el-table-column prop="content" label="备注" width="400"> </el-table-column>
       <el-table-column prop="createAt" label="开始时间" width="180"> </el-table-column>
-      <el-table-column prop="recommendCode" label="内推码"  width="250"> </el-table-column>
-      <el-table-column prop="recommendEmail" label="内推邮箱" width="250"> </el-table-column>
+      <el-table-column prop="recommendCode" label="内推码"  width="200"> </el-table-column>
+      <el-table-column prop="recommendEmail" label="内推邮箱" width="180"> </el-table-column>
       <el-table-column prop="recommendUrl" label="内推链接" width="250"> </el-table-column>
+      <el-table-column fixed="right" label="Operations" width="120">
+        <template #default="scope">
+          <el-button link type="primary" size="small"  @click.prevent="onShowClick(scope.row.id)"  >
+            查看
+          </el-button>
+        </template>
+      </el-table-column>
     </el-table>
 
     <!-- <div
