@@ -129,7 +129,7 @@ export default {
 .course-right-side-container {
   position: absolute;
   right: 0px;
-  top: 20px;
+  top: 0px;
   width: 25%;
   height: fit-content;
   /* border: 1px solid red; */

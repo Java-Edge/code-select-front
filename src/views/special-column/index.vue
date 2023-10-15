@@ -1,7 +1,8 @@
 <template>
-    <div class="body main-content">
+    <div class="body">
+        <category-com/>
         <!-- 显示专栏列表 -->
-        <div class="box-body">
+        <div class="box-body  main-content">
             <!-- 绑定每个专栏的链接 -->
             <a v-for="item in specialItems" :key="item.id" :href="item.sourceUrl" target="_blank" class="special-box">
                 <div class="box-head">
@@ -20,8 +21,10 @@
 
 <script>
 import axios from "axios";
+import categoryCom from './compontents/special-category.vue'
 export default {
     name: "CourseNavigation",
+    components:{categoryCom},
     data() {
         return {
             specialItems: []

@@ -42,7 +42,7 @@ export default {
   /* flex: 0 0 calc(50% - 20px); */
 
   /* max-width: 100%; */
-  width: 880px;
+  width: 850px;
   height: 150px;
   margin-bottom: 10px;
   background-color: #fff;
