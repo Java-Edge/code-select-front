@@ -1,6 +1,6 @@
 <template>
   <div class="course-navigation">
-    <filterVue />
+    <filterVue @result="getRecruits" />
     <!-- 内容区域 -->
     <!-- <div style="font-size: 30px; text-align: center; margin-top: 30px">
       -- 招聘列表 --
@@ -34,36 +34,41 @@ export default {
       recruits: [], // 所有课程数据，从后端获取或静态定义
     };
   },
-  created() {
-    this.getRecruit();
-  },
+  // created() {
+  //   this.getRecruits();
+  // },
   methods: {
-    getRecruit() {
-      let condition;
-      condition = {
-        pageNo: 1,
-        pageSize: 20,
-        param: {
-          companyId: "",
-          careerJobId: "",
-        },
-      };
-      this.$axios.post(  "/back/recruit/selectByCondition", condition
-          // ,
-          //     {
-          //         headers: {
-          //             "Authorization": this.$store.getters.getToken
-          //         }
-          //     }
-        )
-        .then((response) => {
-          let result = response.data.result;
-          this.recruits = result.records;
-          this.total = result.total;
+    // getRecruit() {
+    //   let condition;
+    //   condition = {
+    //     pageNo: 1,
+    //     pageSize: 20,
+    //     param: {
+    //       companyId: "",
+    //       careerJobId: "",
+    //     },
+    //   };
+    //   this.$axios.post(  "/back/recruit/selectByCondition", condition
+    //       // ,
+    //       //     {
+    //       //         headers: {
+    //       //             "Authorization": this.$store.getters.getToken
+    //       //         }
+    //       //     }
+    //     )
+    //     .then((response) => {
+    //       let result = response.data.result;
+    //       this.recruits = result.records;
+    //       this.total = result.total;
 
-          console.log(this.recruits);
-        });
-    },
+    //       console.log(this.recruits);
+    //     });
+    // },
+
+    getRecruits(result){
+      this.recruits = result.records
+      this.total = result.total
+    }
   },
 };
 </script>
@@ -279,7 +284,7 @@ export default {
   background-image: url('@/assets/sprite.png');
   width: 25px;
   height: 20px;
-}
+} 
 
 </style>
   

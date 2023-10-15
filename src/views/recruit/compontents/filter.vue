@@ -17,7 +17,7 @@
           </div>
           <!-- <a href="javascript:;" class="search-map-btn">地图</a> -->
         </div>
-        <a href="javascript:;" class="search-btn">搜索</a>
+        <a href="javascript:;" class="search-btn" @click="getRecruit">搜索</a>
       </div>
       <city-dialog ref="cityDialogRef" @confirm="confirm" />
       <a @click="$router.push('/login')" class="go-login-btn" v-if="!store.state.userInfo"
@@ -76,7 +76,7 @@
 </template>
 
 <script setup>
-import { reactive, ref } from "vue";
+import { reactive, ref ,defineEmits} from "vue";
 import CityDialog from "./cityDialog.vue";
 import mySelect from "./mySelect.vue";
 import industrySelect from "./industrySelect.vue";
@@ -85,6 +85,7 @@ import axios from "axios";
 import data from "../city.json";
 import { useStore } from "vuex";
 const cityDialogRef = ref(null);
+const emits = defineEmits(['message']);
 const openDialog = () => {
   cityDialogRef.value.showDialog();
 };
@@ -110,9 +111,8 @@ const getDctionary = (typeKey, callback) => {
         let list = [];
         result.list.map((item) => {
           let data = {};
-          data.id = item.id;
+          data.id = parseInt(item.value);
           data.name = item.label;
-          data.value = item.value;
           data.active = false;
           list.push(data);
         });
@@ -262,12 +262,12 @@ const getRecruit = () => {
     pageNo: 1,
     pageSize: 20,
     param: {
-      eduLevel: this.educationLevelValue,
-      graduateYear: this.graduateYearValue,
-      personScale: this.personScaleValue,
-      salaryRange: this.salaryValue,
-      scaleTag: this.financeStageValue,
-      recruitType: this.recruitTypeValue,
+      eduLevel: queryParams.value["degressList"],
+      graduateYear: queryParams.value["expList"],
+      personScale: queryParams.value["sizeList"],
+      salaryRange:queryParams.value["salaryList"],
+      scaleTag: queryParams.value["stageList"],
+      recruitType: queryParams.value["jobTypeList"]
     },
   };
   axios.post( "/back/recruit/selectByCondition",condition
@@ -280,11 +280,12 @@ const getRecruit = () => {
     )
     .then((response) => {
       let result = response.data.result;
-      this.recruits = result.records;
-      this.total = result.total;
+      // this.recruits = result.records;
+      // this.total = result.total;
+      emits('result', result);
     });
 };
-
+getRecruit();
 // const tabs = [
 //   { type: "city", name: "城市和区域" },
 //   { type: "subway", name: "地铁" },
