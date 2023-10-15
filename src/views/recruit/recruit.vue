@@ -17,6 +17,7 @@
       <pagination
         :page="page"
         :total="total"
+        :size="size"
         @pageChange="handleCurrentChange"
       />
     </div>

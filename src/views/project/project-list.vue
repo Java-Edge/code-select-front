@@ -25,7 +25,7 @@
         <!-- <a href="https://blog.csdn.net/qq_33589510" target="_blank"><div class="ranking-button">开始学习</div> </a> -->
       </div>
     </div>
-    <pagination :page="page" :total="total" @pageChange="handleCurrentChange" />
+    <pagination :page="page" :total="total" :size="size" @pageChange="handleCurrentChange" />
   </div>
 </template>
   

@@ -28,7 +28,7 @@
         </a>
       </div>
     </div>
-    <pagination :page="page" :total="total" @pageChange="handleCurrentChange" />
+    <pagination :page="page" :total="total" :size="size" @pageChange="handleCurrentChange" />
   </div>
 </template>
 <script setup>
