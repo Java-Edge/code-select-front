@@ -28,9 +28,6 @@
         v-if="!store.state.userInfo"
         >登录，查看更多岗位</a
       >
-      <a @click="$router.push('/login')" class="go-login-btn"
-        >登录，查看更多岗位</a
-      >
     </div>
     <div class="search-condition-wrapper clearfix">
       <div class="city-area-select">
