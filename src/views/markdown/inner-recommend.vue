@@ -34,7 +34,7 @@
         <el-input
         v-model="keyword" 
         @change="handleChangeCompany"
-        placeholder="请输入内容">
+        placeholder="根据公司名称或职位模糊查询">
         </el-input>
       </div>
     </div>
