@@ -1,5 +1,5 @@
 <template>
-  <div class="course-details">
+  <div class="course-details main-content">
     <div class="course-row" v-for="row in recruitRows" :key="row">
       <RecruitBox v-for="recruit in row" :key="recruit.id" :recruit="recruit" />
     </div>
@@ -114,9 +114,7 @@ export default {
 /* 招聘列表容器外边框 */
 .course-details {
   position: relative;
-  padding: 20px;
-  /* border: 1px solid red; */
-  /* Set a minimum width for the course details */
+  width:1152px;
 }
 
 /* 招聘列表 */
@@ -130,8 +128,8 @@ export default {
 
 .course-right-side-container {
   position: absolute;
-  right: 45px;
-  top: 20px;
+  right: 0px;
+  top: 0px;
   width: 25%;
   height: fit-content;
   /* border: 1px solid red; */

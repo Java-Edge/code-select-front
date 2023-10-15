@@ -7,7 +7,7 @@
  * @LastEditTime: 2023-07-27 23:18:43
 -->
 <template>
-  <div class="article-detail-container">
+  <div class="article-detail-container main-content">
     <div><h2 class="title"> {{ detail.title }} </h2></div>
     <div class='interview-type'>
       <div class='interview-create-time'>{{ detail.createAt }}</div>

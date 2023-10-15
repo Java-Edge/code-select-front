@@ -1,5 +1,5 @@
 <template>
-    <div class="article-detail-container">
+    <div class="article-detail-container main-content">
         <h2 class="title"> {{detail.title}} </h2>
         <div class="header">
             <!-- <span class="author"> 作者 ： 黑猫警长 </span> -->
@@ -47,7 +47,7 @@ const onEditClick = row => {
     padding: 12px 0;
   }
   .header {
-    padding: 26px 200px;
+    padding: 26px 0px;
     .author {
       font-size: 14px;
       color: #555666;
@@ -66,7 +66,7 @@ const onEditClick = row => {
   }
   .content {
     font-size: 14px;
-    padding: 20px 200px;
+    padding: 20px 0px;
     border-top: 1px solid #d4d4d4;
     display: block
   }

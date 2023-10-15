@@ -86,7 +86,7 @@ const handleCurrentChange = (currentPage) => {
 }
 /* 添加样式 */
 .course-navigation {
-  max-width: 1600px;
+  max-width: 1152px;
   margin: 0 auto;
 }
 .filter-box {
@@ -217,7 +217,7 @@ const handleCurrentChange = (currentPage) => {
 }
 /* 背景图片样式 */
 .background-image {
-  width: 1600px;
+  width: 1152px;
   height: 250px;
   margin-top: 50px;
 }
@@ -254,7 +254,7 @@ const handleCurrentChange = (currentPage) => {
 
   .grid_c1 {
     margin: 0 auto;
-    width: 1600px;
+    width: 1152px;
 
     .floorhd_tit {
       position: relative;

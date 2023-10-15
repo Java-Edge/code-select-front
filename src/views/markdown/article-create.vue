@@ -165,7 +165,7 @@ const onSubmitClick = () => {
 .markdown-container {
 
   min-height: 800px;
-  max-width: 1600px;
+  max-width: 1152px;
   margin: 0 auto;
 
   .bottom {

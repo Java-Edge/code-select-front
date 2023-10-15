@@ -1,7 +1,7 @@
 <template>
   <div class="right-sidebar">
     <div class="swiper-container">
-      <el-carousel :interval="4000" type="card" height="450px">
+      <el-carousel :interval="4000" type="card" height="400px">
         <el-carousel-item v-for="item in carouselData" :key="item.id">
           <router-link :to="`/course/${item.id}`">
               <img :src="item.image" alt="轮播图" class="course-image" />

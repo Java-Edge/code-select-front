@@ -28,6 +28,9 @@
         v-if="!store.state.userInfo"
         >登录，查看更多岗位</a
       >
+      <a @click="$router.push('/login')" class="go-login-btn"
+        >登录，查看更多岗位</a
+      >
     </div>
     <div class="search-condition-wrapper clearfix">
       <div class="city-area-select">
@@ -301,28 +304,6 @@ const queryRecruits = () => {
   };
   emits("getRecruit", param);
 };
-
-// const tabs = [
-//   { type: "city", name: "城市和区域" },
-//   { type: "subway", name: "地铁" },
-// ];
-// const currentTab = ref("city");
-// const changeTab = (item) => {
-//   currentTab.value = item.type;
-// };
-// const currentArea = [
-//   { code: "1", name: "玄武区" },
-//   { code: "2", name: "浦口区" },
-//   { code: "3", name: "秦淮区" },
-//   { code: "4", name: "建邺区" },
-//   { code: "5", name: "鼓楼区" },
-//   { code: "6", name: "六合区" },
-//   { code: "7", name: "溧水区" },
-//   { code: "8", name: "高淳区" },
-//   { code: "9", name: "栖霞区" },
-//   { code: "10", name: "雨花台区" },
-//   { code: "11", name: "江宁区" },
-// ];
 const clear = ref(false);
 const reset = () => {
   for (var item in selectList) {
@@ -338,7 +319,7 @@ const reset = () => {
 <style lang="scss" scoped>
 .job-search-wrapper {
   background: #fff;
-  width: 1600px;
+  max-width: 1152px;
   margin: 20px auto 0;
   border-radius: 12px;
   padding: 24px 24px 16px;
@@ -347,7 +328,7 @@ const reset = () => {
     .job-search-form {
       position: relative;
       float: left;
-      width: 1324px;
+      width: 844px;
       height: 50px;
       background: #00bebd;
       border-radius: 12px;
@@ -393,7 +374,7 @@ const reset = () => {
         position: relative;
         float: left;
         background: #fff;
-        width: 1072px;
+        width: 588px;
         border-radius: 0 10px 10px 0;
       }
       .input {

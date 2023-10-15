@@ -1,5 +1,5 @@
 <template>
-    <div class="course-container">
+    <div class="course-container main-content">
         <!-- 上板块 -->
         <div class="course-group-first">
             <div class="course-group-wrapper course-group-wrapper-first">
@@ -184,12 +184,13 @@ export default {
 }
 
 .course-group-header-title {
+  width: 300px;
   font-size: 16px;
   color: #333;
   font-weight: bold;
   overflow: hidden;
-  white-space: nowrap;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .company-name {

@@ -1,11 +1,8 @@
 <template>
-  <div style="background-color: #f9f3e8; overflow: hidden">
-    <div class="article-ranking-container">
-      <div
-        class="ranking-body"
-        v-for="article in articleData"
-        :key="article.articleId"
-      >
+  <div style="background-color: #f9f3e8;overflow: hidden;">
+    <div class="article-ranking-container main-content">
+
+<div class="ranking-body" v-for="article in articleData" :key="article.articleId">
         <!-- <div class="ranking-number">{{ ranking.orderVal }}</div> -->
         <div class="ranking-left">
           <div class="ranking-img">
@@ -70,6 +67,7 @@
       />
     </div>
   </div>
+  
 </template>
   
 <script setup>
@@ -143,9 +141,6 @@ const handleCurrentChange = (currentPage) => {
 <style lang="scss" scoped>
 .article-ranking-container {
   min-height: 800px;
-  max-width: 1600px;
-  margin: 0 auto;
-
   .header {
     margin-bottom: 20px;
 
@@ -174,24 +169,24 @@ const handleCurrentChange = (currentPage) => {
   text-decoration: none;
   color: black;
   display: block;
-  width: 600px;
+  width: 810px;
 }
 // 带阴影
 .ranking-body {
-  height: 97px;
-  width: 976px;
-  display: flex;
-  align-items: center;
-  margin: 0 auto;
-  margin-top: 25px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid #e9e9e9;
-  padding-bottom: 10px;
-  box-shadow: 8px 16px 16px hsl(0deg 0% 0% / 0.25);
-  background-color: white;
-  border-radius: 15px;
-  padding: 20px;
+    height: 97px;
+    // width: 976px;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 25px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e9e9e9;
+    padding-bottom: 10px;
+    box-shadow: 8px 16px 16px hsl(0deg 0% 0% / 0.25);
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
 }
 
 .ranking-left {

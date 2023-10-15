@@ -139,7 +139,7 @@ export default {
 
   .header-content {
     width: auto;
-    max-width: 1600px;
+    max-width: 1152px;
     z-index: 900;
     position: relative;
     background-size: cover;

@@ -1,25 +1,22 @@
 <template>
-  <div class="body">
-    <div class="ranking-body" v-for="ranking in rankings" :key="ranking.id">
-      <div class="ranking-number">{{ ranking.orderVal }}</div>
-      <div class="ranking-left">
-        <div class="ranking-img">
-          <img
-            v-if="ranking.img == null || ranking.img == ''"
-            src="https://pic.imgdb.cn/item/64ed5b3e661c6c8e5402fc1a.jpg"
-          />
-          <img v-else :src="ranking.img" />
-        </div>
-      </div>
-      <!-- <router-link :to="`/ranking/${ranking.articleId}`" class="link-sty"> -->
-      <a :href="ranking.href" target="_blank" class="link-sty">
-        <div class="ranking-middle">
-          <div class="ranking-name hide-text">{{ ranking.title }}</div>
-          <div class="ranking-des hide-text">{{ ranking.des }}</div>
-          <!-- <div class="ranking-likes">浏览量 {{ ranking.pageView }}</div> -->
-        </div>
-      </a>
-      <!-- </router-link> -->
+    <div class="body main-content">
+        <div class="ranking-body" v-for="ranking in rankings" :key="ranking.id">
+            <div class="ranking-number">{{ ranking.orderVal }}</div>
+            <div class="ranking-left">
+                <div class="ranking-img">
+                    <img v-if="ranking.img == null || ranking.img == ''" src="https://pic.imgdb.cn/item/64ed5b3e661c6c8e5402fc1a.jpg" />
+                    <img v-else :src="ranking.img" />
+                </div>
+            </div>
+            <!-- <router-link :to="`/ranking/${ranking.articleId}`" class="link-sty"> -->
+            <a :href="ranking.href" target="_blank" class="link-sty">
+                <div class="ranking-middle">
+                    <div class="ranking-name hide-text">{{ ranking.title }}</div>
+                    <div class="ranking-des hide-text">{{ ranking.des }}</div>
+                    <!-- <div class="ranking-likes">浏览量 {{ ranking.pageView }}</div> -->
+                </div>
+            </a>
+            <!-- </router-link> -->
 
       <div class="ranking-right">
         <div class="ranking-user-img">
@@ -62,13 +59,13 @@ const handleCurrentChange = (currentPage) => {
   text-decoration: none;
   color: black;
   display: block;
-  width: 600px;
+  width: 830px;
 }
 .ranking-number {
-  color: #999aaa;
-  font-size: 20px;
-  // margin-bottom: 50px;
-  margin-right: 15px;
+    color: #999AAA;
+    font-size: 20px;
+    // margin-bottom: 50px;
+    margin-right: 15px;
 }
 // 带阴影
 // .ranking-body {
@@ -90,16 +87,16 @@ const handleCurrentChange = (currentPage) => {
 
 // CSDN
 .ranking-body {
-  height: 67px;
-  width: 876px;
-  display: flex;
-  align-items: center;
-  margin: 0 auto;
-  margin-top: 15px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid #e9e9e9;
-  padding-bottom: 10px;
+    height: 67px;
+    // width: 876px;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e9e9e9;
+    padding-bottom: 10px;
 }
 
 .ranking-left {
