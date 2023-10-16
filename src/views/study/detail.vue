@@ -4,12 +4,13 @@
       <div class="main-content content">
         <router-link to href="/study-list" target="_blank">
           <div class="content-logo">
-            <img
-              src="@/assets/flag.png"
-              style="height: 50px; padding-right: 20px"
-            />
-            <h2>学习路线</h2>
-            <span>系统化学习，打造阶梯学习模式</span>
+<!--            TODO 很丑陋，待优化-->
+<!--            <img-->
+<!--              src="@/assets/flag.png"-->
+<!--              style="height: 50px; padding-right: 20px"-->
+<!--            />-->
+<!--            <h2>学习路线</h2>-->
+<!--            <span>系统化学习，打造阶梯学习模式</span>-->
           </div>
         </router-link>
         <h2>{{ roadMap.title }}</h2>
