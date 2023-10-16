@@ -9,6 +9,7 @@
 import axios from 'axios'
 // import QS from 'qs';
 import router from './router'
+import { ElMessage, ElMessageBox } from 'element-plus';
 
 axios.defaults.baseURL = "/api"
 // axios.defaults.baseURL = "/"
@@ -20,59 +21,88 @@ axios.interceptors.request.use(config => {
     var token = getCookieValue("token");
     config.headers['Accept'] = 'application/json';
     config.headers['token'] = token;
-    //
-    // // if (window.location.pathname != "/user/login") {
-    // //     config.headers['Authorization'] = localStorage.getItem("token");
-    // // }
-    // if (config.method === 'post') {
-    //     config.data = QS.stringify({
-    //         ...config.data  // 将参数变成  a=xx&b=xx&c=xx这样的参数列表
-    //     });
-    // }
-
     return config;
 }, function (error) {
     console.log('error!!!');
     return Promise.reject(error);
 })
+axios.interceptors.response.use(
+    (response) => {
+        // console.log(response)
+        const { code, message } = response.data;
+        if (code === 200) {
+            return response;
+        }
+        else if (code === 402 || code === 401) {
+            ElMessageBox.confirm("当前页面已失效，请重新登录", "提示", {
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                type: "warning",
+            }).then(() => {
+                localStorage.clear();
+                router.push('/login')
+            }).catch(() => {
 
-axios.interceptors.response.use(response => {
-    let res = response.data;
+            });
+        } else {
+            ElMessage.error(msg || "系统出错");
+        }
+        // 响应数据为二进制流处理(Excel导出)
+        if (response.data instanceof ArrayBuffer) {
+            return response;
+        }
+        return Promise.reject(new Error(message || "Error"));
+    },
+    (error) => {
+        console.log(error)
+        // let { message } = error;
+        // if (message == "Network Error") {
+        //     message = "后端接口连接异常";
+        // } else if (message.includes("timeout")) {
+        //     message = "系统接口请求超时";
+        // } else if (message.includes("Request failed with status code")) {
+        //     message = "系统接口" + message.substr(message.length - 3) + "异常";
+        // }
+        // Message({ message: message, type: 'error', duration: 5 * 1000 })
+        return Promise.reject(error)
 
-    console.log("=================")
-    console.log(res)
-    console.log("=================")
-
-    if (res.code === 200) {
-        return response
-    } else if (res.code === 401) {
-        // this.$message.success(res.message);
-        router.push("/login")
-        return Promise.reject(res.message)
-    } else if (res.code === 402) {
-        // this.$message({
-        //     type: 'fail',
-        //     message: response.data.message
-        // });
-        router.push("/login")
-        return Promise.reject(res.message)
-    } else if (res.code == 403) {
-        router.push("/login")
-        return Promise.reject(res.message)
-    } else if (res.code === 400001) {
-        // this.$message.error( response.data.message)
-        return response
-    } else if (res.code === 400002) {
-        // this.$message.error( response.data.message)
-        return response
-    } else if(res.code === 400003) {
-        // this.$message.error( response.data.message)
-        return response
-    } else {
-        return Promise.reject(res.message)
     }
-},
-)
+);
+
+// axios.interceptors.response.use(response => {
+//     let res = response.data;
+
+
+//     if (res.code === 200) {
+//         return response
+//     } else if (res.code === 401) {
+//         // this.$message.success(res.message);
+//         router.push("/login")
+//         return Promise.reject(res.message)
+//     } else if (res.code === 402) {
+//         // this.$message({
+//         //     type: 'fail',
+//         //     message: response.data.message
+//         // });
+//         router.push("/login")
+//         return Promise.reject(res.message)
+//     } else if (res.code == 403) {
+//         router.push("/login")
+//         return Promise.reject(res.message)
+//     } else if (res.code === 400001) {
+//         // this.$message.error( response.data.message)
+//         return response
+//     } else if (res.code === 400002) {
+//         // this.$message.error( response.data.message)
+//         return response
+//     } else if(res.code === 400003) {
+//         // this.$message.error( response.data.message)
+//         return response
+//     } else {
+//         return Promise.reject(res.message)
+//     }
+// },
+// )
 
 //cookie只能存放键值对
 var operator = "=";
