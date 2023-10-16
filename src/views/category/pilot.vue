@@ -1,5 +1,5 @@
 <template>
-  <div class="content-class">
+  <div class="content-class" style="padding-top:10px;">
     <div v-for="(value, key) in pilotList" :key="key">
       <categry-components :list="value" :title="key"></categry-components>
     </div>

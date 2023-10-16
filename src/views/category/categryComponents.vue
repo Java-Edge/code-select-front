@@ -31,7 +31,7 @@ export default {
   width: 80%;
   margin-bottom: 14px;
   border-radius: 4px;
-  background: #f0f0f0;
+  background: #fff;
 }
 .head-line {
   margin: 15px 20px;
