@@ -54,15 +54,15 @@
         >
           <el-option
             v-for="item in companyOptions"
-            :key="item.companyName"
-            :label="item.companyName"
-            :value="item.companyName"
+            :key="item"
+            :label="item"
+            :value="item"
           />
         </el-select>
       </div>
       <div class="company-filter-box">
         <el-input
-        v-model="keyword" 
+        v-model="keyword"
         @change="handleChangeCompany"
         placeholder="请输入内容">
         </el-input>
@@ -119,7 +119,6 @@ getCompanyData();
 
 // 公司筛选框
 const handleChangeCompany = () => {
-  console.log(companyCondition.value);
   let condition = {
     pageNo: page.value,
     pageSize: size.value,
@@ -202,7 +201,6 @@ const getListDataByCondition = async (condition) => {
   axios
     .post("/back/interview/selectByCondition", condition)
     .then((response) => {
-      console.log(response);
       tableData.value = response.data.result.records;
       total.value = response.data.result.total;
     });
