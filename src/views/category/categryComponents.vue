@@ -1,5 +1,5 @@
 <template>
-  <div class="view-box">
+  <div class="view-box main-content">
     <div class="head-line">{{ title }}</div>
     <div class="item-list">
       <div v-for="(item, index) in list" :key="index">
@@ -31,7 +31,7 @@ export default {
   width: 80%;
   margin-bottom: 14px;
   border-radius: 4px;
-  background: #f0f0f0;
+  background: #fff;
 }
 .head-line {
   margin: 15px 20px;

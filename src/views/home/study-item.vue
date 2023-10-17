@@ -35,32 +35,22 @@ export default {
 </script>
   
 <style scoped lang="scss">
-.course-details a:nth-child(4n) {
-    .course-box {
-        margin-right: 0px;
-    }
-}
-
 .course-box {
-    display: flex;
-    flex-direction: column;
+    position: relative;
+    float: left;
     width: 368px;
-    height: 200px;
-    background-color: #fff;
+    height: 178px;
+    margin: 0 24px 24px 0;
+    background: #fff;
+    box-shadow: 0 4px 8px 0 rgba(95,101,105,.1);
     border-radius: 8px;
-    box-shadow: 0 6px 10px 0 rgba(95, 101, 105, .15);
-    line-height: 30px;
-    margin: 0 42px 24px 0;
+    transition: all .2s;
+    overflow: hidden;
 }
 
 .image-container {
-    overflow: hidden;
     margin-bottom: 10px;
-    height: 140px;
-    max-height: 200px;
-    margin-bottom: 8px;
-    border-radius: 8px 8px 0 0;
-    object-fit: contain;
+    height: 90px;
 }
  .title {
     font-size: 14px;
@@ -68,11 +58,10 @@ export default {
     line-height: 20px;
     padding: 0 8px;
     width: 368px;
-    height: 50px;
+    height: 40px;
     margin-bottom: 10px;
     box-sizing: border-box;
     word-break: break-all;
-    
 }
 .title.ellipsis2 {
     overflow: hidden;

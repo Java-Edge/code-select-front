@@ -60,6 +60,13 @@
           />
         </el-select>
       </div>
+      <div class="company-filter-box">
+        <el-input
+        v-model="keyword" 
+        @change="handleChangeCompany"
+        placeholder="请输入内容">
+        </el-input>
+      </div>
     </div>
 
     <div
@@ -84,17 +91,7 @@
       </div>
     </div>
 
-    <el-pagination
-      class="pagination"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="page"
-      :page-sizes="[5, 10, 50, 100, 200]"
-      :page-size="size"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="total"
-    >
-    </el-pagination>
+    <pagination :page="page" :total="total" @pageChange="handleCurrentChange"/>
   </div>
 </template>
 
@@ -102,13 +99,13 @@
 import { ref, onActivated, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import axios from "axios";
-import Header from "../Header.vue"; // Import the Header component
-import Footer from "../Footer.vue"; // Import the Footer component
+import pagination from "@/components/pagination.vue";
 
 const companyOptions = ref([]);
 let companyCondition = ref("");
 let activeMenu = ref("");
 let jobId = ref(-1);
+let keyword = ref("");
 
 /**
  * 获取公司数据
@@ -130,6 +127,7 @@ const handleChangeCompany = () => {
       jobId: jobId.value,
       content: activeMenu.value,
       company: companyCondition.value,
+      keyword: keyword.value,
     },
   };
   getListDataByCondition(condition);
@@ -149,6 +147,7 @@ const handleFilterSelect = (selectedItem) => {
         jobId: jobId.value,
         content: activeMenu.value,
         company: companyCondition.value,
+        keyword: keyword.value,
       },
     };
     getListDataByCondition(condition);
@@ -161,7 +160,6 @@ const handleFilterSelect = (selectedItem) => {
       pageSize: size.value,
       param: {
         jobId: jobId.value,
-        company: companyCondition.value,
       },
     };
     getListDataByCondition(condition);
@@ -183,6 +181,7 @@ const handleChange = (value) => {
       content: activeMenu.value != "" ? activeMenu.value : "",
       company: companyCondition.value,
       articleType: 1,
+      keyword: keyword.value
     },
   };
   getListDataByCondition(condition);
@@ -372,7 +371,7 @@ watch(
 }
 .article-ranking-container {
   min-height: 800px;
-  max-width: 1600px;
+  max-width: 1152px;
   margin: 0 auto;
   .header {
     margin-bottom: 20px;

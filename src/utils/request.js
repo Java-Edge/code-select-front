@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import store from "@/store";
 import router from "@/router";
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
@@ -11,6 +11,9 @@ const service = axios.create({
 service.interceptors.request.use(
   (config) => {
     var token = getCookieValue("token");
+    if (!token) {
+      token = store.state.userInfo? store.state.userInfo.token:''
+    }
     config.headers["Accept"] = "application/json";
     config.headers["token"] = token;
     return config;

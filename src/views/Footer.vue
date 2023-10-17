@@ -74,7 +74,7 @@ getDictionaryData();
 }
 
 .footer-content {
-  max-width: 1600px;
+  max-width: 1152px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
