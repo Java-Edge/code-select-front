@@ -17,7 +17,7 @@
           </div>
         </div>
         <div class="other r clearfix">
-          <a class="course-line l" target="_blank">学习路线</a>
+          <a class="course-line l" target="_blank" href="http://47.99.69.109:8080/#/study-list">学习路线</a>
         </div>
       </div>
       <a
