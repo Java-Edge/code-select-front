@@ -62,7 +62,7 @@ export default {
       this.getRecommendCourses();
     },
     getCourseDetail(id) {
-      this.$axios.get("/back/sourceCourse/course/" + id).then((response) => {
+      this.$axios.get("/back/course/course/" + id).then((response) => {
         const courses = response.data.result;
         this.selectedCourse = courses;
       });
@@ -78,7 +78,7 @@ export default {
     },
     getRecommendCourses() {
       this.$axios
-        .get("/back/sourceCourse/getRecommendCourses")
+        .get("/back/course/getRecommendCourses")
         .then((response) => {
           const courses = response.data.result;
           this.recommendCourses = courses;
