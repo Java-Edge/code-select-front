@@ -45,7 +45,7 @@ axios.interceptors.response.use(
 
             });
         } else {
-            ElMessage.error(msg || "系统出错");
+            ElMessage.error(message || "系统出错");
         }
         // 响应数据为二进制流处理(Excel导出)
         if (response.data instanceof ArrayBuffer) {
