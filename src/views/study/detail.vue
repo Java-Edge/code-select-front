@@ -88,10 +88,10 @@
                   data-name="5G时代音视频开发与视频直播技术高手之路"
                   class="js-click-zhuge"
                 >
-                  <div
-                    :style="{ backgroundImage: `url(${item.course.image})` }"
+                <!-- 先去除图片 :style="{ backgroundImage: `url(${item.course.image})` }" -->
+                  <!-- <div
                     class="courseimg"
-                  ></div>
+                  ></div> -->
                   <div class="course-info">
                     <h3>{{ item.course.name }}</h3>
                     <div class="study-info">
@@ -190,13 +190,12 @@ getRecommendCourses();
 
 <style lang="scss" scoped>
 .courseimg{
-    overflow: hidden;
-    margin-bottom: 10px;
-    height: 140px;
-    max-height: 200px;
-    margin-bottom: 8px;
-    border-radius: 8px 8px 0 0;
-    object-fit: contain;
+  overflow: hidden;
+  margin-bottom: 10px;
+  height: 110px;
+  margin-bottom: 8px;
+  border-radius: 8px 8px 0 0;
+  object-fit: contain;
 }
 .pathmain {
   position: relative;
@@ -540,7 +539,7 @@ getRecommendCourses();
           }
 
                     .item-course {
-                        width: 470px;
+                        width: 270px;
                         height: auto;
                         float: right;
                         border-radius: 8px;
