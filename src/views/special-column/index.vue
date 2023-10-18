@@ -1,19 +1,22 @@
 <template>
   <div class="body">
-    <category-com />
+    <category-com @callback="changeCategory" />
     <!-- 显示专栏列表 -->
     <div class="box-body main-content">
       <!-- 绑定每个专栏的链接 -->
       <div class="filter clearfix">
         <div class="sort l">
-          <a class="on">默认排序</a>
-          <a>最新</a>
-          <a>销量</a>
-          <a>升级</a>
+          <a
+            :class="{ on: currentOrder.id === item.id }"
+            v-for="item in order"
+            :key="item"
+            @click="changeOrder(item)"
+            >{{ item.title }}</a
+          >
         </div>
         <div class="l clearfix">
           <div class="isShow-bigCoding">
-            <a class="no-checked"></a> 只显示大实战课
+           <el-checkbox v-model="queryParams.isOnlyShow">只显示大实战课</el-checkbox> 
           </div>
         </div>
         <div class="other r clearfix">
@@ -61,7 +64,26 @@ const total = ref(0);
 const page = ref(1);
 const size = ref(15);
 const specialItems = ref([]);
-
+const order = [
+  { id: 1, title: "默认", name: "default" },
+  { id: 2, title: "最新", name: "new" },
+  { id: 3, title: "销量", name: "count" },
+  { id: 4, title: "升级", name: "level" },
+];
+const currentOrder = ref(order[0]);
+const queryParams = ref({
+  page: 1,
+  category: "",
+  order: "",
+  isOnlyShow: false,
+});
+const changeOrder = (item) => {
+  currentOrder.value = item;
+  queryParams.value.order = item.name;
+};
+const changeCategory = (item) => {
+  queryParams.value.category = item;
+};
 //window.document.cookie可以拿到cookie所有的key=value;形式的字符串。所以从cookie拿值，遍历cookie的所有key，直到key等于keyStr，
 //就可以拿到对应的值，例如我们要拿名为token的key，调用方法getCookieValue(token)就可以拿到key为token的值(value)
 const getCookieValue = (keyStr) => {
@@ -108,7 +130,6 @@ const handleCurrentChange = (currentPage) => {
   page.value = currentPage;
   getSpecialColumn();
 };
-
 </script>
 
 <style lang="scss" scoped>
@@ -230,14 +251,6 @@ const handleCurrentChange = (currentPage) => {
     line-height: 24px;
     font-weight: 400;
     margin-left: 12px;
-    a {
-      width: 12px;
-      height: 16px;
-      display: inline-block;
-      font-family: imv2;
-      position: relative;
-      vertical-align: sub;
-    }
   }
   .other {
     font-size: 12px;
@@ -257,4 +270,8 @@ const handleCurrentChange = (currentPage) => {
 .r {
   float: right;
 }
+.el-checkbox {
+    height: 16px;
+}
+
 </style>
