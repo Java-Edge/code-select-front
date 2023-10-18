@@ -46,7 +46,7 @@ const getDictionaryData = () => {
       console.log(res.data.result[i])
       switch(res.data.result[i].typeKey){
         case "about_us":
-          aboutUs.value = res.data.result[i];      
+          aboutUs.value = res.data.result[i];
           break;
         case "platform_service":
           platformService.value = res.data.result[i];
@@ -74,7 +74,7 @@ getDictionaryData();
 }
 
 .footer-content {
-  max-width: 1152px;
+  max-width: 1350px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;

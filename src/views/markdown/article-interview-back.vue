@@ -149,7 +149,7 @@ watch(
     () => router.currentRoute.value,
     () => {
          console.log("路由变化了", router.currentRoute.value)
-         let type = route.params.type    
+         let type = route.params.type
          console.log(type)
          getListData()
     }
@@ -163,7 +163,7 @@ watch(
 }
 .article-ranking-container {
   min-height: 800px;
-  max-width: 1152px;
+  max-width: 1350px;
   margin: 0 auto;
   .header {
     margin-bottom: 20px;

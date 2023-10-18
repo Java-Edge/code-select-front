@@ -141,7 +141,7 @@ getCategoryList()
   box-shadow: 0 2px 4px 0 rgba(28, 31, 33, 0.06);
 
   //   .main-content{
-  //     max-width: 1152px;
+  //     max-width: 1350px;
   //     margin: 0 auto;
   //   }
   .logo {

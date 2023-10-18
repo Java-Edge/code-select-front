@@ -108,13 +108,13 @@ export default {
   },
 };
 </script>
-  
+
 <style scoped>
 
 /* 招聘列表容器外边框 */
 .course-details {
   position: relative;
-  width:1152px;
+  width:1350px;
 }
 
 /* 招聘列表 */
@@ -190,4 +190,3 @@ export default {
 }
 
 </style>
-  
