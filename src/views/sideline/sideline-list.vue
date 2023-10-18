@@ -52,7 +52,7 @@
     <pagination :page="page" :total="total" :size="size" @pageChange="handleCurrentChange" />
   </div>
 </template>
-  
+
 <script setup>
 import { ref, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
@@ -101,7 +101,7 @@ const handleCurrentChange = (currentPage) => {
 };
 
 </script>
-  
+
 <style lang="scss" scoped>
 .article-ranking-container {
   min-height: 800px;
@@ -248,4 +248,3 @@ const handleCurrentChange = (currentPage) => {
   text-overflow: ellipsis;
 }
 </style>
-  

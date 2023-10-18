@@ -18,7 +18,7 @@
     </div>
   </div>
 </template>
-  
+
 <script setup>
 import MkEditor from "@toast-ui/editor";
 import "@toast-ui/editor/dist/toastui-editor.css";
@@ -160,12 +160,12 @@ const onSubmitClick = () => {
   // title.value = '';
 };
 </script>
-  
+
 <style lang="scss" scoped>
 .markdown-container {
 
   min-height: 800px;
-  max-width: 1152px;
+  max-width: 1350px;
   margin: 0 auto;
 
   .bottom {
@@ -198,4 +198,3 @@ const onSubmitClick = () => {
   font-size: 18px;
 }
 </style>
-  

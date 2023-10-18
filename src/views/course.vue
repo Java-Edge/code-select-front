@@ -114,7 +114,7 @@ onMounted(() => {
 }
 
 .content {
-  max-width: 1152px;
+  max-width: 1350px;
   margin: 0 auto;
   padding: 32px 0px;
 }
@@ -132,7 +132,7 @@ onMounted(() => {
 
 /* 背景图片样式 */
 .image-background {
-  width: 1152px;
+  width: 1350px;
   height: 90px;
   margin-top: 5px;
 }
@@ -146,7 +146,7 @@ onMounted(() => {
 
   .grid_c1 {
     margin: 0 auto;
-    width: 1152px;
+    width: 1350px;
 
     .floorhd_tit {
       position: relative;
