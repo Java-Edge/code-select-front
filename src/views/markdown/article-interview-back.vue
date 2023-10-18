@@ -163,7 +163,7 @@ watch(
 }
 .article-ranking-container {
   min-height: 800px;
-  max-width: 1350px;
+  max-width: 1152px;
   margin: 0 auto;
   .header {
     margin-bottom: 20px;

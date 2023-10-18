@@ -166,7 +166,7 @@ export default {
   z-index: 9999;
   .header-content {
     width: auto;
-    max-width: 1350px;
+    max-width: 1152px;
     z-index: 900;
     position: relative;
     background-size: cover;
@@ -174,7 +174,7 @@ export default {
     margin: 0 auto;
 
     .index-menu {
-      min-width: 1350px;
+      min-width: 1152px;
       .logo {
         float: left;
         // margin: 0 20px;

@@ -40,7 +40,7 @@ export default {
   margin-top: 72px !important;
 }
 
-/* 最大宽度设置为1350px，并将其水平居中对齐 */
+/* 最大宽度设置为1152px，并将其水平居中对齐 */
 .course-navigation {
   margin: 0 auto;
 }
