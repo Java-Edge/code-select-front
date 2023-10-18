@@ -316,7 +316,7 @@ const reset = () => {
 <style lang="scss" scoped>
 .job-search-wrapper {
   background: #fff;
-  max-width: 1350px;
+  max-width: 1152px;
   margin: 20px auto 0;
   border-radius: 12px;
   padding: 24px 24px 16px;

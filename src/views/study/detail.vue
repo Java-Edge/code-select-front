@@ -313,7 +313,7 @@ getRecommendCourses();
   }
 
   .fixed-wrap {
-    width: 1350px;
+    width: 1152px;
     height: 98px;
     position: absolute;
     top: 251px;

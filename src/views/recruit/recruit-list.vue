@@ -114,7 +114,7 @@ export default {
 /* 招聘列表容器外边框 */
 .course-details {
   position: relative;
-  width:1350px;
+  width:1152px;
 }
 
 /* 招聘列表 */
