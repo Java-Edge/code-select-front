@@ -229,113 +229,116 @@
   </div>
 </template>
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref,defineEmits } from "vue";
+import {getMenuList } from "@/api/common";
 const visable = ref(false);
-const direaction = [
-  {
-    id: 1,
-    name: "前端开发",
-    children: [
-      { id: 10001, name: "Vue.js" },
-      { id: 10002, name: "Typescript" },
-      { id: 10003, name: "React.JS" },
-      { id: 10004, name: "HTML/CSS" },
-      { id: 10005, name: "JavaScript" },
-      { id: 10006, name: "Angular" },
-      { id: 10007, name: "Sass/Less" },
-      { id: 10008, name: "WebApp" },
-      { id: 10009, name: "小程序" },
-      { id: 10010, name: "前端工具" },
-      { id: 10011, name: "CSS" },
-      { id: 10012, name: "Html5" },
-      { id: 10013, name: "CSS3" },
-    ],
-  },
-  {
-    id: 2,
-    name: "后端开发",
-    children: [
-      { id: 20001, name: "ChatGPT" },
-      { id: 20002, name: "Java" },
-      { id: 20003, name: "Spring Cloud" },
-      { id: 20004, name: "SSM" },
-      { id: 20005, name: "PHP" },
-      { id: 20006, name: ".net" },
-      { id: 20007, name: "Python" },
-      { id: 20008, name: "爬虫" },
-      { id: 20009, name: "Django" },
-      { id: 20010, name: "Flask" },
-      { id: 20011, name: "Go" },
-      { id: 20012, name: "C" },
-      { id: 20013, name: "C++" },
-      { id: 20014, name: "C#" },
-    ],
-  },
-  {
-    id: 3,
-    name: "AI",
-    children: [
-      { id: 30001, name: "机器学习" },
-      { id: 30002, name: "ChatGPT" },
-      { id: 30003, name: "AI语音" },
-      { id: 30004, name: "人工智能" },
-      { id: 30005, name: "深度学习" },
-      { id: 30006, name: "计算机视觉" },
-      { id: 30007, name: "自然语言处理" },
-    ],
-  },
-  {
-    id: 4,
-    name: "计算机基础",
-    children: [
-      { id: 40001, name: "算法与数据结构" },
-      { id: 40002, name: "信息安全" },
-      { id: 40003, name: "计算机网络" },
-      { id: 40004, name: "数学" },
-    ],
-  },
-  {
-    id: 5,
-    name: "前沿技术",
-    children: [
-      { id: 50001, name: "机器学习" },
-      { id: 50002, name: "微服务" },
-      { id: 50003, name: "区块链" },
-      { id: 50004, name: "以太坊" },
-      { id: 50005, name: "超级账本" },
-      { id: 50006, name: "深度学习" },
-      { id: 50007, name: "计算机视觉" },
-      { id: 50008, name: "自然语言处理" },
-      { id: 50009, name: "数据分析&挖掘" },
-    ],
-  },
-  {
-    id: 7,
-    name: "移动开发",
-    children: [
-      { id: 70001, name: "Flutter" },
-      { id: 70002, name: "Android" },
-      { id: 70003, name: "iOS" },
-      { id: 70004, name: "React native" },
-    ],
-  },
-  { id: 8, name: "云计算&大数据", children: [] },
-  { id: 9, name: "运维&测试", children: [] },
-  { id: 10, name: "产品设计", children: [] },
-  { id: 11, name: "游戏", children: [] },
-  { id: 12, name: "求职面试", children: [] },
-  { id: 13, name: "职场软技能", children: [] },
-  { id: 14, name: "软考/认证", children: [] },
-];
-const allChildren = Array.from(
-  new Set(
-    direaction
-      .map((item) => item.children)
-      .map((c) => c)
-      .flat()
-  )
-);
-const children = ref(allChildren);
+// const direaction = [
+//   {
+//     id: 1,
+//     name: "前端开发",
+//     children: [
+//       { id: 10001, name: "Vue.js" },
+//       { id: 10002, name: "Typescript" },
+//       { id: 10003, name: "React.JS" },
+//       { id: 10004, name: "HTML/CSS" },
+//       { id: 10005, name: "JavaScript" },
+//       { id: 10006, name: "Angular" },
+//       { id: 10007, name: "Sass/Less" },
+//       { id: 10008, name: "WebApp" },
+//       { id: 10009, name: "小程序" },
+//       { id: 10010, name: "前端工具" },
+//       { id: 10011, name: "CSS" },
+//       { id: 10012, name: "Html5" },
+//       { id: 10013, name: "CSS3" },
+//     ],
+//   },
+//   {
+//     id: 2,
+//     name: "后端开发",
+//     children: [
+//       { id: 20001, name: "ChatGPT" },
+//       { id: 20002, name: "Java" },
+//       { id: 20003, name: "Spring Cloud" },
+//       { id: 20004, name: "SSM" },
+//       { id: 20005, name: "PHP" },
+//       { id: 20006, name: ".net" },
+//       { id: 20007, name: "Python" },
+//       { id: 20008, name: "爬虫" },
+//       { id: 20009, name: "Django" },
+//       { id: 20010, name: "Flask" },
+//       { id: 20011, name: "Go" },
+//       { id: 20012, name: "C" },
+//       { id: 20013, name: "C++" },
+//       { id: 20014, name: "C#" },
+//     ],
+//   },
+//   {
+//     id: 3,
+//     name: "AI",
+//     children: [
+//       { id: 30001, name: "机器学习" },
+//       { id: 30002, name: "ChatGPT" },
+//       { id: 30003, name: "AI语音" },
+//       { id: 30004, name: "人工智能" },
+//       { id: 30005, name: "深度学习" },
+//       { id: 30006, name: "计算机视觉" },
+//       { id: 30007, name: "自然语言处理" },
+//     ],
+//   },
+//   {
+//     id: 4,
+//     name: "计算机基础",
+//     children: [
+//       { id: 40001, name: "算法与数据结构" },
+//       { id: 40002, name: "信息安全" },
+//       { id: 40003, name: "计算机网络" },
+//       { id: 40004, name: "数学" },
+//     ],
+//   },
+//   {
+//     id: 5,
+//     name: "前沿技术",
+//     children: [
+//       { id: 50001, name: "机器学习" },
+//       { id: 50002, name: "微服务" },
+//       { id: 50003, name: "区块链" },
+//       { id: 50004, name: "以太坊" },
+//       { id: 50005, name: "超级账本" },
+//       { id: 50006, name: "深度学习" },
+//       { id: 50007, name: "计算机视觉" },
+//       { id: 50008, name: "自然语言处理" },
+//       { id: 50009, name: "数据分析&挖掘" },
+//     ],
+//   },
+//   {
+//     id: 7,
+//     name: "移动开发",
+//     children: [
+//       { id: 70001, name: "Flutter" },
+//       { id: 70002, name: "Android" },
+//       { id: 70003, name: "iOS" },
+//       { id: 70004, name: "React native" },
+//     ],
+//   },
+//   { id: 8, name: "云计算&大数据", children: [] },
+//   { id: 9, name: "运维&测试", children: [] },
+//   { id: 10, name: "产品设计", children: [] },
+//   { id: 11, name: "游戏", children: [] },
+//   { id: 12, name: "求职面试", children: [] },
+//   { id: 13, name: "职场软技能", children: [] },
+//   { id: 14, name: "软考/认证", children: [] },
+// ];
+// const direaction = ref([]);
+// const allChildren = Array.from(
+//   new Set(
+//     direaction.value
+//       .map((item) => item.children)
+//       .map((c) => c)
+//       .flat()
+//   )
+// );
+const allChildren = ref([]);
+const children = ref([]);
 const currentDirection = ref(0);
 const currentCategory = ref(0);
 const emits=defineEmits(['callback'])
@@ -351,11 +354,30 @@ const changeDirection = (item) => {
   emits('callback',currentCategory.value)
 };
 const changeCategory = (item) => {
-  currentCategory.value = item ? item.id : currentDirection.id;
+  currentCategory.value = item ? item.id : currentDirection.value.id;
   emits('callback',currentCategory.value)
 };
 
+const getMenus = () => {
+  getMenuList("special_category").then((response) => {
+    const direaction = response.data.result;
+    allChildren.value = Array.from(
+      new Set(
+        direaction
+          .map((item) => item.children)
+          .map((c) => c)
+          .flat()
+      )
+    );
+    console.log(allChildren.value)
+    children.value = allChildren.value;
+    console.log(children.value)
+  });
+};
 
+onMounted(() => {
+  getMenus();
+});
 </script>
 
 <style lang="scss" scoped>
