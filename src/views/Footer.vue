@@ -65,12 +65,12 @@ getDictionaryData();
 </script>
 
 <style scoped>
-/* 添加样式 */
 .footer {
   background-color: #333;
   color: #fff;
-  padding: 30px 0;
+  padding: 5px 0;
   text-align: center;
+  max-height: 200px;
 }
 
 .footer-content {
