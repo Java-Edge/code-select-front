@@ -32,7 +32,7 @@
       </div> -->
       <div class="company-filter-box">
         <el-input
-        v-model="keyword" 
+        v-model="keyword"
         @change="handleChangeCompany"
         placeholder="根据公司名称或职位模糊查询">
         </el-input>
@@ -40,15 +40,15 @@
     </div>
 
     <el-table :data="tableData" height="1000" border style="width: 100%">
-      <el-table-column type="index" label="序号" width="80"></el-table-column>
+      <el-table-column type="index" label="序号" width="50" align="center"></el-table-column>
       <!-- <el-table-column prop="companyName" label="公司名称" width="180"> </el-table-column> -->
-      <el-table-column prop="title" label="标题" width="180"> </el-table-column>
-      <el-table-column prop="content" label="备注" width="400"> </el-table-column>
-      <el-table-column prop="createAt" label="开始时间" width="180"> </el-table-column>
-      <el-table-column prop="recommendCode" label="内推码"  width="200"> </el-table-column>
-      <el-table-column prop="recommendEmail" label="内推邮箱" width="180"> </el-table-column>
-      <el-table-column prop="recommendUrl" label="内推链接" width="250"> </el-table-column>
-      <el-table-column fixed="right" label="Operations" width="120">
+      <el-table-column prop="title" label="标题" width="180" align="center"> </el-table-column>
+<!--      <el-table-column prop="content" label="简介" width="400" align="center"> </el-table-column>-->
+      <el-table-column prop="createAt" label="发布时间" width="160" align="center"> </el-table-column>
+      <el-table-column prop="recommendCode" label="内推码"  width="200" align="center"> </el-table-column>
+      <el-table-column prop="recommendEmail" label="内推邮箱" width="180" align="center"> </el-table-column>
+      <el-table-column prop="recommendUrl" label="内推链接" width="250" align="center"> </el-table-column>
+      <el-table-column fixed="right" label="Operations" width="95" align="center">
         <template #default="scope">
           <el-button link type="primary" size="small"  @click.prevent="onShowClick(scope.row.id)"  >
             查看

@@ -46,7 +46,7 @@ const getDictionaryData = () => {
       console.log(res.data.result[i])
       switch(res.data.result[i].typeKey){
         case "about_us":
-          aboutUs.value = res.data.result[i];      
+          aboutUs.value = res.data.result[i];
           break;
         case "platform_service":
           platformService.value = res.data.result[i];

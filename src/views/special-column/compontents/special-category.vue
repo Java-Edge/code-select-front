@@ -187,50 +187,20 @@
         >
           <span class="name">方向：</span>
           <ul class="items clearfix">
-            <li class="cur">
+            <li
+              :class="{ cur: currentDirection === 0 }"
+              @click="changeDirection()"
+            >
               <a>全部</a>
             </li>
-            <li class="" data-ct="fe">
-              <a>前端开发</a>
-            </li>
-            <li class="" data-ct="be">
-              <a>后端开发</a>
-            </li>
-            <li class="" data-ct="AI">
-              <a>AI</a>
-            </li>
-            <li class="" data-ct="algorithm">
-              <a>计算机基础</a>
-            </li>
-            <li class="" data-ct="nt">
-              <a>前沿技术</a>
-            </li>
-            <li class="" data-ct="mobile">
-              <a>移动开发</a>
-            </li>
-            <li class="" data-ct="cb">
-              <a>云计算&amp;大数据</a>
-            </li>
-            <li class="" data-ct="op">
-              <a>运维&amp;测试</a>
-            </li>
-            <li class="" data-ct="data">
-              <a>数据库</a>
-            </li>
-            <li class="" data-ct="photo">
-              <a>产品设计</a>
-            </li>
-            <li class="" data-ct="game">
-              <a>游戏</a>
-            </li>
-            <li class="" data-ct="ms">
-              <a>求职面试</a>
-            </li>
-            <li class="" data-ct="aaoc">
-              <a>职场软技能</a>
-            </li>
-            <li class="" data-ct="Examination">
-              <a>软考/认证</a>
+            <li
+              :class="{ cur: currentDirection === item.id }"
+              data-ct="fe"
+              v-for="item in direaction"
+              :key="item.id"
+              @click="changeDirection(item)"
+            >
+              <a>{{ item.name }}</a>
             </li>
           </ul>
         </div>
@@ -239,270 +209,18 @@
           @mouseenter="visable = true"
           @mouseleave="visable = false"
           :style="{
-             'box-shadow':`rgba(95, 101, 105, ${visable}?0.1:0) 0px 12px 20px 0px` ,
-            height: visable?'274px':'50px',
-            background: visable?'#fff':'transparent'
+            'box-shadow': `rgba(95, 101, 105, ${visable&&currentDirection===0}?0.1:0) 0px 12px 20px 0px`,
+            height: visable&&currentDirection===0 ? '274px' : '50px',
+            background: visable&&currentDirection===0 ? '#fff' : 'transparent',
           }"
         >
           <span class="name">分类：</span>
           <ul class="items clearfix">
-            <li class="cur">
+            <li :class="{cur:currentCategory===currentDirection}"  @click="changeCategory()">
               <a href="/">不限</a>
             </li>
-            <li class="">
-              <a>机器学习</a>
-            </li>
-            <li class="">
-              <a>ChatGPT</a>
-            </li>
-            <li class="">
-              <a>Java</a>
-            </li>
-            <li class="">
-              <a>大数据</a>
-            </li>
-            <li class="">
-              <a>算法与数据结构</a>
-            </li>
-            <li class="">
-              <a>Vue.js</a>
-            </li>
-            <li class="">
-              <a>AI语音</a>
-            </li>
-            <li class="">
-              <a>IT认证</a>
-            </li>
-            <li class="">
-              <a>软考</a>
-            </li>
-            <li class="">
-              <a>信息安全</a>
-            </li>
-            <li class="">
-              <a>求职面试</a>
-            </li>
-            <li class="">
-              <a>职场软技能</a>
-            </li>
-            <li class="">
-              <a>人工智能</a>
-            </li>
-            <li class="">
-              <a>Typescript</a>
-            </li>
-            <li class="">
-              <a>React.JS</a>
-            </li>
-            <li class="">
-              <a>Flutter</a>
-            </li>
-            <li class="">
-              <a>Spring Cloud</a>
-            </li>
-            <li class="">
-              <a>计算机网络</a>
-            </li>
-            <li class="">
-              <a>HTML/CSS</a>
-            </li>
-            <li class="">
-              <a>JavaScript</a>
-            </li>
-            <li class="">
-              <a>Angular</a>
-            </li>
-            <li class="">
-              <a>Node.js</a>
-            </li>
-            <li class="">
-              <a>Sass/Less</a>
-            </li>
-            <li class="">
-              <a>WebApp</a>
-            </li>
-            <li class="">
-              <a>小程序</a>
-            </li>
-            <li class="">
-              <a>前端工具</a>
-            </li>
-            <li class="">
-              <a>SSM</a>
-            </li>
-            <li class="">
-              <a>PHP</a>
-            </li>
-            <li class="">
-              <a>.net</a>
-            </li>
-            <li class="">
-              <a>Python</a>
-            </li>
-            <li class="">
-              <a>爬虫</a>
-            </li>
-            <li class="">
-              <a>Django</a>
-            </li>
-            <li class="">
-              <a>Flask</a>
-            </li>
-            <li class="">
-              <a>Go</a>
-            </li>
-            <li class="">
-              <a>C</a>
-            </li>
-            <li class="">
-              <a>C++</a>
-            </li>
-            <li class="">
-              <a>C#</a>
-            </li>
-            <li class="">
-              <a>Android</a>
-            </li>
-            <li class="">
-              <a>iOS</a>
-            </li>
-            <li class="">
-              <a>React native</a>
-            </li>
-            <li class="">
-              <a>数学</a>
-            </li>
-            <li class="">
-              <a>Hadoop</a>
-            </li>
-            <li class="">
-              <a>Spark</a>
-            </li>
-            <li class="">
-              <a>Hbase</a>
-            </li>
-            <li class="">
-              <a>Flink</a>
-            </li>
-            <li class="">
-              <a>Storm</a>
-            </li>
-            <li class="">
-              <a>云计算</a>
-            </li>
-            <li class="">
-              <a>OpenStack</a>
-            </li>
-            <li class="">
-              <a>AWS</a>
-            </li>
-            <li class="">
-              <a>阿里云</a>
-            </li>
-            <li class="">
-              <a>容器</a>
-            </li>
-            <li class="">
-              <a>Docker</a>
-            </li>
-            <li class="">
-              <a>Kubernetes</a>
-            </li>
-            <li class="">
-              <a>运维</a>
-            </li>
-            <li class="">
-              <a>自动化运维</a>
-            </li>
-            <li class="">
-              <a>运维工具</a>
-            </li>
-            <li class="">
-              <a>中间件</a>
-            </li>
-            <li class="">
-              <a>Linux</a>
-            </li>
-            <li class="">
-              <a>测试</a>
-            </li>
-            <li class="">
-              <a>功能测试</a>
-            </li>
-            <li class="">
-              <a>性能测试</a>
-            </li>
-            <li class="">
-              <a>自动化测试</a>
-            </li>
-            <li class="">
-              <a>接口测试</a>
-            </li>
-            <li class="">
-              <a>安全测试</a>
-            </li>
-            <li class="">
-              <a>MySQL</a>
-            </li>
-            <li class="">
-              <a>Redis</a>
-            </li>
-            <li class="">
-              <a>MongoDB</a>
-            </li>
-            <li class="">
-              <a>SQL Server</a>
-            </li>
-            <li class="">
-              <a>微服务</a>
-            </li>
-            <li class="">
-              <a>区块链</a>
-            </li>
-            <li class="">
-              <a>以太坊</a>
-            </li>
-            <li class="">
-              <a>超级账本</a>
-            </li>
-            <li class="">
-              <a>深度学习</a>
-            </li>
-            <li class="">
-              <a>计算机视觉</a>
-            </li>
-            <li class="">
-              <a>自然语言处理</a>
-            </li>
-            <li class="">
-              <a>数据分析&amp;挖掘</a>
-            </li>
-            <li class="">
-              <a>设计基础</a>
-            </li>
-            <li class="">
-              <a>设计工具</a>
-            </li>
-            <li class="">
-              <a>APPUI设计</a>
-            </li>
-            <li class="">
-              <a>产品交互</a>
-            </li>
-            <li class="">
-              <a>Unity 3D</a>
-            </li>
-            <li class="">
-              <a>CSS</a>
-            </li>
-            <li class="">
-              <a>Html5</a>
-            </li>
-            <li class="">
-              <a>CSS3</a>
-            </li>
-            <li class="">
-              <a>NoSql</a>
+            <li  @click="changeCategory(item)" :class="{ cur: currentCategory === item.id }" v-for="item in children" :key="item.id">
+              <a>{{ item.name }}</a>
             </li>
           </ul>
         </div>
@@ -511,8 +229,133 @@
   </div>
 </template>
 <script setup>
-import {ref} from 'vue'
-const visable=ref(false)
+import { ref } from "vue";
+const visable = ref(false);
+const direaction = [
+  {
+    id: 1,
+    name: "前端开发",
+    children: [
+      { id: 10001, name: "Vue.js" },
+      { id: 10002, name: "Typescript" },
+      { id: 10003, name: "React.JS" },
+      { id: 10004, name: "HTML/CSS" },
+      { id: 10005, name: "JavaScript" },
+      { id: 10006, name: "Angular" },
+      { id: 10007, name: "Sass/Less" },
+      { id: 10008, name: "WebApp" },
+      { id: 10009, name: "小程序" },
+      { id: 10010, name: "前端工具" },
+      { id: 10011, name: "CSS" },
+      { id: 10012, name: "Html5" },
+      { id: 10013, name: "CSS3" },
+    ],
+  },
+  {
+    id: 2,
+    name: "后端开发",
+    children: [
+      { id: 20001, name: "ChatGPT" },
+      { id: 20002, name: "Java" },
+      { id: 20003, name: "Spring Cloud" },
+      { id: 20004, name: "SSM" },
+      { id: 20005, name: "PHP" },
+      { id: 20006, name: ".net" },
+      { id: 20007, name: "Python" },
+      { id: 20008, name: "爬虫" },
+      { id: 20009, name: "Django" },
+      { id: 20010, name: "Flask" },
+      { id: 20011, name: "Go" },
+      { id: 20012, name: "C" },
+      { id: 20013, name: "C++" },
+      { id: 20014, name: "C#" },
+    ],
+  },
+  {
+    id: 3,
+    name: "AI",
+    children: [
+      { id: 30001, name: "机器学习" },
+      { id: 30002, name: "ChatGPT" },
+      { id: 30003, name: "AI语音" },
+      { id: 30004, name: "人工智能" },
+      { id: 30005, name: "深度学习" },
+      { id: 30006, name: "计算机视觉" },
+      { id: 30007, name: "自然语言处理" },
+    ],
+  },
+  {
+    id: 4,
+    name: "计算机基础",
+    children: [
+      { id: 40001, name: "算法与数据结构" },
+      { id: 40002, name: "信息安全" },
+      { id: 40003, name: "计算机网络" },
+      { id: 40004, name: "数学" },
+    ],
+  },
+  {
+    id: 5,
+    name: "前沿技术",
+    children: [
+      { id: 50001, name: "机器学习" },
+      { id: 50002, name: "微服务" },
+      { id: 50003, name: "区块链" },
+      { id: 50004, name: "以太坊" },
+      { id: 50005, name: "超级账本" },
+      { id: 50006, name: "深度学习" },
+      { id: 50007, name: "计算机视觉" },
+      { id: 50008, name: "自然语言处理" },
+      { id: 50009, name: "数据分析&挖掘" },
+    ],
+  },
+  {
+    id: 7,
+    name: "移动开发",
+    children: [
+      { id: 70001, name: "Flutter" },
+      { id: 70002, name: "Android" },
+      { id: 70003, name: "iOS" },
+      { id: 70004, name: "React native" },
+    ],
+  },
+  { id: 8, name: "云计算&大数据", children: [] },
+  { id: 9, name: "运维&测试", children: [] },
+  { id: 10, name: "产品设计", children: [] },
+  { id: 11, name: "游戏", children: [] },
+  { id: 12, name: "求职面试", children: [] },
+  { id: 13, name: "职场软技能", children: [] },
+  { id: 14, name: "软考/认证", children: [] },
+];
+const allChildren = Array.from(
+  new Set(
+    direaction
+      .map((item) => item.children)
+      .map((c) => c)
+      .flat()
+  )
+);
+const children = ref(allChildren);
+const currentDirection = ref(0);
+const currentCategory = ref(0);
+const emits=defineEmits(['callback'])
+//注释 接口调用使用 currentCategory作为参数。
+const changeDirection = (item) => {
+  currentDirection.value = item ? item.id : 0;
+  if (item) {
+    children.value = item.children;
+  } else {
+    children.value = allChildren;
+  }
+  currentCategory.value=currentDirection.value
+  emits('callback',currentCategory.value)
+};
+const changeCategory = (item) => {
+  currentCategory.value = item ? item.id : currentDirection.id;
+  emits('callback',currentCategory.value)
+};
+
+
 </script>
 
 <style lang="scss" scoped>

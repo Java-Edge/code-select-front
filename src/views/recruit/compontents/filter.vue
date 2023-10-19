@@ -8,6 +8,7 @@
         <div class="search-input-box">
           <div class="input-wrap input-wrap-text">
             <input
+              v-model="keyword"
               autocomplete="on"
               spellcheck="false"
               type="text"
@@ -100,29 +101,21 @@ const confirm = (item) => {
 };
 const store = useStore();
 const queryParams = ref({});
+const salaryType = ref(0);
+const keyword = ref();
 const getDctionary = (typeKey, callback) => {
-  axios
-    .get(
-      "/back/dictionary/list?typeKey=" + typeKey
-      // ,
-      //     {
-      //         headers: {
-      //             "Authorization": this.$store.getters.getToken
-      //         }
-      //     }
-    )
-    .then((response) => {
-      const result = response.data.result;
-      let list = [];
-      result.list.map((item) => {
-        let data = {};
-        data.id = parseInt(item.value);
-        data.name = item.label;
-        data.active = false;
-        list.push(data);
-      });
-      callback(list);
+  axios.get("/back/dictionary/list?typeKey=" + typeKey).then((response) => {
+    const result = response.data.result;
+    let list = [];
+    result.list.map((item) => {
+      let data = {};
+      data.id = parseInt(item.value);
+      data.name = item.label;
+      data.active = false;
+      list.push(data);
     });
+    callback(list);
+  });
 };
 const selectList = reactive({
   jobTypeList: {
@@ -216,6 +209,7 @@ const changeCheck = (key, type, id) => {
   queryParams.value[key] = selectList[key].data
     .filter((item) => item.active)
     .map((item) => item.id);
+  handleSelectJobList(key,id);
 };
 const changeComCheck = (key, data) => {
   queryParams.value[key] = data;
@@ -260,6 +254,28 @@ const getData = () => {
 };
 getData();
 
+const handleSelectJobList = (key, id) => {
+  if (key === "jobTypeList") {
+    salaryType.value = id;
+    console.log(salaryType);
+    console.log(id);
+    switch (id) {
+      case 2:
+        getDctionary("internship_salary_range", (result) => {
+          selectList["salaryList"].data = result;
+        });
+        break;
+      case 1:
+      case 3:
+      default:
+        getDctionary("salary_range", (result) => {
+          selectList["salaryList"].data = result;
+        });
+        break;
+    }
+  }
+};
+
 // const getRecruit = () => {
 //   let condition;
 //   condition = {
@@ -298,8 +314,11 @@ const queryRecruits = () => {
     salaryRange: queryParams.value["salaryList"],
     scaleTag: queryParams.value["stageList"],
     recruitType: queryParams.value["jobTypeList"],
+    salaryType: salaryType.value,
+    keyword: keyword.value,
   };
   emits("getRecruit", param);
+  emits("sendParam",param);
 };
 const clear = ref(false);
 const reset = () => {

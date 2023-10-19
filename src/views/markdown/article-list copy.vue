@@ -62,7 +62,7 @@
             </template>
           </el-table-column> -->
         </el-table>
-  
+
         <el-pagination
           class="pagination"
           @size-change="handleSizeChange"
@@ -77,7 +77,7 @@
       </el-card>
     </div>
   </template>
-  
+
   <script setup>
 import { ref, onActivated, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
@@ -123,7 +123,7 @@ onActivated(getListData)
     size.value = currentSize
     getListData()
   }
-  
+
   /**
    * 页码改变触发
    */
@@ -149,14 +149,14 @@ watch(
       () => router.currentRoute.value,
       () => {
            console.log("路由变化了", router.currentRoute.value)
-           let type = route.params.type    
+           let type = route.params.type
            console.log(type)
            getListData()
       }
 );
 
   </script>
-  
+
   <style lang="scss" scoped>
   .articles {
     margin-bottom: 15px;
@@ -177,11 +177,11 @@ watch(
         }
       }
     }
-  
+
     ::v-deep .el-table__row {
       cursor: pointer;
     }
-  
+
     .pagination {
       margin-top: 20px;
       text-align: center;
@@ -189,4 +189,3 @@ watch(
   }
 
   </style>
-  
