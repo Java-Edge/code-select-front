@@ -16,7 +16,7 @@
         </div>
         <div class="l clearfix">
           <div class="isShow-bigCoding">
-           <el-checkbox v-model="queryParams.isOnlyShow">只显示大实战课</el-checkbox> 
+           <el-checkbox v-model="queryParams.isOnlyShow">只显示大实战课</el-checkbox>
           </div>
         </div>
         <div class="other r clearfix">
@@ -46,23 +46,24 @@
         </div>
       </a>
     </div>
-    <pagination
+    <!-- <pagination
       :page="page"
       :total="total"
       :size="size"
       @pageChange="handleCurrentChange"
-    />
+    /> -->
   </div>
 </template>
 
 <script setup>
+import { onMounted, ref } from "vue";
 import axios from "axios";
 import categoryCom from "./compontents/special-category.vue";
-import pagination from "@/components/pagination.vue";
-import { ref } from "vue";
-const total = ref(0);
-const page = ref(1);
-const size = ref(15);
+// import pagination from "@/components/pagination.vue";
+import { getCookieValue } from "@/utils/userUtil.js";
+// const total = ref(0);
+// const page = ref(1);
+// const size = ref(15);
 const specialItems = ref([]);
 const order = [
   { id: 1, title: "默认", name: "default" },
@@ -86,50 +87,65 @@ const changeCategory = (item) => {
 };
 //window.document.cookie可以拿到cookie所有的key=value;形式的字符串。所以从cookie拿值，遍历cookie的所有key，直到key等于keyStr，
 //就可以拿到对应的值，例如我们要拿名为token的key，调用方法getCookieValue(token)就可以拿到key为token的值(value)
-const getCookieValue = (keyStr) => {
-  //cookie只能存放键值对
-  var operator = "=";
-  var value = null;
-  var s = window.document.cookie;
-  var arr = s.split("; ");
-  for (var i = 0; i < arr.length; i++) {
-    var str = arr[i];
-    var k = str.split(operator)[0];
-    var v = str.split(operator)[1];
-    if (k == keyStr) {
-      value = v;
-      break;
-    }
-  }
-  return value;
-};
+// const getCookieValue = (keyStr) => {
+//   //cookie只能存放键值对
+//   var operator = "=";
+//   var value = null;
+//   var s = window.document.cookie;
+//   var arr = s.split("; ");
+//   for (var i = 0; i < arr.length; i++) {
+//     var str = arr[i];
+//     var k = str.split(operator)[0];
+//     var v = str.split(operator)[1];
+//     if (k == keyStr) {
+//       value = v;
+//       break;
+//     }
+//   }
+//   return value;
+// };
 
-const getSpecialColumn = (param) => {
+// const getSpecialColumn = (param) => {
+//   var token = getCookieValue("token");
+//   var headers = {
+//     token: token, //访问受限资源必须把token传到后端校验
+//   };
+//   let condition = {
+//     pageNo: page.value,
+//     pageSize: size.value,
+//     param: {
+//       ...param,
+//       type: 1,
+//     },
+//   };
+//   axios.post("/back/course/search", condition, headers).then((response) => {
+//     specialItems.value = response.data.result.records;
+//     total.value = response.data.result.total;
+//     console.log(specialItems.value);
+//   });
+// };
+
+
+
+// const handleCurrentChange = (currentPage) => {
+//   page.value = currentPage;
+//   getSpecialColumn();
+// };
+
+const getSpecialColumn = () => {
   var token = getCookieValue("token");
   var headers = {
     token: token, //访问受限资源必须把token传到后端校验
   };
-  let condition = {
-    pageNo: page.value,
-    pageSize: size.value,
-    param: {
-      ...param,
-      type: 1,
-    },
-  };
-  axios.post("/back/course/search", condition, headers).then((response) => {
-    specialItems.value = response.data.result.records;
-    total.value = response.data.result.total;
-    console.log(specialItems.value);
+  axios.get("/back/course/specialList", headers).then((response) => {
+    specialItems.value = response.data.result;
   });
 };
 
-getSpecialColumn();
 
-const handleCurrentChange = (currentPage) => {
-  page.value = currentPage;
+onMounted(() => {
   getSpecialColumn();
-};
+});
 </script>
 
 <style lang="scss" scoped>

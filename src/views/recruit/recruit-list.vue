@@ -108,7 +108,7 @@ export default {
   },
 };
 </script>
-  
+
 <style scoped>
 
 /* 招聘列表容器外边框 */
@@ -190,4 +190,3 @@ export default {
 }
 
 </style>
-  

@@ -1,6 +1,6 @@
 <template>
   <div class="course-navigation">
-    <filterVue @getRecruit="getRecruit" />
+    <filterVue @getRecruit="getRecruit" @sendParam="getParam" />
     <!-- 内容区域 -->
     <!-- <div style="font-size: 30px; text-align: center; margin-top: 30px">
       -- 招聘列表 --
@@ -28,41 +28,23 @@
 import RecruitList from "./recruit-list.vue"; // Import the CourseList component
 import filterVue from "./compontents/filter.vue";
 import pagination from "@/components/pagination.vue";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import axios from "axios";
 const total = ref(0);
 const page = ref(1);
 const size = ref(10);
-// const param = ref({});
-const recruits =ref([])
+const recruits =ref([]);
+const params = ref({});
 
 const getRecruit = (param) => {
-  let condition;
-  // console.log(param);
-  condition = {
+  let condition = {
     pageNo: page.value,
     pageSize: size.value,
     param: {
-      // ...condition.param,
       ...param
-      // eduLevel: param.value["degressList"],
-      // graduateYear: param.value["expList"],
-      // personScale: param.value["sizeList"],
-      // salaryRange:param.value["salaryList"],
-      // scaleTag: param.value["stageList"],
-      // recruitType: param.value["jobTypeList"],
     },
   };
-   axios.post(
-      "/back/recruit/selectByCondition",
-      condition
-      // ,
-      //     {
-      //         headers: {
-      //             "Authorization": this.$store.getters.getToken
-      //         }
-      //     }
-    )
+   axios.post("/back/recruit/selectByCondition",condition)
     .then((response) => {
       let result = response.data.result;
       recruits.value = result.records;
@@ -70,15 +52,19 @@ const getRecruit = (param) => {
       // emits("result", result);
     });
 };
-getRecruit();
+
 const getParam = (param) => {
-  param.value = param;
+  params.value = param;
 };
 const handleCurrentChange = (currentPage) => {
   page.value = currentPage;
-  getRecruit();
+  getRecruit(params.value);
 };
-// };
+
+onMounted(() => {
+  getRecruit(params.value);
+});
+
 </script>
 
 <style lang="scss" scoped>
@@ -294,4 +280,3 @@ const handleCurrentChange = (currentPage) => {
   height: 20px;
 }
 </style>
-  
