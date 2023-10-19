@@ -28,7 +28,7 @@
     <pagination :page="page" :total="total" :size="size" @pageChange="handleCurrentChange" />
   </div>
 </template>
-  
+
 <script setup>
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
@@ -64,11 +64,11 @@ const handleCurrentChange = (currentPage) => {
 
 getListData()
 </script>
-  
+
 <style lang="scss" scoped>
 .article-ranking-container {
   min-height: 800px;
-  // max-width: 1152px;
+   max-width: 1152px;
   // margin: 0 auto;
 
   .header {
@@ -211,4 +211,3 @@ getListData()
   text-overflow: ellipsis;
 }
 </style>
-  

@@ -175,7 +175,7 @@ export default {
     getRecommendCourses() {
       this.$axios
         .get(
-          "/back/sourceCourse/getRecommendCourses"
+          "/back/course/getRecommendCourses"
           // ,
           //     {
           //         headers: {
