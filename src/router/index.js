@@ -126,13 +126,6 @@ const routes = [
     name: "/studyDetail",
     component: loadComponent("study/detail"),
   },
-  ,
-  {
-    path: "/comment",
-    name: "/comment",
-    // component: loadComponent("comment"),
-    component: () => import('@/components/comment/comment.vue'),
-  },
 ];
 
 const router = createRouter({
