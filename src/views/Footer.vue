@@ -46,7 +46,7 @@ const getDictionaryData = () => {
       console.log(res.data.result[i])
       switch(res.data.result[i].typeKey){
         case "about_us":
-          aboutUs.value = res.data.result[i];      
+          aboutUs.value = res.data.result[i];
           break;
         case "platform_service":
           platformService.value = res.data.result[i];
@@ -65,12 +65,12 @@ getDictionaryData();
 </script>
 
 <style scoped>
-/* 添加样式 */
 .footer {
   background-color: #333;
   color: #fff;
-  padding: 30px 0;
+  padding: 5px 0;
   text-align: center;
+  max-height: 200px;
 }
 
 .footer-content {

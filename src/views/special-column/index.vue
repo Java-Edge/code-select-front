@@ -1,23 +1,31 @@
 <template>
   <div class="body">
-    <category-com />
+    <category-com @callback="changeCategory" />
     <!-- 显示专栏列表 -->
     <div class="box-body main-content">
       <!-- 绑定每个专栏的链接 -->
       <div class="filter clearfix">
         <div class="sort l">
-          <a class="on">默认排序</a>
-          <a>最新</a>
-          <a>销量</a>
-          <a>升级</a>
+          <a
+            :class="{ on: currentOrder.id === item.id }"
+            v-for="item in order"
+            :key="item"
+            @click="changeOrder(item)"
+            >{{ item.title }}</a
+          >
         </div>
         <div class="l clearfix">
           <div class="isShow-bigCoding">
-            <a class="no-checked"></a> 只显示大实战课
+           <el-checkbox v-model="queryParams.isOnlyShow">只显示大实战课</el-checkbox>
           </div>
         </div>
         <div class="other r clearfix">
-          <a class="course-line l" target="_blank" href="http://47.99.69.109:8080/#/study-list">学习路线</a>
+          <a
+            class="course-line l"
+            target="_blank"
+            href="http://47.99.69.109:8080/#/study-list"
+            >学习路线</a
+          >
         </div>
       </div>
       <a
@@ -38,60 +46,106 @@
         </div>
       </a>
     </div>
+    <!-- <pagination
+      :page="page"
+      :total="total"
+      :size="size"
+      @pageChange="handleCurrentChange"
+    /> -->
   </div>
 </template>
 
-<script>
+<script setup>
+import { onMounted, ref } from "vue";
 import axios from "axios";
 import categoryCom from "./compontents/special-category.vue";
-export default {
-  name: "CourseNavigation",
-  components: { categoryCom },
-  data() {
-    return {
-      specialItems: [],
-    };
-  },
-  computed: {},
-  created() {
-    this.getSpecialColumn();
-  },
-  methods: {
-    // specialItems.value = [{id: 1, sourceUrl: "baidu.com", name: "平台帮助中心", image: "https://kuangstudy.oss-cn-beijing.aliyuncs.com/bbs/2021/08/16/kuangstudy0ff38edc-4f3e-477a-9655-314a8f28d55b.jpg"}]
-    getSpecialColumn() {
-      var token = this.getCookieValue("token");
-      var headers = {
-        token: token, //访问受限资源必须把token传到后端校验
-      };
-      axios
-        .get("/back/sourceCourse/listSpecialList", headers)
-        .then((response) => {
-          this.specialItems = response.data.result;
-          // console.log(specialItems.value)
-        });
-    },
-
-    //window.document.cookie可以拿到cookie所有的key=value;形式的字符串。所以从cookie拿值，遍历cookie的所有key，直到key等于keyStr，
-    //就可以拿到对应的值，例如我们要拿名为token的key，调用方法getCookieValue(token)就可以拿到key为token的值(value)
-    getCookieValue(keyStr) {
-      //cookie只能存放键值对
-      var operator = "=";
-      var value = null;
-      var s = window.document.cookie;
-      var arr = s.split("; ");
-      for (var i = 0; i < arr.length; i++) {
-        var str = arr[i];
-        var k = str.split(operator)[0];
-        var v = str.split(operator)[1];
-        if (k == keyStr) {
-          value = v;
-          break;
-        }
-      }
-      return value;
-    },
-  },
+// import pagination from "@/components/pagination.vue";
+import { getCookieValue } from "@/utils/userUtil.js";
+// const total = ref(0);
+// const page = ref(1);
+// const size = ref(15);
+const specialItems = ref([]);
+const order = [
+  { id: 1, title: "默认", name: "default" },
+  { id: 2, title: "最新", name: "new" },
+  { id: 3, title: "销量", name: "count" },
+  { id: 4, title: "升级", name: "level" },
+];
+const currentOrder = ref(order[0]);
+const queryParams = ref({
+  page: 1,
+  category: "",
+  order: "",
+  isOnlyShow: false,
+});
+const changeOrder = (item) => {
+  currentOrder.value = item;
+  queryParams.value.order = item.name;
 };
+const changeCategory = (item) => {
+  queryParams.value.category = item;
+};
+//window.document.cookie可以拿到cookie所有的key=value;形式的字符串。所以从cookie拿值，遍历cookie的所有key，直到key等于keyStr，
+//就可以拿到对应的值，例如我们要拿名为token的key，调用方法getCookieValue(token)就可以拿到key为token的值(value)
+// const getCookieValue = (keyStr) => {
+//   //cookie只能存放键值对
+//   var operator = "=";
+//   var value = null;
+//   var s = window.document.cookie;
+//   var arr = s.split("; ");
+//   for (var i = 0; i < arr.length; i++) {
+//     var str = arr[i];
+//     var k = str.split(operator)[0];
+//     var v = str.split(operator)[1];
+//     if (k == keyStr) {
+//       value = v;
+//       break;
+//     }
+//   }
+//   return value;
+// };
+
+// const getSpecialColumn = (param) => {
+//   var token = getCookieValue("token");
+//   var headers = {
+//     token: token, //访问受限资源必须把token传到后端校验
+//   };
+//   let condition = {
+//     pageNo: page.value,
+//     pageSize: size.value,
+//     param: {
+//       ...param,
+//       type: 1,
+//     },
+//   };
+//   axios.post("/back/course/search", condition, headers).then((response) => {
+//     specialItems.value = response.data.result.records;
+//     total.value = response.data.result.total;
+//     console.log(specialItems.value);
+//   });
+// };
+
+
+
+// const handleCurrentChange = (currentPage) => {
+//   page.value = currentPage;
+//   getSpecialColumn();
+// };
+
+const getSpecialColumn = () => {
+  var token = getCookieValue("token");
+  var headers = {
+    token: token, //访问受限资源必须把token传到后端校验
+  };
+  axios.get("/back/course/specialList", headers).then((response) => {
+    specialItems.value = response.data.result;
+  });
+};
+
+
+onMounted(() => {
+  getSpecialColumn();
+});
 </script>
 
 <style lang="scss" scoped>
@@ -213,14 +267,6 @@ export default {
     line-height: 24px;
     font-weight: 400;
     margin-left: 12px;
-    a {
-      width: 12px;
-      height: 16px;
-      display: inline-block;
-      font-family: imv2;
-      position: relative;
-      vertical-align: sub;
-    }
   }
   .other {
     font-size: 12px;
@@ -240,4 +286,8 @@ export default {
 .r {
   float: right;
 }
+.el-checkbox {
+    height: 16px;
+}
+
 </style>
