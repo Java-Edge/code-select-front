@@ -337,6 +337,7 @@ const visable = ref(false);
 //       .flat()
 //   )
 // );
+const direaction = ref([]);
 const allChildren = ref([]);
 const children = ref([]);
 const currentDirection = ref(0);
@@ -348,7 +349,7 @@ const changeDirection = (item) => {
   if (item) {
     children.value = item.children;
   } else {
-    children.value = allChildren;
+    children.value = allChildren.value;
   }
   currentCategory.value=currentDirection.value
   emits('callback',currentCategory.value)
@@ -358,12 +359,13 @@ const changeCategory = (item) => {
   emits('callback',currentCategory.value)
 };
 
+
 const getMenus = () => {
   getMenuList("special_category").then((response) => {
-    const direaction = response.data.result;
+    direaction.value = response.data.result;
     allChildren.value = Array.from(
       new Set(
-        direaction
+        direaction.value
           .map((item) => item.children)
           .map((c) => c)
           .flat()
