@@ -22,14 +22,12 @@
     </div>
     <div class="will-learn">
       <div class="left-border">通过本项目你将学到</div>
-      <div class="project-content">
-        {{ project.willLearn }}
+      <div class="project-content"  v-html="project.willLearn">
       </div>
     </div>
     <div class="project-highlight">
       <div class="left-border">项目亮点</div>
-      <div class="project-content">
-        {{ project.highlight }}
+      <div class="project-content"   v-html="project.highlight">
       </div>
     </div>
   </div>

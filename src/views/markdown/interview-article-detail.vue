@@ -159,10 +159,6 @@ const postComment = () => {
       border: 2px ;
     }
 }
-* {
-     margin: 0;
-     padding: 0;
- }
 
  .box {
      width: 100vw;
