@@ -104,6 +104,7 @@ const getSpecialColumn = () => {
 
 const handleCurrentChange = (currentPage) => {
   page.value = currentPage;
+  queryParams.value.pageNo = page.value;
   getSpecialColumn();
 };
 
