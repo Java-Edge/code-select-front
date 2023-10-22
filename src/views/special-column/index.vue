@@ -16,7 +16,7 @@
         </div>
         <div class="l clearfix">
           <div class="isShow-bigCoding">
-           <el-checkbox v-model="queryParams.isOnlyShow">只显示付费专栏</el-checkbox>
+           <el-checkbox v-model="queryParams.isOnlyShow">只显示免费专栏</el-checkbox>
           </div>
         </div>
         <div class="other r clearfix">
