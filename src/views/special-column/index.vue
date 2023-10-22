@@ -46,21 +46,21 @@
         </div>
       </a>
     </div>
-    <pagination
+    <!-- <pagination
       :page="page"
       :total="total"
       :size="size"
       @pageChange="handleCurrentChange"
-    />
+    /> -->
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
-import axios from "axios";
+import { ref, onActivated, onMounted, onUnmounted } from "vue";
 import categoryCom from "./compontents/special-category.vue";
-import pagination from "@/components/pagination.vue";
+// import pagination from "@/components/pagination.vue";
 import { getCookieValue } from "@/utils/userUtil.js";
+import axios from "axios";
 const total = ref(0);
 const page = ref(1);
 const size = ref(15);
@@ -88,29 +88,84 @@ const changeOrder = (item) => {
 };
 const changeCategory = (item) => {
   queryParams.value.param.category = item;
-  getSpecialColumn();
+  getSpecialColumn(records => {
+    specialItems.value = records;
+  });
 };
-const getSpecialColumn = () => {
+const getSpecialColumn = async (callback) => {
   var token = getCookieValue("token");
   var headers = {
     token: token, //访问受限资源必须把token传到后端校验
   };
   axios.post("/back/course/special/search", queryParams.value, headers).then((response) => {
-    specialItems.value = response.data.result.records;
+    // specialItems.value = specialItems.value.concat(response.data.result.records);
     total.value = response.data.result.total;
     console.log(specialItems.value);
+    callback(response.data.result.records);
   });
 };
 
-const handleCurrentChange = (currentPage) => {
-  page.value = currentPage;
-  queryParams.value.pageNo = page.value;
-  getSpecialColumn();
-};
+// const handleCurrentChange = (currentPage) => {
+//   page.value = currentPage;
+//   queryParams.value.pageNo = page.value;
+//   getSpecialColumn();
+// };
 
 onMounted(() => {
-  getSpecialColumn();
+  getSpecialColumn(records => {
+    specialItems.value = records;
+  });
 });
+
+
+// 处理数据不重新加载的问题
+onActivated(getSpecialColumn);
+
+// 滚动节流
+const throttle = (fun, time) => {
+  let start = 0;
+  return function () {
+    let now = new Date();
+    if (now - start > time) {
+      fun();
+    }
+  };
+};
+// 触底触发函数
+const listenBottomOut = () => {
+  const scrollTop =
+    document.documentElement.scrollTop || document.body.scrollTop;
+  const clientHeight = document.documentElement.clientHeight;
+  const scrollHeight = document.documentElement.scrollHeight;
+  // 这里要判断下拉到底部，并且需要查询的数量大于总数量加上每次增加的数量
+  // 说明一下第二个判断：如果已经查询出的条数 page*size 已经大于总条数 total，那么就不需要再查询了
+  console.log("12312", page.value, size.value, total.value);
+  console.log(scrollTop + clientHeight)
+  console.log(scrollHeight)
+  if (
+    scrollTop + clientHeight >= scrollHeight &&
+    page.value * size.value <= total.value
+  ) {
+    console.log("触底了~");
+    // 此处可以调用获取数据的方法
+    // size.value = size.value + step
+    page.value = page.value + 1;
+    queryParams.value.pageNo = page.value;
+    getSpecialColumn(records => {
+      specialItems.value = specialItems.value.concat(records);
+    });
+  }
+};
+// 下拉加载数据
+onMounted(() => {
+  // 事件监听
+  window.addEventListener("scroll", throttle(listenBottomOut, 1000));
+});
+onUnmounted(() => {
+  // 离开页面取消监听
+  window.removeEventListener("scroll", throttle(listenBottomOut, 1000), false);
+});
+
 </script>
 
 <style lang="scss" scoped>
