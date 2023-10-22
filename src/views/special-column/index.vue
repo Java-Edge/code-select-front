@@ -16,7 +16,7 @@
         </div>
         <div class="l clearfix">
           <div class="isShow-bigCoding">
-           <el-checkbox v-model="queryParams.isOnlyShow">只显示大实战课</el-checkbox>
+           <el-checkbox v-model="queryParams.isOnlyShow">只显示付费专栏</el-checkbox>
           </div>
         </div>
         <div class="other r clearfix">
@@ -195,7 +195,7 @@ onMounted(() => {
   margin: 10px 0px;
   padding:0 10px;
   // padding:10px;
-  
+
 }
 
 /* 设置专栏列表中的每个专栏的名称和状态的样式，包括字体大小、字体粗细等 */
