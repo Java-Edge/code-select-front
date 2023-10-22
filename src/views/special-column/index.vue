@@ -16,7 +16,7 @@
         </div>
         <div class="l clearfix">
           <div class="isShow-bigCoding">
-           <el-checkbox v-model="queryParams.isOnlyShow">只显示大实战课</el-checkbox>
+           <el-checkbox v-model="queryParams.isOnlyShow">只显示免费专栏</el-checkbox>
           </div>
         </div>
         <div class="other r clearfix">
@@ -135,22 +135,22 @@ onMounted(() => {
 /* 设置专栏列表中的每个专栏的样式，包括背景颜色、高度、内边距、边框半径、对齐方式、文本颜色等 */
 .special-box {
   background-color: white;
-  width: 268px;
-  height: 149px;
-  padding: 10px;
+  width: 250px;
+  // height: 149px;
+  // padding: 10px;
   border-radius: 5px;
   display: flex;
   justify-content: space-around;
   flex-direction: column;
-  margin-left: 10px;
+  margin-left: 28px;
   margin-top: 25px;
   text-decoration: none;
   color: #666666;
-  box-sizing: border-box;
+  // box-sizing: border-box;
 }
 .special-box:hover {
-  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
-    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 20px 0 rgba(95,101,105,.1);
 }
 
 /* 设置专栏列表中的每个专栏的标题区域的样式，包括背景颜色、高度、定位、溢出、动画等 */
@@ -192,7 +192,10 @@ onMounted(() => {
 .box-bottom {
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  margin: 10px 0px;
+  padding:0 10px;
+  // padding:10px;
+
 }
 
 /* 设置专栏列表中的每个专栏的名称和状态的样式，包括字体大小、字体粗细等 */
