@@ -133,7 +133,7 @@ const getListDataByCondition = async (condition) => {
     articleType: 2,
   };
   axios
-    .post("/back/interview/selectByCondition", condition)
+    .post("/back/innerRecommend/selectByCondition", condition)
     .then((response) => {
       console.log(response);
       tableData.value = response.data.result.records;
@@ -187,7 +187,7 @@ const getListData = async () => {
       articleType: 2,
     },
   };
-  axios.post("/back/interview/selectByCondition", params).then((response) => {
+  axios.post("/back/innerRecommend/selectByCondition", params).then((response) => {
     tableData.value = response.data.result.records;
     total.value = response.data.result.total;
   });
