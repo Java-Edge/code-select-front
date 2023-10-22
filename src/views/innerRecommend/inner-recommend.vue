@@ -56,36 +56,6 @@
         </template>
       </el-table-column>
     </el-table>
-
-    <!-- <div
-      class="interview-card"
-      v-for="interview in tableData"
-      :key="interview.id"
-      @click="onShowClick(interview.id)"
-    >
-      <div class="interview-title">{{ interview.title }}</div>
-      <div class="recommed-info">
-        <div class="recommed-code">{{ interview.recommendCode }}</div>
-        <div class="recommed-email">
-          内推邮箱：{{ interview.recommedEmail }}
-        </div>
-        <div class="recommed-email">内推地址：{{ interview.recommedUrl }}</div>
-      </div>
-      <div class="interview-content">
-        {{
-          interview.content.length > 300
-            ? interview.content
-                .substr(0, 30)
-                .replace(/<\/?.+?\/?>|\r|\n|\s*/g, "") + "..."
-            : interview.content.replace(/<\/?.+?\/?>|\r|\n|\s*/g, "")
-        }}
-      </div>
-      <div class="interview-type">
-        <div class="interview-create-time">{{ interview.createAt }}</div>
-        <div class="career-type">分类：{{ interview.careerName }}</div>
-      </div>
-    </div> -->
-
     <pagination :page="page" :total="total" :size="size" @pageChange="handleCurrentChange" />
   </div>
 </template>
@@ -217,7 +187,7 @@ const handleCurrentChange = (currentPage) => {
 const router = useRouter();
 const onShowClick = (articleId) => {
   console.log("articleId", articleId);
-  router.push(`/intervieArticleDetail/${articleId}`);
+  router.push(`/innerRecommendDetail/${articleId}`);
 };
 
 /**

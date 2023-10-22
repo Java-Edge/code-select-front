@@ -49,7 +49,12 @@ const routes = [
   {
     path: "/inner-recommend",
     name: "innerRecommend",
-    component: loadComponent("markdown/inner-recommend"),
+    component: loadComponent("innerRecommend/inner-recommend"),
+  },
+  {
+    path: "/innerRecommendDetail/:id",
+    name: "innerRecommendDetail",
+    component: loadComponent("innerRecommend/inner-recommend-detail"),
   },
   {
     path: "/article/:id",
