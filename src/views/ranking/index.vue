@@ -13,7 +13,7 @@
                 <div class="ranking-middle">
                     <div class="ranking-name hide-text">{{ ranking.title }}</div>
                     <div class="ranking-des hide-text">{{ ranking.des }}</div>
-                    <!-- <div class="ranking-likes">浏览量 {{ ranking.pageView }}</div> -->
+                     <div class="ranking-likes">浏览量 {{ ranking.pageView }}</div>
                 </div>
             </a>
             <!-- </router-link> -->

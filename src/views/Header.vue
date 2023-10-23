@@ -19,17 +19,18 @@
             </li>
           </ul>
         </nav>
-        <div class="login-area" v-if="isShowLogin">
+        <div class="login-area">
           <ul class="header-unlogin clearfix newcomer-box">
-            <!-- <li class="shop-cart">
-              <a
-                href="//order.imooc.com/pay/cart"
+
+             <li class="shop-cart">
+              <a href="https://rvsvd8vr3wx.feishu.cn/wiki/IY8dw4A4HiHRJ4k2U9RcZtvdnfd?from=from_copylink"
                 class="shop-cart-icon"
-                target="_blank"
-              >
+                target="_blank">
                 <span class="icon-shopping-cart js-endcart">
-                  <el-icon><ShoppingCartFull /></el-icon>
+                  <el-icon><Wallet /></el-icon>
                 </span>
+                <span class="salary">大会员</span>
+
                 <span
                   class="shopping_icon js-cart-num"
                   data-ordernum="0"
@@ -39,8 +40,9 @@
                 >
               </a>
               <div class="my-cart"></div>
-            </li> -->
-            <li class="header-signin">
+            </li>
+
+            <li class="header-signin"  v-if="isShowLogin">
               <a @click="handleToLogin(0)">登录</a> /
               <a @click="handleToLogin(1)">注册</a>
             </li>
@@ -78,7 +80,7 @@ export default {
       username: "",
       menus: [
         { name: "首页", value: "home", path: "/index" },
-        { name: "动态", value: "article", path: "/article-list/0" },
+        { name: "动态", value: "article", path: "/article-list" },
         { name: "招聘", value: "recruit", path: "/recruit/index" },
         { name: "面经", value: "interview", path: "/article-interview" },
         { name: "内推", value: "recommend", path: "/inner-recommend" },
@@ -87,6 +89,7 @@ export default {
         { name: "排行榜", value: "ranking", path: "/ranking" },
         { name: "项目", value: "project", path: "/projectList" },
         { name: "副业", value: "sideline", path: "/sidelineList" },
+        { name: "下载", value: "download", path: "/download" },
       ],
     };
   },
@@ -153,6 +156,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.salary {
+  margin-left: 15px;
+  color: #cf6555;
+}
 .header {
   background-color: #fff;
   border-bottom: 1px solid #f3f5f6;

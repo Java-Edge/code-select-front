@@ -152,7 +152,7 @@ const onSubmitClick = () => {
     axios.post("/back/article/save", article).then((response) => {
       console.log(response);
     });
-    router.push('/article-list/0');
+    router.push('/article-list');
   }
 
   // 文章提交之后清空md内容和标题内容

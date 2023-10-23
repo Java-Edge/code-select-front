@@ -1,12 +1,3 @@
-/*
- * @Descripttion:
- * @version:
- * @Author: 不败顽童
- * @Date: 2023-07-16 17:51:44
- * @LastEditors: 不败顽童
- * @LastEditTime: 2023-08-05 18:34:38
- */
-// router.js
 import { createRouter, createWebHashHistory } from "vue-router";
 
 const loadComponent = (componentName) => () =>
@@ -37,7 +28,7 @@ const routes = [
     component: loadComponent("markdown/article-create"),
   },
   {
-    path: "/article-list/:type",
+    path: "/article-list",
     name: "articleList",
     component: loadComponent("markdown/article-list"),
   },
@@ -130,6 +121,11 @@ const routes = [
     path: "/study-detail/:id",
     name: "/studyDetail",
     component: loadComponent("study/detail"),
+  },
+  {
+    path: "/download",
+    name: "download",
+    component: loadComponent("download/index"),
   },
 ];
 
