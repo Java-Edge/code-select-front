@@ -28,7 +28,7 @@ const routes = [
     component: loadComponent("markdown/article-create"),
   },
   {
-    path: "/article-list/:type",
+    path: "/article-list",
     name: "articleList",
     component: loadComponent("markdown/article-list"),
   },
