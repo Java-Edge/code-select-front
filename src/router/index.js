@@ -122,6 +122,11 @@ const routes = [
     name: "/studyDetail",
     component: loadComponent("study/detail"),
   },
+  {
+    path: "/download",
+    name: "download",
+    component: loadComponent("download/index"),
+  },
 ];
 
 const router = createRouter({

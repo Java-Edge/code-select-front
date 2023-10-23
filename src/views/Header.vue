@@ -29,7 +29,7 @@
                 <span class="icon-shopping-cart js-endcart">
                   <el-icon><Wallet /></el-icon>
                 </span>
-                <span class="salary">百年IT会员</span>
+                <span class="salary">大会员</span>
 
                 <span
                   class="shopping_icon js-cart-num"
@@ -89,7 +89,7 @@ export default {
         { name: "排行榜", value: "ranking", path: "/ranking" },
         { name: "项目", value: "project", path: "/projectList" },
         { name: "副业", value: "sideline", path: "/sidelineList" },
-        { name: "资源下载", value: "download", path: "/download" },
+        { name: "下载", value: "download", path: "/download" },
       ],
     };
   },
