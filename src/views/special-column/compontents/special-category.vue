@@ -217,7 +217,7 @@
           <span class="name">分类：</span>
           <ul class="items clearfix">
             <li :class="{cur:currentCategory===currentDirection}"  @click="changeCategory()">
-              <a href="/">不限</a>
+              <a>不限</a>
             </li>
             <li  @click="changeCategory(item)" :class="{ cur: currentCategory === item.id }" v-for="item in children" :key="item.id">
               <a>{{ item.name }}</a>
