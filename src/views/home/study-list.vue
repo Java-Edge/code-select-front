@@ -1,35 +1,40 @@
 <template>
     <div class="course-details">
-        <Item v-for="item in list" :key="item.id" :item="item" />
+        <Item v-for="item in roamMapList" :key="item.id" :item="item" />
     </div>
 </template>
     
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import Item from "./study-item.vue";
 import axios from 'axios'
-const courses = ref([{}])
-const list = ref([]);
 const props = defineProps({
-    categoryId: {
-      type: String,
+  roamMapList: {
+      type: Array,
       required: true
     }
 });
-const categoryId = ref(props.categoryId)
-console.log('categoryId', categoryId.value)
-
-const getRoadMap = () => {
-  let path = `/back/roadmap/route?categoryId=${categoryId.value}&current=1&size=3`;
-  axios.get(path).then(res => {
-    list.value = res.data.result.records
-    // console.log('list.value', list.value)
-    // console.log('list.value', res)
-  })
-}
-onMounted(()=>{
-  getRoadMap()
-})
+const roamMapList = ref(props.roamMapList)
+watch(
+  () => props.roamMapList,
+  (newV, oldV) => {
+    roamMapList.value = newV
+    // console.log("change", newV)
+  },
+)
+console.log("子组件", roamMapList.value)
+// initRoadMap()
+// const getRoadMap = () => {
+//   console.log(roadMaps.value)
+//   list.value = roadMaps.value[categoryId.value]
+//   console.log(list.value)
+// }
+// watch(
+//   categoryId.value,
+//   (nV) => {
+//     console.log("watch", categoryId.value)
+//   }
+// );
 </script>
     
 <style lang="scss">

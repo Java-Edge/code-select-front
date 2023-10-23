@@ -15,8 +15,7 @@
     </div>
     <div class="content" v-html="detail.content"></div>
   </div>
-  <div class="box">
-        <!-- 评论框 -->
+  <!-- <div class="box">
         <div class="comment">
             <input type="text" v-model="content" placeholder="请输入评论" />
             <div class="publish" @click="postComment()">发布</div>
@@ -37,7 +36,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </template>
   
 <script setup>

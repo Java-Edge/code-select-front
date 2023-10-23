@@ -141,8 +141,8 @@ const handleCurrentChange = (currentPage) => {
     padding-bottom: 15px;
     border-bottom: 1px solid #e9e9e9;
     padding-bottom: 10px;
-    box-shadow: 8px 16px 16px hsl(0deg 0% 0% / 0.25);
-    background-color: white;
+    // box-shadow: 8px 16px 16px hsl(0deg 0% 0% / 0.25);
+    // background-color: white;
     border-radius: 15px;
     padding: 20px;
 }

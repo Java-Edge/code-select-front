@@ -14,7 +14,7 @@
         </el-icon>
       </router-link>
     </div>
-    <List :categoryId="currentMenu" :key="currentMenu"/>
+    <List :categoryId="currentMenu" :key="currentMenu" :roamMapList="roamMapList"/>
   </div>
 </template>
 
@@ -26,9 +26,28 @@ import axios from 'axios'
 // const menus = [{ name: '推荐', category: '0' }, { name: '前端开发', category: '1' }, { name: '后端开发', category: '2' }, { name: '移动端开发', category: '3' }]
 const menus = ref([])
 // const menus = ref([])
-const currentMenu = ref('1')
+const roamMapList = ref([])
+const initRoadMap = () => {
+ // let path = `/back/roadmap/route?categoryId=${categoryId.value}&current=1&size=3`;
+ let path = `/back/roadmap/getAll`;
+  axios.get(path).then(res => {
+    roadMaps.value = res.data.result
+    // 默认传入推荐路线
+    roamMapList.value = roadMaps.value[0]
+    console.log('roadMaps.value', roadMaps.value)
+    // console.log(roadMaps.value[2])
+    // console.log('list.value', res)
+  })
+}
+initRoadMap()
+
+
+const roadMaps = ref({})
+const currentMenu = ref('0')
 const changeMenu = (category) => {
   currentMenu.value = category
+  roamMapList.value = roadMaps.value[category]
+  console.log("21312", roamMapList.value)
 }
 
 const getCategoryList = async () => {
@@ -47,6 +66,8 @@ const getCategoryList = async () => {
 
 
 getCategoryList()
+
+
 
 </script>
 
