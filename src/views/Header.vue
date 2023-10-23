@@ -80,7 +80,7 @@ export default {
       username: "",
       menus: [
         { name: "首页", value: "home", path: "/index" },
-        { name: "动态", value: "article", path: "/article-list/0" },
+        { name: "动态", value: "article", path: "/article-list" },
         { name: "招聘", value: "recruit", path: "/recruit/index" },
         { name: "面经", value: "interview", path: "/article-interview" },
         { name: "内推", value: "recommend", path: "/inner-recommend" },

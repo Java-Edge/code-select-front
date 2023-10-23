@@ -68,12 +68,11 @@
       />
     </div>
   </div>
-  
+
 </template>
-  
+
 <script setup>
 import { ref} from "vue";
-import { useRoute } from "vue-router"
 import pagination from "@/components/pagination.vue";
 import axios from "axios";
 
@@ -82,16 +81,9 @@ const articleData = ref([]);
 const total = ref(0);
 const page = ref(1);
 const size = ref(5);
-// 获取数据
-const route = useRoute();
-const type = route.params.type;
-console.log(type);
 // 获取数据的方法
 const getListData = async () => {
   let path = `/back/article/getByPage?current=${page.value}&size=${size.value}`;
-  if (type) {
-    path += `&type=${type}`;
-  }
   axios.get(path).then((res) => {
     articleData.value = res.data.result.records;
     total.value = res.data.result.total;
@@ -103,7 +95,7 @@ const handleCurrentChange = (currentPage) => {
   getListData();
 };
 </script>
-  
+
 <style lang="scss" scoped>
 .article-ranking-container {
   min-height: 800px;
@@ -248,4 +240,3 @@ const handleCurrentChange = (currentPage) => {
   text-overflow: ellipsis;
 }
 </style>
-  

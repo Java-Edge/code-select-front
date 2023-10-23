@@ -45,7 +45,7 @@ const size = ref(5);
 
 const rankings = ref([]);
 const getListData = async () => {
-  let path = `/back/ranking/getRanking?current=${page.value}&size=${size.value}`;
+  let path = `/back/download/listByPage?current=${page.value}&size=${size.value}`;
   axios.get(path).then((res) => {
     console.log("res", res.data.result);
     rankings.value = res.data.result.records;
