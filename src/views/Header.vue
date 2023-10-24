@@ -22,7 +22,15 @@
         <div class="login-area">
           <ul class="header-unlogin clearfix newcomer-box">
 
-             <li class="shop-cart">
+
+            <li class="header-signin"  v-if="isShowLogin">
+              <a @click="handleToLogin(0)">登录</a> /
+              <a @click="handleToLogin(1)">注册</a>
+            </li>
+            <li class="header-signin"  v-if="!isShowLogin">
+              <a @click="handleLogout(0)">退出</a>
+            </li>
+            <li class="shop-cart">
               <a href="https://rvsvd8vr3wx.feishu.cn/wiki/IY8dw4A4HiHRJ4k2U9RcZtvdnfd?from=from_copylink"
                 class="shop-cart-icon"
                 target="_blank">
@@ -42,10 +50,6 @@
               <div class="my-cart"></div>
             </li>
 
-            <li class="header-signin"  v-if="isShowLogin">
-              <a @click="handleToLogin(0)">登录</a> /
-              <a @click="handleToLogin(1)">注册</a>
-            </li>
           </ul>
         </div>
         <!--  <div class="search-warp clearfix">
@@ -70,9 +74,14 @@
 <script>
 import { getCookieValue } from "@/utils/userUtil.js";
 import { mapState, mapMutations } from "vuex";
+import { ElMessage, ElMessageBox } from 'element-plus';
 
 export default {
   name: "Header-Navi",
+    components: {
+    ElMessage,
+    ElMessageBox,
+  },
   data() {
     return {
       activeMenu: "home", // 默认选中首页
@@ -124,6 +133,8 @@ export default {
     handleLogout() {
       // Implement the logout functionality here
       // For example, clear the user session and redirect to the home page
+      this.logout();
+      this.isShowLogin = true;
     },
     getUserInfo() {
       let userId = getCookieValue("userId");
@@ -151,6 +162,23 @@ export default {
       }
       return item;
     },
+    logout(){
+        ElMessageBox.confirm("确认退出账号", "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning",
+        }).then(() => {
+            localStorage.clear();
+            this.$axios.get("/back/user/logout").then(response => {
+                const { message } = response.data;
+                ElMessage.error(message || "系统出错");
+            });
+            location.reload();
+        }).catch(() => {
+
+        });
+
+    }
   },
 };
 </script>
