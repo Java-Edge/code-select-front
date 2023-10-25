@@ -188,7 +188,7 @@ export default {
               if (response.data.code === 200) {
                 var user = response.data.result;
                 this.$store.commit("SET_USERINFO", user);
-                this.setCookieValue("token", user.token);
+                // this.setCookieValue("token", user.token);
                 this.$router.push({ path: "/index" });
               } else {
                 this.showMessage(response.data.message);
