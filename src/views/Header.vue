@@ -28,7 +28,7 @@
               <a @click="handleToLogin(1)">注册</a>
             </li>
             <li class="header-signin"  v-if="!isShowLogin">
-              <a @click="handleLogout(0)">退出</a>
+              <a @click="handleLogout(0)">登出</a>
             </li>
             <li class="shop-cart">
               <a href="https://rvsvd8vr3wx.feishu.cn/wiki/IY8dw4A4HiHRJ4k2U9RcZtvdnfd?from=from_copylink"
@@ -163,7 +163,7 @@ export default {
       return item;
     },
     logout(){
-        ElMessageBox.confirm("确认退出账号", "提示", {
+        ElMessageBox.confirm("确认注销登录", "提示", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
             type: "warning",
