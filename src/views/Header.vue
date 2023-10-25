@@ -27,7 +27,7 @@
               <a @click="handleToLogin(0)">登录</a> /
               <a @click="handleToLogin(1)">注册</a>
             </li>
-            <li class="header-signin"  >
+            <li class="header-signin"  v-if="!isShowLogin">
               <a @click="handleLogout(0)">登出</a>
             </li>
             <li class="shop-cart">
