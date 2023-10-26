@@ -6,11 +6,11 @@
         <span class="recruit-salary">
           {{ selectedRecruit.salary }}
         </span>
-          <div class="treatment">            
+          <div class="treatment">
             <span class="course-group-tag-item course-group-tag-item-footer"
-                v-for="(item, index) in ['生日福利', '节日福利', '免费停车', '六险二金', '...']" :key="index">
+                v-for="(item, index) in ['六险二金']" :key="index">
                 {{ item }}
-                <!-- TODO 最后一个省略号 hover 显示完整内容 -->
+                <!-- TODO 被截断的内容 hover 显示完整内容 -->
             </span>
           </div>
         <div class="description">
@@ -84,25 +84,16 @@
         </div>
       </div>
     </div>
-
-    <div style="font-size: 30px; text-align: center; margin: 40px 0px">
-      -- 猜你喜欢 --
-    </div>
-    <!-- 课程详情区域 -->
-    <CourseList :courses="recommendCourses" />
   </div>
 </template>
 
 
 <script>
-import CourseList from "../CourseList.vue"; // Import the CourseList component
 import "@toast-ui/editor/dist/toastui-editor.css";
 
 export default {
   name: "RecruitDetails",
   components: {
-    CourseList,
-    // ... Rest of your components ...
   },
   props: {
     recruit: {
@@ -111,12 +102,7 @@ export default {
     },
   },
   created() {
-    // this.getMenuList();
-    // const id = this.$route.params.id;
-    // this.getCourseDetail(id);
-    // this.getRecommendCourses();
     this.fetchData();
-    // this.nickname = this.$store.getters.getUser.nickname;
   },
   data() {
     return {
@@ -132,29 +118,14 @@ export default {
     fetchData() {
       const recruitId = this.$route.params.id;
       this.getRecruitDetail(recruitId);
-      this.getRecommendCourses();
     },
     getRecruitDetail(id) {
       this.$axios
         .get(
           "/back/recruit/getById/" + id
-          // ,
-          //     {
-          //         headers: {
-          //             "Authorization": this.$store.getters.getToken
-          //         }
-          //     }
         )
         .then((response) => {
-          const recruit = response.data.result;
-          console.log(response);
-          this.selectedRecruit = recruit;
-          // this.$message({
-          //     type: 'success',
-          //     message: response.data.message
-          // });
-          console.log(this.recruit);
-
+          this.selectedRecruit = response.data.result;
           this.selectedRecruit = this.transformJobInfo(this.selectedRecruit);
         });
     },
@@ -171,22 +142,6 @@ export default {
       } else {
         window.open(sourceUrl);
       }
-    },
-    getRecommendCourses() {
-      this.$axios
-        .get(
-          "/back/course/getRecommendCourses"
-          // ,
-          //     {
-          //         headers: {
-          //             "Authorization": this.$store.getters.getToken
-          //         }
-          //     }
-        )
-        .then((response) => {
-          this.recommendCourses = response.data.result;
-          console.log(this.recommendCourses);
-        });
     },
     // 将后端的数据解释
     transformJobInfo(job) {
