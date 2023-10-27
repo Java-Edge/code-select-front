@@ -38,37 +38,30 @@
             <span>热搜：</span>
             <a
               target="_blank"
-              href="//www.imooc.com/search/?words=ChatGPT&amp;type=course"
               >ChatGPT</a
             >
             <a
               target="_blank"
-              href="//www.imooc.com/search/?words=Vue&amp;type=course"
               >Vue</a
             >
             <a
               target="_blank"
-              href="//www.imooc.com/search/?words=Java&amp;type=course"
               >Java</a
             >
             <a
               target="_blank"
-              href="//www.imooc.com/search/?words=嵌入式&amp;type=course"
               >嵌入式</a
             >
             <a
               target="_blank"
-              href="//www.imooc.com/search/?words=Python&amp;type=course"
               >Python</a
             >
             <a
               target="_blank"
-              href="//www.imooc.com/search/?words=SpringBoot&amp;type=course"
               >SpringBoot</a
             >
             <a
               target="_blank"
-              href="//www.imooc.com/search/?words=C/C++&amp;type=course"
               >C/C++</a
             >
             <a
