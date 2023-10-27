@@ -38,10 +38,6 @@
             <span>热搜：</span>
             <a
               target="_blank"
-              >ChatGPT</a
-            >
-            <a
-              target="_blank"
               >Vue</a
             >
             <a
@@ -50,19 +46,11 @@
             >
             <a
               target="_blank"
-              >嵌入式</a
-            >
-            <a
-              target="_blank"
-              >Python</a
-            >
-            <a
-              target="_blank"
               >SpringBoot</a
             >
             <a
               target="_blank"
-              >C/C++</a
+              >Netty</a
             >
             <a
               target="_blank"
