@@ -4,7 +4,7 @@
     <div class="menu-content" @mouseout="hideSubMenu">
       <div class="menu-item" v-for="(item, index) in menu_list" :key="index" @mouseover="showSubMenu(index)">
         <a href="javascript:;">
-          <span>{{ item.title }}</span>
+          <span>{{ item.name }}</span>
           <img src="https://s1.ax1x.com/2023/04/20/p9klxA0.png" class="icon-stle">
         </a>
       </div>
@@ -16,9 +16,9 @@
       <div class="inner-box" v-show="menu_item_index == index" v-for="(item, index) in menu_list" :key="index">
         <div class="sub-inner-box">
           <div class="title">{{ item.title }}</div>
-          <div class="sub-row" v-for="(item1, ind) in item.list" :key="ind">
-            <span class="bold">{{ item1.menu_title }} :</span>
-            <a href="" class="menu" v-for="(item2, ind2) in item1.menus" :key="ind2" style="display: inline-block;" >{{ item2 }}</a>
+          <div class="sub-row" v-for="(item1, ind) in item.children" :key="ind">
+            <span class="bold">{{ item1.name }} :</span>
+            <a href="" class="menu" v-for="(item2, ind2) in item1.children" :key="ind2" style="display: inline-block;" >{{ item2.name }}</a>
           </div>
         </div>
       </div>
@@ -33,79 +33,79 @@ export default {
     return {
       // 当前鼠标移入的分类菜单下标
       menu_item_index: 0,
-
+      menu_list: [],
       // 分类菜单数据（json格式，我提前整理好的）
-      menu_list: [
-        {
-          title: '前端开发',
-          list: [{
-            menu_title: '知识点',
-            menus: ['Vue.js', 'Typescript', 'React.js', 'HTML/CSS', 'Javascript', 'Angular', 'Node.js', 'JQuery', 'Bootstrap',
-              'Sass/Less', 'WebApp', '小程序', '前端工具', 'CSS', 'HTML5', 'CSS3']
-          },
-          ]
-        },
-        {
-          title: '后端开发',
-          list: [{
-            menu_title: '知识点',
-            menus: ['Java', 'SpringBoot', 'SpringCloud', 'SSM', 'PHP', '.net', 'Python', '爬虫', 'Django', 'Flask', 'Tornado', 'Go', 'C', 'C++'
-              , 'C#', 'Ruby', 'ThinkPHP']
-          },
-          ]
-        },
-        {
-          title: '移动开发',
-          list: [{
-            menu_title: '知识点',
-            menus: ['Android', 'IOS', 'React Native', 'WEEX', 'Swift']
-          },
-          ]
-        },
-        {
-          title: '计算机基础',
-          list: [{
-            menu_title: '计算机基础',
-            menus: ['密码学', '信息安全', '计算机网路', '算法与数据结构', '数学']
-          },
-          {
-            menu_title: '数据库',
-            menus: ['MySQL', 'Redis', 'MongoDB', 'Oracle', 'SQL Server', 'NoSQL']
-          },
-          ]
-        },
-        {
-          title: '前沿技术',
-          list: [{
-            menu_title: '前沿技术',
-            menus: ['微服务', '区块链', '以太坊', '机器学习', '深度学习', '计算机视觉', '自然语言处理', '数据分析与挖掘']
-          },
-          {
-            menu_title: '云计算&大数据',
-            menus: ['大数据', 'Hadoop', 'Spark', 'Hbase', 'Flink', 'Storm', '云计算', 'AWS', 'DOcker', 'Kubernetes']
-          },
-          ]
-        },
-        {
-          title: '测试运维',
-          list: [{
-            menu_title: '知识点',
-            menus: ['运维', '自动化运维', '运维工具', '中间件', 'Linux', '测试', '功能测试', '性能测试', '自动化测试', '接口测试', '安全测试']
-          },
-          ]
-        },
-        {
-          title: '更多方向',
-          list: [{
-            menu_title: '产品设计',
-            menus: ['模型制作', '动效动画', '设计基础', '设计工具', 'APP UI设计', '产品交互', 'PhotoShop']
-          },
-          {
-            menu_title: '游戏',
-            menus: ['Unity 3D', 'Cocos2d-x']
-          },
-          ]
-        }],
+      // menu_list: [
+      //   {
+      //     name: '前端开发',
+      //     list: [{
+      //       menu_title: '知识点',
+      //       children: ['Vue.js', 'Typescript', 'React.js', 'HTML/CSS', 'Javascript', 'Angular', 'Node.js', 'JQuery', 'Bootstrap',
+      //         'Sass/Less', 'WebApp', '小程序', '前端工具', 'CSS', 'HTML5', 'CSS3']
+      //     },
+      //     ]
+      //   },
+      //   {
+      //     name: '后端开发',
+      //     children: [{
+      //       menu_title: '知识点',
+      //       children: ['Java', 'SpringBoot', 'SpringCloud', 'SSM', 'PHP', '.net', 'Python', '爬虫', 'Django', 'Flask', 'Tornado', 'Go', 'C', 'C++'
+      //         , 'C#', 'Ruby', 'ThinkPHP']
+      //     },
+      //     ]
+      //   },
+      //   {
+      //     name: '移动开发',
+      //     children: [{
+      //       menu_title: '知识点',
+      //       children: ['Android', 'IOS', 'React Native', 'WEEX', 'Swift']
+      //     },
+      //     ]
+      //   },
+      //   {
+      //     name: '计算机基础',
+      //     list: [{
+      //       menu_title: '计算机基础',
+      //       children: ['密码学', '信息安全', '计算机网路', '算法与数据结构', '数学']
+      //     },
+      //     {
+      //       menu_title: '数据库',
+      //       children: ['MySQL', 'Redis', 'MongoDB', 'Oracle', 'SQL Server', 'NoSQL']
+      //     },
+      //     ]
+      //   },
+      //   {
+      //     name: '前沿技术',
+      //     list: [{
+      //       menu_title: '前沿技术',
+      //       children: ['微服务', '区块链', '以太坊', '机器学习', '深度学习', '计算机视觉', '自然语言处理', '数据分析与挖掘']
+      //     },
+      //     {
+      //       menu_title: '云计算&大数据',
+      //       children: ['大数据', 'Hadoop', 'Spark', 'Hbase', 'Flink', 'Storm', '云计算', 'AWS', 'DOcker', 'Kubernetes']
+      //     },
+      //     ]
+      //   },
+      //   {
+      //     name: '测试运维',
+      //     list: [{
+      //       menu_title: '知识点',
+      //       children: ['运维', '自动化运维', '运维工具', '中间件', 'Linux', '测试', '功能测试', '性能测试', '自动化测试', '接口测试', '安全测试']
+      //     },
+      //     ]
+      //   },
+      //   {
+      //     name: '更多方向',
+      //     list: [{
+      //       menu_title: '产品设计',
+      //       children: ['模型制作', '动效动画', '设计基础', '设计工具', 'APP UI设计', '产品交互', 'PhotoShop']
+      //     },
+      //     {
+      //       menu_title: '游戏',
+      //       children: ['Unity 3D', 'Cocos2d-x']
+      //     },
+      //     ]
+      //   }],
 
     }
   },
@@ -113,7 +113,9 @@ export default {
   mounted() {
 
   },
-
+  created(){
+    this.getCourseMenuList();
+  },
   methods: {
 
     // 显示对应的二级分类菜单
@@ -128,7 +130,12 @@ export default {
     hideSubMenu() {
       document.querySelector('.sub-menu').classList.add('hide');
     },
-
+    getCourseMenuList(){
+      this.$axios.get("/back/dictionary/superMenuList?typeKey=course_category").then(response => {
+ 
+           this.menu_list = response.data.result;
+      });
+    }
   }
 }
 </script>
