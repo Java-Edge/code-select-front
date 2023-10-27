@@ -7,8 +7,11 @@ module.exports = {
   devServer: {
     proxy: {
       "/api/back": {
-        target: "http://47.99.69.109:8088/",
-        // target: "http://localhost:8088/",
+        // 服务器部署时访问打开&&本地不建数据库的打开
+        // target: "http://47.99.69.109:8088/",
+
+        // 本地开发调试打开
+        target: "http://localhost:8088/",
         changeOrigin: true,
         logLevel: "debug",
         pathRewrite:{
