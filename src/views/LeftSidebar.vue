@@ -34,79 +34,6 @@ export default {
       // 当前鼠标移入的分类菜单下标
       menu_item_index: 0,
       menu_list: [],
-      // 分类菜单数据（json格式，我提前整理好的）
-      // menu_list: [
-      //   {
-      //     name: '前端开发',
-      //     list: [{
-      //       menu_title: '知识点',
-      //       children: ['Vue.js', 'Typescript', 'React.js', 'HTML/CSS', 'Javascript', 'Angular', 'Node.js', 'JQuery', 'Bootstrap',
-      //         'Sass/Less', 'WebApp', '小程序', '前端工具', 'CSS', 'HTML5', 'CSS3']
-      //     },
-      //     ]
-      //   },
-      //   {
-      //     name: '后端开发',
-      //     children: [{
-      //       menu_title: '知识点',
-      //       children: ['Java', 'SpringBoot', 'SpringCloud', 'SSM', 'PHP', '.net', 'Python', '爬虫', 'Django', 'Flask', 'Tornado', 'Go', 'C', 'C++'
-      //         , 'C#', 'Ruby', 'ThinkPHP']
-      //     },
-      //     ]
-      //   },
-      //   {
-      //     name: '移动开发',
-      //     children: [{
-      //       menu_title: '知识点',
-      //       children: ['Android', 'IOS', 'React Native', 'WEEX', 'Swift']
-      //     },
-      //     ]
-      //   },
-      //   {
-      //     name: '计算机基础',
-      //     list: [{
-      //       menu_title: '计算机基础',
-      //       children: ['密码学', '信息安全', '计算机网路', '算法与数据结构', '数学']
-      //     },
-      //     {
-      //       menu_title: '数据库',
-      //       children: ['MySQL', 'Redis', 'MongoDB', 'Oracle', 'SQL Server', 'NoSQL']
-      //     },
-      //     ]
-      //   },
-      //   {
-      //     name: '前沿技术',
-      //     list: [{
-      //       menu_title: '前沿技术',
-      //       children: ['微服务', '区块链', '以太坊', '机器学习', '深度学习', '计算机视觉', '自然语言处理', '数据分析与挖掘']
-      //     },
-      //     {
-      //       menu_title: '云计算&大数据',
-      //       children: ['大数据', 'Hadoop', 'Spark', 'Hbase', 'Flink', 'Storm', '云计算', 'AWS', 'DOcker', 'Kubernetes']
-      //     },
-      //     ]
-      //   },
-      //   {
-      //     name: '测试运维',
-      //     list: [{
-      //       menu_title: '知识点',
-      //       children: ['运维', '自动化运维', '运维工具', '中间件', 'Linux', '测试', '功能测试', '性能测试', '自动化测试', '接口测试', '安全测试']
-      //     },
-      //     ]
-      //   },
-      //   {
-      //     name: '更多方向',
-      //     list: [{
-      //       menu_title: '产品设计',
-      //       children: ['模型制作', '动效动画', '设计基础', '设计工具', 'APP UI设计', '产品交互', 'PhotoShop']
-      //     },
-      //     {
-      //       menu_title: '游戏',
-      //       children: ['Unity 3D', 'Cocos2d-x']
-      //     },
-      //     ]
-      //   }],
-
     }
   },
 
@@ -146,21 +73,14 @@ export default {
   position: relative;
   width: 20%;
 }
-
-/* END */
-
 /* 覆盖默认a标签样式 */
 a {
   text-decoration: none;
 }
-
 a:link,
 a:visited {
   color: #5e5e5e;
 }
-
-/* END */
-
 /* 左侧分类菜单 */
 .menu-content {
   width: 244px;
@@ -171,14 +91,12 @@ a:visited {
   left: 0;
   padding-top: 6px;
 }
-
 .menu-item {
   height: 64px;
   line-height: 66px;
   padding: 0 24px;
   cursor: pointer;
 }
-
 .menu-item:hover {
   background:#4D4A5F;
   /* .2 就是过渡的时间 */
