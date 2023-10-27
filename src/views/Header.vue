@@ -98,7 +98,7 @@ export default {
         { name: "排行榜", value: "ranking", path: "/ranking" },
         { name: "项目", value: "project", path: "/projectList" },
         { name: "副业", value: "sideline", path: "/sidelineList" },
-        { name: "下载", value: "download", path: "/download" },
+        { name: "资源下载", value: "download", path: "/download" },
       ],
     };
   },

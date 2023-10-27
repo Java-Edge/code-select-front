@@ -14,8 +14,9 @@
       <router-link :to="`/projectDetail/${project.id}`" class="link-sty">
         <div class="ranking-middle">
           <div class="ranking-name hide-text">{{ project.title }}</div>
-          <div class="ranking-des hide-text">{{ project.des }}</div>
-          <div class="ranking-likes">创建时间 {{ project.createTime }}</div>
+          <div class="ranking-des">{{ project.des }}</div>
+<!--          <div class="ranking-time">发布时间：{{ project.createTime }}</div>-->
+          <div class="ranking-likes">{{ project.pageView }}人在学习</div>
         </div>
       </router-link>
 
@@ -152,9 +153,13 @@ getListData()
   font-size: 14px;
   color: #777888;
 }
-.ranking-likes {
+.ranking-time {
   font-size: 14px;
   color: #777888;
+}
+.ranking-likes {
+  font-size: 14px;
+  color: black;
 }
 .ranking-right {
   // background-color: green;
