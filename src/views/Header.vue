@@ -131,8 +131,6 @@ export default {
       this.$router.push({ path: "/login", query: { sl: isToLogin } });
     },
     handleLogout() {
-      // Implement the logout functionality here
-      // For example, clear the user session and redirect to the home page
       this.logout();
       this.isShowLogin = true;
     },

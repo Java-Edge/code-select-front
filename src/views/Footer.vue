@@ -27,7 +27,11 @@
       </div>
       <div class="footer-section">
         <h4>{{ contactInfo.name }}</h4>
-        <p v-for="item in contactInfo.list" :key="item.id">{{ item.label }}</p>
+        <ul>
+          <li v-for="item in contactInfo.list" :key="item.id">
+            <a :href="item.value" target="_blank">{{ item.label }}</a>
+          </li>
+        </ul>
       </div>
     </div>
   </footer>
