@@ -40,6 +40,7 @@
           <div class="ranking-name hide-text">{{ sideline.title }}</div>
           <div class="ranking-des hide-text">{{ sideline.des }}</div>
           <div class="ranking-likes">创建时间 {{ sideline.createTime }}</div>
+          <div class="ranking-likes">浏览量 {{ sideline.pageView }}</div>
         </div>
       </div>
 
