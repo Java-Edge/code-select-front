@@ -1,20 +1,20 @@
 <template>
   <div class="body main-content">
-    <div class="ranking-body" v-for="ranking in rankings" :key="ranking.id">
-      <div class="ranking-number">{{ ranking.orderVal }}</div>
+    <div class="ranking-body" v-for="download in downloads" :key="download.id">
+      <div class="ranking-number">{{ download.orderVal }}</div>
       <div class="ranking-left">
         <div class="ranking-img">
-          <img v-if="ranking.img == null || ranking.img == ''"
-               src="https://pic.imgdb.cn/item/64ed5b3e661c6c8e5402fc1a.jpg"/>
-          <img v-else :src="ranking.img"/>
+          <img v-if="download.img == null || download.img == ''"
+               src="https://p.ipic.vip/p6p1eb.png"/>
+          <img v-else :src="download.img"/>
         </div>
       </div>
 
-      <a :href="ranking.href" target="_blank" class="link-sty">
+      <a :href="download.href" target="_blank" class="link-sty">
         <div class="ranking-middle">
-          <div class="ranking-name hide-text">{{ ranking.title }}</div>
-          <div class="ranking-des hide-text">{{ ranking.des }}</div>
-          <div class="ranking-likes">下载量 {{ ranking.pageView }}</div>
+          <div class="ranking-name hide-text">{{ download.title }}</div>
+          <div class="ranking-des hide-text">{{ download.des }}</div>
+          <div class="ranking-likes">下载量 {{ download.pageView }}</div>
         </div>
       </a>
 
@@ -43,12 +43,12 @@ const total = ref(0);
 const page = ref(1);
 const size = ref(5);
 
-const rankings = ref([]);
+const downloads = ref([]);
 const getListData = async () => {
   let path = `/back/download/listByPage?current=${page.value}&size=${size.value}`;
   axios.get(path).then((res) => {
     console.log("res", res.data.result);
-    rankings.value = res.data.result.records;
+    downloads.value = res.data.result.records;
     total.value = res.data.result.total;
   });
 };
@@ -151,9 +151,9 @@ const handleCurrentChange = (currentPage) => {
   height: 25px;
   line-height: 25px;
   text-align: center;
-  background-color: #f8f8f8; /* Google蓝色 */
+  background-color: #f8f8f8;
   color: black;
-  border-radius: 13px; /* 圆角 */
+  border-radius: 13px;
   font-size: 14px;
   cursor: pointer;
   border: 1px solid #ccccd8;
@@ -166,7 +166,7 @@ const handleCurrentChange = (currentPage) => {
 
 /* 按钮点击样式 */
 .ranking-button:active {
-  background-color: #f8f8f8; /* Google更深的蓝色 */
+  background-color: #f8f8f8;
 }
 
 .hide-text {
