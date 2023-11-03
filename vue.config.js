@@ -1,4 +1,4 @@
-const path = require('path'); // 先引入path模块
+const path = require('path');
 module.exports = {
   lintOnSave: false,
   publicPath: './',

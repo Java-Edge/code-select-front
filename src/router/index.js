@@ -127,6 +127,16 @@ const routes = [
     name: "download",
     component: loadComponent("download/index"),
   },
+  {
+    path: "/discussion",
+    name: "discussion",
+    component: loadComponent("discussion/discussion-list"),
+  },
+  {
+    path: "/discussion-detail/:id",
+    name: "discussion-detail",
+    component: loadComponent("discussion/discussion-detail"),
+  }
 ];
 
 const router = createRouter({
