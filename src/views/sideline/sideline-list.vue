@@ -60,7 +60,7 @@ import axios from 'axios';
 const sidelineData = ref([]);
 const total = ref(0);
 const page = ref(1);
-const size = ref(5);
+const size = ref(7);
 // 获取数据
 const route = useRoute();
 // 获取数据的方法
