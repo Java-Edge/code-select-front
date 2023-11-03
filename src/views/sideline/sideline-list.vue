@@ -5,7 +5,6 @@
       v-for="sideline in sidelineData"
       :key="sideline.id"
     >
-      <!-- <div class="ranking-number">{{ ranking.orderVal }}</div> -->
       <div class="ranking-left">
         <div class="ranking-img">
           <img
@@ -15,13 +14,6 @@
           <img v-else :src="sideline.img" />
         </div>
       </div>
-      <!-- <router-link :to="`/sidelineDetail/${sideline.id}`" class="link-sty">
-                <div class="ranking-middle">
-                    <div class="ranking-name hide-text">{{ sideline.title }}</div>
-                    <div class="ranking-des hide-text">{{ sideline.des }}</div>
-                    <div class="ranking-likes">创建时间 {{ sideline.createTime }}</div>
-                </div>
-            </router-link> -->
       <a
         v-if="sideline.href != null && sideline.href != ''"
         :href="sideline.href"
@@ -45,9 +37,9 @@
       </div>
 
       <div class="ranking-right">
-        <!-- <div class="ranking-user-img"><img src="https://pic.imgdb.cn/item/64d1f0451ddac507ccb3ddbc.jpg" /></div> -->
-        <!-- <div class="ranking-user-name hide-text">Java Edge</div> -->
-        <!-- <a href="https://blog.csdn.net/qq_33589510" target="_blank"><div class="ranking-button">开始学习</div> </a> -->
+         <div class="ranking-user-img"><img src="https://p.ipic.vip/n6m1kg.jpg" /></div>
+         <div class="ranking-user-name hide-text">JavaEdge</div>
+         <a href="https://blog.csdn.net/qq_33589510" target="_blank"><div class="ranking-button">关注</div> </a>
       </div>
     </div>
     <pagination :page="page" :total="total" :size="size" @pageChange="handleCurrentChange" />
@@ -65,7 +57,6 @@ const sidelineData = ref([]);
 const total = ref(0);
 const page = ref(1);
 const size = ref(5);
-const step = 5; // 每次下拉到底部，多查询的数据条数
 // 获取数据
 const route = useRoute();
 // 获取数据的方法

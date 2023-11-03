@@ -20,11 +20,11 @@
 
 
       <div class="ranking-right">
-        <!-- 上传者的头像 -->
+        <!-- 作者头像 -->
         <div class="ranking-user-img">
           <img src="https://p.ipic.vip/n6m1kg.jpg"/>
         </div>
-        <div class="ranking-user-name hide-text">Java Edge</div>
+        <div class="ranking-user-name hide-text">JavaEdge</div>
         <a href="https://blog.csdn.net/qq_33589510" target="_blank"
         >
           <div class="ranking-button">关注</div>
