@@ -21,8 +21,8 @@
       </router-link>
 
       <div class="ranking-right">
-        <!-- <div class="ranking-user-img"><img src="https://pic.imgdb.cn/item/64d1f0451ddac507ccb3ddbc.jpg" /></div> -->
-        <!-- <div class="ranking-user-name hide-text">Java Edge</div> -->
+        <!-- <div class="ranking-user-img"><img src="https://p.ipic.vip/n6m1kg.jpg" /></div> -->
+        <!-- <div class="ranking-user-name hide-text">JavaEdge</div> -->
         <!-- <a href="https://blog.csdn.net/qq_33589510" target="_blank"><div class="ranking-button">开始学习</div> </a> -->
       </div>
     </div>

@@ -67,11 +67,11 @@
           ></el-input>
         </el-form-item>
         <el-form-item label="确认密码：" prop="rePassword">
-          <el-input
+          <el-inputz
             type="rePassword"
             v-model="registerForm.rePassword"
             autocomplete="off"
-          ></el-input>
+          ></el-inputz>
         </el-form-item>
         <el-form-item label="验证码：" prop="validCode" class="validCode">
           <el-input v-model="registerForm.validCode"></el-input>
@@ -86,16 +86,13 @@
             >注册</el-button
           >
           <el-button @click="resetForm('registerForm')">重置</el-button>
-          <!--        #606266 #5cb6ff-->
-          <el-link type="primary" :underline="false" @click="showChange"
-            >-> 去登录</el-link
-          >
+          <el-link type="primary" :underline="false" @click="showChange">-> 去登录</el-link>
         </el-form-item>
       </el-form>
     </div>
   </div>
 </template>
-  
+
 <script>
 export default {
   name: "Login",
@@ -226,15 +223,7 @@ export default {
       this.$refs[formName].resetFields();
     },
     getValidCode() {
-      // this.$axios.get('/base/user/getCheckCode?' + new Date()
-      // ).then(response => {
-      //     const courses = response.data.result;
-      //     console.log(response)
-      //     this.codeUrl = response.path;
-      //     console.log(this.courses)
-      // })
       this.codeUrl = "api/back/user/getCheckCode?" + new Date();
-      //console.log(this.$axios.baseURL)
     },
     showChange() {
       this.showLogin = !this.showLogin;
@@ -245,15 +234,15 @@ export default {
     //就可以拿到对应的值，例如我们要拿名为token的key，调用方法getCookieValue(token)就可以拿到key为token的值(value)
     getCookieValue(keyStr) {
       //cookie只能存放键值对
-      var operator = "=";
-      var value = null;
-      var s = window.document.cookie;
-      var arr = s.split("; ");
+      const operator = "=";
+      let value = null;
+      const s = window.document.cookie;
+      const arr = s.split("; ");
       for (var i = 0; i < arr.length; i++) {
         var str = arr[i];
         var k = str.split(operator)[0];
         var v = str.split(operator)[1];
-        if (k == keyStr) {
+        if (k === keyStr) {
           value = v;
           break;
         }
@@ -263,13 +252,13 @@ export default {
     //往cookie中设置格式：document.cookie = key=value，例如token=fohweoif2n334023noi2r
     setCookieValue(key, value) {
       //cookie只能存放键值对
-      var operator = "=";
+      const operator = "=";
       document.cookie = key + operator + value;
     },
   },
 };
 </script>
-  
+
 <style>
 #login {
   position: fixed;
@@ -317,10 +306,6 @@ body {
 .validCode .el-input {
   float: left;
   width: 50%;
-}
-
-.el-link {
-  margin-left: 25px;
 }
 
 img {
