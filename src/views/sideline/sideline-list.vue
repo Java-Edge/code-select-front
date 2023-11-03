@@ -37,9 +37,13 @@
       </div>
 
       <div class="ranking-right">
-         <div class="ranking-user-img"><img src="https://p.ipic.vip/n6m1kg.jpg" /></div>
-         <div class="ranking-user-name hide-text">JavaEdge</div>
-         <a href="https://blog.csdn.net/qq_33589510" target="_blank"><div class="ranking-button">关注</div> </a>
+        <div class="ranking-user-img">
+          <img src="https://p.ipic.vip/n6m1kg.jpg"/>
+        </div>
+        <div class="ranking-user-name hide-text">JavaEdge</div>
+        <a href="https://blog.csdn.net/qq_33589510" target="_blank">
+          <div class="ranking-button">关注</div>
+        </a>
       </div>
     </div>
     <pagination :page="page" :total="total" :size="size" @pageChange="handleCurrentChange" />
@@ -132,20 +136,15 @@ const handleCurrentChange = (currentPage) => {
 }
 // 带阴影
 .ranking-body {
-  height: 77px;
-  // width: 776px;
+  height: 67px;
   display: flex;
   align-items: center;
   margin: 0 auto;
-  margin-top: 25px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  margin-top: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
   border-bottom: 1px solid #e9e9e9;
   padding-bottom: 10px;
-  // box-shadow: 8px 16px 16px hsl(0deg 0% 0% / 0.25);
-  // background-color: white;
-  border-radius: 15px;
-  padding: 20px;
 }
 
 .ranking-left {

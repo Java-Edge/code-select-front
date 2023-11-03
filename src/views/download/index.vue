@@ -20,13 +20,11 @@
 
 
       <div class="ranking-right">
-        <!-- 作者头像 -->
         <div class="ranking-user-img">
           <img src="https://p.ipic.vip/n6m1kg.jpg"/>
         </div>
         <div class="ranking-user-name hide-text">JavaEdge</div>
-        <a href="https://blog.csdn.net/qq_33589510" target="_blank"
-        >
+        <a href="https://blog.csdn.net/qq_33589510" target="_blank">
           <div class="ranking-button">关注</div>
         </a>
       </div>
@@ -75,7 +73,6 @@ const handleCurrentChange = (currentPage) => {
 
 .ranking-body {
   height: 67px;
-  // width: 876px;
   display: flex;
   align-items: center;
   margin: 0 auto;
