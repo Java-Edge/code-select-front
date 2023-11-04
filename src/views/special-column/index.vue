@@ -56,14 +56,14 @@
 </template>
 
 <script setup>
-import { ref, onActivated, onMounted, onUnmounted } from "vue";
+import { ref, onActivated, onMounted } from "vue";
 import categoryCom from "./compontents/special-category.vue";
-// import pagination from "@/components/pagination.vue";
 import { getCookieValue } from "@/utils/userUtil.js";
 import axios from "axios";
+
 const total = ref(0);
 const page = ref(1);
-const size = ref(15);
+const size = ref(100); //todo 自动分页失效！！！
 const specialItems = ref([]);
 const order = [
   { id: 1, title: "默认", name: "default" },
