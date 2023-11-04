@@ -132,39 +132,39 @@ const throttle = (fun, time) => {
   };
 };
 // 触底触发函数
-const listenBottomOut = () => {
-  const scrollTop =
-    document.documentElement.scrollTop || document.body.scrollTop;
-  const clientHeight = document.documentElement.clientHeight;
-  const scrollHeight = document.documentElement.scrollHeight;
-  // 这里要判断下拉到底部，并且需要查询的数量大于总数量加上每次增加的数量
-  // 说明一下第二个判断：如果已经查询出的条数 page*size 已经大于总条数 total，那么就不需要再查询了
-  console.log("12312", page.value, size.value, total.value);
-  console.log(scrollTop + clientHeight)
-  console.log(scrollHeight)
-  if (
-    scrollTop + clientHeight >= scrollHeight &&
-    page.value * size.value <= total.value
-  ) {
-    console.log("触底了~");
-    // 此处可以调用获取数据的方法
-    // size.value = size.value + step
-    page.value = page.value + 1;
-    queryParams.value.pageNo = page.value;
-    getSpecialColumn(records => {
-      specialItems.value = specialItems.value.concat(records);
-    });
-  }
-};
-// 下拉加载数据
-onMounted(() => {
-  // 事件监听
-  window.addEventListener("scroll", throttle(listenBottomOut, 1000));
-});
-onUnmounted(() => {
-  // 离开页面取消监听
-  window.removeEventListener("scroll", throttle(listenBottomOut, 1000), false);
-});
+// const listenBottomOut = () => {
+//   const scrollTop =
+//     document.documentElement.scrollTop || document.body.scrollTop;
+//   const clientHeight = document.documentElement.clientHeight;
+//   const scrollHeight = document.documentElement.scrollHeight;
+//   // 这里要判断下拉到底部，并且需要查询的数量大于总数量加上每次增加的数量
+//   // 说明一下第二个判断：如果已经查询出的条数 page*size 已经大于总条数 total，那么就不需要再查询了
+//   console.log("12312", page.value, size.value, total.value);
+//   console.log(scrollTop + clientHeight)
+//   console.log(scrollHeight)
+//   if (
+//     scrollTop + clientHeight >= scrollHeight &&
+//     page.value * size.value <= total.value
+//   ) {
+//     console.log("触底了~");
+//     // 此处可以调用获取数据的方法
+//     // size.value = size.value + step
+//     page.value = page.value + 1;
+//     queryParams.value.pageNo = page.value;
+//     getSpecialColumn(records => {
+//       specialItems.value = specialItems.value.concat(records);
+//     });
+//   }
+// };
+// // 下拉加载数据
+// onMounted(() => {
+//   // 事件监听
+//   window.addEventListener("scroll", throttle(listenBottomOut, 1000));
+// });
+// onUnmounted(() => {
+//   // 离开页面取消监听
+//   window.removeEventListener("scroll", throttle(listenBottomOut, 1000), false);
+// });
 
 </script>
 

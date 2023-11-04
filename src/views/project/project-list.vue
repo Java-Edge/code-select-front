@@ -45,7 +45,6 @@ const step = 5; // 每次下拉到底部，多查询的数据条数
 // 获取数据
 const route = useRoute();
 const type = route.params.type;
-console.log(type);
 // 获取数据的方法
 const getListData = async () => {
   let path = `/back/project/getByPage?current=${page.value}&size=${size.value}`;
