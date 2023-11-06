@@ -3,25 +3,25 @@
     <div class="course-row" v-for="row in recruitRows" :key="row">
       <RecruitBox v-for="recruit in row" :key="recruit.id" :recruit="recruit" />
     </div>
-    <div class="course-right-side-container">
-      <el-card class="box-card">
-        <template #header>
-          <div class="card-header">
-            <span>热门职位</span>
-          </div>
-        </template>
-        <div v-for="o in 4" :key="o" class="posts-list" @click="handleClickPosts(o)">
-          <div class="posts-header">
-            <span>技术总监</span>
-            <span class="salary">30—40K</span>
-          </div>
-          <div class="posts-supplement">
-            <span>北京新东方</span>
-            <span>北京朝阳区</span>
-          </div>
-        </div>
-      </el-card>
-    </div>
+<!--    <div class="course-right-side-container">-->
+<!--      <el-card class="box-card">-->
+<!--        <template #header>-->
+<!--          <div class="card-header">-->
+<!--            <span>关注我，一键定制更多目标职位</span>-->
+<!--          </div>-->
+<!--        </template>-->
+<!--        <div v-for="o in 4" :key="o" class="posts-list" @click="handleClickPosts(o)">-->
+<!--          <div class="posts-header">-->
+<!--            <span>技术总监</span>-->
+<!--            <span class="salary">30—40K</span>-->
+<!--          </div>-->
+<!--          <div class="posts-supplement">-->
+<!--            <span>北京新东方</span>-->
+<!--            <span>北京朝阳区</span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </el-card>-->
+<!--    </div>-->
   </div>
 </template>
 <script>
