@@ -1,12 +1,11 @@
 <template>
   <div class="main">
-    <!-- 内容区域 -->
     <div class="bg banner-box">
       <div class="content flex">
         <LeftSidebar />
         <RightSidebar
-          v-if="carouselData.length > 0"
-          :carouselData="carouselData"
+          v-if="carouseResp.length > 0"
+          :carouselData="carouseResp"
         />
         <el-skeleton style="width: 1440px" v-else :rows="10" animated />
       </div>
@@ -19,12 +18,6 @@
           </div>
         </div>
         <CourseList :courses="courses" />
-        <!-- <pagination
-          :page="page"
-          :total="total"
-          :size="size"
-          @pageChange="handleCurrentChange"
-        /> -->
       </div>
       <study />
     </div>
@@ -32,34 +25,24 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import {onMounted, ref} from "vue";
 import CourseList from "./CourseList.vue";
 import LeftSidebar from "./LeftSidebar.vue";
 import RightSidebar from "./RightSidebar.vue";
 import study from "./home/study.vue";
-// import pagination from "@/components/pagination.vue";
-import {getCarouselData, getCourseList } from "@/api/sourceCourse";
-const activeMenu = ref("home");
-// const total = ref(0);
-// const page = ref(1);
-// const size = ref(12);
+import {getCarouselData, getCourseList} from "@/api/sourceCourse";
+
 const courses = ref([]);
-const carouselData = ref([]);
-const handleMenuSelect = (index) => {
-  activeMenu.value = index; // 更新选中的菜单项
-  // 可根据不同的菜单项进行相应的页面跳转或其他操作
-};
+const carouseResp = ref([]);
 const getCourses = () => {
   getCourseList().then(response => {
-    const coursesData = response.data.result;
-    courses.value = coursesData;
+    courses.value = response.data.result;
     courseRows();
   })
 }
-const getFiveCourse = () => {
+const listSliderVideos = () => {
   getCarouselData().then((response) => {
-    const courses = response.data.result;
-    carouselData.value = courses;
+    carouseResp.value = response.data.result;
   });
 };
 
@@ -72,35 +55,13 @@ const courseRows = () => {
   return rows;
 };
 
-// const getCourses = (param) => {
-//   let condition = {
-//     pageNo: page.value,
-//     pageSize: size.value,
-//     param: {
-//       ...param,
-//       type: 0,
-//     },
-//   };
-//   getCourse(condition).then((response) => {
-//     courses.value = response.data.result.records;
-//     total.value = response.data.result.total;
-//     courseRows();
-//   });
-// };
-
-// const handleCurrentChange = (currentPage) => {
-//   page.value = currentPage;
-//   getCourses();
-// };
-
 onMounted(() => {
   getCourses();
-  getFiveCourse();
+  listSliderVideos();
 });
 </script>
 
 <style lang="scss" scoped>
-/* 添加样式 */
 .bg {
   background-color: #f9f3e8;
 }

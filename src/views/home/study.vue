@@ -23,52 +23,34 @@
 import { ref } from "vue";
 import List from "./study-list";
 import axios from 'axios'
-// const menus = [{ name: '推荐', category: '0' }, { name: '前端开发', category: '1' }, { name: '后端开发', category: '2' }, { name: '移动端开发', category: '3' }]
+
 const menus = ref([])
-// const menus = ref([])
 const roamMapList = ref([])
 const initRoadMap = () => {
- // let path = `/back/roadmap/route?categoryId=${categoryId.value}&current=1&size=3`;
  let path = `/back/roadmap/getAll`;
   axios.get(path).then(res => {
     roadMaps.value = res.data.result
-    // 默认传入推荐路线
     roamMapList.value = roadMaps.value[0]
-    console.log('roadMaps.value', roadMaps.value)
-    // console.log(roadMaps.value[2])
-    // console.log('list.value', res)
   })
 }
 initRoadMap()
-
 
 const roadMaps = ref({})
 const currentMenu = ref('0')
 const changeMenu = (category) => {
   currentMenu.value = category
   roamMapList.value = roadMaps.value[category]
-  console.log("21312", roamMapList.value)
 }
 
 const getCategoryList = async () => {
   let path = '/back/courseCategory/mainCategoryList';
   axios.get(path).then(res => {
-    // console.log(res)
-    /**
-     * 每次查出来之后，拼接上原来的数据即可
-     */
-    // console.log("mainCategoryList", res.data.result)
+    // 每次查出后，拼接上原来的数据
     menus.value = res.data.result.slice(0, 4);
-
-    // console.log('menus', menus.slice(0, 4))
   })
 }
 
-
 getCategoryList()
-
-
-
 </script>
 
 <style lang="scss" scoped>
