@@ -99,6 +99,7 @@ export default {
         { name: "项目", value: "project", path: "/projectList" },
         { name: "副业", value: "sideline", path: "/sidelineList" },
         { name: "资源下载", value: "download", path: "/download" },
+        { name: "公司交流", value: "discussion", path: "/discussion" },
       ],
     };
   },

@@ -1,10 +1,15 @@
-const path = require('path'); // 先引入path模块
+const path = require('path');
 module.exports = {
   lintOnSave: false,
   publicPath: './',
   assetsDir: 'static',
   parallel: false,
   devServer: {
+    client: {
+      overlay: false
+    },
+    // 需要配置允许的域名访问
+    allowedHosts: "all",
     proxy: {
       "/api/back": {
         // 服务器部署时访问打开&&本地不建数据库的打开

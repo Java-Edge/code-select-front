@@ -5,25 +5,17 @@
       v-for="sideline in sidelineData"
       :key="sideline.id"
     >
-      <!-- <div class="ranking-number">{{ ranking.orderVal }}</div> -->
       <div class="ranking-left">
         <div class="ranking-img">
           <img
-            v-if="sideline.img == null || sideline.img == ''"
+            v-if="sideline.img == null || sideline.img === ''"
             src="https://pic.imgdb.cn/item/650ef2e5c458853aef26c6d2.jpg"
           />
           <img v-else :src="sideline.img" />
         </div>
       </div>
-      <!-- <router-link :to="`/sidelineDetail/${sideline.id}`" class="link-sty">
-                <div class="ranking-middle">
-                    <div class="ranking-name hide-text">{{ sideline.title }}</div>
-                    <div class="ranking-des hide-text">{{ sideline.des }}</div>
-                    <div class="ranking-likes">创建时间 {{ sideline.createTime }}</div>
-                </div>
-            </router-link> -->
       <a
-        v-if="sideline.href != null && sideline.href != ''"
+        v-if="sideline.href != null && sideline.href !== ''"
         :href="sideline.href"
         target="_blank"
         class="link-sty"
@@ -31,7 +23,8 @@
         <div class="ranking-middle">
           <div class="ranking-name hide-text">{{ sideline.title }}</div>
           <div class="ranking-des hide-text">{{ sideline.des }}</div>
-          <div class="ranking-likes">创建时间 {{ sideline.createTime }}</div>
+          <div class="ranking-likes">发布时间 {{ sideline.createTime }}</div>
+          <div class="ranking-likes">浏览量 {{ sideline.pageView }}</div>
         </div>
       </a>
       <!-- 如果 href 为空，先设置成 div，不进行跳转，如果后期需要跳转详情页，再考虑添加 -->
@@ -45,9 +38,13 @@
       </div>
 
       <div class="ranking-right">
-        <!-- <div class="ranking-user-img"><img src="https://pic.imgdb.cn/item/64d1f0451ddac507ccb3ddbc.jpg" /></div> -->
-        <!-- <div class="ranking-user-name hide-text">Java Edge</div> -->
-        <!-- <a href="https://blog.csdn.net/qq_33589510" target="_blank"><div class="ranking-button">开始学习</div> </a> -->
+        <div class="ranking-user-img">
+          <img src="https://p.ipic.vip/n6m1kg.jpg"/>
+        </div>
+        <div class="ranking-user-name hide-text">JavaEdge</div>
+        <a href="https://blog.csdn.net/qq_33589510" target="_blank">
+          <div class="ranking-button">关注</div>
+        </a>
       </div>
     </div>
     <pagination :page="page" :total="total" :size="size" @pageChange="handleCurrentChange" />
@@ -60,15 +57,16 @@ import { useRouter, useRoute } from 'vue-router';
 import pagination from "@/components/pagination.vue";
 import axios from 'axios';
 
-// 数据相关
+
 const sidelineData = ref([]);
 const total = ref(0);
 const page = ref(1);
-const size = ref(5);
-const step = 5; // 每次下拉到底部，多查询的数据条数
-// 获取数据
+const size = ref(7);
+
+
 const route = useRoute();
-// 获取数据的方法
+
+
 const getListData = async () => {
   let path = `/back/sideline/getByPage?current=${page.value}&size=${size.value}`;
   axios.get(path).then(res => {
@@ -77,9 +75,6 @@ const getListData = async () => {
   })
 }
 getListData()
-// 处理数据不重新加载的问题
-// onActivated(getListData)
-
 /**
  * 查看按钮点击事件
  */
@@ -141,20 +136,15 @@ const handleCurrentChange = (currentPage) => {
 }
 // 带阴影
 .ranking-body {
-  height: 77px;
-  // width: 776px;
+  height: 67px;
   display: flex;
   align-items: center;
   margin: 0 auto;
-  margin-top: 25px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  margin-top: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
   border-bottom: 1px solid #e9e9e9;
   padding-bottom: 10px;
-  // box-shadow: 8px 16px 16px hsl(0deg 0% 0% / 0.25);
-  // background-color: white;
-  border-radius: 15px;
-  padding: 20px;
 }
 
 .ranking-left {
@@ -220,9 +210,9 @@ const handleCurrentChange = (currentPage) => {
   height: 25px;
   line-height: 25px;
   text-align: center;
-  background-color: #f8f8f8; /* Google蓝色 */
+  background-color: #f8f8f8;
   color: black;
-  border-radius: 13px; /* 圆角 */
+  border-radius: 13px;
   font-size: 14px;
   // padding: 10px 20px; /* 上下边距，左右边距 */
   cursor: pointer;
@@ -236,7 +226,7 @@ const handleCurrentChange = (currentPage) => {
 
 /* 按钮点击样式 */
 .ranking-button:active {
-  background-color: #f8f8f8; /* Google更深的蓝色 */
+  background-color: #f8f8f8;
 }
 
 // 隐藏多余文字样式
