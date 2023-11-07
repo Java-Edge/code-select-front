@@ -67,11 +67,11 @@
           ></el-input>
         </el-form-item>
         <el-form-item label="确认密码：" prop="rePassword">
-          <el-inputz
+          <el-input
             type="rePassword"
             v-model="registerForm.rePassword"
             autocomplete="off"
-          ></el-inputz>
+          ></el-input>
         </el-form-item>
         <el-form-item label="验证码：" prop="validCode" class="validCode">
           <el-input v-model="registerForm.validCode"></el-input>
