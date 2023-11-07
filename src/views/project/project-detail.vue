@@ -60,8 +60,6 @@ getProjectDetail();
   height: 125px;
   line-height: 125px;
   color: black;
-  // background: url("../../assets/350.jpg") no-repeat;
-  // background-size: cover;
 }
 .project-btn {
   margin-bottom: 25px;
