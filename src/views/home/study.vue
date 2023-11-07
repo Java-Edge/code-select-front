@@ -23,6 +23,7 @@
 import { ref } from "vue";
 import List from "./study-list";
 import axios from 'axios'
+import {ArrowRight} from "@element-plus/icons-vue";
 
 const menus = ref([])
 const roamMapList = ref([])

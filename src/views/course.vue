@@ -11,6 +11,9 @@
       </div>
     </div>
     <div class="bg000">
+      <!-- 学习路线 -->
+      <study />
+      <!-- 课程列表 -->
       <div class="content">
         <div class="floorhd">
           <div class="grid_c1 floorhd_inner">
@@ -19,7 +22,6 @@
         </div>
         <CourseList :courses="courses" />
       </div>
-      <study />
     </div>
   </div>
 </template>
