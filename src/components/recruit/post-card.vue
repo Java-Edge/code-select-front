@@ -18,9 +18,8 @@
                     <img :src=recruit.picUrl :alt=recruit.companyName class="company-picture" />
                     <span class="course-group-header-title company-name">{{ recruit.companyName }}</span>
                     <div class="course-group-company-status">
-                        <!-- 公司状态，传递数组数据即可  -->
                         <div class="course-group-tag-item course-group-tag-item-block">
-                            移动互联网
+                            TODO
                         </div>
                         <div class="course-group-tag-item course-group-tag-item-block">
                             {{ recruit.scaleTagName }}
@@ -36,16 +35,15 @@
         <div class="course-group-second">
             <div class="course-group-footer-wrapper course-group-footer-wrapper-first">
                 <!-- 招聘技术栈要求 -->
-                <!-- TODO：当文案过长时，是否过滤掉超出部分 -->
                 <div class="course-group-tag-item course-group-tag-item-footer"
-                    v-for="(item, index) in ['Java', 'Go', 'MySQL', '嵌入式', '单片机/开发经验', '教师']" :key="index">
+                    v-for="(item, index) in ['Java', 'TODO']" :key="index">
                     {{ item }}
                 </div>
             </div>
             <div class="course-group-footer-wrapper">
-                <!-- 福利待遇，显示字符串 -->
+                <!-- 福利待遇 -->
                 <div class="course-group-tag-item course-group-tag-item-footer course-group-tag-item-footer-benefits">
-                    生日福利、餐饮及下午茶、节日奖品、五险一金、全勤奖、零食、带薪年假</div>
+                    TODO</div>
             </div>
         </div>
     </div>
@@ -177,10 +175,6 @@ export default {
   width: 590px;
   height: 50px;
   line-height: 50px;
-}
-
-.label {
-  color: #888888;
 }
 
 .course-group-header-title {

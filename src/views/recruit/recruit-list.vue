@@ -43,8 +43,7 @@ export default {
         let formatJobs = this.recruits.slice(i, i + 1);
         // 将后端的数据遍历解释
         formatJobs = formatJobs.map((item) => {
-          let formatJob = this.transformJobInfo(item);
-          return formatJob;
+          return this.transformJobInfo(item);
         });
         rows.push(formatJobs);
       }
