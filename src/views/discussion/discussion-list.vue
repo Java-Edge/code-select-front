@@ -1,10 +1,10 @@
 <template>
     <div class="list-container">
         <el-table :data="tableData" border style="width: 100%">
-            <el-table-column proper="name" label="用户"  align="center"></el-table-column>
+            <el-table-column type="index" label="序号" width="50" align="center"></el-table-column>
             <el-table-column prop="title" label="标题"  align="center"></el-table-column>
-            <el-table-column prop="content" label="内容" align="center"></el-table-column>
-            <el-table-column prop="createAt" label="时间" align="center"></el-table-column>
+            <el-table-column prop="content" label="简介" align="center"></el-table-column>
+            <el-table-column prop="createAt" label="发布时间" align="center"></el-table-column>
             <el-table-column  label="操作" align="center">
                 <template #default="scope">
                     <el-button link type="primary" size="small"  @click.prevent="onShowClick(scope.row.id)"  >
@@ -18,8 +18,8 @@
 </template>
 
 <script setup>
-import { ref, onActivated, watch } from "vue";
-import { useRouter, useRoute } from "vue-router";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 import pagination from "@/components/pagination.vue";
 import axios from "axios";
 
@@ -28,18 +28,6 @@ const page = ref(1);
 const size = ref(10);
 const total = ref(0);
 
-const getListDataByCondition = async (condition) => {
-    condition.param = {
-        ...condition.param
-    }
-    axios.post("/back/innerRecommend/selectByCondition",condition).then(response => {
-        console.log(response)
-    })
-}
-
-/**
- * 获取数据
- */
 const getListData = async () => {
     let params =  {
         pageNo: page.value,
@@ -48,8 +36,7 @@ const getListData = async () => {
             articleType: 2
         }
     }
-    axios.post("/back/innerRecommend/selectByCondition",params).then(response => {
-        console.log(response)
+    axios.post("/back/company-discussion/selectByCondition",params).then(response => {
         tableData.value = response.data.result.records;
         total.value = response.data.result.total
     })

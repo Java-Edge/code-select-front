@@ -11,25 +11,6 @@
           expandTrigger="hover"
         />
       </div>
-      <!-- <div class="company-filter-box">
-        <el-select
-          v-model="companyCondition"
-          multiple
-          filterable
-          placeholder="选择公司"
-          style="width: 240px"
-          collapse-tags
-          clearable
-          @change="handleChangeCompany"
-        >
-          <el-option
-            v-for="item in companyOptions"
-            :key="item.companyName"
-            :label="item.companyName"
-            :value="item.companyName"
-          />
-        </el-select>
-      </div> -->
       <div class="company-filter-box">
         <el-input
         v-model="keyword"
@@ -41,9 +22,7 @@
 
     <el-table :data="tableData" height="1000" border style="width: 100%">
       <el-table-column type="index" label="序号" width="50" align="center"></el-table-column>
-      <!-- <el-table-column prop="companyName" label="公司名称" width="180"> </el-table-column> -->
       <el-table-column prop="title" label="标题" width="180" align="center"> </el-table-column>
-<!--      <el-table-column prop="content" label="简介" width="400" align="center"> </el-table-column>-->
       <el-table-column prop="createAt" label="发布时间" width="160" align="center"> </el-table-column>
       <el-table-column prop="recommendCode" label="内推码"  width="200" align="center"> </el-table-column>
       <el-table-column prop="recommendEmail" label="内推邮箱" width="180" align="center"> </el-table-column>
@@ -67,7 +46,6 @@ import pagination from "@/components/pagination.vue";
 import axios from "axios";
 const companyOptions = ref([]);
 
-// let companyCondition = ref("");
 let activeMenu = ref("");
 let jobId = ref(-1);
 let keyword = ref("");
@@ -83,14 +61,12 @@ getCompanyData();
 
 // 公司筛选框
 const handleChangeCompany = () => {
-  // console.log(companyCondition.value);
   let condition = {
     pageNo: page.value,
     pageSize: size.value,
     param: {
       jobId: jobId.value,
       content: activeMenu.value,
-      // company: companyCondition.value,
       keyword: keyword.value,
     },
   };
@@ -111,12 +87,11 @@ const getListDataByCondition = async (condition) => {
     });
 };
 
-// 数据相关
 const tableData = ref([]);
 const total = ref(0);
 const page = ref(1);
 const size = ref(10);
-// 获取数据
+
 const route = useRoute();
 const type = route.params.type;
 console.log(type);
@@ -165,14 +140,6 @@ const getListData = async () => {
 getListData();
 // 处理数据不重新加载的问题
 onActivated(getListData);
-/**
- * size 改变触发
- */
-const handleSizeChange = (currentSize) => {
-  size.value = currentSize;
-  getListData();
-};
-
 /**
  * 页码改变触发
  */

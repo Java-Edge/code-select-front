@@ -4,7 +4,7 @@
       {{ project.title }}
     </div>
     <div class="project-btn">
-      <a :href="project.href" target="_blank">进入学习</a>
+      <a :href="project.href" target="_blank">阅读源码</a>
     </div>
     <div class="project-des">
       <div class="left-border">项目简介</div>
