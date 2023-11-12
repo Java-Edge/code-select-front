@@ -58,8 +58,8 @@
               autocomplete="off">
             <input type="hidden" class="btn_search" data-search-btn="search-btn">
             <div class="hotTags">
-              <a href="https://www.imooc.com/search/?words=Vue" target="_blank" class="">Vue</a>
-              <a href="https://www.imooc.com/search/?words=Python&amp;type=course" target="_blank" class="last">Python</a>
+              <a href="https://www.javaedge.cn/search/?words=Vue" target="_blank" class="">Vue</a>
+              <a href="https://www.javaedge.cn/search/?words=Python&amp;type=course" target="_blank" class="last">Python</a>
             </div>
           </div>
           <div class="showhide-search" data-show="no"><el-icon>

@@ -54,108 +54,13 @@
             >
             <a
               target="_blank"
-              href="//www.imooc.com/search/?words=算法&amp;type=course"
+              href="//www.javaedge.cn/search/?words=算法&amp;type=course"
               >算法</a
             >
           </div>
         </div>
       </div>
     </div>
-    <!-- 神针20200201让干掉 -->
-    <!-- <div class="class-course-wrap">
-        <div class="class-wrap w1430">
-            <div class="swiper-container">
-                <ul class="swiper-wrapper" style="list-style: none;">
-                                    <li class="swiper-slide" style="width: 211px; margin-right: 24px;">
-                        <i class="class-flag"></i>
-                        <a class="inner" href="https://class.imooc.com/sale/fearchitect?utm_source=codinglist" target="_blank">
-                            <img class="lazy" src="/static/module/index/img/classcourse/fearchitect.png?t=1" alt="">
-                        </a>
-                    </li>
-                                    <li class="swiper-slide" style="width: 211px; margin-right: 24px;">
-                        <i class="class-flag"></i>
-                        <a class="inner" href="https://class.imooc.com/sale/fe2020?utm_source=codinglist" target="_blank">
-                            <img class="lazy" src="/static/module/index/img/classcourse/fe2020.png?t=1" alt="">
-                        </a>
-                    </li>
-                                    <li class="swiper-slide" style="width: 211px; margin-right: 24px;">
-                        <i class="class-flag"></i>
-                        <a class="inner" href="https://class.imooc.com/sale/java2020?utm_source=codinglist" target="_blank">
-                            <img class="lazy" src="/static/module/index/img/classcourse/java2020.png?t=1" alt="">
-                        </a>
-                    </li>
-                                    <li class="swiper-slide" style="width: 211px; margin-right: 24px;">
-                        <i class="class-flag"></i>
-                        <a class="inner" href="https://class.imooc.com/sale/python2020?utm_source=codinglist" target="_blank">
-                            <img class="lazy" src="/static/module/index/img/classcourse/python2020.png?t=1" alt="">
-                        </a>
-                    </li>
-                                    <li class="swiper-slide" style="width: 211px; margin-right: 24px;">
-                        <i class="class-flag"></i>
-                        <a class="inner" href="https://class.imooc.com/sale/javaalmighty?utm_source=codinglist" target="_blank">
-                            <img class="lazy" src="/static/module/index/img/classcourse/javaalmighty.png?t=1" alt="">
-                        </a>
-                    </li>
-                                    <li class="swiper-slide" style="width: 211px; margin-right: 24px;">
-                        <i class="class-flag"></i>
-                        <a class="inner" href="https://class.imooc.com/sale/javaarchitect?utm_source=codinglist" target="_blank">
-                            <img class="lazy" src="/static/module/index/img/classcourse/javaarchitect.png?t=1" alt="">
-                        </a>
-                    </li>
-                                    <li class="swiper-slide" style="width: 211px; margin-right: 24px;">
-                        <i class="class-flag"></i>
-                        <a class="inner" href="https://class.imooc.com/sale/go?utm_source=codinglist" target="_blank">
-                            <img class="lazy" src="/static/module/index/img/classcourse/go.png?t=1" alt="">
-                        </a>
-                    </li>
-                                    <li class="swiper-slide" style="width: 211px; margin-right: 24px;">
-                        <i class="class-flag"></i>
-                        <a class="inner" href="https://class.imooc.com/sale/webfullstack?utm_source=codinglist" target="_blank">
-                            <img class="lazy" src="/static/module/index/img/classcourse/webfullstack.png?t=1" alt="">
-                        </a>
-                    </li>
-                                    <li class="swiper-slide" style="width: 211px; margin-right: 24px;">
-                        <i class="class-flag"></i>
-                        <a class="inner" href="https://class.imooc.com/sale/javafullstack?utm_source=codinglist" target="_blank">
-                            <img class="lazy" src="/static/module/index/img/classcourse/javafullstack.png?t=1" alt="">
-                        </a>
-                    </li>
-                                    <li class="swiper-slide" style="width: 211px; margin-right: 24px;">
-                        <i class="class-flag"></i>
-                        <a class="inner" href="https://class.imooc.com/sale/bigdata?utm_source=codinglist" target="_blank">
-                            <img class="lazy" src="/static/module/index/img/classcourse/bigdata.png?t=1" alt="">
-                        </a>
-                    </li>
-                                    <li class="swiper-slide" style="width: 211px; margin-right: 24px;">
-                        <i class="class-flag"></i>
-                        <a class="inner" href="https://class.imooc.com/sale/datastructure?utm_source=codinglist" target="_blank">
-                            <img class="lazy" src="/static/module/index/img/classcourse/datastructure.png?t=1" alt="">
-                        </a>
-                    </li>
-                                    <li class="swiper-slide" style="width: 211px; margin-right: 24px;">
-                        <i class="class-flag"></i>
-                        <a class="inner" href="https://class.imooc.com/sale/dataanalysis?utm_source=codinglist" target="_blank">
-                            <img class="lazy" src="/static/module/index/img/classcourse/dataanalysis.png?t=1" alt="">
-                        </a>
-                    </li>
-                                    <li class="swiper-slide" style="width: 211px; margin-right: 24px;">
-                        <i class="class-flag"></i>
-                        <a class="inner" href="https://class.imooc.com/sale/mobilearchitect?utm_source=codinglist" target="_blank">
-                            <img class="lazy" src="/static/module/index/img/classcourse/mobilearchitect.png?t=1" alt="">
-                        </a>
-                    </li>
-                                    <li class="swiper-slide" style="width: 211px; margin-right: 24px;">
-                        <i class="class-flag"></i>
-                        <a class="inner" href="https://class.imooc.com/sale/newandroid?utm_source=codinglist" target="_blank">
-                            <img class="lazy" src="/static/module/index/img/classcourse/newandroid.png?t=1" alt="">
-                        </a>
-                    </li>
-                                </ul>
-            </div>
-            <div class="swiper-btn next"></div>
-            <div class="swiper-btn prev"></div>
-        </div>
-    </div> -->
     <div class="type">
       <div class="type-wrap main-content">
         <div

@@ -36,22 +36,14 @@
         class="special-box"
       >
         <div class="box-head">
-          <!-- 绑定每个专栏的图片 -->
           <img :src="item.image" class="head-img" />
         </div>
         <div class="box-bottom">
-          <!-- 专栏名称-->
           <div class="bottom-left">{{ item.name }}</div>
-          <div class="bottom-right">所有人可见</div>
+          <div class="bottom-right">学习人数 {{ item.pageView }}</div>
         </div>
       </a>
     </div>
-    <!-- <pagination
-      :page="page"
-      :total="total"
-      :size="size"
-      @pageChange="handleCurrentChange"
-    /> -->
   </div>
 </template>
 
