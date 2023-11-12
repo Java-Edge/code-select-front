@@ -1,11 +1,3 @@
-<!--
- * @Descripttion: 
- * @version: 
- * @Author: 不败顽童
- * @Date: 2023-07-16 17:51:44
- * @LastEditors: 不败顽童
- * @LastEditTime: 2023-07-17 21:25:53
--->
 <template>
   <router-link :to="`/course/${course.id}`">
     <div class="course-box">
@@ -17,10 +9,7 @@
       </div>
       <div class="course-text">
         <p>{{ course.name }}</p>
-        <!-- <span class="difficulty">中级 · 118人报名 </span> -->
-        <!-- <p class="description">{{ course.description }}</p> -->
-        <p class="price">{{ course.price }}</p>
-        <!-- You can add more course details as needed -->
+         <span class="difficulty">中级 · {{ course.pageView }}人在学 </span>
       </div>
     </div>
   </router-link>

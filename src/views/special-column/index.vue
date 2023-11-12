@@ -34,6 +34,7 @@
         :href="item.sourceUrl"
         target="_blank"
         class="special-box"
+        @click="openSpecial(item.id)"
       >
         <div class="box-head">
           <img :src="item.image" class="head-img" />
@@ -72,12 +73,24 @@ const queryParams = ref({
     category: "",
     order: "",
     isOnlyShow: false,
+    itemId: ""
   },
 });
 const changeOrder = (item) => {
   currentOrder.value = item;
   queryParams.value.param.order = item.name;
 };
+
+let openSpecial  = (itemId) => {
+  var token = getCookieValue("token");
+  var headers = {
+    token: token, //访问受限资源必须把token传到后端校验
+  };
+  queryParams.value.param.itemId = itemId;
+  axios.post("/back/course/special/pv", queryParams.value, headers);
+};
+
+
 const changeCategory = (item) => {
   queryParams.value.param.category = item;
   getSpecialColumn(records => {
@@ -90,18 +103,10 @@ const getSpecialColumn = async (callback) => {
     token: token, //访问受限资源必须把token传到后端校验
   };
   axios.post("/back/course/special/search", queryParams.value, headers).then((response) => {
-    // specialItems.value = specialItems.value.concat(response.data.result.records);
     total.value = response.data.result.total;
-    console.log(specialItems.value);
     callback(response.data.result.records);
   });
 };
-
-// const handleCurrentChange = (currentPage) => {
-//   page.value = currentPage;
-//   queryParams.value.pageNo = page.value;
-//   getSpecialColumn();
-// };
 
 onMounted(() => {
   getSpecialColumn(records => {
