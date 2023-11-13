@@ -15,7 +15,7 @@ const routes = [
   {
     path: "/course/:id",
     name: "courseDetail",
-    component: loadComponent("course-detail"),
+    component: loadComponent("video/video-detail"),
   },
   {
     path: "/article-create",

@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import CourseList from "./CourseList.vue"; // Import the CourseList component
+import CourseList from "../CourseList.vue";
 export default {
   name: "CourseDetails",
   components: {
@@ -62,7 +62,7 @@ export default {
       this.getRecommendCourses();
     },
     getCourseDetail(id) {
-      this.$axios.get("/back/course/course/" + id).then((response) => {
+      this.$axios.get("/back/video/course/" + id).then((response) => {
         const courses = response.data.result;
         this.selectedCourse = courses;
       });
@@ -78,7 +78,7 @@ export default {
     },
     getRecommendCourses() {
       this.$axios
-        .get("/back/course/getRecommendCourses")
+        .get("/back/video/getRecommendCourses")
         .then((response) => {
           const courses = response.data.result;
           this.recommendCourses = courses;
