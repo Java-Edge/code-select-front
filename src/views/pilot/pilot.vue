@@ -1,13 +1,13 @@
 <template>
   <div class="content-class" style="padding-top:10px;">
     <div v-for="(value, key) in pilotList" :key="key">
-      <categry-components :list="value" :title="key"></categry-components>
+      <CategoryComponents :list="value" :title="key"></CategoryComponents>
     </div>
   </div>
 </template>
 
 <script setup>
-import CategryComponents from "@/views/category/categryComponents.vue";
+import CategoryComponents from "@/components/categoryComponents.vue";
 
 import axios from 'axios'
 import {ref} from "vue";

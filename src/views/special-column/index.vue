@@ -1,7 +1,6 @@
 <template>
   <div class="body">
     <category-com @callback="changeCategory" />
-    <!-- 显示专栏列表 -->
     <div class="box-body main-content">
       <!-- 绑定每个专栏的链接 -->
       <div class="filter clearfix">
@@ -34,7 +33,7 @@
         :href="item.sourceUrl"
         target="_blank"
         class="special-box"
-        @click="openSpecial(item.id)"
+        @click="clickSpecial(item.id)"
       >
         <div class="box-head">
           <img :src="item.image" class="head-img" />
@@ -56,7 +55,7 @@ import axios from "axios";
 
 const total = ref(0);
 const page = ref(1);
-const size = ref(100); //todo 自动分页失效！！！
+const size = ref(100); //fixme：自动分页失效！！！
 const specialItems = ref([]);
 const order = [
   { id: 1, title: "默认", name: "default" },
@@ -81,9 +80,9 @@ const changeOrder = (item) => {
   queryParams.value.param.order = item.name;
 };
 
-let openSpecial  = (itemId) => {
-  var token = getCookieValue("token");
-  var headers = {
+let clickSpecial  = (itemId) => {
+  const token = getCookieValue("token");
+  const headers = {
     token: token, //访问受限资源必须把token传到后端校验
   };
   queryParams.value.param.itemId = itemId;

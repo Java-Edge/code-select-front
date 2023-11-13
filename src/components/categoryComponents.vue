@@ -4,7 +4,9 @@
     <div class="item-list">
       <div v-for="(item, index) in list" :key="index">
         <div class="item-class">
-          <a :href="item.link" style="text-decoration:none;">
+          <a :href="item.link" style="text-decoration:none;"
+             @click="clickPilot(item.id)"
+          >
             <img :src="item.img"/>
             <span>{{ item.name }}</span>
           </a>
@@ -13,16 +15,37 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  props: {
-    title: String,
-    list: {
-      link: String,
-      img: String,
-      name: String,
-    },
+
+<script setup>
+import {defineProps, ref} from 'vue';
+import {getCookieValue} from "@/utils/userUtil";
+import axios from "axios";
+
+const queryParams = ref({
+  param: {
+    type: 1,
+    category: "",
+    order: "",
+    isOnlyShow: false,
+    itemId: ""
   },
+});
+
+const props = defineProps({
+  title: String,
+  list: {
+    type: Array,
+    default: () => []
+  }
+});
+
+let clickPilot  = (itemId) => {
+  const token = getCookieValue("token");
+  const headers = {
+    token: token, //访问受限资源必须把token传到后端校验
+  };
+  queryParams.value.param.itemId = itemId;
+  axios.post("/back/pilot/pv", queryParams.value, headers);
 };
 </script>
 

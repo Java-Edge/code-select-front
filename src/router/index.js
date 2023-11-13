@@ -75,7 +75,7 @@ const routes = [
   {
     path: "/pilot",
     name: "pilotPage",
-    component: loadComponent("category/pilot"),
+    component: loadComponent("pilot/pilot"),
   },
   {
     path: "/special",
