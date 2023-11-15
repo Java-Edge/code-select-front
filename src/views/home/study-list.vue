@@ -20,7 +20,7 @@ watch(
     roamMapList.value = newV
   },
 )
-console.log("子组件", roamMapList.value)
+
 </script>
 
 <style lang="scss">

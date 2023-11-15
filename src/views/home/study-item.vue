@@ -1,15 +1,7 @@
-<!--
- * @Descripttion: 
- * @version: 
- * @Author: 不败顽童
- * @Date: 2023-07-16 17:51:44
- * @LastEditors: 不败顽童
- * @LastEditTime: 2023-07-17 21:25:53
--->
 <template>
     <router-link :to="`/study-detail/${item.id}`">
         <div class="course-box">
-            <div class="image-container" :style="{ backgroundImage: `url(${item.img2})` }"> 
+            <div class="image-container" :style="{ backgroundImage: `url(${item.img2})` }">
             </div>
             <p class="title ellipsis2">{{ item.description }}</p>
             <div class="bottom">
@@ -22,7 +14,7 @@
         </div>
     </router-link>
 </template>
-  
+
 <script>
 export default {
     props: {
@@ -33,7 +25,7 @@ export default {
     },
 };
 </script>
-  
+
 <style scoped lang="scss">
 .course-box {
     position: relative;
@@ -85,4 +77,3 @@ export default {
     box-shadow: 0 12px 20px 0 rgba(95, 101, 105, .15)
 }
 </style>
-  
