@@ -14,12 +14,19 @@
           </div>
         </div>
 
-        <a
-          v-if="article.href != null && article.href != ''"
-          :href="article.href"
-          target="_blank"
-          class="link-sty"
-        >
+<!--        <a-->
+<!--          v-if="article.href != null && article.href != ''"-->
+<!--          :href="article.href"-->
+<!--          target="_blank"-->
+<!--          class="link-sty"-->
+<!--          @click="clickArticle(article.articleId)"-->
+<!--        >-->
+          <a
+              v-if="article.href != null && article.href != ''"
+              :href="article.href"
+              target="_blank"
+              class="link-sty"
+          >
           <div class="ranking-middle">
             <div class="ranking-name hide-text">{{ article.title }}</div>
             <div class="ranking-des hide-text">
@@ -75,13 +82,23 @@
 import { ref} from "vue";
 import pagination from "@/components/pagination.vue";
 import axios from "axios";
+import {getCookieValue} from "@/utils/userUtil";
 
-// 数据相关
+const queryParams = ref({
+  param: {
+    type: 1,
+    category: "",
+    order: "",
+    isOnlyShow: false,
+    itemId: ""
+  },
+});
+
 const articleData = ref([]);
 const total = ref(0);
 const page = ref(1);
 const size = ref(5);
-// 获取数据的方法
+
 const getListData = async () => {
   let path = `/back/article/getByPage?current=${page.value}&size=${size.value}`;
   axios.get(path).then((res) => {
@@ -93,6 +110,15 @@ getListData();
 const handleCurrentChange = (currentPage) => {
   page.value = currentPage;
   getListData();
+};
+
+let clickArticle  = (itemId) => {
+  const token = getCookieValue("token");
+  const headers = {
+    token: token, //访问受限资源必须把token传到后端校验
+  };
+  queryParams.value.param.itemId = itemId;
+  axios.post("/back/article/pv", queryParams.value, headers);
 };
 </script>
 

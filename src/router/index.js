@@ -136,6 +136,11 @@ const routes = [
     path: "/discussion-detail/:id",
     name: "discussion-detail",
     component: loadComponent("discussion/discussion-detail"),
+  },
+  {
+    path: "/mock-interview",
+    name: "mock-interview",
+    component: loadComponent("interview/mock-interview"),
   }
 ];
 

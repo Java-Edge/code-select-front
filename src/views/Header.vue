@@ -99,8 +99,10 @@ export default {
         { name: "项目", value: "project", path: "/projectList" },
         { name: "副业", value: "sideline", path: "/sidelineList" },
         { name: "资源下载", value: "download", path: "/download" },
-        { name: "公司信息", value: "discussion", path: "/discussion" },
-        { name: "offer交流", value: "offer", path: "/offer" },
+        { name: "模拟面试", value: "mock-interview", path: "/mock-interview" },
+        { name: "发动态", value: "issue", path: "/article-create" },
+        // { name: "公司信息", value: "discussion", path: "/discussion" },
+        // { name: "offer交流", value: "offer", path: "/offer" },
       ],
     };
   },

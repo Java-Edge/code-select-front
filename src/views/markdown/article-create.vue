@@ -1,17 +1,13 @@
 <template>
   <div class="markdown-container">
-    <!-- Search box -->
     <div class="search-box">
     <span class="title">标题：</span>
-      <!-- Implement the search input and button here -->
       <input type="text" v-model="title" placeholder="请输入标题" />
     </div>
     <div class="search-box">
     <span class="title">外链：</span>
-      <!-- Implement the search input and button here -->
       <input type="text" v-model="href" placeholder="请输入文章外链" />
     </div>
-    <!-- 渲染区 -->
     <div id="markdown-box" @change="onEditorChange"></div>
     <div class="bottom">
       <button type="primary" @click="onSubmitClick">提交</button>
@@ -22,14 +18,14 @@
 <script setup>
 import MkEditor from "@toast-ui/editor";
 import "@toast-ui/editor/dist/toastui-editor.css";
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
+// 添加消息弹窗的方法
+import { ElMessage } from 'element-plus'
 
-// 标题
 const title = ref("");
 const href = ref("")
-// Editor实例
 let mkEditor;
 // 处理离开页面切换语言导致 dom 无法被获取
 let el;
@@ -49,29 +45,12 @@ const getArticleDetail = async () => {
     detail.value = res.data.result;
     mkEditor.setHTML(detail.value.content);
     title.value = detail.value.title;
-    hfef.value = detaile.value.href;
+    href.value = detail.value.href;
   });
 };
 if (articleId) {
   getArticleDetail();
 }
-
-
-
-// 编辑相关
-// watch(
-//   () => detail,
-//   val => {
-//     if (val && val.content) {
-//       mkEditor.setHTML(val.content)
-//     }
-//   },
-//   {
-//     immediate: true
-//   }
-// )
-
-const lastMD = ref();
 
 const initEditor = () => {
   mkEditor = new MkEditor({
@@ -79,60 +58,15 @@ const initEditor = () => {
     height: "500px",
     previewStyle: "vertical",
     language: "zh-CN",
-
-    // hooks: {
-    //   // 钩子函数
-    //   addImageBlobHook: (fileOrBlob, callback) => {
-
-    //     console.log("upload image");
-    //     console.log("fileOrBlob", fileOrBlob);
-    //     // console.log("fileOrBlob2", fileOrBlob.text());
-    //     // 文件上传
-    //     let formData = new FormData();
-    //     formData.append("file", fileOrBlob);
-    //     axios.post("/article/uploadImg", formData, {
-    //       headers: {
-    //         'Content-Type': 'multipart/form-data'
-    //       }
-    //     }).then((response) => {
-    //       console.log(response);
-    //     });
-
-
-
-    //     console.log("callback", callback);
-    //     //  this.uploadImgApi(fileOrBlob).then(path => {
-    //     //       callback(path, 'T_T，出错了');
-    //     //  });
-    //   },
-    // },
-
   });
-
-  // 监听事件，监听什么事件可以在editor.d.ts中查看
-  // mkEditor.on('change', (ee) => {
-  //           console.log('change', ee);
-  //           const regex = /!\[.*?\]\([^)]*\)/g;
-  //           const str = mkEditor.getMarkdown().match(regex);
-  //           console.log('md', mkEditor.getMarkdown())
-  //           console.log('str', str);
-  // });
 
   mkEditor.getMarkdown();
 };
-
-
-
-
-
 
 const router = useRouter();
 // 处理提交
 const onSubmitClick = () => {
   if (articleId) {
-    console.log(mkEditor.getHTML());
-    console.log("title:", title.value);
-    console.log(title);
     const article = {
       articleId: articleId,
       title: title.value,
@@ -140,24 +74,19 @@ const onSubmitClick = () => {
       content: mkEditor.getHTML(),
     };
     axios.put("/back/article/updateById/", article).then((response) => {
-      console.log(response);
       router.push(`/article/${articleId}`);
     });
   } else {
     // 发送创建文章请求
-    console.log(mkEditor.getHTML());
-    console.log("title:", title.value);
-    console.log(title);
     const article = { title: title.value, href: href.value, content: mkEditor.getHTML() };
-    axios.post("/back/article/save", article).then((response) => {
-      console.log(response);
-    });
-    router.push('/article-list');
+    axios.post('/back/article/save', article).then(() => {
+      ElMessage({
+        message: '创建文章成功',
+        type: 'success',
+      })
+      router.push('/article-list')
+    })
   }
-
-  // 文章提交之后清空md内容和标题内容
-  // mkEditor.reset();
-  // title.value = '';
 };
 </script>
 
