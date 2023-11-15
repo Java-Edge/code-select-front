@@ -19,6 +19,7 @@
         :href="sideline.href"
         target="_blank"
         class="link-sty"
+        @click="clickSideline(sideline.id)"
       >
         <div class="ranking-middle">
           <div class="ranking-name hide-text">{{ sideline.title }}</div>
@@ -56,8 +57,17 @@ import { ref, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import pagination from "@/components/pagination.vue";
 import axios from 'axios';
+import {getCookieValue} from "@/utils/userUtil";
 
-
+const queryParams = ref({
+  param: {
+    type: 1,
+    category: "",
+    order: "",
+    isOnlyShow: false,
+    itemId: ""
+  },
+});
 const sidelineData = ref([]);
 const total = ref(0);
 const page = ref(1);
@@ -95,6 +105,14 @@ const handleCurrentChange = (currentPage) => {
   getListData();
 };
 
+let clickSideline  = (itemId) => {
+  const token = getCookieValue("token");
+  const headers = {
+    token: token, //访问受限资源必须把token传到后端校验
+  };
+  queryParams.value.param.itemId = itemId;
+  axios.post("/back/sideline/pv", queryParams.value, headers);
+};
 </script>
 
 <style lang="scss" scoped>
