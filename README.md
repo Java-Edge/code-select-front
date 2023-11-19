@@ -1,4 +1,4 @@
-# Code-Selected 编程严选网站
+# Code Select 编程严选网站
 
 [建设全国性可移植软件生态项目](https://va2ct8dmzsr.feishu.cn/docx/KNtFdsMsxoyWLex0hAYcGHTfnqd)
 

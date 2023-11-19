@@ -1,11 +1,3 @@
-<!--
- * @Descripttion: 
- * @version: 
- * @Author: 不败顽童
- * @Date: 2023-07-27 23:00:40
- * @LastEditors: 不败顽童
- * @LastEditTime: 2023-07-27 23:18:43
--->
 <template>
   <div class="article-detail-container main-content">
     <div><h2 class="title"> {{ detail.title }} </h2></div>
@@ -38,11 +30,11 @@
         </div>
     </div> -->
 </template>
-  
+
 <script setup>
 import { ref } from "vue";
 import axios from 'axios';
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import "@toast-ui/editor/dist/toastui-editor.css";
 
 // 获取数据
@@ -51,23 +43,12 @@ const articleId = route.params.id
 const detail = ref({});
 const getArticleDetail = async () => {
   axios.get(`/back/interview/getById/${articleId}`).then(res => {
-    console.log(res)
     detail.value = res.data.result
-    console.log(detail.value.content)
     detail.value.content = detail.value.content.replace(/\n/g, '<br/>')
-    console.log(detail.value.content)
   })
-  // detail.value = await articleDetail(articleId);
 };
 getArticleDetail();
 
-const router = useRouter()
-const onEditClick = row => {
-  router.push(`/article-editor/${articleId}`)
-}
-
-
-const content = ref("")
 const comments = ref([])
 const feId = articleId
 const getComments = async () => {
@@ -77,21 +58,8 @@ const getComments = async () => {
 };
 getComments()
 
-const del = () => {
-}
-
-const postComment = () => {
-    const comment = {
-        content: content.value,
-        feId: feId,
-    }
-    axios.post(`/back/comment/postComment`, comment).then((res) => {
-    });
-}
-
-
 </script>
-  
+
 <style lang="scss" scoped>
 .article-detail-container {
 
@@ -126,7 +94,7 @@ const postComment = () => {
       background-color: white;
     }
 
-    
+
   }
 
   .content {

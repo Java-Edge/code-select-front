@@ -37,7 +37,7 @@
                 <span class="icon-shopping-cart js-endcart">
                   <el-icon><Wallet /></el-icon>
                 </span>
-                <span class="salary">大会员</span>
+                <span class="salary">贵族</span>
 
                 <span
                   class="shopping_icon js-cart-num"

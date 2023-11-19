@@ -47,7 +47,6 @@ const contactInfo = ref({});
 const getDictionaryData = () => {
   axios.get("/back/dictionary/listByMultiTypeKey?typeKeys=about_us,platform_service,friendly_link,contact_info").then((res) => {
     for(let i = 0; i < res.data.result.length; i ++) {
-      console.log(res.data.result[i])
       switch(res.data.result[i].typeKey){
         case "about_us":
           aboutUs.value = res.data.result[i];
