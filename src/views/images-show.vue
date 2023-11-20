@@ -1,6 +1,7 @@
 <template>
     <div class="container">
-        <ul class="display-flex">
+        <Menu/>
+        <!-- <ul class="display-flex">
             <li>
                 <img style="--i:1" src="@/assets/images/1.jpg"/>
             </li>
@@ -28,17 +29,18 @@
             <li>
                 <img style="--i:9" src="@/assets/images/9.jpeg"/>
             </li>
-        </ul>
+        </ul> -->
     </div>
 </template>
 
 <script>
-export default {
-    setup () {
-        
+import Menu from '@/components/Menu.vue';
 
-        return {}
-    }
+export default {
+    setup() {
+        return {};
+    },
+    components: { Menu }
 }
 </script>
 
