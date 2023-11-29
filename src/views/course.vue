@@ -1,20 +1,25 @@
 <template>
   <div class="main">
+    <ul id="menu">
+      <li :title="item.name" v-for="(item, index) in menuData" :key="index" @click.stop="rollTo(item, index)"
+        :class="item.name === heightTitle ? 'active' : ''">{{ item.name }}</li>
+
+    </ul>
     <div class="bg banner-box">
       <div class="content flex">
         <LeftSidebar />
-        <RightSidebar
-          v-if="carouseResp.length > 0"
-          :carouselData="carouseResp"
-        />
+        <RightSidebar v-if="carouseResp.length > 0" :carouselData="carouseResp" />
         <el-skeleton style="width: 1440px" v-else :rows="10" animated />
       </div>
     </div>
     <div class="bg000">
       <!-- 学习路线 -->
-      <study />
+      <div id="route">
+        <study />
+      </div>
+
       <!-- 课程列表 -->
-      <div class="content">
+      <div class="content" id="content">
         <div class="floorhd">
           <div class="grid_c1 floorhd_inner">
             <h3 class="floorhd_tit">课程列表</h3>
@@ -27,12 +32,31 @@
 </template>
 
 <script setup>
-import {onMounted, ref} from "vue";
+import { onMounted, ref } from "vue";
 import CourseList from "./CourseList.vue";
 import LeftSidebar from "./LeftSidebar.vue";
 import RightSidebar from "./RightSidebar.vue";
 import study from "./home/study.vue";
-import {getCarouselData, getCourseList} from "@/api/sourceCourse";
+import { getCarouselData, getCourseList } from "@/api/sourceCourse";
+const menuData = [{ name: '学习路线', id: "#route" }, { name: '课程列表', id: "#content" }]
+const heightTitle = ref(null)
+const rollTo = (selector) => {
+  heightTitle.value = selector.name
+  var element = document.querySelector(selector.id);
+  var headerOffset = 45;
+  var elementPosition = element.getBoundingClientRect().top;
+  var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+  window.scrollTo({
+    top: offsetPosition,
+    behavior: "smooth"
+  });
+  // document.querySelector(selector.id).scrollIntoView({
+  //   behavior: "smooth",
+  //   block: "start"
+  // });
+}
+
 
 const courses = ref([]);
 const carouseResp = ref([]);
@@ -57,6 +81,8 @@ const courseRows = () => {
   return rows;
 };
 
+
+
 onMounted(() => {
   getCourses();
   listSliderVideos();
@@ -64,6 +90,43 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+#menu {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  width: 120px;
+  transform: translateY(-50%);
+  background-color: #fff;
+  box-shadow: 0 4px 8px 0 rgba(7, 17, 27, .1);
+  border-radius: 0 8px 8px 0;
+  text-align: center;
+  color: #6d7278;
+  z-index: 3;
+  user-select: none;
+}
+
+#menu li {
+  position: relative;
+  padding: 16px 0;
+  cursor: pointer;
+  transition: color .2s;
+}
+
+#menu li.active,
+#menu li:hover {
+  color: #e02020;
+}
+
+#menu li+li:after {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -30px;
+  content: '';
+  width: 60px;
+  border: 1px solid #f3f5f7;
+}
+
 .bg {
   background-color: #f9f3e8;
 }

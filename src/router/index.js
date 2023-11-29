@@ -8,6 +8,11 @@ const routes = [
     redirect: "/index",
   },
   {
+    path: "/images",
+    name: "images",
+    component: loadComponent("images-show"),
+  },
+  {
     path: "/index",
     name: "index",
     component: loadComponent("course"),
