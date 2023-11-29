@@ -20,11 +20,11 @@
       </div>
     </div>
 
-    <div style="font-size: 30px; text-align: center; margin: 40px 0px">
-      -- 猜你喜欢 --
-    </div>
-    <!-- 课程详情区域 -->
-    <CourseList :courses="recommendCourses" />
+<!--    <div style="font-size: 30px; text-align: center; margin: 40px 0px">-->
+<!--      &#45;&#45; 猜你喜欢 &#45;&#45;-->
+<!--    </div>-->
+    <!-- 推荐课程区域 -->
+<!--    <CourseList :courses="recommendCourses" />-->
   </div>
 </template>
 
@@ -59,7 +59,7 @@ export default {
     fetchData() {
       const courseId = this.$route.params.id;
       this.getCourseDetail(courseId);
-      this.getRecommendCourses();
+      // this.getRecommendCourses();
     },
     getCourseDetail(id) {
       this.$axios.get("/back/video/course/" + id).then((response) => {
