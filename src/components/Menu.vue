@@ -22,8 +22,10 @@ const changeMenu=(item)=>currentMenu.value=item.pId||item.id
 .container {
     width: 100%;
     height: 56px;
+    margin: 10px 0px;
     margin-left: 0px !important;
     background-color: #fff;
+    border-radius: 10px;
 }
 
 .menu-ul {
@@ -43,6 +45,9 @@ const changeMenu=(item)=>currentMenu.value=item.pId||item.id
         color: #32ca99;
     }
 }
+li.active{
+    color:#32ca99
+}
 li.active::after{
     position: absolute;
     content: "";
@@ -56,6 +61,7 @@ li.active::after{
 
 .li-item:hover .child-ul {
     display: block;
+    z-index: 999;
 }
 
 .child-ul {
