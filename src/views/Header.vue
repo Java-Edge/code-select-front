@@ -34,11 +34,7 @@
               <a href="https://rvsvd8vr3wx.feishu.cn/wiki/IY8dw4A4HiHRJ4k2U9RcZtvdnfd?from=from_copylink"
                 class="shop-cart-icon"
                 target="_blank">
-                <span class="icon-shopping-cart js-endcart">
-                  <el-icon><Wallet /></el-icon>
-                </span>
-                <span class="salary">贵族</span>
-
+                <span class="salary">大会员</span>
                 <span
                   class="shopping_icon js-cart-num"
                   data-ordernum="0"

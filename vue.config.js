@@ -13,9 +13,10 @@ module.exports = {
     proxy: {
       "/api/back": {
         // 服务器部署时访问打开&&本地不建数据库的打开
-        // target: "http://47.99.69.109:8088/",
+        // target: "http://远程主机:8088/",
 
         // 本地开发调试打开
+        // 现在为内网穿透模式部署，也只用该target
         target: "http://localhost:8088/",
         changeOrigin: true,
         logLevel: "debug",
