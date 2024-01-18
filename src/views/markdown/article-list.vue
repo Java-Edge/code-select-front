@@ -1,9 +1,8 @@
 <template>
   <div style="background-color: #f9f3e8;overflow: hidden;">
     <div class="article-ranking-container main-content">
-<Menu/>
-<SubMenu/>
-<div class="ranking-body" v-for="article in articleData" :key="article.articleId">
+      <Menu>
+      <div class="ranking-body" v-for="article in articleData" :key="article.articleId">
         <!-- <div class="ranking-number">{{ ranking.orderVal }}</div> -->
         <div class="ranking-left">
           <div class="ranking-img">
@@ -32,7 +31,7 @@
             <div class="ranking-name hide-text">{{ article.title }}</div>
             <div class="ranking-des hide-text">
               {{
-                article.content != null && article.content != ""
+                (article.content != null && article.content != "")
                   ? article.content.replace(/<\/?.+?\/?>|\r|\n|\s*/g, "")
                   : ""
               }}
@@ -74,6 +73,7 @@
         :size="size"
         @pageChange="handleCurrentChange"
       />
+      </Menu>
     </div>
   </div>
 
@@ -83,7 +83,6 @@
 import { ref} from "vue";
 import pagination from "@/components/pagination.vue";
 import Menu from '@/components/Menu.vue';
-import SubMenu from '@/components/SubMenu.vue';
 import axios from "axios";
 import {getCookieValue} from "@/utils/userUtil";
 
