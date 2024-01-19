@@ -60,7 +60,7 @@ const specialItems = ref([]);
 const order = [
   { id: 1, title: "默认", name: "default" },
   { id: 2, title: "最新", name: "new" },
-  { id: 3, title: "销量", name: "count" },
+  { id: 3, title: "学习人数", name: "count" },
   { id: 4, title: "升级", name: "level" },
 ];
 const currentOrder = ref(order[0]);
