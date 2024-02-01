@@ -31,7 +31,7 @@
               <a @click="handleLogout(0)">登出</a>
             </li>
             <li class="shop-cart">
-              <a href="https://rvsvd8vr3wx.feishu.cn/wiki/IY8dw4A4HiHRJ4k2U9RcZtvdnfd?from=from_copylink"
+              <a href="https://rvsvd8vr3wx.feishu.cn/docs/doccnBIBScqHkFGL9P3zNJFU9bJ?from=from_copylink"
                 class="shop-cart-icon"
                 target="_blank">
                 <span class="salary">大会员</span>
