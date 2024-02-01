@@ -43,7 +43,7 @@
                             <div class="job-card display-flex item-center">
                                 <img src="@/assets/images/job/java.png" class="job-pic" />
                                 <div class="tw-ml-2">
-                                    <div class="tw-font-normal tw-text-xl-pure">Java工程师</div>
+                                    <div class="tw-font-normal tw-text-xl-pure">前端工程师</div>
                                     <div class="display-flex item-center tw-mt-3 tw-text-sm-pure">
                                         <div><span class="tw-text-green-500 tw-w-3">177</span><span
                                                 class="tw-ml-1 tw-mr-3 tw-text-gray-600">家公司</span></div>
@@ -55,7 +55,7 @@
                             <div class="job-card display-flex item-center">
                                 <img src="@/assets/images/job/java.png" class="job-pic" />
                                 <div class="tw-ml-2">
-                                    <div class="tw-font-normal tw-text-xl-pure">Java工程师</div>
+                                    <div class="tw-font-normal tw-text-xl-pure">Go工程师</div>
                                     <div class="display-flex item-center tw-mt-3 tw-text-sm-pure">
                                         <div><span class="tw-text-green-500 tw-w-3">177</span><span
                                                 class="tw-ml-1 tw-mr-3 tw-text-gray-600">家公司</span></div>
@@ -67,7 +67,7 @@
                             <div class="job-card display-flex item-center">
                                 <img src="@/assets/images/job/java.png" class="job-pic" />
                                 <div class="tw-ml-2">
-                                    <div class="tw-font-normal tw-text-xl-pure">Java工程师</div>
+                                    <div class="tw-font-normal tw-text-xl-pure">大数据工程师</div>
                                     <div class="display-flex item-center tw-mt-3 tw-text-sm-pure">
                                         <div><span class="tw-text-green-500 tw-w-3">177</span><span
                                                 class="tw-ml-1 tw-mr-3 tw-text-gray-600">家公司</span></div>
@@ -104,11 +104,13 @@
 
                     </div>
                     <div class="interview-right">
-                        <a>
+                        <a href="/#/article-interview">
                             <div class="display-flex entrance mt-24">
                                 <div class="entrance-left">
                                     <div class="entrance-title">公司面经</div>
                                     <div class="entrance-sub-title">名企面试，经验汇总</div>
+<!--                                  添加点击公司面经，跳转链接-->
+
                                 </div>
                                 <img src="@/assets/images/job/interview.png" class="entrance-img" />
                             </div>
@@ -258,7 +260,7 @@
                                 查看更多
                             </div>
                         </div>
-                        
+
 
                     </div>
                     <div class="company-right">
@@ -269,7 +271,7 @@
                                 <img src="@/assets/images/job/company.png" class="company-image"/>
                             </div>
                         </a>
-                       
+
                     </div>
                 </div>
             </div>
