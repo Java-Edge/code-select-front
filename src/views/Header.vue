@@ -22,7 +22,21 @@
         <div class="login-area">
           <ul class="header-unlogin clearfix newcomer-box">
 
-
+            <li class="shop-cart">
+              <a href="http://javaedge.cn:3000/"
+                 class="shop-cart-icon"
+                 target="_blank">
+                <span class="salary">点击进入编程严选网</span>
+                <span
+                    class="shopping_icon js-cart-num"
+                    data-ordernum="0"
+                    data-cartnum="0"
+                    style="display: none"
+                >0</span
+                >
+              </a>
+              <div class="my-cart"></div>
+            </li>
             <li class="header-signin"  v-if="isShowLogin">
               <a @click="handleToLogin(0)">登录</a> /
               <a @click="handleToLogin(1)">注册</a>

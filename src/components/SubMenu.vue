@@ -18,7 +18,8 @@
                                 <div style="margin-left: 12px;">
                                     <el-select v-model="parentCategory" placeholder="请选择">
                                         <el-option label="前端开发" value="1"></el-option>
-                                        <el-option label="后端" value="2"></el-option>
+                                        <el-option label="Java" value="2"></el-option>
+                                        <el-option label="大数据" value="2"></el-option>
                                     </el-select>
                                 </div>
 
@@ -277,14 +278,14 @@
             </div>
             <div class="fade-in-animation" v-if="currentId === 4">
                 <div class="jobHurt display-flex">
-                    <a class="jobHurt-item display-flex">
-                        <div class="item-left">
-                            <div class="item-left-top">查薪资比OFFER</div>
-                            <div class="item-left-bottom">专属offer报告，行情早知道</div>
-                        </div>
-                        <img src="@/assets/images/job/1.png" class="item-right" />
-                    </a>
-                    <a class="jobHurt-item display-flex">
+<!--                    <a class="jobHurt-item display-flex">-->
+<!--                        <div class="item-left">-->
+<!--                            <div class="item-left-top">查薪资比OFFER</div>-->
+<!--                            <div class="item-left-bottom">专属offer报告，行情早知道</div>-->
+<!--                        </div>-->
+<!--                        <img src="@/assets/images/job/1.png" class="item-right" />-->
+<!--                    </a>-->
+                    <a class="jobHurt-item display-flex" href="/#/inner-recommend">
                         <div class="item-left">
                             <div class="item-left-top">内推广场</div>
                             <div class="item-left-bottom">大厂牛友帮你内推</div>
@@ -312,13 +313,13 @@
                         </div>
                         <img src="@/assets/images/job/5.png" class="item-right" />
                     </a>
-                    <a class="jobHurt-item display-flex">
-                        <div class="item-left">
-                            <div class="item-left-top">职播</div>
-                            <div class="item-left-bottom">名企空中宣讲会</div>
-                        </div>
-                        <img src="@/assets/images/job/6.png" class="item-right" />
-                    </a>
+<!--                    <a class="jobHurt-item display-flex">-->
+<!--                        <div class="item-left">-->
+<!--                            <div class="item-left-top">职播</div>-->
+<!--                            <div class="item-left-bottom">名企空中宣讲会</div>-->
+<!--                        </div>-->
+<!--                        <img src="@/assets/images/job/6.png" class="item-right" />-->
+<!--                    </a>-->
                 </div>
             </div>
         </div>
