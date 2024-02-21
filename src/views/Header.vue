@@ -3,7 +3,7 @@
     <div class="clearfix header-content">
       <div class="index-menu clearfix">
         <div class="logo">
-          <a href="/" target="_self" title="编程严选">
+          <a href="/" target="_self" title="编程严选网">
             <img src="@/assets/logo.png" />
           </a>
         </div>
