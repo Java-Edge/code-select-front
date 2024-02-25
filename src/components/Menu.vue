@@ -20,16 +20,20 @@
 import {ref} from 'vue'
 import SubMenu from './SubMenu.vue';
 
-const menuData = [{name: "首页", id: 1}, {
-  name: "题库",
-  id: 2,
-  children: [{name: "专项练习", id: 11, pId: 2}, {name: "公司真题", id: 12, tag: "笔试", pId: 2}, {
-    name: "公司真题",
-    id: 13,
-    tag: "面试",
-    pId: 2
-  }, {name: "在线编程", id: 14, pId: 2}]
-}, {name: "面试", id: 3}, {name: "简历", id: 4}]
+const menuData = [
+  {name: "首页", id: 1},
+  // {
+  //   name: "题库",
+  //   id: 2,
+  //   children: [{name: "专项练习", id: 11, pId: 2}, {name: "公司真题", id: 12, tag: "笔试", pId: 2}, {
+  //     name: "公司真题",
+  //     id: 13,
+  //     tag: "面试",
+  //     pId: 2
+  //   }, {name: "在线编程", id: 14, pId: 2}]
+  // },
+  {name: "面试", id: 3},
+  {name: "简历", id: 4}]
 const currentMenu = ref(1)
 const changeMenu = (item) => currentMenu.value = item.pId || item.id
 </script>

@@ -287,15 +287,15 @@
 <!--                    </a>-->
                     <a class="jobHurt-item display-flex" href="/#/inner-recommend">
                         <div class="item-left">
-                            <div class="item-left-top">内推广场</div>
-                            <div class="item-left-bottom">大厂牛友帮你内推</div>
+                            <div class="item-left-top">内推天地</div>
+                            <div class="item-left-bottom">大厂群友帮你内推</div>
                         </div>
                         <img src="@/assets/images/job/2.png" class="item-right" />
                     </a>
-                    <div class="jobHurt-item display-flex">
+                    <div class="jobHurt-item display-flex" href="/#/index">
                         <div class="item-left">
                             <div class="item-left-top">求职课程</div>
-                            <div class="item-left-bottom">90+自研精品课免费学</div>
+                            <div class="item-left-bottom">全网精品课免费学</div>
                         </div>
                         <img src="@/assets/images/job/3.png" class="item-right" />
                     </div>
@@ -308,8 +308,8 @@
                     </a>
                     <a class="jobHurt-item display-flex">
                         <div class="item-left">
-                            <div class="item-left-top">简历互评</div>
-                            <div class="item-left-bottom">匿名互助点评，顺利过筛选</div>
+                            <div class="item-left-top">简历点评</div>
+                            <div class="item-left-bottom">助力筛选</div>
                         </div>
                         <img src="@/assets/images/job/5.png" class="item-right" />
                     </a>
@@ -328,7 +328,8 @@
 
 <script setup>
 import { ref } from 'vue'
-const menuData = [{ id: 1, name: '面试经验' }, { id: 2, name: '求职题库' }, { id: 3, name: '热招职位' }, { id: 4, name: '求职助手' }]
+// const menuData = [{ id: 1, name: '面试经验' }, { id: 2, name: '求职题库' }, { id: 3, name: '热招职位' }, { id: 4, name: '求职助手' }]
+const menuData = [{id: 1, name: '面试经验'}, {id: 4, name: '求职助手'}];
 const currentId = ref(1)
 const parentCategory = ref('')
 const selectStyle = (item) => {
