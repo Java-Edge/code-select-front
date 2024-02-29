@@ -16,7 +16,7 @@
           <div class="ranking-name hide-text">{{ project.title }}</div>
           <div class="ranking-des">{{ project.des }}</div>
 <!--          <div class="ranking-time">发布时间：{{ project.createTime }}</div>-->
-          <div class="ranking-likes">{{ project.pageView }}人在学习</div>
+          <div class="ranking-likes">{{ project.pageView }}人在学</div>
         </div>
       </router-link>
 
