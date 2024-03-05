@@ -34,7 +34,7 @@ const menuData = [
   // },
   {name: "面试", id: 3},
   {name: "简历", id: 4}]
-const currentMenu = ref(1)
+const currentMenu = ref(3)
 const changeMenu = (item) => currentMenu.value = item.pId || item.id
 </script>
 
