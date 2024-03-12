@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="article-ranking-container">
 
     <div class="view-box">
@@ -224,4 +224,4 @@ watch(
     text-align: center;
   }
 }
-</style>
+</style> -->

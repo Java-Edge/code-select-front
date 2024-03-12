@@ -176,11 +176,12 @@ export default {
       this.$message.error(message);
     },
     login(formName) {
+      debugger; // 在方法开始处放置 debugger
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loading = true;
           this.$axios
-            .post("back/user/login", this.loginForm)
+            .post("back/user/doLogin", this.loginForm)
             .then((response) => {
               if (response.data.code === 200) {
                 var user = response.data.result;

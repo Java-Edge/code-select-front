@@ -23,7 +23,7 @@
           <ul class="header-unlogin clearfix newcomer-box">
 
             <li class="shop-cart">
-              <a href="http://javaedge.cn:3000/"
+              <!-- <a href="http://javaedge.cn:3000/"
                  class="shop-cart-icon"
                  target="_blank">
                 <span class="salary">点击进入编程严选网</span>
@@ -34,7 +34,7 @@
                     style="display: none"
                 >0</span
                 >
-              </a>
+              </a> -->
               <div class="my-cart"></div>
             </li>
             <li class="header-signin"  v-if="isShowLogin">
@@ -103,7 +103,7 @@ export default {
         // { name: "招聘", value: "recruit", path: "/recruit/index" },
         // { name: "内推", value: "recommend", path: "/inner-recommend" },
         { name: "导航", value: "pilotPage", path: "/pilot" },
-        { name: "专栏", value: "special", path: "/special" },
+        // { name: "专栏", value: "special", path: "/special" },
         // { name: "排行榜", value: "ranking", path: "/ranking" },
         { name: "项目", value: "project", path: "/projectList" },
         { name: "副业", value: "sideline", path: "/sidelineList" },
