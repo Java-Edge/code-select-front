@@ -5,7 +5,7 @@
       <div v-for="(item, index) in list" :key="index">
         <div class="item-class">
           <a :href="item.link" style="text-decoration:none;" @click="clickPilot(item.id)">
-            <img :src="item.img || 'https://codeselect.oss-cn-shanghai.aliyuncs.com/image-20240311153148222.png'" />
+            <img :src="item.img || 'https://www.svgrepo.com/show/277424/tool-screwdriver.svg'" />
             <span>{{ item.name }}</span>
           </a>
         </div>
