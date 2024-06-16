@@ -62,10 +62,10 @@
       </div>
       <div class="company-filter-box">
         <el-input
-        v-model="keyword"
-        @change="handleChangeCompany"
-        placeholder="请输入内容">
-        </el-input>
+          v-model="keyword"
+          @change="handleChangeCompany"
+          placeholder="请输入内容"
+        />
       </div>
     </div>
 
@@ -97,8 +97,9 @@
 
 <script setup>
 import { ref, onActivated, watch } from "vue";
-import { useRouter, useRoute } from "vue-router";
+import { useRoute } from "vue-router";
 import axios from "axios";
+import debounce from 'lodash-es/debounce';
 import pagination from "@/components/pagination.vue";
 
 const companyOptions = ref([]);
@@ -118,7 +119,7 @@ const getCompanyData = () => {
 getCompanyData();
 
 // 公司筛选框
-const handleChangeCompany = () => {
+const handleChangeCompany = debounce(() => {
   let condition = {
     pageNo: page.value,
     pageSize: size.value,
@@ -130,12 +131,10 @@ const handleChangeCompany = () => {
     },
   };
   getListDataByCondition(condition);
-};
+}, 300);
 
 // 一面、二面单选框
 const handleFilterSelect = (selectedItem) => {
-  console.log(jobId.value);
-  // 选中，根据选择类容进行擦汗寻
   if (activeMenu.value != selectedItem) {
     activeMenu.value = selectedItem;
     jobId.value = value[value.length - 1];
@@ -151,7 +150,6 @@ const handleFilterSelect = (selectedItem) => {
     };
     getListDataByCondition(condition);
   } else {
-    // 取消选中则查询全部
     activeMenu.value = "";
     jobId.value = value[value.length - 1];
     let condition = {
@@ -189,7 +187,6 @@ const handleChange = (value) => {
 // 获取级联筛选框数据
 const options = ref([]);
 axios.get("/back/career/getData").then((res) => {
-  // console.log('res', res.data.result)
   options.value = res.data.result;
 });
 
@@ -214,7 +211,6 @@ const size = ref(10);
 // 获取数据
 const route = useRoute();
 const type = route.params.type;
-console.log(type);
 
 const getListData = async () => {
   let params = {
@@ -230,8 +226,10 @@ const getListData = async () => {
   });
 };
 getListData();
+
 // 处理数据不重新加载的问题
 onActivated(getListData);
+
 /**
  * size 改变触发
  */
@@ -250,20 +248,19 @@ const handleCurrentChange = (currentPage) => {
 
 /**
  * 查看按钮点击事件
+ * 在新标签页打开
  */
-const router = useRouter();
 const onShowClick = (articleId) => {
-  console.log("articleId", articleId);
-  router.push(`/intervieArticleDetail/${articleId}`);
+  window.open(`/#/intervieArticleDetail/${articleId}`, '_blank');
 };
 
 /**
  * 监听路由的变化，文章的面经使用的是同一个界面，因此要监听路有变化，及时刷新数据
  */
 watch(
-  () => router.currentRoute.value,
+  () => route.path,
   () => {
-    console.log("路由变化了", router.currentRoute.value);
+    console.log("路由变化了", route.path);
   }
 );
 </script>
@@ -310,8 +307,6 @@ watch(
   margin-top: 20px;
 }
 .interview-card {
-  // max-width: 840px;
-  // height: 146px;
   margin: 20px auto;
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
@@ -357,13 +352,6 @@ watch(
   border: 2px;
 }
 
-// .interview-card {
-//   width: 840px;
-//   height: 146px;
-//   background-color: yellow;
-//   margin: 0 auto;
-//   border-radius: 5px;
-// }
 .articles {
   margin-bottom: 15px;
 }

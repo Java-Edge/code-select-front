@@ -88,6 +88,11 @@ const routes = [
     component: loadComponent("special-column/index"),
   },
   {
+    path: "/video",
+    name: "video",
+    component: loadComponent("video/index"),
+  },
+  {
     path: "/login",
     name: "login",
     component: loadComponent("user/login"),
@@ -141,11 +146,6 @@ const routes = [
     path: "/discussion-detail/:id",
     name: "discussion-detail",
     component: loadComponent("discussion/discussion-detail"),
-  },
-  {
-    path: "/mock-interview",
-    name: "mock-interview",
-    component: loadComponent("interview/mock-interview"),
   }
 ];
 

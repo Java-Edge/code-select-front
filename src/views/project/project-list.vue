@@ -1,31 +1,27 @@
 <template>
   <div class="article-ranking-container main-content">
+    <!-- 循环遍历 projectData 数组中的每个项目 -->
     <div class="ranking-body" v-for="project in projectData" :key="project.id">
-      <!-- <div class="ranking-number">{{ ranking.orderVal }}</div> -->
       <div class="ranking-left">
         <div class="ranking-img">
-          <img
-            v-if="project.img == null || project.img == ''"
-            src="https://pic.imgdb.cn/item/64ed5b97661c6c8e5403104c.jpg"
-          />
+          <!-- 如果项目图像为空或无效,显示默认图像 -->
+          <img v-if="!project.img" src="https://pic.imgdb.cn/item/64ed5b97661c6c8e5403104c.jpg" />
+          <!-- 如果项目图像存在,显示项目图像 -->
           <img v-else :src="project.img" />
         </div>
       </div>
+      <!-- 链接到项目详情页 -->
       <router-link :to="`/projectDetail/${project.id}`" class="link-sty">
         <div class="ranking-middle">
+          <!-- 显示项目标题和描述 -->
           <div class="ranking-name hide-text">{{ project.title }}</div>
           <div class="ranking-des">{{ project.des }}</div>
-<!--          <div class="ranking-time">发布时间：{{ project.createTime }}</div>-->
+          <!-- 显示正在学习该项目的人数 -->
           <div class="ranking-likes">{{ project.pageView }}人在学</div>
         </div>
       </router-link>
-
-      <div class="ranking-right">
-        <!-- <div class="ranking-user-img"><img src="https://p.ipic.vip/n6m1kg.jpg" /></div> -->
-        <!-- <div class="ranking-user-name hide-text">JavaEdge</div> -->
-        <!-- <a href="https://blog.csdn.net/qq_33589510" target="_blank"><div class="ranking-button">开始学习</div> </a> -->
-      </div>
     </div>
+    <!-- 分页组件 -->
     <pagination :page="page" :total="total" :size="size" @pageChange="handleCurrentChange" />
   </div>
 </template>
@@ -36,33 +32,37 @@ import { useRoute } from 'vue-router';
 import pagination from "@/components/pagination.vue";
 import axios from 'axios';
 
-// 数据相关
+// 定义响应式变量
 const projectData = ref([]);
 const total = ref(0);
 const page = ref(1);
 const size = ref(5);
-const step = 5; // 每次下拉到底部，多查询的数据条数
-// 获取数据
+
+// 获取路由参数
 const route = useRoute();
 const type = route.params.type;
-// 获取数据的方法
+
+// 获取列表数据的函数
 const getListData = async () => {
   let path = `/back/project/getByPage?current=${page.value}&size=${size.value}`;
   if (type) {
     path += `&type=${type}`;
   }
-  axios.get(path).then(res => {
-    projectData.value = res.data.result.records
-    total.value = res.data.result.total
-  })
+  // 发送 GET 请求到服务器
+  const response = await axios.get(path);
+  // 使用响应数据更新响应式变量
+  projectData.value = response.data.result.records;
+  total.value = response.data.result.total;
 }
 
+// 处理页面变更的函数
 const handleCurrentChange = (currentPage) => {
   page.value = currentPage;
   getListData();
 };
 
-getListData()
+// 在组件创建时调用获取列表数据的函数
+getListData();
 </script>
 
 <style lang="scss" scoped>

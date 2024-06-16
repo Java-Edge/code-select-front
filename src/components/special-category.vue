@@ -3,25 +3,12 @@
     <div class="shizhan-header">
       <div class="shizhan-header-wrap w1430 main-content">
         <div class="banner">
-          <!-- <a class="title" href="/">
-            <img
-              class="h100"
-              src="/static/module/index/img/v2/shizhan-title.png?v=1"
-              alt=""
-            />
-          </a>
-          <div id="codingIndexBanner" style="display: block">
-            <img
-              src="/static/module/index/img/header-icon2.png?v=5"
-              style="cursor: default"
-            />
-          </div> -->
         </div>
         <div id="szHeaderSearch" class="shizhan-header-search">
           <div class="search-inner clearfix">
             <input
               class="shizhan-search-input l"
-              placeholder="搜索感兴趣的实战课程内容"
+              placeholder="搜索感兴趣的教程内容"
               type="text"
               autocomplete="off"
               data-suggest-trigger="true"

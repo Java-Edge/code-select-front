@@ -1,10 +1,19 @@
 <template>
   <div class="main">
+    <!-- Menu for navigation -->
     <ul id="menu">
-      <li :title="item.name" v-for="(item, index) in menuData" :key="index" @click.stop="rollTo(item, index)"
-        :class="item.name === heightTitle ? 'active' : ''">{{ item.name }}</li>
-
+      <li 
+        :title="item.name" 
+        v-for="(item, index) in menuData" 
+        :key="index" 
+        @click.stop="rollTo(item, index)"
+        :class="item.name === heightTitle ? 'active' : ''"
+      >
+        {{ item.name }}
+      </li>
     </ul>
+
+    <!-- Banner and sidebars -->
     <div class="bg banner-box">
       <div class="content flex">
         <LeftSidebar />
@@ -12,14 +21,15 @@
         <el-skeleton style="width: 1440px" v-else :rows="10" animated />
       </div>
     </div>
-    <div class="bg000">
-      <!-- 学习路线 -->
-      <div id="route">
-        <study />
-      </div>
 
-      <!-- 课程列表 -->
-      <div class="content" id="content">
+    <!-- Study route -->
+    <div class="bg000" id="route">
+      <study />
+    </div>
+
+    <!-- Course list -->
+    <div class="bg000" id="content">
+      <div class="content">
         <div class="floorhd">
           <div class="grid_c1 floorhd_inner">
             <h3 class="floorhd_tit">课程列表</h3>
@@ -38,42 +48,49 @@ import LeftSidebar from "./LeftSidebar.vue";
 import RightSidebar from "./RightSidebar.vue";
 import study from "./home/study.vue";
 import { getCarouselData, getCourseList } from "@/api/sourceCourse";
-const menuData = [{ name: '学习路线', id: "#route" }, { name: '课程列表', id: "#content" }]
-const heightTitle = ref(null)
+
+// Menu data for navigation
+const menuData = [
+  { name: '学习路线', id: "#route" }, 
+  { name: '课程列表', id: "#content" }
+];
+
+// State variables
+const heightTitle = ref(null);
+const courses = ref([]);
+const carouseResp = ref([]);
+
+// Function to scroll to a specific section
 const rollTo = (selector) => {
-  heightTitle.value = selector.name
-  var element = document.querySelector(selector.id);
-  var headerOffset = 45;
-  var elementPosition = element.getBoundingClientRect().top;
-  var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+  heightTitle.value = selector.name;
+  const element = document.querySelector(selector.id);
+  const headerOffset = 45;
+  const elementPosition = element.getBoundingClientRect().top;
+  const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
   window.scrollTo({
     top: offsetPosition,
     behavior: "smooth"
   });
-  // document.querySelector(selector.id).scrollIntoView({
-  //   behavior: "smooth",
-  //   block: "start"
-  // });
-}
+};
 
-
-const courses = ref([]);
-const carouseResp = ref([]);
+// Function to fetch and set courses data
 const getCourses = () => {
   getCourseList().then(response => {
     courses.value = response.data.result;
     courseRows();
-  })
-}
+  });
+};
+
+// Function to fetch and set carousel data
 const listSliderVideos = () => {
-  getCarouselData().then((response) => {
+  getCarouselData().then(response => {
     carouseResp.value = response.data.result;
   });
 };
 
+// Function to organize courses into rows of 4 items each
 const courseRows = () => {
-  // 将所有课程按每行4个进行分组
   const rows = [];
   for (let i = 0; i < courses.value.length; i += 4) {
     rows.push(courses.value.slice(i, i + 4));
@@ -81,8 +98,7 @@ const courseRows = () => {
   return rows;
 };
 
-
-
+// Lifecycle hook to fetch data on component mount
 onMounted(() => {
   getCourses();
   listSliderVideos();
@@ -117,7 +133,7 @@ onMounted(() => {
   color: #e02020;
 }
 
-#menu li+li:after {
+#menu li + li::after {
   position: absolute;
   top: 0;
   left: 50%;
@@ -142,7 +158,7 @@ onMounted(() => {
 .content {
   max-width: 1300px;
   margin: 0 auto;
-  padding: 32px 0px;
+  padding: 32px 0;
 }
 
 .flex {
@@ -156,7 +172,7 @@ onMounted(() => {
   object-fit: contain;
 }
 
-/* 背景图片样式 */
+/* Background image styles */
 .image-background {
   width: 1152px;
   height: 90px;
@@ -190,18 +206,8 @@ onMounted(() => {
   }
 }
 
-.floorhd_tit::before {
-  background-position: 0 0;
-  left: 0;
-}
-
-.floorhd_tit:after {
-  background-position: -25px 0;
-  right: 0;
-}
-
-.floorhd_tit:after,
-.floorhd_tit:before {
+.floorhd_tit::before,
+.floorhd_tit::after {
   content: "";
   position: absolute;
   top: 50%;
@@ -209,5 +215,15 @@ onMounted(() => {
   background-image: url("@/assets/sprite.png");
   width: 25px;
   height: 20px;
+}
+
+.floorhd_tit::before {
+  background-position: 0 0;
+  left: 0;
+}
+
+.floorhd_tit::after {
+  background-position: -25px 0;
+  right: 0;
 }
 </style>

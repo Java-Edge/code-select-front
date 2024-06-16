@@ -199,6 +199,7 @@ export default {
         }
       });
     },
+
     register(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -211,15 +212,25 @@ export default {
                 this.$message.success(response.data.message);
                 this.$router.push({ path: "/index" });
               } else {
-                this.showMessage(response.data.message);
+                // 使用 this.$message.error 显示错误信息，而不是 this.showMessage
+                this.$message.error(response.data.message);
+                // 清理表单状态  响应非 200 时清理表单状态，调用 this.$refs[formName].resetFields() 方法。
+                this.$refs[formName].resetFields();
               }
+            })
+            .catch((error) => {
+              // 处理网络或其他错误，确保所有可能的错误情况都得到处理
+              this.$message.error("用户名已存在！请换个昵称");
+              console.error(error);
             });
         } else {
-          console.log("error submit!!");
+          this.$message.error("表单验证失败，请检查输入");
           return false;
         }
       });
     },
+
+
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },

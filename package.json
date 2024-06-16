@@ -26,7 +26,8 @@
     "vue": "^3.2.13",
     "vue-router": "^4.2.4",
     "vuex": "^4.1.0",
-    "wangeditor": "^4.7.6"
+    "wangeditor": "^4.7.6",
+    "lodash-es": "^4.17.21"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

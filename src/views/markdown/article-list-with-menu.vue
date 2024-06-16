@@ -1,6 +1,7 @@
 <template>
   <div style="background-color: #f9f3e8;overflow: hidden;">
     <div class="article-ranking-container main-content">
+      <Menu>
       <div class="ranking-body" v-for="article in articleData" :key="article.articleId">
         <!-- <div class="ranking-number">{{ ranking.orderVal }}</div> -->
         <div class="ranking-left">
@@ -72,6 +73,7 @@
         :size="size"
         @pageChange="handleCurrentChange"
       />
+      </Menu>
     </div>
   </div>
 
@@ -80,6 +82,7 @@
 <script setup>
 import { ref} from "vue";
 import pagination from "@/components/pagination.vue";
+import Menu from '@/components/Menu.vue';
 import axios from "axios";
 import {getCookieValue} from "@/utils/userUtil";
 

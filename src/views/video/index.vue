@@ -15,13 +15,7 @@
             {{ item.title }}
           </a>
         </div>
-        <!-- <div class="l clearfix">
-          <div class="isShow-bigCoding">
-            <el-checkbox v-model="queryParams.param.isOnlyShow">只显示免费专栏</el-checkbox>
-          </div>
-        </div> -->
         <div class="other r clearfix">
-          <!-- 学习路线链接 -->
           <a class="course-line l" target="_blank" href="http://www.javaedge.cn/#/study-list">
             学习路线
           </a>
@@ -51,7 +45,7 @@
 </template>
 
 <script setup>
-import { ref, onActivated, onMounted } from "vue"; 
+import { ref, onActivated, onMounted } from "vue";
 import categoryCom from "/src/components/special-category.vue";
 import { getCookieValue } from "@/utils/userUtil.js";
 import axios from "axios";
@@ -74,7 +68,7 @@ const queryParams = ref({
   pageNo: page.value,
   pageSize: size.value,
   param: {
-    type: 1,
+    type: 0,
     category: "",
     order: "",
     isOnlyShow: false,
@@ -95,7 +89,7 @@ let clickSpecial = (itemId) => {
     token: token, // 访问受限资源必须把token传到后端校验
   };
   queryParams.value.param.itemId = itemId;
-  axios.post("/back/course/special/pv", queryParams.value, headers);
+  axios.post("/back/video/pv", queryParams.value, headers);
 };
 
 // 切换分类
@@ -113,7 +107,7 @@ const getSpecialColumn = async (callback) => {
     token: token, // 访问受限资源必须把token传到后端校验
   };
   axios
-    .post("/back/course/special/search", queryParams.value, headers)
+    .post("/back/course//special/search", queryParams.value, headers)
     .then((response) => {
       total.value = response.data.result.total;
       callback(response.data.result.records);

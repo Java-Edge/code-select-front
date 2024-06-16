@@ -1,16 +1,25 @@
 <template>
+
   <div class="main-content">
+  <!-- 导航 -->
+  <br>
+  <a href="http://javaedge.cn:3000/#/index">首页</a>
+  <i class="el-icon-arrow-right"></i>
+  <a href="http://javaedge.cn:3000/#/special">实战</a>
     <div class="course-details-body">
+      <!-- 显示选定课程的名称 -->
       <h2>{{ selectedCourse.name }}</h2>
       <div class="course-details-content">
         <div class="left">
+          <!-- 显示选定课程的图片 -->
           <img :src="selectedCourse.image" :alt="selectedCourse.name" />
         </div>
         <div class="right">
-          <!-- <div class="price">价格：{{ selectedCourse.price }} ￥</div> -->
+          <!-- 显示选定课程的描述 -->
           <div class="description">
             <span class="descrip">简介</span>：{{ selectedCourse.description }}
           </div>
+          <!-- 显示学习按钮，点击后跳转到课程的学习链接 -->
           <div class="study-button">
             <button class="learn-button" @click="goToStudy(selectedCourse)">
               点击学习
@@ -19,22 +28,16 @@
         </div>
       </div>
     </div>
-
-<!--    <div style="font-size: 30px; text-align: center; margin: 40px 0px">-->
-<!--      &#45;&#45; 猜你喜欢 &#45;&#45;-->
-<!--    </div>-->
-    <!-- 推荐课程区域 -->
-<!--    <CourseList :courses="recommendCourses" />-->
   </div>
 </template>
 
 <script>
 import CourseList from "../CourseList.vue";
+
 export default {
   name: "CourseDetails",
   components: {
-    CourseList, // Register the CourseList component
-    // ... Rest of your components ...
+    CourseList, // 注册 CourseList 组件
   },
   props: {
     course: {
@@ -42,47 +45,31 @@ export default {
       required: true,
     },
   },
-  created() {
-    this.fetchData();
-  },
   data() {
     return {
-      // 其他数据...
-      selectedCourse: {},
-      recommendCourses: [],
+      selectedCourse: {}, // 选定的课程
     };
   },
+  created() {
+    this.fetchData(); // 组件创建时获取数据
+  },
   watch: {
-    $route: "fetchData",
+    $route: "fetchData", // 当路由改变时重新获取数据
   },
   methods: {
     fetchData() {
-      const courseId = this.$route.params.id;
-      this.getCourseDetail(courseId);
-      // this.getRecommendCourses();
+      const courseId = this.$route.params.id; // 获取路由参数中的课程ID
+      this.getCourseDetail(courseId); // 获取课程详情
     },
     getCourseDetail(id) {
-      this.$axios.get("/back/video/course/" + id).then((response) => {
+      // 发送GET请求获取课程详情
+      this.$axios.get("/back/course/video/" + id).then((response) => {
         const courses = response.data.result;
-        this.selectedCourse = courses;
-      });
-    },
-    buttonOnClick() {
-      this.$message({
-        showClose: true,
-        message: "购买功能暂未实现，请联系管理员",
+        this.selectedCourse = courses; // 更新选定的课程
       });
     },
     goToStudy(selectedCourse) {
-      window.open(selectedCourse.sourceUrl);
-    },
-    getRecommendCourses() {
-      this.$axios
-        .get("/back/video/getRecommendCourses")
-        .then((response) => {
-          const courses = response.data.result;
-          this.recommendCourses = courses;
-        });
+      window.open(selectedCourse.sourceUrl); // 在新窗口打开课程的学习链接
     },
   },
 };
@@ -91,18 +78,23 @@ export default {
 <style scope lang="scss">
 .course-details-body {
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: #f9f3e8;
   border-radius: 10px;
+
   h2 {
     text-align: center;
   }
 }
+
 .course-details-content {
   display: flex;
   align-items: center;
+
   .left {
-    max-width: 36%; /* Adjust the max-width as needed */
+    max-width: 36%;
+    /* Adjust the max-width as needed */
   }
+
   .left img {
     width: 100%;
     height: auto;
@@ -112,7 +104,8 @@ export default {
 
   .right {
     /* max-width: 600px; */
-    max-width: 50%; /* Adjust the max-width as needed */
+    max-width: 50%;
+    /* Adjust the max-width as needed */
     margin-left: 40px;
     flex: 1;
   }
