@@ -22,16 +22,16 @@ const routes = [
     name: "courseDetail",
     component: loadComponent("video/video-detail"),
   },
-  {
-    path: "/article-create",
-    name: "articleCreate",
-    component: loadComponent("markdown/article-create"),
-  },
-  {
-    path: "/article-editor/:id",
-    name: "articleEditor",
-    component: loadComponent("markdown/article-create"),
-  },
+  // {
+  //   path: "/article-create",
+  //   name: "articleCreate",
+  //   component: loadComponent("markdown/article-create"),
+  // },
+  // {
+  //   path: "/article-editor/:id",
+  //   name: "articleEditor",
+  //   component: loadComponent("markdown/article-create"),
+  // },
   {
     path: "/article-list",
     name: "articleList",

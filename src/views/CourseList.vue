@@ -28,7 +28,6 @@ export default {
 
 .course-box {
   flex: 0 0 calc(20% - 20px);
-  /* Add margin to create spacing between the course boxes */
 }
 
 .course-box h4 {

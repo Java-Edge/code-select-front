@@ -16,7 +16,8 @@
     "element-plus": "^1.1.0-beta.15",
     "github-markdown-css": "^5.2.0",
     "highlight": "^0.2.4",
-    "postcss-plugin-px2rem": "^0.8.1",
+    "lib-flexible": "^0.3.2",
+    "lodash-es": "^4.17.21",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "showdown": "^2.1.0",
@@ -26,8 +27,7 @@
     "vue": "^3.2.13",
     "vue-router": "^4.2.4",
     "vuex": "^4.1.0",
-    "wangeditor": "^4.7.6",
-    "lodash-es": "^4.17.21"
+    "wangeditor": "^4.7.6"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -36,7 +36,9 @@
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
     "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3"
+    "eslint-plugin-vue": "^8.0.3",
+    "postcss-plugin-px2rem": "^0.8.1",
+    "px2rem-loader": "^0.1.9"
   },
   "eslintConfig": {
     "root": true,

@@ -1,33 +1,27 @@
 <template>
   <div class="main">
-    <!-- Menu for navigation -->
     <ul id="menu">
-      <li 
-        :title="item.name" 
-        v-for="(item, index) in menuData" 
-        :key="index" 
-        @click.stop="rollTo(item, index)"
-        :class="item.name === heightTitle ? 'active' : ''"
-      >
+      <li :title="item.name" v-for="(item, index) in menuData" :key="index" @click.stop="rollTo(item, index)"
+        :class="item.name === heightTitle ? 'active' : ''">
         {{ item.name }}
       </li>
     </ul>
 
-    <!-- Banner and sidebars -->
-    <div class="bg banner-box">
+    <!-- Banner and sidebars 课程导航分类 -->
+    <!-- <div class="bg banner-box">
       <div class="content flex">
         <LeftSidebar />
         <RightSidebar v-if="carouseResp.length > 0" :carouselData="carouseResp" />
         <el-skeleton style="width: 1440px" v-else :rows="10" animated />
       </div>
-    </div>
+    </div> -->
 
-    <!-- Study route -->
+    <!-- 学习路线 -->
     <div class="bg000" id="route">
       <study />
     </div>
 
-    <!-- Course list -->
+    <!-- 视频课程列表 -->
     <div class="bg000" id="content">
       <div class="content">
         <div class="floorhd">
@@ -44,14 +38,14 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import CourseList from "./CourseList.vue";
-import LeftSidebar from "./LeftSidebar.vue";
-import RightSidebar from "./RightSidebar.vue";
+// import LeftSidebar from "./LeftSidebar.vue";
+// import RightSidebar from "./RightSidebar.vue";
 import study from "./home/study.vue";
 import { getCarouselData, getCourseList } from "@/api/sourceCourse";
 
 // Menu data for navigation
 const menuData = [
-  { name: '学习路线', id: "#route" }, 
+  { name: '学习路线', id: "#route" },
   { name: '课程列表', id: "#content" }
 ];
 
@@ -74,7 +68,7 @@ const rollTo = (selector) => {
   });
 };
 
-// Function to fetch and set courses data
+// 获取并设置视频课程数据
 const getCourses = () => {
   getCourseList().then(response => {
     courses.value = response.data.result;
@@ -133,7 +127,7 @@ onMounted(() => {
   color: #e02020;
 }
 
-#menu li + li::after {
+#menu li+li::after {
   position: absolute;
   top: 0;
   left: 50%;

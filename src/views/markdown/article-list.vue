@@ -56,7 +56,7 @@
           </div>
         </router-link>
 
-        <div class="ranking-right">
+        <!-- <div class="ranking-right">
           <div class="ranking-user-img">
             <img src="https://p.ipic.vip/n6m1kg.jpg" />
           </div>
@@ -64,7 +64,7 @@
           <a href="https://blog.csdn.net/qq_33589510" target="_blank"
             ><div class="ranking-button">关注</div>
           </a>
-        </div>
+        </div> -->
       </div>
       <pagination
         :page="page"
