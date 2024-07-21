@@ -7,26 +7,29 @@
       </li>
     </ul>
 
-    <!-- Banner and sidebars 课程导航分类 -->
-    <!-- <div class="bg banner-box">
-      <div class="content flex">
-        <LeftSidebar />
-        <RightSidebar v-if="carouseResp.length > 0" :carouselData="carouseResp" />
-        <el-skeleton style="width: 1440px" v-else :rows="10" animated />
-      </div>
-    </div> -->
-
     <!-- 学习路线 -->
-    <div class="bg000" id="route">
+    <div class="bg000" id="roadMap">
       <study />
     </div>
 
-    <!-- 视频课程列表 -->
-    <div class="bg000" id="content">
+    <!-- 视频课程列表
+    <div class="bg000" id="video">
       <div class="content">
         <div class="floorhd">
           <div class="grid_c1 floorhd_inner">
             <h3 class="floorhd_tit">课程列表</h3>
+          </div>
+        </div>
+        <CourseList :courses="courses" />
+      </div>
+    </div> -->
+    
+    <!-- 文章动态列表 -->
+    <div class="bg000" id="timeline">
+      <div class="content">
+        <div class="floorhd">
+          <div class="grid_c1 floorhd_inner">
+            <h3 class="floorhd_tit">文章动态</h3>
           </div>
         </div>
         <CourseList :courses="courses" />
@@ -38,23 +41,22 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import CourseList from "./CourseList.vue";
-// import LeftSidebar from "./LeftSidebar.vue";
-// import RightSidebar from "./RightSidebar.vue";
 import study from "./home/study.vue";
-import { getCarouselData, getCourseList } from "@/api/sourceCourse";
+import { getCarouselData, getCourseList } from "@/api/videoCourse";
 
-// Menu data for navigation
+// 左侧悬浮菜单
 const menuData = [
-  { name: '学习路线', id: "#route" },
-  { name: '课程列表', id: "#content" }
+  { name: '学习路线', id: "#roadMap" },
+  // { name: '课程列表', id: "#video" },
+  // { name: '文章动态', id: "#timeline" },
 ];
 
-// State variables
 const heightTitle = ref(null);
 const courses = ref([]);
-const carouseResp = ref([]);
+const courseResp = ref([]);
 
-// Function to scroll to a specific section
+
+// 滚动到指定部分
 const rollTo = (selector) => {
   heightTitle.value = selector.name;
   const element = document.querySelector(selector.id);
@@ -79,11 +81,11 @@ const getCourses = () => {
 // Function to fetch and set carousel data
 const listSliderVideos = () => {
   getCarouselData().then(response => {
-    carouseResp.value = response.data.result;
+    courseResp.value = response.data.result;
   });
 };
 
-// Function to organize courses into rows of 4 items each
+// 视频，四条为一组
 const courseRows = () => {
   const rows = [];
   for (let i = 0; i < courses.value.length; i += 4) {
@@ -92,10 +94,10 @@ const courseRows = () => {
   return rows;
 };
 
-// Lifecycle hook to fetch data on component mount
+// 加载完组件后获取数据
 onMounted(() => {
-  getCourses();
-  listSliderVideos();
+  // getCourses();
+  // listSliderVideos();
 });
 </script>
 
@@ -166,7 +168,6 @@ onMounted(() => {
   object-fit: contain;
 }
 
-/* Background image styles */
 .image-background {
   width: 1152px;
   height: 90px;

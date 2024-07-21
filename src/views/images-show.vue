@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <Menu/>
-        <!-- <ul class="display-flex">
+        <ul class="display-flex">
             <li>
                 <img style="--i:1" src="@/assets/images/1.jpg"/>
             </li>
@@ -29,7 +29,7 @@
             <li>
                 <img style="--i:9" src="@/assets/images/9.jpeg"/>
             </li>
-        </ul> -->
+        </ul>
     </div>
 </template>
 

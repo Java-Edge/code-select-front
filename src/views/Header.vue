@@ -111,7 +111,7 @@ export default {
         { name: "动态", value: "article", path: "/article-list" },
         // { name: "资源下载", value: "download", path: "/download" },
         // { name: "模拟面试", value: "mock-interview", path: "/mock-interview" },
-        // { name: "发动态", value: "issue", path: "/article-create" },
+        { name: "发动态", value: "issue", path: "/article-create" },
         // { name: "公司信息", value: "discussion", path: "/discussion" },
         // { name: "offer交流", value: "offer", path: "/offer" },
       ],

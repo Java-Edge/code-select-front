@@ -2,7 +2,6 @@
   <div style="background-color: #f9f3e8;overflow: hidden;">
     <div class="article-ranking-container main-content">
       <div class="ranking-body" v-for="article in articleData" :key="article.articleId">
-        <!-- <div class="ranking-number">{{ ranking.orderVal }}</div> -->
         <div class="ranking-left">
           <div class="ranking-img">
             <img
@@ -154,7 +153,6 @@ let clickArticle  = (itemId) => {
   display: block;
   width: 810px;
 }
-// 带阴影
 .ranking-body {
     height: 97px;
     display: flex;
@@ -245,7 +243,6 @@ let clickArticle  = (itemId) => {
   border: 1px solid black;
 }
 
-/* 按钮点击 */
 .ranking-button:active {
   background-color: #f8f8f8;
 }

@@ -1,17 +1,21 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import {
+  createRouter,
+  createWebHashHistory
+} from "vue-router";
 
 const loadComponent = (componentName) => () =>
   import(`@/views/${componentName}.vue`);
-const routes = [
-  {
+
+const routes = [{
     path: "/",
+    name: "index",
     redirect: "/index",
   },
-  {
-    path: "/images",
-    name: "images",
-    component: loadComponent("images-show"),
-  },
+  // {
+  //   path: "/images",
+  //   name: "images",
+  //   component: loadComponent("images-show"),
+  // },
   {
     path: "/index",
     name: "index",
@@ -22,11 +26,11 @@ const routes = [
     name: "courseDetail",
     component: loadComponent("video/video-detail"),
   },
-  // {
-  //   path: "/article-create",
-  //   name: "articleCreate",
-  //   component: loadComponent("markdown/article-create"),
-  // },
+  {
+    path: "/article-create",
+    name: "articleCreate",
+    component: loadComponent("markdown/article-create"),
+  },
   // {
   //   path: "/article-editor/:id",
   //   name: "articleEditor",
@@ -42,16 +46,16 @@ const routes = [
     name: "articleInterview",
     component: loadComponent("markdown/article-interview"),
   },
-  {
-    path: "/inner-recommend",
-    name: "innerRecommend",
-    component: loadComponent("innerRecommend/inner-recommend"),
-  },
-  {
-    path: "/innerRecommendDetail/:id",
-    name: "innerRecommendDetail",
-    component: loadComponent("innerRecommend/inner-recommend-detail"),
-  },
+  // {
+  //   path: "/inner-recommend",
+  //   name: "innerRecommend",
+  //   component: loadComponent("innerRecommend/inner-recommend"),
+  // },
+  // {
+  //   path: "/innerRecommendDetail/:id",
+  //   name: "innerRecommendDetail",
+  //   component: loadComponent("innerRecommend/inner-recommend-detail"),
+  // },
   {
     path: "/article/:id",
     name: "articleDetail",
@@ -132,24 +136,25 @@ const routes = [
     name: "/studyDetail",
     component: loadComponent("study/detail"),
   },
-  {
-    path: "/download",
-    name: "download",
-    component: loadComponent("download/index"),
-  },
-  {
-    path: "/discussion",
-    name: "discussion",
-    component: loadComponent("discussion/discussion-list"),
-  },
-  {
-    path: "/discussion-detail/:id",
-    name: "discussion-detail",
-    component: loadComponent("discussion/discussion-detail"),
-  }
+  // {
+  //   path: "/download",
+  //   name: "download",
+  //   component: loadComponent("download/index"),
+  // },
+  // {
+  //   path: "/discussion",
+  //   name: "discussion",
+  //   component: loadComponent("discussion/discussion-list"),
+  // },
+  // {
+  //   path: "/discussion-detail/:id",
+  //   name: "discussion-detail",
+  //   component: loadComponent("discussion/discussion-detail"),
+  // }
 ];
-
+// 新建路由实例
 const router = createRouter({
+  // 配置内部使用hash模式的路由，即url上会通过 `#` 区分
   history: createWebHashHistory(),
   routes,
 });

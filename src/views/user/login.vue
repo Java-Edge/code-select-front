@@ -176,7 +176,6 @@ export default {
       this.$message.error(message);
     },
     login(formName) {
-      debugger; // 在方法开始处放置 debugger
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loading = true;
@@ -186,7 +185,6 @@ export default {
               if (response.data.code === 200) {
                 var user = response.data.result;
                 this.$store.commit("SET_USERINFO", user);
-                // this.setCookieValue("token", user.token);
                 this.$router.push({ path: "/index" });
               } else {
                 this.showMessage(response.data.message);
@@ -261,9 +259,8 @@ export default {
       }
       return value;
     },
-    //往cookie中设置格式：document.cookie = key=value，例如token=fohweoif2n334023noi2r
+    //往cookie中设置格式：document.cookie = key=value，如token=fohweoif2n334023noi2r
     setCookieValue(key, value) {
-      //cookie只能存放键值对
       const operator = "=";
       document.cookie = key + operator + value;
     },
@@ -276,7 +273,6 @@ export default {
   position: fixed;
   left: 0;
   top: 73px;
-  /* background: url("../assets/backImg.jpg") no-repeat; */
   overflow-y: hidden;
   height: 100%;
   width: 100%;

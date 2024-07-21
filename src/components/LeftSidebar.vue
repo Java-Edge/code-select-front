@@ -25,6 +25,15 @@
     </div>
     <!-- END -->
   </div>
+
+    <!-- Banner and sidebars 课程三级导航分类 -->
+    <!-- <div class="bg banner-box">
+      <div class="content flex">
+        <LeftSidebar />
+        <RightSidebar v-if="carouseResp.length > 0" :carouselData="carouseResp" />
+        <el-skeleton style="width: 1440px" v-else :rows="10" animated />
+      </div>
+    </div> -->
 </template>
 
 <script>
