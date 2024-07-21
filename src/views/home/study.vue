@@ -8,6 +8,7 @@
         </li>
 
       </ul>
+      <!-- 负责跳转不同页面，相当于Vue中的超链接a标签 -->
       <router-link class="more" to="/study-list">全部
         <el-icon>
           <ArrowRight />

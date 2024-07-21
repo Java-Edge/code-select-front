@@ -9,12 +9,8 @@
         </div>
         <nav class="menu">
           <ul class="menuul l">
-            <li
-              v-for="item in menus"
-              :key="item.name"
-              @click="handleMenuSelect(item)"
-              :class="{ active: activeMenu === item.value }"
-            >
+            <li v-for="item in menus" :key="item.name" @click="handleMenuSelect(item)"
+              :class="{ active: activeMenu === item.value }">
               {{ item.name }}
             </li>
           </ul>
@@ -37,25 +33,19 @@
               </a> -->
               <div class="my-cart"></div>
             </li>
-            <li class="header-signin"  v-if="isShowLogin">
+            <li class="header-signin" v-if="isShowLogin">
               <a @click="handleToLogin(0)">登录</a> /
               <a @click="handleToLogin(1)">注册</a>
             </li>
-            <li class="header-signin"  v-if="!isShowLogin">
+            <li class="header-signin" v-if="!isShowLogin">
               <a @click="handleLogout(0)">登出</a>
             </li>
             <li class="shop-cart">
               <a href="https://rvsvd8vr3wx.feishu.cn/docs/doccnBIBScqHkFGL9P3zNJFU9bJ?from=from_copylink"
-                class="shop-cart-icon"
-                target="_blank">
+                class="shop-cart-icon" target="_blank">
                 <span class="salary">大会员</span>
-                <span
-                  class="shopping_icon js-cart-num"
-                  data-ordernum="0"
-                  data-cartnum="0"
-                  style="display: none"
-                  >0</span
-                >
+                <span class="shopping_icon js-cart-num" data-ordernum="0" data-cartnum="0"
+                  style="display: none">0</span>
               </a>
               <div class="my-cart"></div>
             </li>
@@ -88,7 +78,7 @@ import { ElMessage, ElMessageBox } from 'element-plus';
 
 export default {
   name: "Header-Navi",
-    components: {
+  components: {
     ElMessage,
     ElMessageBox,
   },
@@ -175,21 +165,21 @@ export default {
       }
       return item;
     },
-    logout(){
-        ElMessageBox.confirm("确认注销登录", "提示", {
-            confirmButtonText: "确定",
-            cancelButtonText: "取消",
-            type: "warning",
-        }).then(() => {
-            localStorage.clear();
-            this.$axios.get("/back/user/logout").then(response => {
-                const { message } = response.data;
-                ElMessage.error(message || "系统出错");
-            });
-            location.reload();
-        }).catch(() => {
-
+    logout() {
+      ElMessageBox.confirm("确认注销登录", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      }).then(() => {
+        localStorage.clear();
+        this.$axios.get("/back/user/logout").then(response => {
+          const { message } = response.data;
+          ElMessage.error(message || "系统出错");
         });
+        location.reload();
+      }).catch(() => {
+
+      });
 
     }
   },
@@ -201,6 +191,7 @@ export default {
   margin-left: 15px;
   color: #cf6555;
 }
+
 .header {
   background-color: #fff;
   border-bottom: 1px solid #f3f5f6;
@@ -212,6 +203,7 @@ export default {
   height: 72px;
   box-sizing: border-box;
   z-index: 9999;
+
   .header-content {
     width: auto;
     max-width: 1450px;
@@ -223,6 +215,7 @@ export default {
 
     .index-menu {
       min-width: 1152px;
+
       .logo {
         float: left;
         // margin: 0 20px;
@@ -262,11 +255,12 @@ export default {
       .login-area {
         float: right;
         position: relative;
+
         .newcomer-box {
           position: relative;
         }
 
-        .header-unlogin > li {
+        .header-unlogin>li {
           float: left;
         }
 
@@ -285,6 +279,7 @@ export default {
             line-height: 36px;
             color: #787d82;
             text-align: center;
+
             i {
               font-size: 20px;
             }

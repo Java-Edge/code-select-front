@@ -1,14 +1,15 @@
 <template>
   <div id="app">
-    <!-- 在div元素内部，依次插入Header组件、router-view组件和Footer组件。-->
+    <!-- 依次插入Header组件、router-view组件和Footer组件 -->
     <Header />
+    <!-- 负责渲染路由匹配的组件，把router-view放在不同地方，实现复杂项目的页面布局 -->
     <router-view class="body" />
     <QrCode></QrCode>
     <Footer />
   </div>
 </template>
+
 <script>
-// 导入Header和Footer组件，这些组件分别位于名为Header.vue和Footer.vue的文件中
 import Header from "./views/Header.vue";
 import Footer from "./views/Footer.vue";
 import QrCode from "./views/QrCode.vue";
@@ -25,6 +26,8 @@ export default {
 </script>
 
 <style lang="scss">
+// 引入外部样式文件 在组件样式中包含全局样式或重用的样式文件
+// 在当前组件的样式中使用这些外部定义的样式规则
 @import url("./assets/css/base.css");
 
 #app {
