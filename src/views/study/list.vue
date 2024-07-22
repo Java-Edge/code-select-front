@@ -72,13 +72,10 @@ const currentMenu = ref("0");
  */
 const getRoadMap = async (categoryId) => {
   let path = `/back/roadmap/route?categoryId=${categoryId}&current=${page.value}&size=${size.value}`;
-  console.log('path', path)
   axios.get(path).then(res => {
-    // console.log(res)
     /**
-     * 每次查出来之后，拼接上原来的数据即可
+     * 每次查出来后，拼上原来数据
      */
-    console.log("getRoadMap", res.data.result.records)
     list.value = res.data.result.records
     total.value = res.data.result.total
 
@@ -115,11 +112,9 @@ onMounted(() => {
 const getCategoryList = async () => {
   let path = '/back/courseCategory/mainCategoryList';
   axios.get(path).then(res => {
-    // console.log(res)
     /**
-     * 每次查出来之后，拼接上原来的数据即可
+     * 每次查出来之后，拼上原来数据
      */
-    // console.log("mainCategoryList", res.data.result)
     menus.value = res.data.result;
   })
 }

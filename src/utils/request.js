@@ -19,14 +19,12 @@ service.interceptors.request.use(
     return config;
   },
   function (error) {
-    console.log("error!!!");
     return Promise.reject(error);
   }
 );
 
 service.interceptors.response.use((response) => {
   let res = response.data;
-
   if (res.code === 200) {
     return response;
   } else if (res.code === 401) {
@@ -35,15 +33,6 @@ service.interceptors.response.use((response) => {
   } else if (res.code === 402) {
     router.push("/login");
     return Promise.reject(res.message);
-  } else if (res.code === 400001) {
-    // this.$message.error( response.data.message)
-    return response;
-  } else if (res.code === 400002) {
-    // this.$message.error( response.data.message)
-    return response;
-  } else if (res.code === 400003) {
-    // this.$message.error( response.data.message)
-    return response;
   } else {
     return Promise.reject(res.message);
   }

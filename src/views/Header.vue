@@ -109,7 +109,7 @@ export default {
   },
   watch: {
     $route(to, from) {
-      console.log(this.$store.state.userInfo);
+      // console.log(this.$store.state.userInfo);
       if (to.path === "/login" || this.$store.state.userInfo) {
         this.isShowLogin = false;
       } else {
@@ -129,6 +129,7 @@ export default {
   methods: {
     handleMenuSelect(item) {
       this.activeMenu = item.value; // 更新选中的菜单项
+      console.log(item.value);
       localStorage.setItem("currentActiveMenu", this.activeMenu);
       this.$router.push(item.path);
     },

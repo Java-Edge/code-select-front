@@ -113,7 +113,6 @@ export default {
             "/back/user/checkUsername?username=" + this.registerForm.username
           )
           .then((response) => {
-            console.log(response.data.result);
             if (response.data.result === "1") {
               callback(new Error("该用户名已经存在！"));
             }
@@ -192,7 +191,6 @@ export default {
               }
             });
         } else {
-          console.log("error submit!!");
           return false;
         }
       });

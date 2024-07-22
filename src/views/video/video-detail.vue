@@ -1,5 +1,4 @@
 <template>
-
   <div class="main-content">
   <!-- 导航 -->
   <br>
@@ -7,19 +6,15 @@
   <i class="el-icon-arrow-right"></i>
   <a href="http://javaedge.cn:3000/#/special">实战</a>
     <div class="course-details-body">
-      <!-- 显示选定课程的名称 -->
       <h2>{{ selectedCourse.name }}</h2>
       <div class="course-details-content">
         <div class="left">
-          <!-- 显示选定课程的图片 -->
           <img :src="selectedCourse.image" :alt="selectedCourse.name" />
         </div>
         <div class="right">
-          <!-- 显示选定课程的描述 -->
           <div class="description">
             <span class="descrip">简介</span>：{{ selectedCourse.description }}
           </div>
-          <!-- 显示学习按钮，点击后跳转到课程的学习链接 -->
           <div class="study-button">
             <button class="learn-button" @click="goToStudy(selectedCourse)">
               点击学习
@@ -69,7 +64,7 @@ export default {
       });
     },
     goToStudy(selectedCourse) {
-      window.open(selectedCourse.sourceUrl); // 在新窗口打开课程的学习链接
+      window.open(selectedCourse.sourceUrl); // 新窗口打开课程的学习链接
     },
   },
 };
@@ -92,7 +87,6 @@ export default {
 
   .left {
     max-width: 36%;
-    /* Adjust the max-width as needed */
   }
 
   .left img {
@@ -105,7 +99,6 @@ export default {
   .right {
     /* max-width: 600px; */
     max-width: 50%;
-    /* Adjust the max-width as needed */
     margin-left: 40px;
     flex: 1;
   }

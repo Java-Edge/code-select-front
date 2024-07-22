@@ -41,7 +41,6 @@ const project = ref({})
 const projectId = route.params.id
 const getProjectDetail = async () => {
     axios.get(`/back/project/getById/${projectId}`).then(res=>{
-        console.log(res)
         project.value = res.data.result
     })
 };

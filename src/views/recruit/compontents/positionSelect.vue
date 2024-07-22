@@ -87,7 +87,6 @@ const changeCheck = (cItem, item) => {
   if (cIds.value.hasOwnProperty(cItem.code)) {
     if (ids.value.includes(item.code)) {
       cIds.value[cItem.code]--;
-      console.log(cIds.value[cItem.code]);
     } else {
       cIds.value[cItem.code]++;
     }

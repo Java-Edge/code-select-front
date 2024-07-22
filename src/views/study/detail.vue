@@ -4,7 +4,7 @@
       <div class="main-content content">
         <router-link to href="/study-list" target="_blank">
           <div class="content-logo">
-<!--            TODO 很丑陋，待优化-->
+<!--            TODO 丑陋，待优化-->
 <!--            <img-->
 <!--              src="@/assets/flag.png"-->
 <!--              style="height: 50px; padding-right: 20px"-->
@@ -164,21 +164,18 @@ console.log("roadMapId", roadMapId);
 const getDetail = async () => {
   let path = `/back/roadmap/getRoadMapDetail/${roadMapId}`;
   axios.get(path).then((res) => {
-    // console.log("getDetail---",res.data.result)
     roadmapDetail.value = res.data.result;
   });
 };
 const getRoadMap = async () => {
   let path = `/back/roadmap/getRoadMapById/${roadMapId}`;
   axios.get(path).then((res) => {
-    // console.log("getRoadMap---",res.data.result)
     roadMap.value = res.data.result;
   });
 };
 const recomendCourses = ref([]);
 const getRecommendCourses = () => {
   axios.get("/back/roadmap/getRecommentRoad").then((res) => {
-    console.log("rec", res.data.result);
     recomendCourses.value = res.data.result;
   });
 };

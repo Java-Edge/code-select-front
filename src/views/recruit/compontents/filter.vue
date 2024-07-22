@@ -257,8 +257,6 @@ getData();
 const handleSelectJobList = (key, id) => {
   if (key === "jobTypeList") {
     salaryType.value = id;
-    console.log(salaryType);
-    console.log(id);
     switch (id) {
       case 2:
         getDctionary("internship_salary_range", (result) => {

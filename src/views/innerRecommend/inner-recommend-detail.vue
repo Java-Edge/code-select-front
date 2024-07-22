@@ -26,7 +26,6 @@ const articleId = route.params.id
 const detail = ref({});
 const getArticleDetail = async () => {
     axios.get(`/back/innerRecommend/getById/${articleId}`).then(res=>{
-        console.log(res)
         detail.value = res.data.result
     })
     // detail.value = await articleDetail(articleId);

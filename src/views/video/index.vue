@@ -29,7 +29,7 @@
         :href="item.sourceUrl"
         target="_blank"
         class="special-box"
-        @click="clickSpecial(item.id)"
+        @click="countPv(item.id)"
       >
         <div class="box-head">
           <!-- 专栏图片 -->
@@ -82,8 +82,7 @@ const changeOrder = (item) => {
   queryParams.value.param.order = item.name;
 };
 
-// 点击专栏时记录浏览量
-let clickSpecial = (itemId) => {
+let countPv = (itemId) => {
   const token = getCookieValue("token");
   const headers = {
     token: token, // 访问受限资源必须把token传到后端校验

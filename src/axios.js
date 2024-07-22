@@ -14,12 +14,10 @@ axios.interceptors.request.use(config => {
     config.headers['token'] = token;
     return config;
 }, function (error) {
-    console.log('error!!!');
     return Promise.reject(error);
 })
 axios.interceptors.response.use(
     (response) => {
-        // console.log(response)
         const { code, message } = response.data;
         if (code === 200) {
             return response;

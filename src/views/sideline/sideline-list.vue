@@ -95,7 +95,6 @@ const router = useRouter();
 watch(
   () => router.currentRoute.value,
   () => {
-    console.log("路由变化了", router.currentRoute.value);
     let type = route.params.type;
     getListData();
   }
