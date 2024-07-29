@@ -185,6 +185,8 @@ export default {
                 var user = response.data.result;
                 this.$store.commit("SET_USERINFO", user);
                 this.$router.push({ path: "/index" });
+                // // 跳转到首页
+                // window.location.href = "http://javaedge.cn:3000/#/index";
               } else {
                 this.showMessage(response.data.message);
                 this.loading = false;

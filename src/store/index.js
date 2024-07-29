@@ -1,11 +1,3 @@
-/*
- * @Descripttion: 
- * @version: 
- * @Author: 不败顽童
- * @Date: 2023-07-16 17:51:44
- * @LastEditors: 不败顽童
- * @LastEditTime: 2023-07-16 18:21:41
- */
 import { createStore } from 'vuex';
 
 const store = createStore({

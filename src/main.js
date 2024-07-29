@@ -28,9 +28,12 @@ router.afterEach((to, from, next) => {
     .setAttribute("style", "overflow: auto !important;");
 });
 
-app.use(router); // 使用插件方式注册路由
-app.use(store); // 使用插件方式注册 Vuex 的 store
-app.use(showdown); // 注册markdown渲染
+// 使用插件方式注册路由
+app.use(router);
+// 使用插件方式注册 Vuex 的 store
+app.use(store);
+// 注册markdown渲染
+app.use(showdown);
 
 app.config.productionTip = false;
 app.config.globalProperties.$axios = axios; // 在全局配置 $axios

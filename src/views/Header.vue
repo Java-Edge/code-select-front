@@ -84,8 +84,9 @@ export default {
   },
   data() {
     return {
-      activeMenu: "home", // 默认选中首页
-      isShowLogin: true, // Set this to true if the user is logged in
+      // 默认选中首页
+      activeMenu: "home",
+      isShowLogin: true,
       username: "",
       menus: [
         { name: "首页", value: "home", path: "/index" },
@@ -128,7 +129,8 @@ export default {
   },
   methods: {
     handleMenuSelect(item) {
-      this.activeMenu = item.value; // 更新选中的菜单项
+      // 更新选中的菜单项
+      this.activeMenu = item.value;
       console.log(item.value);
       localStorage.setItem("currentActiveMenu", this.activeMenu);
       this.$router.push(item.path);
@@ -179,6 +181,7 @@ export default {
         });
         // 跳转到首页
         window.location.href = "http://javaedge.cn:3000/#/index";
+        this.activeMenu = 'home';
       }).catch(() => {
       });
     }
