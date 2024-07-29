@@ -23,8 +23,6 @@
   </div>
 </template>
 
-
-
 <script>
 export default {
   name: "CourseNavigation",
@@ -59,7 +57,6 @@ export default {
 
   },
   methods: {
-
     // 显示对应的二级分类菜单
     showSubMenu(index) {
       if (index != -1) {
@@ -77,7 +74,6 @@ export default {
 };
 </script>
 
-
 <style scoped>
 .qr-code-container {
   position: fixed;
@@ -88,16 +84,11 @@ export default {
 
 .title {
   font-size: 16px;
-  /* 调整字体大小 */
   font-weight: bold;
-  /* 设置字体粗细 */
   text-transform: uppercase;
-  /* 将文本转换为大写 */
   color: #333;
-  /* 设置字体颜色 */
   display: flex;
   flex-wrap: wrap;
-  /* 添加其他样式属性以满足您的需求 */
 }
 
 .title::before {
@@ -115,7 +106,6 @@ export default {
 
 .qr-title {
   text-align: center;
-  /* font-size: 12px; */
 }
 
 .hide {
@@ -125,6 +115,5 @@ export default {
 .qr-img {
   width: 200px;
   height: 200px;
-  /* 其他样式属性 */
 }
 </style>

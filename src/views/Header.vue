@@ -177,11 +177,10 @@ export default {
           const { message } = response.data;
           ElMessage.error(message || "系统出错");
         });
-        location.reload();
+        // 跳转到首页
+        window.location.href = "http://javaedge.cn:3000/#/index";
       }).catch(() => {
-
       });
-
     }
   },
 };
