@@ -110,7 +110,6 @@ export default {
   },
   watch: {
     $route(to, from) {
-      // console.log(this.$store.state.userInfo);
       if (to.path === "/login" || this.$store.state.userInfo) {
         this.isShowLogin = false;
       } else {
@@ -129,9 +128,9 @@ export default {
   },
   methods: {
     handleMenuSelect(item) {
-      // 更新选中的菜单项
+      // 选中的菜单项
       this.activeMenu = item.value;
-      console.log(item.value);
+      // 更新
       localStorage.setItem("currentActiveMenu", this.activeMenu);
       this.$router.push(item.path);
     },
@@ -179,7 +178,7 @@ export default {
           const { message } = response.data;
           ElMessage.error(message || "系统出错");
         });
-        // 跳转到首页
+        // 跳转首页
         window.location.href = "http://javaedge.cn:3000/#/index";
         this.activeMenu = 'home';
       }).catch(() => {
