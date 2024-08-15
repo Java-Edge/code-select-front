@@ -37,7 +37,6 @@ import axios from 'axios';
 import { useRoute } from 'vue-router'
 import "@toast-ui/editor/dist/toastui-editor.css";
 
-// 获取数据
 const route = useRoute()
 const articleId = route.params.id
 const detail = ref({});
@@ -50,9 +49,8 @@ const getArticleDetail = async () => {
 getArticleDetail();
 
 const comments = ref([])
-const feId = articleId
 const getComments = async () => {
-    axios.get(`/back/comment/getComponentByFid/${feId}?current=1&size=5`).then((res) => {
+    axios.get(`/back/comment/getComponentByFid/${articleId}?current=1&size=5`).then((res) => {
         comments.value = res.data.result.records;
     });
 };
