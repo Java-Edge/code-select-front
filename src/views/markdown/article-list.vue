@@ -11,14 +11,6 @@
             <img v-else :src="article.img" />
           </div>
         </div>
-
-<!--        <a-->
-<!--          v-if="article.href != null && article.href != ''"-->
-<!--          :href="article.href"-->
-<!--          target="_blank"-->
-<!--          class="link-sty"-->
-<!--          @click="clickArticle(article.articleId)"-->
-<!--        >-->
           <a
               v-if="article.href != null && article.href != ''"
               :href="article.href"
@@ -113,7 +105,7 @@ const handleCurrentChange = (currentPage) => {
 let clickArticle  = (itemId) => {
   const token = getCookieValue("token");
   const headers = {
-    token: token, //访问受限资源必须把token传到后端校验
+    token: token,
   };
   queryParams.value.param.itemId = itemId;
   axios.post("/back/article/pv", queryParams.value, headers);
@@ -204,9 +196,7 @@ let clickArticle  = (itemId) => {
   color: #777888;
 }
 .ranking-right {
-  // background-color: green;
   flex-grow: 1;
-  // width: 300px;
   display: flex;
   align-items: center;
 }
@@ -231,7 +221,7 @@ let clickArticle  = (itemId) => {
   text-align: center;
   background-color: #f8f8f8;
   color: black;
-  border-radius: 13px; /* 圆角 */
+  border-radius: 13px;
   font-size: 14px;
   // padding: 10px 20px; /* 上下边距，左右边距 */
   cursor: pointer;

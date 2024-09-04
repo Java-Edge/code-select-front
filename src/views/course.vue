@@ -29,7 +29,7 @@
       <div class="content">
         <div class="floorhd">
           <div class="grid_c1 floorhd_inner">
-            <h3 class="floorhd_tit">文章动态</h3>
+            <h3 class="floorhd_tit">敬请期待</h3>
           </div>
         </div>
         <CourseList :courses="courses" />
@@ -48,7 +48,7 @@ import { getCarouselData, getCourseList } from "@/api/videoCourse";
 const menuData = [
   { name: '学习路线', id: "#roadMap" },
   // { name: '课程列表', id: "#video" },
-  // { name: '文章动态', id: "#timeline" },
+  // { name: '敬请期待', id: "#timeline" },
 ];
 
 const heightTitle = ref(null);

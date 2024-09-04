@@ -10,32 +10,28 @@
         </div>
       </div>
 
-      <a :href="download.href" target="_blank" class="link-sty">
-        <div class="ranking-middle">
-          <div class="ranking-name hide-text">{{ download.title }}</div>
-          <div class="ranking-des hide-text">{{ download.des }}</div>
-          <div class="ranking-likes">下载量 {{ download.pageView }}</div>
-        </div>
-      </a>
-
-
-      <!-- <div class="ranking-right">
-        <div class="ranking-user-img">
-          <img src="https://p.ipic.vip/n6m1kg.jpg"/>
-        </div>
-        <div class="ranking-user-name hide-text">JavaEdge</div>
-        <a href="https://blog.csdn.net/qq_33589510" target="_blank">
-          <div class="ranking-button">关注</div>
-        </a>
-      </div> -->
+      <div class="ranking-middle" @click="goToDetail(download.id)">
+        <div class="ranking-name hide-text">{{ download.name }}</div>
+        <div class="ranking-des hide-text">{{ download.suffix }}</div>
+        <div class="ranking-likes">文件大小 {{ download.size }}</div>
+      </div>
     </div>
     <pagination :page="page" :total="total" :size="size" @pageChange="handleCurrentChange"/>
+    <!-- 文件选择 -->
+    <div class="upload-section">
+      <input type="file" @change="handleFileChange" ref="fileInput" style="display: none;">
+      <button @click="triggerFileInput" class="upload-button">选择文件</button>
+      <span v-if="selectedFile" class="selected-file-name">{{ selectedFile.name }}</span>
+      <button @click="uploadFile" class="upload-button" :disabled="!selectedFile">上传文件</button>
+    </div>
   </div>
 </template>
 <script setup>
 import axios from "axios";
 import pagination from "@/components/pagination.vue";
 import {ref} from "vue";
+import { ElMessage } from 'element-plus';
+import { useRouter } from 'vue-router';
 
 const total = ref(0);
 const page = ref(1);
@@ -45,15 +41,36 @@ const downloads = ref([]);
 const getListData = async () => {
   let path = `/back/download/listByPage?current=${page.value}&size=${size.value}`;
   axios.get(path).then((res) => {
-    console.log("res", res.data.result);
     downloads.value = res.data.result.records;
     total.value = res.data.result.total;
   });
 };
+
 getListData()
 const handleCurrentChange = (currentPage) => {
   page.value = currentPage;
   getListData();
+};
+
+// 修复文件输入框的引用
+const fileInput = ref(null);
+const selectedFile = ref(null);
+
+const triggerFileInput = () => {
+  fileInput.value.click();
+};
+
+const handleFileChange = (event) => {
+  selectedFile.value = event.target.files[0];
+};
+// 上传文件 
+
+// ... 现有代码 ...
+
+const router = useRouter();
+
+const goToDetail = (id) => {
+  router.push(`/download/${id}`);
 };
 </script>
 <style lang="scss" scoped>
@@ -89,6 +106,7 @@ const handleCurrentChange = (currentPage) => {
 }
 
 .ranking-middle {
+  cursor: pointer;
   // background-color: blue;
   display: flex;
   flex-direction: column;

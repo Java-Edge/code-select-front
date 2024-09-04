@@ -136,11 +136,16 @@ const routes = [{
     name: "/studyDetail",
     component: loadComponent("study/detail"),
   },
-  // {
-  //   path: "/download",
-  //   name: "download",
-  //   component: loadComponent("download/index"),
-  // },
+  {
+    path: "/download",
+    name: "download",
+    component: loadComponent("download/index"),
+  },
+  {
+    path: "/download/:id",
+    name: "downloadDetail",
+    component: loadComponent("download/download-detail"),
+  },
   // {
   //   path: "/discussion",
   //   name: "discussion",
