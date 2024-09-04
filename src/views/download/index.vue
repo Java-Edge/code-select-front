@@ -63,9 +63,36 @@ const triggerFileInput = () => {
 const handleFileChange = (event) => {
   selectedFile.value = event.target.files[0];
 };
-// 上传文件 
 
-// ... 现有代码 ...
+// 上传文件 
+const uploadFile = async () => {
+  if (!selectedFile.value) {
+    ElMessage.warning('请先选择文件');
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('file', selectedFile.value);
+
+  try {
+    const response = await axios.post('/back/download/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+
+    if (response.data.code === 200) {
+      ElMessage.success('文件上传成功');
+      selectedFile.value = null;
+      getListData(); // 刷新文件列表
+    } else {
+      ElMessage.error(response.data.message || '文件上传失败');
+    }
+  } catch (error) {
+    console.error('上传文件时出错:', error);
+    ElMessage.error('上传文件时发生错误');
+  }
+};
 
 const router = useRouter();
 
