@@ -30,15 +30,14 @@ import { ElMessage } from 'element-plus';
 import "@toast-ui/editor/dist/toastui-editor.css";
 
 const route = useRoute();
-const articleId = route.params.id;
+const fileId = route.params.id;
 const detail = ref({});
 
 const getArticleDetail = async () => {
   try {
-    const res = await axios.get(`/back/download/getById/${articleId}`);
+    const res = await axios.get(`/back/download/getById/${fileId}`);
     detail.value = res.data.result;
   } catch (error) {
-    console.error('获取文件详情失败:', error);
     ElMessage.error('获取文件详情失败');
   }
 };
@@ -66,18 +65,17 @@ const getStatusText = (status) => {
 
 const downloadFile = async () => {
   try {
-    const response = await axios.get(`/back/download/download/${articleId}`, {
-      responseType: 'blob'
-    });
-    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const response = await axios.post(`/back/download/downloadFile/${fileId}`);
+    const downloadUrl = response.data.result;
+
     const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', detail.value.name);
+    link.href = downloadUrl;
+    link.setAttribute('download', detail.value.name || 'download');
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   } catch (error) {
-    console.error('下载文件失败:', error);
+    console.error('获取文件详情失败:', error);
     ElMessage.error('下载文件失败');
   }
 };
