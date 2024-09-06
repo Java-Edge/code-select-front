@@ -69,11 +69,15 @@ const downloadFile = async () => {
     const downloadUrl = response.data.result;
 
     const link = document.createElement('a');
+    link.style.display = 'none';
     link.href = downloadUrl;
+    link.target = '_blank';
+
     link.setAttribute('download', detail.value.name || 'download');
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    URL.revokeObjectURL(downloadUrl);
   } catch (error) {
     console.error('获取文件详情失败:', error);
     ElMessage.error('下载文件失败');
