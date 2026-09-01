@@ -19,7 +19,6 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus/es/components/message';
 import { getToken, clearAuth } from '@/utils/auth';
-import router from '@/router';
 import { RESPONSE_CODE } from '@/config/constants';
 
 const service = axios.create({
@@ -68,11 +67,13 @@ service.interceptors.response.use(
           ElMessage.error(message || '登录已失效,请重新登录');
           // 清除本地认证信息
           clearAuth();
-          // 跳转到登录页
-          router.push({
-            path: '/login',
-            query: { redirect: router.currentRoute.value.fullPath }
-          });
+          // 跳转到登录页（动态 import 避免 axios→router→store→api→axios 静态循环依赖）
+          import('@/router').then(({ default: router }) => {
+            router.push({
+              path: '/login',
+              query: { redirect: router.currentRoute.value.fullPath }
+            })
+          }).catch(() => {});
           return Promise.reject(new Error(message || 'Unauthorized'));
         }
 
