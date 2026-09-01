@@ -38,7 +38,7 @@
 import { computed, defineOptions } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
-import { ElMessageBox } from 'element-plus'
+import { ElMessageBox } from 'element-plus/es/components/message-box'
 
 defineOptions({
   name: 'ProfilePage'

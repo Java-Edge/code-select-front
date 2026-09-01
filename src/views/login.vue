@@ -91,7 +91,7 @@
 import { ref, reactive, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
-import { ElMessage } from 'element-plus'
+import { ElMessage } from 'element-plus/es/components/message'
 import { getCheckCode, checkUsername } from '@/api/user'
 
 const router = useRouter()

@@ -80,7 +80,7 @@
 import { ref, onMounted, computed, defineOptions } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-import { ElMessageBox } from 'element-plus'
+import { ElMessageBox } from 'element-plus/es/components/message-box'
 import { User, SwitchButton } from '@element-plus/icons-vue'
 import ThemeToggle from '@/components/ThemeToggle.vue'
 

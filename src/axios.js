@@ -17,7 +17,7 @@
  * baseURL 保留 '/api' 兜底，避免生产环境环境变量缺失再次导致路径错误。
  * ============================================================================ */
 import axios from 'axios'
-import { ElMessage } from 'element-plus';
+import { ElMessage } from 'element-plus/es/components/message';
 import { getToken, clearAuth } from '@/utils/auth';
 import router from '@/router';
 import { RESPONSE_CODE } from '@/config/constants';
