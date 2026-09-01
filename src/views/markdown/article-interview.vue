@@ -94,7 +94,7 @@
 </template>
 
 <script setup>
-import { ref, onActivated } from "vue";
+import { ref } from "vue";
 import axios from "@/axios";
 import debounce from 'lodash-es/debounce';
 import pagination from "@/components/pagination.vue";
@@ -181,11 +181,8 @@ const { page, size, total, list: tableData, load, changePage: handleCurrentChang
   }
 );
 
-// 首次加载
+// 首次加载（路由组件每次进入都会重新执行 setup，故此 load 同时覆盖「离开后回来」的刷新；无需 onActivated）
 load();
-
-// 处理 keep-alive 激活后数据不重新加载的问题
-onActivated(load);
 
 // 翻页由 usePagedList 的 changePage 接管（见上方 load 解构：changePage: handleCurrentChange）
 

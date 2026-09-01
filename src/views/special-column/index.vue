@@ -45,7 +45,7 @@
 </template>
 
 <script setup>
-import { ref, onActivated, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import categoryCom from "@/components/special-category.vue";
 import { specialApi } from '@/api/special';
 import { usePagedList } from '@/composables/usePagedList';
@@ -107,9 +107,8 @@ const changeCategory = (item) => {
   getSpecialColumn();
 };
 
-// 生命周期钩子
+// 首次加载（路由组件每次进入都会重新挂载，故 onMounted 同时覆盖「离开后回来」的刷新；无需 onActivated）
 onMounted(getSpecialColumn);
-onActivated(getSpecialColumn);
 </script>
 
 <style lang="scss" scoped>
