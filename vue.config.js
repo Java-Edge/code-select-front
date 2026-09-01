@@ -4,6 +4,8 @@ module.exports = {
   publicPath: './',
   assetsDir: 'static',
   parallel: false,
+  // 生产构建不生成 sourcemap，避免完整源码随产物泄露（此前未设置，Vue CLI 默认 true，发 8 个 .map）
+  productionSourceMap: false,
   devServer: {
     client: {
       overlay: false
@@ -59,5 +61,17 @@ module.exports = {
         },
       },
     },
+  },
+  chainWebpack: config => {
+    // 生产环境剥离 console.*（含 Login.vue 验证码 URL 明文打印、axios/pilot/Header 等调试日志），
+    // 避免敏感信息泄露与体积冗余
+    config.when(process.env.NODE_ENV === 'production', cfg => {
+      cfg.optimization.minimizer('terser').tap(args => {
+        args[0].terserOptions = args[0].terserOptions || {}
+        args[0].terserOptions.compress = args[0].terserOptions.compress || {}
+        args[0].terserOptions.compress.drop_console = true
+        return args
+      })
+    })
   },
 };
