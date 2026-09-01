@@ -14,7 +14,7 @@ const routes = [
 
   {
     path: ROUTE_PATHS.HOME,
-    name: "index",
+    name: "home",
     component: () => import("../views/pilot/pilot"),
     meta: { requiresAuth: true }
   },
