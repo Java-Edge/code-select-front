@@ -1,0 +1,28 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cs-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1ba7e0"/>
+      <stop offset="1" stop-color="#065287"/>
+    </linearGradient>
+    <linearGradient id="cs-spark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffbe6b"/>
+      <stop offset="1" stop-color="#ef8f3f"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Rounded-square background -->
+  <rect x="8" y="8" width="496" height="496" rx="112" fill="url(#cs-bg)"/>
+
+  <!-- Stacked documents (back -> front), fanned down-left -->
+  <rect x="141" y="148" width="190" height="240" rx="24" fill="#ffffff" opacity="0.55"/>
+  <rect x="157" y="132" width="190" height="240" rx="24" fill="#ffffff" opacity="0.78"/>
+  <rect x="173" y="116" width="190" height="240" rx="24" fill="#ffffff"/>
+
+  <!-- Text lines on the front document -->
+  <rect x="203" y="178" width="130" height="14" rx="7" fill="#cfe7f7"/>
+  <rect x="203" y="210" width="130" height="14" rx="7" fill="#cfe7f7"/>
+  <rect x="203" y="242" width="92"  height="14" rx="7" fill="#cfe7f7"/>
+
+  <!-- Curated "sparkle" seal on the top edge of the front document -->
+  <path d="M268 84 Q274.6 107.4 298 114 Q274.6 120.6 268 144 Q261.4 120.6 238 114 Q261.4 107.4 268 84 Z" fill="url(#cs-spark)"/>
+</svg>

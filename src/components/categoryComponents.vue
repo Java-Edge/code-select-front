@@ -28,7 +28,7 @@ const queryParams = ref({
   },
 });
 
-const props = defineProps({
+defineProps({
   title: String,
   list: {
     type: Array,

@@ -169,7 +169,7 @@ axios.get("/back/career/getData").then((res) => {
 
 // 数据相关：分页与列表由 usePagedList 统一管理
 // fetchFn 负责把分页参数 + 筛选条件拼装成后端契约的请求体（param.articleType 固定为 1）
-const { page, size, total, list: tableData, load, changePage: handleCurrentChange } = usePagedList(
+const { page, total, list: tableData, load, changePage: handleCurrentChange } = usePagedList(
   async ({ pageNo, pageSize }, extraParam) => {
     const params = {
       pageNo,

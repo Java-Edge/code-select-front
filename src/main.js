@@ -7,19 +7,15 @@ import './styles/tokens.css'
 import './assets/css/base.css'
 import './styles/dark/index.css'
 import { initTheme } from './composables/useTheme'
-import DisableDevtool from 'disable-devtool'
 
 // Initialize theme before app mount (统一到 useTheme composable)
 initTheme()
 
-// Disable devtools in production
-if (process.env.NODE_ENV === 'production') {
-  DisableDevtool({
-    url: 'about:blank',
-    timeOutUrl: 'about:blank',
-    disableMenu: false
-  })
-}
+// 注意：此处曾调用 DisableDevtool({ url: 'about:blank' })，
+// 其逻辑为「检测到 DevTools 打开即 window.location.href = url」，
+// 会导致开发者一开 DevTools 整页被跳转到 about:blank（白屏）。
+// 该反调试手段几乎无安全收益却会炸掉本地调试，已移除。
+// 若确需在真实生产环境做 DevTools 威慑，应改用 ondevtoolopen 弹层提示等非破坏性方案。
 
 // Create Vue application instance
 const app = createApp(App)

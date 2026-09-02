@@ -1,6 +1,8 @@
 const path = require('path');
 module.exports = {
-  lintOnSave: false,
+  // 启用 ESLint（此前 false 使 lint 形同虚设）；设为 'warning' 仅告警不阻断构建，
+  // 另建议后续将 eslint 7(EOL) 升级到 8 以匹配 @vue/cli-plugin-eslint peer。
+  lintOnSave: 'warning',
   publicPath: './',
   assetsDir: 'static',
   parallel: false,
@@ -41,10 +43,10 @@ module.exports = {
   configureWebpack: {
     resolve: {
       alias: {
-      	// 将 ../../assets/img/1.png  转化为 @/1.png
-      	// 将 ../../style/test/1.scss 转化为 @/1.scss
+        // 将 ../../assets/img/1.png  转化为 @/1.png
+        // 将 ../../style/test/1.scss 转化为 @/1.scss
         '@': path.join(__dirname, 'src'),
-        '@s': path.join(__dirname, 'src/css'),
+        // 已删除 '@s' -> src/css 别名：src/css 目录不存在且全项目零引用（P2 配置瑕疵收口）
       }
     }
   },

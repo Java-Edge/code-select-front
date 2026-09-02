@@ -49,21 +49,17 @@ const mutations = {
 const actions = {
   // 用户登录
   async login({ commit }, loginForm) {
-    try {
-      const response = await login(loginForm)
-      const result = response.data.result || response.data.data
-      
-      // 设置 Token
-      commit('SET_TOKEN', result.token)
-      
-      // 设置用户信息
-      const userInfo = mapUserInfo(result)
-      commit('SET_USER_INFO', userInfo)
-      
-      return response
-    } catch (error) {
-      throw error
-    }
+    const response = await login(loginForm)
+    const result = response.data.result || response.data.data
+
+    // 设置 Token
+    commit('SET_TOKEN', result.token)
+
+    // 设置用户信息
+    const userInfo = mapUserInfo(result)
+    commit('SET_USER_INFO', userInfo)
+
+    return response
   },
 
   // 用户登出

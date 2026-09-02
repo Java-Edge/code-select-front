@@ -71,7 +71,7 @@ const queryParams = ref({
 });
 
 // 列表分页：page/size/total/specialItems/翻页 由 usePagedList 统一管理
-const { page, size, total, list: specialItems, load: getSpecialColumn } = usePagedList(
+const { list: specialItems, load: getSpecialColumn } = usePagedList(
   async ({ pageNo, pageSize }) => {
     queryParams.value.pageNo = pageNo;
     queryParams.value.pageSize = pageSize;
