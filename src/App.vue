@@ -18,12 +18,14 @@ import QrCode from './views/QrCode.vue'
 // 原写法为 `@import url(...)`，会被编译为运行时原生 CSS @import，额外产生一个
 // HTTP 请求且晚于打包内联样式生效，属纯重复。
 
+/* 已删除三条失效声明（保留 position/width）：
+   - height:100% —— 百分比高度的父级链 html → body → #app 挂载容器均未设置 height，
+     逐级降级为 auto，该声明从未生效；删除后实际渲染表现与删除前一致。
+   - top:0 / left:0 —— position:relative 下的相对偏移，取值为 0 时无视觉效果。
+   position:relative 必须保留：内部 absolute 元素以本元素为包含块。 */
 .app-root {
   position: relative;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
 }
 
 .body {

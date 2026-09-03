@@ -26,15 +26,12 @@ html.dark .el-pagination li {
 
 /* ---------- 页面背景 ---------- */
 /* ========== 页面背景 ========== */
+/* 只需给 body 设背景：html 元素自身无背景声明，body 的背景会传播到画布铺满视口
+   （CSS 背景传播规则，与 body 自身高度无关）。
+   原另有 html.dark #app 与 html.dark .body 两条同值规则（同为 --dm-bg-primary），
+   其中挂载容器 #app 无独立背景来源、.body 在亮色下亦无背景声明，二者均被 body 背景
+   完全覆盖，属纯冗余，已删除。 */
 html.dark body {
-  background-color: var(--dm-bg-primary);
-}
-
-html.dark #app {
-  background-color: var(--dm-bg-primary);
-}
-
-html.dark .body {
   background-color: var(--dm-bg-primary);
 }
 
