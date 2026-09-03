@@ -1,0 +1,30 @@
+<svg width="500" height="250" viewBox="0 0 500 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cs-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1ba7e0"/>
+      <stop offset="1" stop-color="#065287"/>
+    </linearGradient>
+    <linearGradient id="cs-spark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffbe6b"/>
+      <stop offset="1" stop-color="#ef8f3f"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Full-bleed gradient background -->
+  <rect width="500" height="250" fill="url(#cs-bg)"/>
+
+  <!-- Mark (same geometry as column-logo.svg, scaled to fit) -->
+  <g transform="translate(-6.5 8.7) scale(0.493)">
+    <rect x="141" y="148" width="190" height="240" rx="24" fill="#ffffff" opacity="0.55"/>
+    <rect x="157" y="132" width="190" height="240" rx="24" fill="#ffffff" opacity="0.78"/>
+    <rect x="173" y="116" width="190" height="240" rx="24" fill="#ffffff"/>
+    <rect x="203" y="178" width="130" height="14" rx="7" fill="#cfe7f7"/>
+    <rect x="203" y="210" width="130" height="14" rx="7" fill="#cfe7f7"/>
+    <rect x="203" y="242" width="92" height="14" rx="7" fill="#cfe7f7"/>
+    <path d="M268 84 Q274.6 107.4 298 114 Q274.6 120.6 268 144 Q261.4 120.6 238 114 Q261.4 107.4 268 84 Z" fill="url(#cs-spark)"/>
+  </g>
+
+  <!-- Brand lockup -->
+  <text x="203" y="118" font-family="-apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="58" font-weight="700" fill="#ffffff">编程严选</text>
+  <text x="205" y="160" font-family="-apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="24" letter-spacing="1" fill="#cfe7f7">Code Select · 专栏</text>
+</svg>

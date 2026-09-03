@@ -33,7 +33,7 @@
       >
         <div class="box-head">
           <!-- 专栏图片 -->
-          <img :src="item.image" class="head-img" alt="专栏图片" />
+          <img :src="item.image || columnCover" class="head-img" alt="专栏图片" />
         </div>
         <div class="box-bottom">
           <div class="bottom-left">{{ item.name }}</div>
@@ -49,6 +49,7 @@ import { ref, onMounted } from "vue";
 import categoryCom from "@/components/special-category.vue";
 import { specialApi } from '@/api/special';
 import { usePagedList } from '@/composables/usePagedList';
+import columnCover from '@/assets/column-cover.svg';
 
 // 排序配置
 const order = [
