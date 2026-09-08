@@ -13,7 +13,7 @@
   </button>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { Moon, Sunny } from '@element-plus/icons-vue'
 import { useTheme } from '@/composables/useTheme'
 

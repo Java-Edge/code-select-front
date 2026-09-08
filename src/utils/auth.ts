@@ -9,48 +9,27 @@ import { AUTH_CONFIG } from '@/config/constants';
 const TOKEN_KEY = AUTH_CONFIG.TOKEN_KEY
 const USER_KEY = AUTH_CONFIG.USER_INFO_KEY
 
-/**
- * 获取 Token
- * @returns {string|null}
- */
-export function getToken() {
+export function getToken(): string | null {
   return localStorage.getItem(TOKEN_KEY)
 }
 
-/**
- * 设置 Token
- * @param {string} token
- */
-export function setToken(token) {
+export function setToken(token: string): void {
   localStorage.setItem(TOKEN_KEY, token)
 }
 
-/**
- * 删除 Token
- */
-export function removeToken() {
+export function removeToken(): void {
   localStorage.removeItem(TOKEN_KEY)
 }
 
-/**
- * 设置用户信息
- * @param {Object} userInfo
- */
-export function setUserInfo(userInfo) {
+export function setUserInfo(userInfo: Record<string, unknown>): void {
   localStorage.setItem(USER_KEY, JSON.stringify(userInfo))
 }
 
-/**
- * 删除用户信息
- */
-export function removeUserInfo() {
+export function removeUserInfo(): void {
   localStorage.removeItem(USER_KEY)
 }
 
-/**
- * 清除所有认证信息
- */
-export function clearAuth() {
+export function clearAuth(): void {
   removeToken()
   removeUserInfo()
 }

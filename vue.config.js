@@ -65,6 +65,19 @@ module.exports = {
     },
   },
   chainWebpack: config => {
+    // TypeScript 支持（Babel 转译路线）：.ts/.tsx 与 <script lang="ts"> 均由
+    // babel-loader + @babel/preset-typescript 剥离类型。刻意不引入 @vue/cli-plugin-typescript，
+    // 因其可选依赖 cache-loader@4 与 webpack5 冲突，且会在构建期强制类型检查。
+    config.resolve.extensions.prepend('.tsx').prepend('.ts');
+    config.module
+      .rule('typescript')
+      .test(/\.tsx?$/)
+      .exclude.add(/node_modules/)
+      .end()
+      .use('babel-loader')
+      .loader('babel-loader')
+      .end();
+
     // 生产环境剥离 console.*（含 Login.vue 验证码 URL 明文打印、axios/pilot/Header 等调试日志），
     // 避免敏感信息泄露与体积冗余
     config.when(process.env.NODE_ENV === 'production', cfg => {

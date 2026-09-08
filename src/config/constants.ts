@@ -7,13 +7,13 @@
 export const SITE_CONFIG = {
   // 前端应用地址
   frontendUrl: process.env.VUE_APP_FRONTEND_URL || window.location.origin,
-  
+
   // 后端API地址（已在axios中配置，这里仅作参考）
   backendUrl: process.env.VUE_APP_BACKEND_URL || '/api',
-  
+
   // 聊天机器人地址
   chatbotUrl: process.env.VUE_APP_CHATBOT_URL || 'http://javaedge.cn:3001/chatbot/88n14yNFATs9MNtT',
-  
+
   // 默认首页路径
   homePath: '/index'
 };
@@ -56,4 +56,3 @@ export const RESPONSE_CODE = {
   TOKEN_EXPIRED: 402, // Token 过期
   FORBIDDEN: 403      // 无权限
 };
-

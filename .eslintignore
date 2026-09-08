@@ -1,0 +1,3 @@
+dist
+# 类型声明文件：由 tsc 处理，ESLint 的 @babel/eslint-parser 无法解析 TS 语法
+src/**/*.d.ts

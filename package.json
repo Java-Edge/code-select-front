@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",
@@ -20,6 +21,7 @@
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
+    "@babel/preset-typescript": "~7.22.5",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
@@ -28,7 +30,8 @@
     "postcss-plugin-px2rem": "^0.8.1",
     "px2rem-loader": "^0.1.9",
     "sass": "^1.26.5",
-    "sass-loader": "^17.0.1"
+    "sass-loader": "^17.0.1",
+    "typescript": "~5.5.4"
   },
   "eslintConfig": {
     "root": true,
@@ -50,9 +53,18 @@
       "withDefaults": "readonly"
     },
     "rules": {
-      "vue/multi-word-component-names": ["error", {
-        "ignores": ["pagination", "Header", "Login", "pilot", "index"]
-      }]
+      "vue/multi-word-component-names": [
+        "error",
+        {
+          "ignores": [
+            "pagination",
+            "Header",
+            "Login",
+            "pilot",
+            "index"
+          ]
+        }
+      ]
     }
   },
   "browserslist": [

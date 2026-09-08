@@ -7,10 +7,10 @@
 
 /**
  * 去除 HTML 标签、回车、换行与多余空白，返回纯文本。
- * @param {string} html 原始 HTML 字符串
- * @returns {string} 清洗后的纯文本
+ * @param html 原始 HTML 字符串
+ * @returns 清洗后的纯文本
  */
-export function stripHtml(html) {
+export function stripHtml(html?: string | null): string {
   if (!html) return ''
   return String(html).replace(/<\/?.+?\/?>|\r|\n|\s*/g, '')
 }
