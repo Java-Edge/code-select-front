@@ -32,9 +32,4 @@ import QrCode from './views/QrCode.vue'
   min-height: 92.5vh;
   margin-top: 72px !important;
 }
-
-.course-navigation {
-  max-width: 1152px;
-  margin: 0 auto;
-}
 </style>

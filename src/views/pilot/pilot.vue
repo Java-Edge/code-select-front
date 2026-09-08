@@ -136,12 +136,6 @@ getPilotType();
   scroll-margin-top: 88px; // header 72px + 16px 缓冲，锚点跳转不被遮挡
 }
 
-.category-com {
-  margin-top: 30px;
-  display: flex;
-  justify-content: center;
-}
-
 .error-message {
   color: #f56c6c;
   text-align: center;

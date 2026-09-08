@@ -103,8 +103,7 @@ const handleLast = () => {
   }
 }
 
-.paginaTion span,
-.page-disabled {
+.paginaTion span {
   display: inline-block;
   padding: 0 12px;
   min-width: 20px;

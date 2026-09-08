@@ -224,12 +224,10 @@ const handleUpdateActivePath = () => {
 
       .logo {
         float: left;
-        // margin: 0 20px;
 
         a {
           display: block;
           background: 0 0 !important;
-          // width: 140px;
           height: 72px;
 
           img {

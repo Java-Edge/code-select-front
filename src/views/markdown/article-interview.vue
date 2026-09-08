@@ -222,12 +222,6 @@ const onShowClick = (articleId) => {
   color: #606266;
 }
 
-/* 选中状态下的样式 */
-.filter-item.selected {
-  background-color: var(--primary, #007bff);
-  color: #fff;
-}
-
 .filter-box2 {
   display: flex;
   margin-top: 25px;
@@ -282,33 +276,9 @@ const onShowClick = (articleId) => {
   border: 2px;
 }
 
-.articles {
-  margin-bottom: 15px;
-}
 .article-ranking-container {
   min-height: 800px;
   max-width: 1152px;
   margin: 0 auto;
-  .header {
-    margin-bottom: 20px;
-    .dynamic-box {
-      display: flex;
-      align-items: center;
-      .title {
-        margin-right: 20px;
-        font-size: 14px;
-        font-weight: bold;
-      }
-    }
-  }
-
-  :deep(.el-table__row) {
-    cursor: pointer;
-  }
-
-  .pagination {
-    margin-top: 20px;
-    text-align: center;
-  }
 }
 </style>

@@ -202,26 +202,6 @@ onMounted(() => {
     -ms-flex-align: center;
     -webkit-align-items: center;
     align-items: center;
-    .title {
-      height: 46px;
-      margin-right: 8px;
-    }
-  }
-  .banner #codingIndexBanner {
-    height: 46px;
-    line-height: 46px;
-    min-width: 48px;
-    max-width: 360px;
-    overflow: hidden;
-    cursor: pointer;
-    position: relative;
-    z-index: 899;
-    display: none;
-    margin-top: 0;
-    img {
-      height: 12px;
-      vertical-align: text-bottom;
-    }
   }
   .shizhan-header-search {
     position: relative;
