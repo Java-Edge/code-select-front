@@ -37,6 +37,15 @@ module.exports = {
         pathRewrite:{
           '^/api/user': '/user'
         }
+      },
+      "/api/growth": {
+        // 会员成长（DDD 子域）接口代理：/api/growth/* -> http://localhost:8088/growth/*
+        target: "http://localhost:8088/",
+        changeOrigin: true,
+        logLevel: "debug",
+        pathRewrite:{
+          '^/api/growth': '/growth'
+        }
       }
     },
   },

@@ -24,6 +24,14 @@
             <span class="info-label">昵称</span>
             <span class="info-value">{{ nickname || '-' }}</span>
           </div>
+          <div class="info-item">
+            <span class="info-label">成长积分</span>
+            <span class="info-value">{{ growthPoints }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">会员等级</span>
+            <span class="info-value">Lv.{{ growthLevel }}</span>
+          </div>
         </div>
       </div>
 
@@ -35,7 +43,7 @@
 </template>
 
 <script setup>
-import { computed, defineOptions } from 'vue'
+import { computed, onMounted, defineOptions } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import { ElMessageBox } from 'element-plus/es/components/message-box'
@@ -51,8 +59,15 @@ const userInfo = computed(() => store.getters['user/userInfo'])
 const username = computed(() => store.getters['user/username'])
 const nickname = computed(() => store.getters['user/nickname'])
 const avatar = computed(() => store.getters['user/avatar'])
+const growthPoints = computed(() => store.getters['user/growthPoints'] ?? 0)
+const growthLevel = computed(() => store.getters['user/growthLevel'] ?? 1)
 
 const displayName = computed(() => nickname.value || username.value || '用户')
+
+// 进入个人中心即拉取最新成长快照（覆盖刷新后 state 未持久化场景）
+onMounted(() => {
+  store.dispatch('user/fetchGrowth').catch(() => {})
+})
 
 const handleLogout = async () => {
   try {
