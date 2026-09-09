@@ -23,35 +23,42 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, defineOptions } from 'vue'
+import wechatCode from '@/assets/wechat_code.jpg'
 
 // Define component name to satisfy multi-word naming convention
 defineOptions({
   name: 'CourseNavigation'
 })
 
+export interface QrCodeItem {
+  id: number
+  title: string
+  img: string
+}
+
 // Reactive state
 const menu_item_index = ref(0)
-const codes = ref([
+const codes = ref<QrCodeItem[]>([
   {
     id: 4,
     title: "官方微信",
-    img: require("@/assets/wechat_code.jpg")
+    img: wechatCode
   },
 ])
 
 // Show submenu
-const showSubMenu = (index) => {
+const showSubMenu = (index: number): void => {
   if (index !== -1) {
     menu_item_index.value = index
   }
-  document.querySelector('.qr-code').classList.remove('hide')
+  document.querySelector('.qr-code')?.classList.remove('hide')
 }
 
 // Hide submenu
-const hideSubMenu = () => {
-  document.querySelector('.qr-code').classList.add('hide')
+const hideSubMenu = (): void => {
+  document.querySelector('.qr-code')?.classList.add('hide')
 }
 </script>
 

@@ -93,7 +93,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import axios from "@/axios";
 import debounce from 'lodash-es/debounce';
@@ -101,7 +101,15 @@ import pagination from "@/components/pagination.vue";
 import { stripHtml } from '@/utils/text';
 import { usePagedList } from '@/composables/usePagedList';
 
-const companyOptions = ref([]);
+export interface InterviewItem {
+  id: number | string
+  title: string
+  content: string
+  createAt: string
+  careerName: string
+}
+
+const companyOptions = ref<string[]>([]);
 let companyCondition = ref("");
 let activeMenu = ref("");
 let jobId = ref(-1);
@@ -110,7 +118,7 @@ let keyword = ref("");
 /**
  * 获取公司数据
  */
-const getCompanyData = () => {
+const getCompanyData = (): void => {
   axios.get("/back/company/getList").then((res) => {
     companyOptions.value = res.data.result;
   });
@@ -128,7 +136,7 @@ const handleChangeCompany = debounce(() => {
 }, 300);
 
 // 一面、二面单选框
-const handleFilterSelect = (selectedItem) => {
+const handleFilterSelect = (selectedItem: string): void => {
   if (activeMenu.value != selectedItem) {
     activeMenu.value = selectedItem;
     jobId.value = value[value.length - 1];
@@ -146,12 +154,12 @@ const handleFilterSelect = (selectedItem) => {
 };
 
 // 级联选择框
-const props = {
+const props: { expandTrigger: 'hover' | 'click' } = {
   expandTrigger: "hover",
 };
-let value = [-1];
-const handleChange = (value) => {
-  jobId.value = value[value.length - 1];
+let value: number[] = [-1];
+const handleChange = (val: number[]): void => {
+  jobId.value = val[val.length - 1];
   load({
     jobId: jobId.value,
     content: activeMenu.value != "" ? activeMenu.value : "",
@@ -169,7 +177,7 @@ axios.get("/back/career/getData").then((res) => {
 
 // 数据相关：分页与列表由 usePagedList 统一管理
 // fetchFn 负责把分页参数 + 筛选条件拼装成后端契约的请求体（param.articleType 固定为 1）
-const { page, total, list: tableData, load, changePage: handleCurrentChange } = usePagedList(
+const { page, total, list: tableData, load, changePage: handleCurrentChange } = usePagedList<InterviewItem>(
   async ({ pageNo, pageSize }, extraParam) => {
     const params = {
       pageNo,
@@ -190,7 +198,7 @@ load();
  * 查看按钮点击事件
  * 在新标签页打开
  */
-const onShowClick = (articleId) => {
+const onShowClick = (articleId: number | string): void => {
   window.open(`/#/intervieArticleDetail/${articleId}`, '_blank');
 };
 </script>

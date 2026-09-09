@@ -8,7 +8,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import Header from './views/Header.vue'
 import QrCode from './views/QrCode.vue'
 </script>

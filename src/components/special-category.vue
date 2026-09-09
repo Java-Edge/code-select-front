@@ -105,64 +105,72 @@
     </div>
   </div>
 </template>
-<script setup>
-import { onMounted, ref,defineEmits } from "vue";
-import {getMenuList } from "@/api/common";
+<script setup lang="ts">
+import { onMounted, ref, defineEmits } from "vue";
+import { getMenuList } from "@/api/common";
 import { Search } from '@element-plus/icons-vue'
 import { SITE_CONFIG } from '@/config/constants';
 
-const visable = ref(false);
-const direaction = ref([]);
-const allChildren = ref([]);
-const children = ref([]);
-const currentDirection = ref(0);
-const currentCategory = ref(0);
-const searchKeyword = ref('')
-const baseUrl = SITE_CONFIG.frontendUrl.replace(/\/$/, ''); // 移除尾部斜杠
-const emits=defineEmits(['callback'])
-//注释 接口调用使用 currentCategory作为参数。
-const changeDirection = (item) => {
-  currentDirection.value = item ? item.id : 0;
-  if (item) {
-    children.value = item.children;
-  } else {
-    children.value = allChildren.value;
-  }
-  currentCategory.value=currentDirection.value
-  emits('callback',currentCategory.value)
-};
-const changeCategory = (item) => {
-  currentCategory.value = item ? item.id : currentDirection.value.id;
-  emits('callback',currentCategory.value)
-};
+export interface CategoryNode {
+  id: number
+  name: string
+  children?: CategoryNode[]
+}
 
-const handleSearch = () => {
+const visable = ref(false)
+const direaction = ref<CategoryNode[]>([])
+const allChildren = ref<CategoryNode[]>([])
+const children = ref<CategoryNode[]>([])
+const currentDirection = ref(0)
+const currentCategory = ref(0)
+const searchKeyword = ref('')
+const baseUrl = SITE_CONFIG.frontendUrl.replace(/\/$/, '') // 移除尾部斜杠
+const emits = defineEmits<{
+  callback: [value: number]
+}>()
+//注释 接口调用使用 currentCategory作为参数。
+const changeDirection = (item?: CategoryNode): void => {
+  currentDirection.value = item ? item.id : 0
+  if (item) {
+    children.value = item.children ?? []
+  } else {
+    children.value = allChildren.value
+  }
+  currentCategory.value = currentDirection.value
+  emits('callback', currentCategory.value)
+}
+const changeCategory = (item?: CategoryNode): void => {
+  // 保留既有行为：无 item 时取 currentDirection.value.id（原实现，运行时为 undefined 的既有边角路径）
+  currentCategory.value = item ? item.id : (currentDirection.value as unknown as CategoryNode).id
+  emits('callback', currentCategory.value)
+}
+
+const handleSearch = (): void => {
   if (!searchKeyword.value) return
-  
+
   const searchQuery = `${searchKeyword.value} site:${baseUrl}`
   const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`
-  
+
   window.open(googleSearchUrl, '_blank')
 }
 
-const getMenus = () => {
+const getMenus = (): void => {
   getMenuList("special_category").then((response) => {
-    direaction.value = response.data.result;
+    direaction.value = response.data.result
     allChildren.value = Array.from(
       new Set(
         direaction.value
-          .map((item) => item.children)
-          .map((c) => c)
+          .map((item) => item.children ?? [])
           .flat()
       )
-    );
-    children.value = allChildren.value;
-  });
-};
+    )
+    children.value = allChildren.value
+  })
+}
 
 onMounted(() => {
-  getMenus();
-});
+  getMenus()
+})
 </script>
 
 <style lang="scss" scoped>

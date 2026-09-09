@@ -87,38 +87,49 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { ElMessage } from 'element-plus/es/components/message'
+import { ElForm } from 'element-plus'
+import type { FormRulesMap } from 'element-plus/es/components/form/src/form.type'
 import { getCheckCode, checkUsername } from '@/api/user'
+
+interface LoginForm {
+  username: string
+  password: string
+  confirmPassword: string
+  validCode: string
+}
 
 const router = useRouter()
 const route = useRoute()
 const store = useStore()
 
-const formRef = ref(null)
+const formRef = ref<InstanceType<typeof ElForm> | null>(null)
 const isLogin = ref(true)
 const loading = ref(false)
 const captchaUrl = ref('')
 
-const form = reactive({
+const form = reactive<LoginForm>({
   username: '',
   password: '',
   confirmPassword: '',
   validCode: ''
 })
 
+type ValidatorCallback = (error?: Error) => void
+
 // 验证用户名
-const validateUsername = async (rule, value, callback) => {
+const validateUsername = async (_rule: unknown, value: string, callback: ValidatorCallback): Promise<void> => {
   if (!value) {
     return callback(new Error('请输入用户名'))
   }
   if (value.length < 3 || value.length > 20) {
     return callback(new Error('用户名长度为 3-20 个字符'))
   }
-  
+
   // 注册时检查用户名是否存在
   if (!isLogin.value) {
     try {
@@ -138,7 +149,7 @@ const validateUsername = async (rule, value, callback) => {
 }
 
 // 验证密码
-const validatePassword = (rule, value, callback) => {
+const validatePassword = (_rule: unknown, value: string, callback: ValidatorCallback): void => {
   if (!value) {
     return callback(new Error('请输入密码'))
   }
@@ -149,7 +160,7 @@ const validatePassword = (rule, value, callback) => {
 }
 
 // 验证确认密码
-const validateConfirmPassword = (rule, value, callback) => {
+const validateConfirmPassword = (_rule: unknown, value: string, callback: ValidatorCallback): void => {
   if (!isLogin.value) {
     if (!value) {
       return callback(new Error('请确认密码'))
@@ -162,7 +173,7 @@ const validateConfirmPassword = (rule, value, callback) => {
 }
 
 // 验证验证码
-const validateCaptcha = (rule, value, callback) => {
+const validateCaptcha = (_rule: unknown, value: string, callback: ValidatorCallback): void => {
   if (!value) {
     return callback(new Error('请输入验证码'))
   }
@@ -172,9 +183,10 @@ const validateCaptcha = (rule, value, callback) => {
   callback()
 }
 
-const rules = {
+const rules: FormRulesMap = {
   username: [
-    { required: true, validator: validateUsername, trigger: 'blur' }
+    // 用户名异步校验（注册时查重），EP/async-validator 的异步校验须走 asyncValidator 字段
+    { required: true, asyncValidator: validateUsername, trigger: 'blur' }
   ],
   password: [
     { required: true, validator: validatePassword, trigger: 'blur' }
@@ -188,18 +200,18 @@ const rules = {
 }
 
 // 获取验证码
-const refreshCaptcha = async () => {
+const refreshCaptcha = async (): Promise<void> => {
   try {
     const response = await getCheckCode()
     console.log('验证码响应:', response)
-    
+
     // 从响应头获取 Content-Type
     const contentType = response.headers['content-type'] || 'image/png'
-    
+
     // 将 Blob 转换为 URL
     const blob = new Blob([response.data], { type: contentType })
     captchaUrl.value = URL.createObjectURL(blob)
-    
+
     console.log('验证码 URL:', captchaUrl.value)
   } catch (error) {
     console.error('获取验证码失败:', error)
@@ -208,7 +220,7 @@ const refreshCaptcha = async () => {
 }
 
 // 切换登录/注册模式
-const switchMode = () => {
+const switchMode = (): void => {
   isLogin.value = !isLogin.value
   // 清空表单
   if (formRef.value) {
@@ -219,9 +231,9 @@ const switchMode = () => {
 }
 
 // 提交表单
-const handleSubmit = async () => {
+const handleSubmit = async (): Promise<void> => {
   if (!formRef.value) return
-  
+
   try {
     await formRef.value.validate()
     loading.value = true
@@ -233,11 +245,11 @@ const handleSubmit = async () => {
         password: form.password,
         validCode: form.validCode
       })
-      
+
       ElMessage.success('登录成功')
-      
+
       // 跳转到原本要访问的页面或首页
-      const redirect = route.query.redirect || '/index'
+      const redirect = (route.query.redirect as string) || '/index'
       await router.push(redirect)
     } else {
       // 注册
@@ -247,7 +259,7 @@ const handleSubmit = async () => {
         password: form.password,
         validCode: form.validCode
       })
-      
+
       ElMessage.success('注册成功,请登录')
       // 切换到登录模式
       switchMode()

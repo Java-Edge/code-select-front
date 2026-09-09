@@ -76,13 +76,19 @@
   </header>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, computed, defineOptions } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { ElMessageBox } from 'element-plus/es/components/message-box'
 import { User, SwitchButton } from '@element-plus/icons-vue'
 import ThemeToggle from '@/components/ThemeToggle.vue'
+
+interface HeaderMenuItem {
+  name: string
+  value: string
+  path: string
+}
 
 // Define component name to satisfy multi-word naming convention
 defineOptions({
@@ -95,7 +101,7 @@ const store = useStore()
 // Reactive state
 const activeMenu = ref("home")
 const dropdownVisible = ref(false)
-let dropdownTimer = null
+let dropdownTimer: ReturnType<typeof setTimeout> | null = null
 
 // Computed properties
 const isAuthenticated = computed(() => store.getters['user/isAuthenticated'])
@@ -104,7 +110,7 @@ const nickname = computed(() => store.getters['user/nickname'])
 const avatar = computed(() => store.getters['user/avatar'])
 
 // Menu configuration
-const menus = ref([
+const menus = ref<HeaderMenuItem[]>([
   { name: "首页", value: "home", path: "/index" },
   { name: "面经", value: "interview", path: "/article-interview" },
   { name: "专栏", value: "special", path: "/special" },
@@ -119,19 +125,19 @@ onMounted(() => {
 })
 
 // Handle menu selection
-const handleMenuSelect = (item) => {
+const handleMenuSelect = (item: HeaderMenuItem): void => {
   activeMenu.value = item.value
   localStorage.setItem("currentActiveMenu", item.value)
   router.push(item.path)
 }
 
 // Handle login click
-const handleLogin = () => {
+const handleLogin = (): void => {
   router.push('/login')
 }
 
 // Dropdown visibility control
-const showDropdown = () => {
+const showDropdown = (): void => {
   if (dropdownTimer) {
     clearTimeout(dropdownTimer)
     dropdownTimer = null
@@ -139,20 +145,20 @@ const showDropdown = () => {
   dropdownVisible.value = true
 }
 
-const hideDropdown = () => {
+const hideDropdown = (): void => {
   dropdownTimer = setTimeout(() => {
     dropdownVisible.value = false
   }, 150)
 }
 
 // Navigate to personal center
-const goProfile = () => {
+const goProfile = (): void => {
   dropdownVisible.value = false
   router.push('/profile')
 }
 
 // Handle logout
-const handleLogout = async () => {
+const handleLogout = async (): Promise<void> => {
   try {
     await ElMessageBox.confirm(
       '确定要退出登录吗?',
@@ -163,10 +169,10 @@ const handleLogout = async () => {
         type: 'warning'
       }
     )
-    
+
     // 调用登出 action
     await store.dispatch('user/logout')
-    
+
     // 跳转到首页
     router.push('/index')
   } catch (error) {
@@ -176,14 +182,14 @@ const handleLogout = async () => {
 }
 
 // Update active path based on current route
-const handleUpdateActivePath = () => {
+const handleUpdateActivePath = (): string => {
   let item = ""
   const currentActiveMenu = localStorage.getItem("currentActiveMenu")
   if (currentActiveMenu) {
     item = currentActiveMenu
   } else {
     let url = window.location.href
-    url = url.match(/#(\S*)/)[1]
+    url = url.match(/#(\S*)/)![1]
     for (let i = 0; i < menus.value.length; i++) {
       if (menus.value[i].path === url) {
         item = menus.value[i].value

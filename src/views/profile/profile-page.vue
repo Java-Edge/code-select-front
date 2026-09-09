@@ -42,7 +42,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, onMounted, defineOptions } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
@@ -62,14 +62,14 @@ const avatar = computed(() => store.getters['user/avatar'])
 const growthPoints = computed(() => store.getters['user/growthPoints'] ?? 0)
 const growthLevel = computed(() => store.getters['user/growthLevel'] ?? 1)
 
-const displayName = computed(() => nickname.value || username.value || '用户')
+const displayName = computed<string>(() => nickname.value || username.value || '用户')
 
 // 进入个人中心即拉取最新成长快照（覆盖刷新后 state 未持久化场景）
 onMounted(() => {
   store.dispatch('user/fetchGrowth').catch(() => {})
 })
 
-const handleLogout = async () => {
+const handleLogout = async (): Promise<void> => {
   try {
     await ElMessageBox.confirm('确定要退出登录吗？', '提示', {
       confirmButtonText: '确定',

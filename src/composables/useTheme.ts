@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, type Ref } from 'vue'
 
 /**
  * 主题状态管理 composable（单一真相源）
@@ -12,11 +12,13 @@ import { ref } from 'vue'
 
 const STORAGE_KEY = 'theme'
 
+export type ThemeMode = 'dark' | 'light'
+
 // 模块级单例：所有调用方共享同一份 isDark 状态
-const isDark = ref(false)
+const isDark: Ref<boolean> = ref(false)
 let initialized = false
 
-const applyTheme = (dark) => {
+const applyTheme = (dark: boolean): void => {
   const root = document.documentElement
   if (dark) {
     root.classList.add('dark')
@@ -26,7 +28,7 @@ const applyTheme = (dark) => {
 }
 
 // 在 app mount 前调用一次，保证首屏无主题闪烁
-export const initTheme = () => {
+export const initTheme = (): void => {
   const dark = localStorage.getItem(STORAGE_KEY) === 'dark'
   isDark.value = dark
   applyTheme(dark)
@@ -34,13 +36,19 @@ export const initTheme = () => {
 }
 
 // 切换并持久化
-export const toggleTheme = () => {
+export const toggleTheme = (): void => {
   isDark.value = !isDark.value
   applyTheme(isDark.value)
   localStorage.setItem(STORAGE_KEY, isDark.value ? 'dark' : 'light')
 }
 
-export function useTheme() {
+export interface UseThemeReturn {
+  isDark: Ref<boolean>
+  initTheme: () => void
+  toggleTheme: () => void
+}
+
+export function useTheme(): UseThemeReturn {
   // 防御性：若组件在 main.js 初始化前被使用，仍可保证状态正确
   if (!initialized) {
     initTheme()

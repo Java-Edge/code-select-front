@@ -44,23 +44,50 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from "vue";
 import categoryCom from "@/components/special-category.vue";
 import { specialApi } from '@/api/special';
 import { usePagedList } from '@/composables/usePagedList';
 import columnCover from '@/assets/column-cover.svg';
 
+interface OrderItem {
+  id: number
+  title: string
+  name: string
+}
+
+interface SpecialQueryParam {
+  type: number
+  category: string
+  order: string
+  itemId: string | number
+}
+
+interface SpecialQuery {
+  pageNo: number
+  pageSize: number
+  param: SpecialQueryParam
+}
+
+export interface SpecialItem {
+  id: number | string
+  name: string
+  image?: string
+  sourceUrl: string
+  pageView: number | string
+}
+
 // 排序配置
-const order = [
+const order: OrderItem[] = [
   { id: 1, title: "默认", name: "default" },
   { id: 2, title: "最新", name: "new" },
   { id: 3, title: "学习人数", name: "count" }
 ];
-const currentOrder = ref(order[0]);
+const currentOrder = ref<OrderItem>(order[0]);
 
 // 查询参数（param 字段由切换/点击动作维护；pageNo/pageSize 由 usePagedList 同步写入）
-const queryParams = ref({
+const queryParams = ref<SpecialQuery>({
   pageNo: 1,
   pageSize: 100,
   param: {
@@ -72,7 +99,7 @@ const queryParams = ref({
 });
 
 // 列表分页：page/size/total/specialItems/翻页 由 usePagedList 统一管理
-const { list: specialItems, load: getSpecialColumn } = usePagedList(
+const { list: specialItems, load: getSpecialColumn } = usePagedList<SpecialItem>(
   async ({ pageNo, pageSize }) => {
     queryParams.value.pageNo = pageNo;
     queryParams.value.pageSize = pageSize;
@@ -86,14 +113,14 @@ const { list: specialItems, load: getSpecialColumn } = usePagedList(
 );
 
 // 切换排序方式
-const changeOrder = (item) => {
+const changeOrder = (item: OrderItem): void => {
   currentOrder.value = item;
   queryParams.value.param.order = item.name;
   getSpecialColumn();
 };
 
 // 记录专栏浏览量
-const clickSpecial = async (itemId) => {
+const clickSpecial = async (itemId: number | string): Promise<void> => {
   try {
     queryParams.value.param.itemId = itemId;
     await specialApi.updatePageView(queryParams.value);
@@ -103,8 +130,8 @@ const clickSpecial = async (itemId) => {
 };
 
 // 切换分类
-const changeCategory = (item) => {
-  queryParams.value.param.category = item;
+const changeCategory = (item: number): void => {
+  queryParams.value.param.category = String(item);
   getSpecialColumn();
 };
 

@@ -14,11 +14,26 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { defineProps, ref } from 'vue';
 import axios from "@/axios";
 
-const queryParams = ref({
+export interface PilotItem {
+  id: string | number
+  name: string
+  link: string
+  img?: string
+}
+
+interface PilotParam {
+  type: number
+  category: string
+  order: string
+  isOnlyShow: boolean
+  itemId: string | number
+}
+
+const queryParams = ref<{ param: PilotParam }>({
   param: {
     type: 1,
     category: "",
@@ -28,18 +43,21 @@ const queryParams = ref({
   },
 });
 
-defineProps({
-  title: String,
-  list: {
-    type: Array,
-    default: () => []
+withDefaults(
+  defineProps<{
+    title?: string
+    list?: PilotItem[]
+  }>(),
+  {
+    title: '',
+    list: () => []
   }
-});
+)
 
-let clickPilot = (itemId) => {
-  queryParams.value.param.itemId = itemId;
-  axios.post("/back/pilot/pv", queryParams.value);
-};
+let clickPilot = (itemId: string | number): void => {
+  queryParams.value.param.itemId = itemId
+  axios.post("/back/pilot/pv", queryParams.value)
+}
 </script>
 
 <style>

@@ -10,15 +10,22 @@
   
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import axios from '@/axios';
 import { useRoute } from 'vue-router'
 
+export interface InterviewDetail {
+  title: string
+  createAt: string
+  careerName: string
+  content: string
+}
+
 const route = useRoute()
-const articleId = route.params.id
-const detail = ref({});
-const getArticleDetail = async () => {
+const articleId: string = String(route.params.id)
+const detail = ref<InterviewDetail>({} as InterviewDetail)
+const getArticleDetail = async (): Promise<void> => {
   axios.get(`/back/interview/getById/${articleId}`).then(res => {
     detail.value = res.data.result
     detail.value.content = detail.value.content.replace(/\n/g, '<br/>')

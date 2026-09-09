@@ -17,34 +17,34 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from "vue";
-const props = defineProps({
-  page: {
-    type: Number,
-    default: 1,
-  },
-  size: {
-    type: Number,
-    default: 10,
-  },
-  total: {
-    type: Number,
-    default: 0,
-  },
-});
-const emits = defineEmits(["pageChange"]);
-const totalPage = computed(() => {
+const props = withDefaults(
+  defineProps<{
+    page?: number
+    size?: number
+    total?: number
+  }>(),
+  {
+    page: 1,
+    size: 10,
+    total: 0,
+  }
+);
+const emits = defineEmits<{
+  pageChange: [val: number]
+}>();
+const totalPage = computed((): number => {
   return Math.ceil(props.total / props.size);
 });
 
-const handleCurrentChange = (val) => {
+const handleCurrentChange = (val: number): void => {
   emits("pageChange", val);
 };
-const handleFirst = () => {
+const handleFirst = (): void => {
   emits("pageChange", 1);
 };
-const handleLast = () => {
+const handleLast = (): void => {
   if (props.page !== totalPage.value) {
     emits("pageChange", totalPage.value);
   }

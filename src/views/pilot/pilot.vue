@@ -27,24 +27,32 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed } from "vue";
 import CategoryComponents from "@/components/categoryComponents.vue";
 import FloatMenu from "@/components/common/FloatMenu.vue";
 import axios from '@/axios';
 import { Loading } from '@element-plus/icons-vue';
+import type { MenuItem } from '@/components/common/FloatMenu.vue';
 
-let pilotList = ref({});
+export interface PilotItem {
+  id: string | number
+  name: string
+  link: string
+  img?: string
+}
+
+let pilotList = ref<Record<string, PilotItem[]>>({});
 let loading = ref(true);
-let error = ref(null);
+let error = ref<string | null>(null);
 
 // 生成菜单项的id
-const generateId = (key) => {
+const generateId = (key: string): string => {
   return key.toLowerCase().replace(/\s+/g, '-');
 };
 
 // 根据pilotList动态生成菜单项
-const menuItems = computed(() => {
+const menuItems = computed<MenuItem[]>(() => {
   return Object.keys(pilotList.value).map(key => ({
     name: key,
     id: `#${generateId(key)}`
@@ -52,11 +60,11 @@ const menuItems = computed(() => {
 });
 
 // 处理菜单点击
-const onMenuClick = (item) => {
+const onMenuClick = (item: MenuItem): void => {
   console.log('Menu clicked:', item.name);
 };
 
-const getPilotType = async () => {
+const getPilotType = async (): Promise<void> => {
   try {
     const res = await axios.get('/back/pilot/getList');
     pilotList.value = res.data.result;

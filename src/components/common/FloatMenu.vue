@@ -12,41 +12,47 @@
   </ul>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
-const props = defineProps({
-  menuItems: {
-    type: Array,
-    required: true
-  },
-  headerOffset: {
-    type: Number,
-    default: 45
+export interface MenuItem {
+  name: string
+  id?: string
+}
+
+const props = withDefaults(
+  defineProps<{
+    menuItems: MenuItem[]
+    headerOffset?: number
+  }>(),
+  {
+    headerOffset: 45
   }
-})
+)
 
-const emit = defineEmits(['menuClick'])
+const emit = defineEmits<{
+  menuClick: [item: MenuItem, index: number]
+}>()
 
-const activeTitle = ref(null)
+const activeTitle = ref<string | null>(null)
 
 // 滚动到指定部分
-const onMenuClick = (item, index) => {
+const onMenuClick = (item: MenuItem, index: number): void => {
   activeTitle.value = item.name
-  
-  if(item.id) {
+
+  if (item.id) {
     const element = document.querySelector(item.id)
-    if(element) {
+    if (element) {
       const elementPosition = element.getBoundingClientRect().top
       const offsetPosition = elementPosition + window.pageYOffset - props.headerOffset
-      
+
       window.scrollTo({
         top: offsetPosition,
-        behavior: "smooth"
+        behavior: 'smooth'
       })
     }
   }
-  
+
   emit('menuClick', item, index)
 }
 </script>
