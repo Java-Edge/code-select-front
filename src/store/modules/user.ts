@@ -4,18 +4,58 @@
 import { login, logout, getUserInfo } from '@/api/user'
 import { signGrowth, getGrowth } from '@/api/growth'
 import { getToken, setToken, removeToken, setUserInfo, removeUserInfo, clearAuth } from '@/utils/auth'
+import type { Module, MutationTree, ActionTree, GetterTree } from 'vuex'
+
+/**
+ * 前端 userInfo 形状（与后端用户契约映射后的单一形态）
+ */
+interface UserInfo {
+  id: number
+  username: string
+  nickname: string
+  avatar: string
+}
+
+interface GrowthState {
+  totalPoints: number
+  level: number
+  thisMonthSignedDays: number
+}
+
+interface UserState {
+  token: string
+  userInfo: UserInfo | null
+  isAuthenticated: boolean
+  growth: GrowthState
+}
+
+// 根状态：仅含 user 模块（与 store/index.ts 的 modules 对应）
+export interface RootState {
+  user: UserState
+}
+
+/**
+ * 后端用户契约（宽松：response.data 为 any，仅作文档约束）
+ */
+interface BackendUser {
+  id: number
+  username?: string
+  nickname?: string
+  avatar?: string
+  token?: string
+}
 
 /**
  * 后端用户对象 → 前端 userInfo 形状（单一映射源，避免 login/fetchUserInfo 重复构造）
  */
-const mapUserInfo = (result) => ({
+const mapUserInfo = (result: BackendUser): UserInfo => ({
   id: result.id,
-  username: result.username,
-  nickname: result.nickname,
-  avatar: result.avatar
+  username: result.username ?? '',
+  nickname: result.nickname ?? '',
+  avatar: result.avatar ?? ''
 })
 
-const state = {
+const state: UserState = {
   token: getToken() || '',
   userInfo: null,
   isAuthenticated: !!getToken(),
@@ -27,7 +67,7 @@ const state = {
   }
 }
 
-const mutations = {
+const mutations: MutationTree<UserState> = {
   SET_TOKEN(state, token) {
     state.token = token
     state.isAuthenticated = !!token
@@ -56,7 +96,7 @@ const mutations = {
   }
 }
 
-const actions = {
+const actions: ActionTree<UserState, RootState> = {
   // 用户登录
   async login({ commit, dispatch }, loginForm) {
     const response = await login(loginForm)
@@ -141,7 +181,7 @@ const actions = {
   }
 }
 
-const getters = {
+const getters: GetterTree<UserState, RootState> = {
   token: state => state.token,
   userInfo: state => state.userInfo,
   isAuthenticated: state => state.isAuthenticated,
@@ -153,10 +193,12 @@ const getters = {
   growthThisMonthSignedDays: state => state.growth?.thisMonthSignedDays ?? 0
 }
 
-export default {
+const userModule: Module<UserState, RootState> = {
   namespaced: true,
   state,
   mutations,
   actions,
   getters
 }
+
+export default userModule

@@ -4,6 +4,7 @@
 //   select    → input / tag / option / option-group / scrollbar / popper
 //   cascader   → input / popper / tag / cascader-panel
 //   form-item  → form 不自动拉取，需单独引入
+import type { App, Component } from 'vue'
 import ElIcon from 'element-plus/es/components/icon'
 import ElInput from 'element-plus/es/components/input'
 import ElButton from 'element-plus/es/components/button'
@@ -26,7 +27,7 @@ import 'element-plus/es/components/option/style/css'
 import 'element-plus/es/components/message/style/css'
 import 'element-plus/es/components/message-box/style/css'
 
-const ElementPlusComponents = [
+const ElementPlusComponents: Component[] = [
   ElIcon,
   ElInput,
   ElButton,
@@ -35,11 +36,15 @@ const ElementPlusComponents = [
   ElForm,
   ElFormItem,
   ElSelect,
-  ElOption,
+  ElOption
 ]
 
-export default app => {
+export default (app: App): void => {
   ElementPlusComponents.forEach(component => {
-    app.component(component.name, component)
+    // 部分 EP 组件 name 可能为 undefined，注册前兜底跳过，避免 app.component(undefined, ...) 报错
+    const name = (component as unknown as { name?: string }).name
+    if (name) {
+      app.component(name, component)
+    }
   })
 }

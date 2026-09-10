@@ -74,6 +74,10 @@ module.exports = {
     },
   },
   chainWebpack: config => {
+    // Phase 3：应用入口由 main.js 改为 main.ts。Vue CLI 在 base.js 硬编码 './src/main.js' 为入口，
+    // 不显式改入口会导致构建报 Entry module not found，故此处覆盖 entry('app')。
+    config.entry('app').clear().add('./src/main.ts')
+
     // TypeScript 支持（Babel 转译路线）：.ts/.tsx 与 <script lang="ts"> 均由
     // babel-loader + @babel/preset-typescript 剥离类型。刻意不引入 @vue/cli-plugin-typescript，
     // 因其可选依赖 cache-loader@4 与 webpack5 冲突，且会在构建期强制类型检查。
