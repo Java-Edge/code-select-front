@@ -8,10 +8,12 @@
  *   POST /growth/sign/{userId}  -> SignResultDTO(memberId,totalPoints,level,continuousDays,...)
  *   GET  /growth/{userId}       -> MemberGrowthDTO(memberId,totalPoints,level,thisMonthSignedDays)
  */
+import type { AxiosResponse } from 'axios'
 import axios from '@/axios'
+import type { ApiResponse, GrowthInfo } from '@/types/api'
 
 // 签到：触发“加积分”动作（每日首次签到发放基础分 + 连续奖励分）
-export function signGrowth(userId: number) {
+export function signGrowth(userId: number): Promise<AxiosResponse<ApiResponse<unknown>>> {
   return axios({
     url: `/growth/sign/${userId}`,
     method: 'post'
@@ -19,7 +21,7 @@ export function signGrowth(userId: number) {
 }
 
 // 查询会员成长快照（积分 / 等级 / 本月签到天数）
-export function getGrowth(userId: number) {
+export function getGrowth(userId: number): Promise<AxiosResponse<ApiResponse<GrowthInfo>>> {
   return axios({
     url: `/growth/${userId}`,
     method: 'get'

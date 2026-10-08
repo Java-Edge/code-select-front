@@ -20,9 +20,9 @@
     "skipLibCheck": true,
     "isolatedModules": true,
 
-    "strict": false,
-    "noImplicitAny": false,
-    "strictNullChecks": false
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true
   },
   "include": [
     "src/**/*.ts",

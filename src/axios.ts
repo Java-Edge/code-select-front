@@ -24,6 +24,7 @@ import axios, {
 import { ElMessage } from 'element-plus/es/components/message'
 import { getToken, clearAuth } from '@/utils/auth'
 import { RESPONSE_CODE } from '@/config/constants'
+import type { ApiResponse } from '@/types/api'
 
 const service: AxiosInstance = axios.create({
   // 兜底 '/api'：生产环境可能未定义 VUE_APP_BASE_API（仓库无 .env / .env.production）
@@ -57,9 +58,9 @@ service.interceptors.request.use(
   (error: unknown) => Promise.reject(error)
 )
 
-// 响应拦截器
+// 响应拦截器（包络类型化为 ApiResponse<unknown>；二进制放行分支由 instanceof 窄化）
 service.interceptors.response.use(
-  (response: AxiosResponse) => {
+  (response: AxiosResponse<ApiResponse<unknown>>) => {
     // 响应数据为二进制流处理(验证码图片、Excel导出等)
     if (response.data instanceof ArrayBuffer || response.data instanceof Blob) {
       return response

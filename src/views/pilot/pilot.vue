@@ -34,6 +34,7 @@ import FloatMenu from "@/components/common/FloatMenu.vue";
 import axios from '@/axios';
 import { Loading } from '@element-plus/icons-vue';
 import type { MenuItem } from '@/components/common/FloatMenu.vue';
+import type { ApiResponse } from '@/types/api';
 
 export interface PilotItem {
   id: string | number
@@ -66,7 +67,7 @@ const onMenuClick = (item: MenuItem): void => {
 
 const getPilotType = async (): Promise<void> => {
   try {
-    const res = await axios.get('/back/pilot/getList');
+    const res = await axios.get<ApiResponse<Record<string, PilotItem[]>>>('/back/pilot/getList');
     pilotList.value = res.data.result;
   } catch (err) {
     error.value = 'Failed to load pilot list';

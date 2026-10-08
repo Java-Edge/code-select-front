@@ -5,6 +5,7 @@ import { login, logout, getUserInfo } from '@/api/user'
 import { signGrowth, getGrowth } from '@/api/growth'
 import { getToken, setToken, removeToken, setUserInfo, removeUserInfo, clearAuth } from '@/utils/auth'
 import type { Module, MutationTree, ActionTree, GetterTree } from 'vuex'
+import type { BackendUser } from '@/types/api'
 
 /**
  * 前端 userInfo 形状（与后端用户契约映射后的单一形态）
@@ -32,17 +33,6 @@ interface UserState {
 // 根状态：仅含 user 模块（与 store/index.ts 的 modules 对应）
 export interface RootState {
   user: UserState
-}
-
-/**
- * 后端用户契约（宽松：response.data 为 any，仅作文档约束）
- */
-interface BackendUser {
-  id: number
-  username?: string
-  nickname?: string
-  avatar?: string
-  token?: string
 }
 
 /**

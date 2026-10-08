@@ -1,9 +1,11 @@
 /**
  * 用户相关 API 接口
  */
+import type { AxiosResponse } from 'axios'
 import axios from '@/axios'
+import type { ApiResponse, BackendUser } from '@/types/api'
 
-export function register(data: Record<string, unknown>) {
+export function register(data: Record<string, unknown>): Promise<AxiosResponse<ApiResponse<unknown>>> {
   return axios({
     url: '/user/register',
     method: 'post',
@@ -11,7 +13,7 @@ export function register(data: Record<string, unknown>) {
   })
 }
 
-export function login(data: Record<string, unknown>) {
+export function login(data: Record<string, unknown>): Promise<AxiosResponse<ApiResponse<BackendUser>>> {
   return axios({
     url: '/user/doLogin',
     method: 'post',
@@ -19,14 +21,14 @@ export function login(data: Record<string, unknown>) {
   })
 }
 
-export function logout() {
+export function logout(): Promise<AxiosResponse<ApiResponse<unknown>>> {
   return axios({
     url: '/user/logout',
     method: 'get'
   })
 }
 
-export function checkUsername(username: string) {
+export function checkUsername(username: string): Promise<AxiosResponse<ApiResponse<number>>> {
   return axios({
     url: '/user/checkUsername',
     method: 'get',
@@ -34,7 +36,7 @@ export function checkUsername(username: string) {
   })
 }
 
-export function getCheckCode() {
+export function getCheckCode(): Promise<AxiosResponse<Blob>> {
   return axios({
     url: '/user/getCheckCode',
     method: 'get',
@@ -42,7 +44,7 @@ export function getCheckCode() {
   })
 }
 
-export function getUserInfo() {
+export function getUserInfo(): Promise<AxiosResponse<ApiResponse<BackendUser>>> {
   return axios({
     url: '/user/info',
     method: 'get'

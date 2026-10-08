@@ -14,6 +14,7 @@
 import { ref } from "vue";
 import axios from '@/axios';
 import { useRoute } from 'vue-router'
+import type { ApiResponse } from '@/types/api'
 
 export interface InterviewDetail {
   title: string
@@ -26,7 +27,7 @@ const route = useRoute()
 const articleId: string = String(route.params.id)
 const detail = ref<InterviewDetail>({} as InterviewDetail)
 const getArticleDetail = async (): Promise<void> => {
-  axios.get(`/back/interview/getById/${articleId}`).then(res => {
+  axios.get<ApiResponse<InterviewDetail>>(`/back/interview/getById/${articleId}`).then(res => {
     detail.value = res.data.result
     detail.value.content = detail.value.content.replace(/\n/g, '<br/>')
   })

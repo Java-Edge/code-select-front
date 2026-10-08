@@ -17,6 +17,7 @@
 <script setup lang="ts">
 import { defineProps, ref } from 'vue';
 import axios from "@/axios";
+import type { ApiResponse } from '@/types/api';
 
 export interface PilotItem {
   id: string | number
@@ -56,7 +57,7 @@ withDefaults(
 
 let clickPilot = (itemId: string | number): void => {
   queryParams.value.param.itemId = itemId
-  axios.post("/back/pilot/pv", queryParams.value)
+  axios.post<ApiResponse<unknown>>("/back/pilot/pv", queryParams.value)
 }
 </script>
 

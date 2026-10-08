@@ -99,7 +99,8 @@ import axios from "@/axios";
 import debounce from 'lodash-es/debounce';
 import pagination from "@/components/pagination.vue";
 import { stripHtml } from '@/utils/text';
-import { usePagedList } from '@/composables/usePagedList';
+import { usePagedList, type PagedResult } from '@/composables/usePagedList';
+import type { ApiResponse } from '@/types/api';
 
 export interface InterviewItem {
   id: number | string
@@ -107,6 +108,13 @@ export interface InterviewItem {
   content: string
   createAt: string
   careerName: string
+}
+
+/** el-cascader 默认字段契约（value/label/children，模板未自定义 props 映射） */
+interface CareerOption {
+  value: number
+  label: string
+  children?: CareerOption[]
 }
 
 const companyOptions = ref<string[]>([]);
@@ -119,7 +127,7 @@ let keyword = ref("");
  * 获取公司数据
  */
 const getCompanyData = (): void => {
-  axios.get("/back/company/getList").then((res) => {
+  axios.get<ApiResponse<string[]>>("/back/company/getList").then((res) => {
     companyOptions.value = res.data.result;
   });
 };
@@ -170,8 +178,8 @@ const handleChange = (val: number[]): void => {
 };
 
 // 获取级联筛选框数据
-const options = ref([]);
-axios.get("/back/career/getData").then((res) => {
+const options = ref<CareerOption[]>([]);
+axios.get<ApiResponse<CareerOption[]>>("/back/career/getData").then((res) => {
   options.value = res.data.result;
 });
 
@@ -184,7 +192,7 @@ const { page, total, list: tableData, load, changePage: handleCurrentChange } = 
       pageSize,
       param: { articleType: 1, ...extraParam },
     };
-    const res = await axios.post("/back/interview/selectByCondition", params);
+    const res = await axios.post<ApiResponse<PagedResult<InterviewItem>>>("/back/interview/selectByCondition", params);
     return { records: res.data.result.records, total: res.data.result.total };
   }
 );
