@@ -77,8 +77,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, defineOptions } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, onMounted, computed, watch, defineOptions } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { ElMessageBox } from 'element-plus/es/components/message-box'
 import { User, SwitchButton } from '@element-plus/icons-vue'
@@ -96,10 +96,29 @@ defineOptions({
 })
 
 const router = useRouter()
+const route = useRoute()
 const store = useStore()
 
+// Menu configuration
+const menus = ref<HeaderMenuItem[]>([
+  { name: "首页", value: "home", path: "/index" },
+  { name: "面经", value: "interview", path: "/article-interview" },
+  { name: "专栏", value: "special", path: "/special" },
+  { name: "学习路线", value: "learning-path", path: "/learning-path" },
+])
+
+// Update active path based on current route（路由即事实源，不再读 localStorage）。
+// 定义须早于 activeMenu 初始化：下方 ref() 会立即调用，避免 const TDZ
+const handleUpdateActivePath = (path: string): string => {
+  const purePath = path.split('?')[0]
+  const matched = menus.value.find((m) => m.path === purePath)
+  return matched ? matched.value : 'home'
+}
+
 // Reactive state
-const activeMenu = ref("home")
+// 高亮唯一事实源是当前路由：localStorage 持久化 UI 态会导致
+// 点 logo / 路由跳转回首页后高亮黏在旧菜单上（Header 不随 hash 路由重挂载）
+const activeMenu = ref(handleUpdateActivePath(route.path))
 const dropdownVisible = ref(false)
 let dropdownTimer: ReturnType<typeof setTimeout> | null = null
 
@@ -109,25 +128,22 @@ const username = computed(() => store.getters['user/username'])
 const nickname = computed(() => store.getters['user/nickname'])
 const avatar = computed(() => store.getters['user/avatar'])
 
-// Menu configuration
-const menus = ref<HeaderMenuItem[]>([
-  { name: "首页", value: "home", path: "/index" },
-  { name: "面经", value: "interview", path: "/article-interview" },
-  { name: "专栏", value: "special", path: "/special" },
-])
-
 // Get user info on component mount
 onMounted(() => {
-  activeMenu.value = handleUpdateActivePath()
   if (isAuthenticated.value) {
     store.dispatch('user/fetchUserInfo').catch(() => {})
   }
 })
 
+// 路由变化时同步高亮（覆盖 logo 锚点跳转、登录后跳转等 Header 不重挂载的场景；
+// watch route.path 而非 route.fullPath，query 变化如 ?roadMapId= 不触发）
+watch(() => route.path, (path) => {
+  activeMenu.value = handleUpdateActivePath(path)
+})
+
 // Handle menu selection
 const handleMenuSelect = (item: HeaderMenuItem): void => {
   activeMenu.value = item.value
-  localStorage.setItem("currentActiveMenu", item.value)
   router.push(item.path)
 }
 
@@ -179,27 +195,6 @@ const handleLogout = async (): Promise<void> => {
     // 用户取消操作
     console.log('取消退出')
   }
-}
-
-// Update active path based on current route
-const handleUpdateActivePath = (): string => {
-  let item = ""
-  const currentActiveMenu = localStorage.getItem("currentActiveMenu")
-  if (currentActiveMenu) {
-    item = currentActiveMenu
-  } else {
-    let url = window.location.href
-    url = url.match(/#(\S*)/)![1]
-    for (let i = 0; i < menus.value.length; i++) {
-      if (menus.value[i].path === url) {
-        item = menus.value[i].value
-        break
-      } else {
-        item = "home"
-      }
-    }
-  }
-  return item
 }
 </script>
 

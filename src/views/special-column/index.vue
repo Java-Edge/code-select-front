@@ -16,9 +16,10 @@
           </a>
         </div>
         <div class="other r clearfix">
-          <a class="course-line l" target="_blank" href="http://www.javaedge.cn/#/study-list">
+          <!-- 学习路线入口：由外链 javaedge.cn 改为本地页（Neo4j 图查询驱动） -->
+          <router-link class="course-line l" :to="ROUTE_PATHS.LEARNING_PATH">
             学习路线
-          </a>
+          </router-link>
         </div>
       </div>
 
@@ -48,6 +49,7 @@
 import { ref, onMounted } from "vue";
 import categoryCom from "@/components/special-category.vue";
 import { specialApi } from '@/api/special';
+import { ROUTE_PATHS } from '@/config/constants';
 import { usePagedList } from '@/composables/usePagedList';
 import columnCover from '@/assets/column-cover.svg';
 

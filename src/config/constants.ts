@@ -28,6 +28,7 @@ export const ROUTE_PATHS = {
   ARTICLE_INTERVIEW: '/article-interview',
   ARTICLE_DETAIL: '/intervieArticleDetail/:id',
   SPECIAL: '/special',
+  LEARNING_PATH: '/learning-path',
   PROFILE: '/profile'
 };
 
@@ -36,7 +37,8 @@ export const AUTH_REQUIRED_PATHS = [
   '/index',              // 首页
   '/special',            // 专栏页面
   '/article-interview',  // 面经页面
-  '/intervieArticleDetail' // 面经详情页
+  '/intervieArticleDetail', // 面经详情页
+  '/learning-path'       // 学习路线页
 ];
 
 // 用户认证相关常量

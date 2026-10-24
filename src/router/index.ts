@@ -44,6 +44,13 @@ const routes: RouteRecordRaw[] = [
   },
 
   {
+    path: ROUTE_PATHS.LEARNING_PATH,
+    name: 'learning-path',
+    component: () => import('../views/roadmap/learning-path.vue'),
+    meta: { requiresAuth: true }
+  },
+
+  {
     path: ROUTE_PATHS.PROFILE,
     name: 'profile',
     component: () => import('../views/profile/profile-page.vue'),
