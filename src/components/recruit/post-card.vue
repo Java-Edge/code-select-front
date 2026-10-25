@@ -18,34 +18,20 @@
                     <img :src=recruit.picUrl :alt=recruit.companyName class="company-picture" />
                     <span class="course-group-header-title company-name">{{ recruit.companyName }}</span>
                     <div class="course-group-company-status">
-                        <div class="course-group-tag-item course-group-tag-item-block">
-                            TODO
+                        <div class="course-group-tag-item course-group-tag-item-block" v-if="recruit.recruitTypeLabel">
+                            {{ recruit.recruitTypeLabel }}
                         </div>
-                        <div class="course-group-tag-item course-group-tag-item-block">
+                        <div class="course-group-tag-item course-group-tag-item-block" v-if="recruit.scaleTagName">
                             {{ recruit.scaleTagName }}
                         </div>
-                        <div class="course-group-tag-item course-group-tag-item-block">
+                        <div class="course-group-tag-item course-group-tag-item-block" v-if="recruit.personScales">
                             {{ recruit.personScales }}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- 下板块 -->
-        <div class="course-group-second">
-            <div class="course-group-footer-wrapper course-group-footer-wrapper-first">
-                <!-- 招聘技术栈要求 -->
-                <div class="course-group-tag-item course-group-tag-item-footer"
-                    v-for="(item, index) in ['Java', 'TODO']" :key="index">
-                    {{ item }}
-                </div>
-            </div>
-            <div class="course-group-footer-wrapper">
-                <!-- 福利待遇 -->
-                <div class="course-group-tag-item course-group-tag-item-footer course-group-tag-item-footer-benefits">
-                    TODO</div>
-            </div>
-        </div>
+        <!-- 下板块（技术栈/福利无真实数据源，原 TODO 占位块已移除） -->
     </div>
 </template>
 
@@ -95,30 +81,6 @@ defineProps<{
 }
 
 
-.course-group-second {
-  height: 30%;
-  line-height: 30%;
-  width: 100%;
-  /* border: 1px solid blue; */
-  background-color: rgb(252, 251, 250);
-  display: flex;
-  justify-content: space-around;
-}
-
-.course-group-footer-wrapper {
-  width: 50%;
-  height: 100%;
-}
-
-/* 第一个内边距 20px */
-.course-group-footer-wrapper-first {
-  padding-left: 20px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-
 .course-group-treatment {
   /* border: 1px solid orangered; */
   width: 100%;
@@ -141,19 +103,6 @@ defineProps<{
   background-color: #eee;
   padding: 2px 5px;
   border-radius: 8px;
-}
-
-.course-group-tag-item-footer {
-  margin-top: 7px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
-.course-group-tag-item-footer-benefits {
-  /* border: 1px solid red; */
-  width: fit-content;
-  max-width: 500px;
 }
 
 .course-group-salary {

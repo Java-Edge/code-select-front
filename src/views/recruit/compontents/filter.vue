@@ -31,7 +31,6 @@ const { selectList, clear, changeCheck, changeComCheck, reset, buildQueryParams 
 
 const emit = defineEmits<{
   (e: 'getRecruit', param: RecruitQueryParam): void
-  (e: 'sendParam', param: RecruitQueryParam): void
 }>()
 
 const openDialog = () => {
@@ -75,7 +74,6 @@ const handleReset = () => {
 const handleSearch = ({ keyword }: { keyword?: string }) => {
   const param = buildQueryParams(keyword)
   emit('getRecruit', param)
-  emit('sendParam', param)
 }
 </script>
 

@@ -1,10 +1,7 @@
 <template>
   <div class="course-navigation">
-    <filterVue @getRecruit="getRecruit" @sendParam="getParam" />
+    <filterVue @getRecruit="getRecruit" />
     <!-- 内容区域 -->
-    <!-- <div style="font-size: 30px; text-align: center; margin-top: 30px">
-      -- 招聘列表 --
-    </div> -->
     <div class="content">
       <!-- 内容区域 -->
       <div class="floorhd">
@@ -12,7 +9,6 @@
           <h3 class="floorhd_tit">招聘列表</h3>
         </div>
       </div>
-      <!-- 课程详情区域 -->
       <RecruitList :recruits="recruits" />
       <pagination
         :page="page"
@@ -31,6 +27,7 @@ import filterVue from './compontents/filter.vue'
 import pagination from '@/components/pagination.vue'
 import { recruitApi } from '@/api/recruit'
 import type { RecruitDisplayItem, RecruitQueryParam } from '@/api/recruit'
+import { toDisplayItem } from './transform'
 
 const total = ref(0)
 const page = ref(1)
@@ -38,200 +35,44 @@ const size = ref(10)
 const recruits = ref<RecruitDisplayItem[]>([])
 const params = ref<RecruitQueryParam>({})
 
-const getRecruit = (param: RecruitQueryParam) => {
+const fetchList = () => {
   recruitApi
     .selectByCondition({
       pageNo: page.value,
       pageSize: size.value,
-      param: { ...param }
+      param: { ...params.value }
     })
     .then((response) => {
       const result = response.data.result
-      recruits.value = result.records
+      recruits.value = result.records.map(toDisplayItem)
       total.value = result.total
     })
 }
 
-const getParam = (param: RecruitQueryParam) => {
+// 搜索/筛选入口：条件变化后从第 1 页重新查（旧实现沿用当前页码，翻到深页后筛选必空）
+const getRecruit = (param: RecruitQueryParam) => {
   params.value = param
-}
-const handleCurrentChange = (currentPage: number) => {
-  page.value = currentPage
-  getRecruit(params.value)
+  page.value = 1
+  fetchList()
 }
 
-onMounted(() => {
-  getRecruit(params.value)
-})
+const handleCurrentChange = (currentPage: number) => {
+  page.value = currentPage
+  fetchList()
+}
+
+onMounted(fetchList)
 </script>
 
 <style lang="scss" scoped>
-.index {
-  background-color: #e9eef3;
-}
-/* 添加样式 */
 .course-navigation {
   max-width: 1152px;
   margin: 0 auto;
 }
-.filter-box {
-  display: flex;
-}
-.filter-box1 {
-  display: flex;
-  margin-top: 25px;
-  margin-left: 20px;
-}
-.recruit-list {
-  display: flex;
-  justify-content: center;
-}
-.filter-item {
-  background-color: white;
-  width: 60px;
-  height: 33px;
-  line-height: 33px;
-  text-align: center;
-  margin-left: 10px;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-bottom: 2px;
-  font-size: 15px;
-  color: #606266;
-}
-
-/* 选中状态下的样式 */
-.filter-item.selected {
-  background-color: #007bff;
-  color: #fff;
-}
-.time-filter-box {
-  margin-top: 22px;
-  margin-left: 22px;
-}
-.salary-filter-box {
-  margin-top: 22px;
-  margin-left: 22px;
-}
-.menu {
-  display: flex;
-  justify-content: center;
-}
-
-.menu ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.menu li {
-  display: inline-block;
-  padding: 0 20px;
-  cursor: pointer;
-}
-
-.menu li.active {
-  color: #ffd04b;
-  border-bottom: 2px solid #ffd04b;
-}
 
 .content {
   display: flex;
   flex-wrap: wrap;
-  /* Wrap the sidebar and swiper to next row if necessary */
-}
-
-.left-sidebar {
-  width: 20%;
-  padding: 20px;
-  background-color: #f0f0f0;
-}
-
-.left-sidebar h3 {
-  margin-bottom: 10px;
-  font-size: 18px;
-}
-
-.left-sidebar ul {
-  list-style: none;
-  padding: 0;
-}
-
-.left-sidebar li {
-  margin-bottom: 10px;
-  cursor: pointer;
-}
-
-.right-sidebar {
-  flex: 1;
-  padding: 20px;
-  min-width: 300px;
-  /* Set a minimum width for the sidebar */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.carousel-image {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-/* Add the following CSS styles */
-
-.swiper-pagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-  /* Add some margin between carousel and pagination */
-}
-
-.swiper-pagination-bullet {
-  width: 10px;
-  height: 10px;
-  background-color: #ccc;
-  border-radius: 50%;
-  margin: 0 5px;
-  /* Adjust the space between bullets as needed */
-}
-
-.swiper-pagination-bullet-active {
-  background-color: #555;
-}
-/* 背景图片样式 */
-.background-image {
-  width: 1152px;
-  height: 250px;
-  margin-top: 50px;
-}
-
-.swiper-container {
-  width: 100%;
-  height: 300px;
-  margin-bottom: 20px;
-  position: relative;
-  /* 添加以下样式以实现水平排列 */
-  display: flex;
-}
-
-.swiper-slide img {
-  width: 100%;
-  height: 100%;
-}
-.input-wrap {
-  position: relative;
-  display: inline-block;
-  min-width: 300px;
-  vertical-align: middle;
-  line-height: normal;
-}
-
-.content {
-  display: flex;
-  flex-wrap: wrap;
-  /* Wrap the sidebar and swiper to next row if necessary */
 }
 
 .floorhd {

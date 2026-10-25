@@ -18,12 +18,16 @@ export interface RecruitItem {
   title: string
   /** 工作城市（后端已按 SUBSTRING_INDEX 截取首个） */
   jobCity: string | null
-  /** 学历要求：0 学历不限 / 5000 本科 / 6000 硕士 */
+  /** 学历要求：0 学历不限 / 4000 大专 / 5000 本科 / 6000 硕士 */
   eduLevel: number | null
-  /** 薪资类型：0 面谈 / 1 元/天 / 2 k * 13 薪 */
+  /** 招聘类型（字典 recruit_type）：1 校招 / 2 实习 / 3 社招 */
+  recruitType: number | null
+  /** 薪资类型：0 面谈 / 1 元/天 / 2 k * N 薪 */
   salaryType: number | null
   salaryMin: number | null
   salaryMax: number | null
+  /** 薪资月数（salaryType=2 时的 "* N 薪"，0/缺省视为未提供） */
+  salaryMonth: number | null
   /** 公司 logo（可能为 null，展示层需兜底图） */
   picUrl: string | null
   companyName: string
@@ -45,10 +49,11 @@ export interface RecruitDetail extends RecruitItem {
   graduationYear: string | null
 }
 
-/** 列表/详情展示用的计算字段（前端根据 eduLevel / salaryType 格式化） */
+/** 列表/详情展示用的计算字段（前端根据 eduLevel / salaryType / recruitType 格式化） */
 export interface RecruitDisplayFields {
   education?: string
   salary?: string
+  recruitTypeLabel?: string
 }
 
 export type RecruitDisplayItem = RecruitItem & RecruitDisplayFields

@@ -37,6 +37,12 @@ html.dark .el-cascader-node:not(.is-disabled):focus {
   color: var(--dm-text-primary);
 }
 
+/* 弹窗（el-dialog，招聘城市选择等）：tokens.css 的 --el-dialog-background-color
+   在 EP 1.1.0-beta.15 上不被消费（beta 版 dialog 样式写死白色），直接覆盖组件类。 */
+html.dark .el-dialog {
+  background-color: var(--dm-card-bg);
+}
+
 /* 多选 select 已选项 / 已选项 hover：EP 背景 var(--el-color-white)，暗色下改品牌蓝淡底 */
 html.dark .el-select-dropdown.is-multiple .el-select-dropdown__item.selected,
 html.dark .el-select-dropdown.is-multiple .el-select-dropdown__item.selected.hover {

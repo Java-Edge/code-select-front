@@ -2,7 +2,7 @@
   <div
     class="condition-position-select"
     :class="{ open: visable, 'is-select': ids.length > 0 }"
-    @mouseenter="visable = true"
+    @mouseenter="openPanel"
     @mouseleave="visable = false"
   >
     <div class="current-select">
@@ -17,7 +17,7 @@
       <ul>
         <li @click="changeAllCheck">不限</li>
         <li
-          v-for="(item, index) in data"
+          v-for="(item, index) in list"
           :key="item.code"
           @mouseenter="showDetail(index)"
           :class="{ active: cIds[item.code] }"
@@ -56,8 +56,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import data from '../position.json'
+import { ref, shallowRef, watch } from 'vue'
 import type { IndustryNode } from './useFilterData'
 
 const props = withDefaults(
@@ -76,12 +75,26 @@ watch(
     currentItem.value = {} as IndustryNode
   }
 )
-const list = data as IndustryNode[]
-const pannel = ref(false)
+
+// 职位类目树 310KB，首屏渲染用不到：首次展开下拉时才动态加载，避免拖大招聘分包
+const list = shallowRef<IndustryNode[]>([])
+let loadStarted = false
+const ensureLoaded = () => {
+  if (loadStarted) return
+  loadStarted = true
+  import('../position.json').then((mod) => {
+    list.value = (mod.default ?? []) as IndustryNode[]
+  })
+}
 const visable = ref(false)
+const openPanel = () => {
+  visable.value = true
+  ensureLoaded()
+}
+const pannel = ref(false)
 const currentItem = ref({} as IndustryNode)
 const showDetail = (index: number) => {
-  currentItem.value = list[index]
+  currentItem.value = list.value[index]
   pannel.value = true
 }
 const ids = ref<number[]>([])

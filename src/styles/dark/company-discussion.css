@@ -1,0 +1,60 @@
+/* ============================================================================
+ * dark/company-discussion.css — 公司舆情页（views/company-discussion/index.vue）
+ * ============================================================================
+ * 按项目暗色模式（html.dark 前缀 + tokens.css 的 --dm-* 令牌）做选择器级覆盖。
+ * SFC 内徽章类嵌套在 .card-header 下，规则照抄完整路径保证特异性恒高一级；
+ * 筛选区 el-select / el-input 由 element-plus.css 统一接管，此处不重复。
+ * ============================================================================ */
+
+/* ---------- 页头（SFC: .page-intro .page-title / .page-subtitle） ---------- */
+html.dark .page-intro .page-title {
+  color: var(--dm-text-primary);
+}
+
+html.dark .page-intro .page-subtitle {
+  color: var(--dm-text-tertiary);
+}
+
+/* ---------- 舆情卡片 ---------- */
+html.dark .discussion-card {
+  background-color: var(--dm-card-bg);
+  border: 1px solid var(--dm-card-border);
+  box-shadow: var(--dm-card-shadow);
+}
+
+html.dark .discussion-card.clickable:hover {
+  box-shadow: var(--dm-card-shadow-hover);
+}
+
+/* 卡片头（SFC: .card-header .company-badge / .source-badge / .create-time） */
+html.dark .card-header .company-badge {
+  background-color: var(--dm-accent-primary);
+  color: var(--dm-btn-primary-text);
+}
+
+html.dark .card-header .source-badge {
+  background-color: var(--dm-bg-elevated);
+  color: var(--dm-text-secondary);
+}
+
+html.dark .card-header .create-time {
+  color: var(--dm-text-tertiary);
+}
+
+/* 正文 */
+html.dark .discussion-title {
+  color: var(--dm-text-primary);
+}
+
+html.dark .discussion-content {
+  color: var(--dm-text-secondary);
+}
+
+/* 底部原文链接 */
+html.dark .card-footer {
+  border-top: 1px solid var(--dm-border-primary);
+}
+
+html.dark .card-footer .origin-link {
+  color: var(--dm-accent-primary-hover);
+}

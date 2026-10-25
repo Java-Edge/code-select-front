@@ -1,9 +1,8 @@
 <template>
-  <!-- 招聘列表卡片 -->
+  <!-- 招聘列表卡片：整卡跳详情，原文投递收敛到详情页按钮（旧实现同时跳详情+开原文，行为冲突） -->
   <router-link :to="`/recruit/${recruit.id}`" class="link-sty">
-    <div class="course-box" @click="deliver(recruit.sourceUrl)">
-      <PostCard :recruit="recruit" v-if="recruit"/>
-      <el-skeleton style="width: 600px;" v-else :rows="5" animated />
+    <div class="course-box">
+      <PostCard :recruit="recruit" />
     </div>
   </router-link>
 </template>
@@ -15,13 +14,6 @@ import type { RecruitDisplayItem } from '@/api/recruit'
 defineProps<{
   recruit: RecruitDisplayItem
 }>()
-
-// Deliver function
-const deliver = (sourceUrl: string | null) => {
-  if (sourceUrl !== null) {
-    window.open(sourceUrl)
-  }
-}
 </script>
 
 <style scoped>

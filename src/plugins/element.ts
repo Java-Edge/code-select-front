@@ -1,5 +1,5 @@
 // Element Plus 按需引入（手动深引入，避免全量注册导致的体积膨胀）
-// 仅注册模板实际使用的 15 个组件；ElMessage / ElMessageBox 为 JS 运行时 API，单独深引入。
+// 仅注册模板实际使用的 14 个组件；ElMessage / ElMessageBox 为 JS 运行时 API，单独深引入。
 // 各 style/css 自动拉取 base 与自身依赖：
 //   select    → input / tag / option / option-group / scrollbar / popper
 //   cascader   → input / popper / tag / cascader-panel
@@ -17,7 +17,6 @@ import { ElSelect, ElOption } from 'element-plus/es/components/select'
 import { ElSteps, ElStep } from 'element-plus/es/components/steps'
 import ElEmpty from 'element-plus/es/components/empty'
 import ElAlert from 'element-plus/es/components/alert'
-import ElSkeleton from 'element-plus/es/components/skeleton'
 import ElDialog from 'element-plus/es/components/dialog'
 
 // 组件样式（按使用面引入，依赖由各自 style/css 自动解析）
@@ -33,7 +32,6 @@ import 'element-plus/es/components/option/style/css'
 import 'element-plus/es/components/steps/style/css'
 import 'element-plus/es/components/empty/style/css'
 import 'element-plus/es/components/alert/style/css'
-import 'element-plus/es/components/skeleton/style/css'
 import 'element-plus/es/components/dialog/style/css'
 // ElMessage / ElMessageBox 运行时弹层所需样式
 import 'element-plus/es/components/message/style/css'
@@ -53,7 +51,6 @@ const ElementPlusComponents: Component[] = [
   ElStep,
   ElEmpty,
   ElAlert,
-  ElSkeleton,
   ElDialog
 ]
 

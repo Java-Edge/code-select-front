@@ -1,0 +1,238 @@
+/* ============================================================================
+ * dark/recruit.css — 招聘板块（views/recruit/**、components/recruit/**）
+ * ============================================================================
+ * 恢复自旧版 boss 招聘模块：亮色样式硬编码在各自 SFC 的 scoped 样式里，且多为
+ * 深层嵌套选择器（如 .job-search-box .job-search-form .city-label[data-v]）。
+ * 本文件按项目暗色模式（html.dark 前缀 + tokens.css 的 --dm-* 令牌）做覆盖，
+ * 每条规则都照抄 SFC 的完整嵌套路径再加 html.dark 前缀，保证特异性恒高一级，
+ * 不依赖加载顺序、无需 !important。
+ *
+ * 品牌色约定：招聘页沿用 boss 青绿（#00bebd/#00a6a7）作为品牌识别，暗色下
+ * 强调态统一提亮为 #2dd4bf（teal-400，深底对比度 ≥ 7:1），淡底用同色 12% 透明。
+ * ============================================================================ */
+
+/* ---------- 筛选区容器（filter.vue .job-search-wrapper） ---------- */
+html.dark .job-search-wrapper {
+  background: var(--dm-card-bg);
+  border: 1px solid var(--dm-card-border);
+  box-shadow: var(--dm-card-shadow);
+}
+
+/* ---------- 搜索框（SearchForm.vue，SFC 路径 .job-search-box .job-search-form ...） ---------- */
+/* 青绿搜索条保留品牌色，仅城市标签 / 输入区换暗色输入令牌 */
+html.dark .job-search-box .job-search-form .city-label {
+  background: var(--dm-input-bg);
+  color: var(--dm-input-text);
+}
+
+html.dark .job-search-box .job-search-form .search-input-box {
+  background: var(--dm-input-bg);
+}
+
+html.dark .job-search-box .job-search-form .search-input-box .input {
+  background: var(--dm-input-bg);
+  color: var(--dm-input-text);
+}
+
+html.dark .job-search-box .job-search-form .search-input-box .input::placeholder {
+  color: var(--dm-input-placeholder);
+}
+
+/* ---------- 热门城市 / 清空筛选（FilterConditions.vue，SFC 顶层 .search-condition-wrapper） ---------- */
+html.dark .search-condition-wrapper .city-area-select .area-dropdown-item .dropdown-city-list li {
+  color: var(--dm-text-primary);
+}
+
+html.dark .search-condition-wrapper .city-area-select .area-dropdown-item .dropdown-city-list li.active {
+  color: #2dd4bf;
+}
+
+html.dark .search-condition-wrapper .clear-search-btn {
+  color: var(--dm-text-tertiary);
+}
+
+html.dark .search-condition-wrapper .clear-search-btn:hover {
+  color: #2dd4bf;
+}
+
+/* ---------- 通用筛选下拉（mySelect / industrySelect / positionSelect 共用结构） ---------- */
+/* 容器（亮色 #f8f8f8） */
+html.dark .condition-filter-select,
+html.dark .condition-industry-select,
+html.dark .condition-position-select {
+  background: var(--dm-bg-tertiary);
+}
+
+/* 当前项文字（SFC: .condition-x-select .current-select） */
+html.dark .condition-filter-select .current-select,
+html.dark .condition-industry-select .current-select,
+html.dark .condition-position-select .current-select {
+  color: var(--dm-text-primary);
+}
+
+/* 展开态 / 已选中态容器（亮色青绿淡底 #e5f8f8 → 暗色青绿淡底） */
+html.dark .condition-filter-select.open,
+html.dark .condition-industry-select.open,
+html.dark .condition-position-select.open {
+  background: rgba(45, 212, 191, 0.12);
+}
+
+html.dark .condition-filter-select.open .current-select,
+html.dark .condition-industry-select.open .current-select,
+html.dark .condition-position-select.open .current-select,
+html.dark .condition-filter-select.is-select .current-select,
+html.dark .condition-industry-select.is-select .current-select,
+html.dark .condition-position-select.is-select .current-select {
+  color: #2dd4bf;
+}
+
+/* 下拉面板（SFC: .condition-x-select .filter-select-dropdown，亮色白底 #ededed 边） */
+html.dark .condition-filter-select .filter-select-dropdown,
+html.dark .condition-industry-select .filter-select-dropdown,
+html.dark .condition-position-select .filter-select-dropdown {
+  background: var(--dm-bg-elevated);
+  border: 1px solid var(--dm-border-primary);
+  box-shadow: var(--dm-card-shadow);
+}
+
+/* 下拉选项（mySelect / positionSelect 的 ul li 与 .active / :hover） */
+html.dark .condition-filter-select .filter-select-dropdown ul li,
+html.dark .condition-position-select .filter-select-dropdown ul li {
+  color: var(--dm-text-primary);
+}
+
+html.dark .condition-filter-select .filter-select-dropdown ul li.active,
+html.dark .condition-position-select .filter-select-dropdown ul li.active {
+  color: #2dd4bf;
+}
+
+html.dark .condition-filter-select .filter-select-dropdown ul li:hover,
+html.dark .condition-position-select .filter-select-dropdown ul li:hover {
+  color: #2dd4bf;
+  background: var(--dm-bg-tertiary);
+}
+
+/* 选中项对勾（mySelect li 内 el-icon） */
+html.dark .condition-filter-select .filter-select-dropdown ul li .el-icon,
+html.dark .condition-position-select .filter-select-dropdown ul li .el-icon {
+  color: #2dd4bf;
+}
+
+/* ---------- 公司行业二级列表（IndustryList.vue，渲染于 .condition-industry-select 内） ---------- */
+html.dark .condition-industry-select ul li .label {
+  color: var(--dm-text-primary);
+}
+
+html.dark .condition-industry-select ul li .select-list a {
+  color: var(--dm-text-primary);
+}
+
+html.dark .condition-industry-select ul li .select-list a.active {
+  color: #2dd4bf;
+}
+
+html.dark .condition-industry-select ul li .select-list a:hover {
+  color: #2dd4bf;
+  background: var(--dm-bg-tertiary);
+}
+
+html.dark .condition-industry-select ul li .select-list a .el-icon {
+  color: #2dd4bf;
+}
+
+/* ---------- 职业类型三级面板（positionSelect.vue，SFC 路径 .condition-position-select
+   .filter-select-dropdown .condition-position-detail ...） ---------- */
+html.dark .condition-position-select .filter-select-dropdown .condition-position-detail {
+  background: var(--dm-bg-elevated);
+  border: 1px solid var(--dm-border-primary);
+}
+
+html.dark .condition-position-select .filter-select-dropdown .condition-position-detail .condition-position-title {
+  color: var(--dm-text-primary);
+}
+
+html.dark .condition-position-select .filter-select-dropdown .condition-position-detail .condition-position-grandson .condition-position-label {
+  color: var(--dm-text-tertiary);
+}
+
+html.dark .condition-position-select .filter-select-dropdown .condition-position-detail .condition-position-grandson .condition-position-list {
+  border-bottom: 1px solid var(--dm-border-primary);
+}
+
+html.dark .condition-position-select .filter-select-dropdown .condition-position-detail .condition-position-grandson .condition-position-list a {
+  color: var(--dm-text-primary);
+}
+
+html.dark .condition-position-select .filter-select-dropdown .condition-position-detail .condition-position-grandson .condition-position-list a.active,
+html.dark .condition-position-select .filter-select-dropdown .condition-position-detail .condition-position-grandson .condition-position-list a:hover {
+  color: #2dd4bf;
+}
+
+/* ---------- 城市选择弹窗（cityDialog.vue，非 scoped 全局样式；el-dialog 底色由
+   tokens.css 的 --el-dialog-background-color 接管） ---------- */
+html.dark .dialog-header h3.title {
+  color: var(--dm-text-primary);
+}
+
+html.dark .city-select-wrapper {
+  color: var(--dm-text-primary);
+}
+
+html.dark .city-char-list {
+  background: var(--dm-bg-tertiary);
+}
+
+html.dark .city-char-list li.active,
+html.dark .city-char-list li:hover {
+  color: #2dd4bf;
+}
+
+html.dark .city-select-wrapper .city-list-hot li:hover {
+  color: #2dd4bf;
+}
+
+html.dark .city-select-wrapper .city-list-select li .city-char {
+  color: #2dd4bf;
+}
+
+/* ---------- 列表页标题（recruit.vue，SFC 路径 .floorhd .grid_c1 .floorhd_tit） ---------- */
+html.dark .floorhd .grid_c1 .floorhd_tit {
+  color: var(--dm-text-primary);
+}
+
+/* ---------- 职位卡片（recruit-box.vue .course-box + post-card.vue） ---------- */
+html.dark .course-box {
+  background-color: var(--dm-card-bg);
+  border: 1px solid var(--dm-card-border);
+  box-shadow: var(--dm-card-shadow);
+}
+
+html.dark .course-group-header-title {
+  color: var(--dm-text-primary);
+}
+
+html.dark .course-group-tag-item {
+  color: var(--dm-text-secondary);
+}
+
+html.dark .course-group-tag-item-block {
+  background-color: var(--dm-bg-elevated);
+  color: var(--dm-text-secondary);
+}
+
+/* ---------- 职位详情页（recruit-detail.vue） ---------- */
+html.dark .recruit-header {
+  background-color: var(--dm-bg-secondary);
+}
+
+html.dark .recruit-details-content {
+  background-color: var(--dm-card-bg);
+}
+
+html.dark .descrip {
+  color: var(--dm-text-primary);
+}
+
+html.dark .company-name {
+  color: var(--dm-text-primary);
+}
