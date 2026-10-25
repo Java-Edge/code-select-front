@@ -68,6 +68,8 @@ export interface RecruitQueryParam {
   scaleTag?: number[] | null
   recruitType?: number[] | null
   salaryType?: number
+  /** 工作城市（后端按 SUBSTRING_INDEX(job_city,',',1) 精确匹配首段；'全国'/空 = 不过滤） */
+  jobCity?: string
   keyword?: string
 }
 

@@ -7080,8 +7080,8 @@
     }
   ],
   "locationCity": {
-    "code": 101190100,
-    "name": "南京",
+    "code": 101020100,
+    "name": "上海",
     "tip": null,
     "subLevelModelList": null,
     "firstChar": null,
@@ -7093,7 +7093,7 @@
     "capital": 0,
     "color": null,
     "recruitmentType": null,
-    "cityCode": "025",
+    "cityCode": "021",
     "regionCode": 0,
     "value": null
   }

@@ -17,14 +17,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import SearchForm from './SearchForm.vue'
 import FilterConditions from './FilterConditions.vue'
 import { useFilterData } from './useFilterData'
 import type { RecruitQueryParam } from '@/api/recruit'
 
 const searchFormRef = ref<InstanceType<typeof SearchForm> | null>(null)
-const currentCity = ref('')
+// 默认城市与 city.json 的 locationCity 一致，热门城市行同步高亮
+const currentCity = ref('上海')
 
 const { selectList, clear, changeCheck, changeComCheck, reset, buildQueryParams } =
   useFilterData()
@@ -32,6 +33,11 @@ const { selectList, clear, changeCheck, changeComCheck, reset, buildQueryParams 
 const emit = defineEmits<{
   (e: 'getRecruit', param: RecruitQueryParam): void
 }>()
+
+// 首屏查询由这里发起（携带默认筛选：上海 + java 工程师 + 社招），recruit.vue 不再兜底空参查询
+onMounted(() => {
+  emit('getRecruit', buildQueryParams(searchFormRef.value?.keyword, currentCity.value))
+})
 
 const openDialog = () => {
   // 通过 SearchForm 组件打开对话框
@@ -72,7 +78,7 @@ const handleReset = () => {
 }
 
 const handleSearch = ({ keyword }: { keyword?: string }) => {
-  const param = buildQueryParams(keyword)
+  const param = buildQueryParams(keyword, currentCity.value)
   emit('getRecruit', param)
 }
 </script>

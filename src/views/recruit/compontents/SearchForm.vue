@@ -38,7 +38,8 @@ import data from '../city.json'
 const store = useStore()
 const cityDialogRef = ref<InstanceType<typeof CityDialog> | null>(null)
 const name = ref<string>()
-const keyword = ref<string>()
+// 默认搜索词（初始查询用；清空筛选后由 filter.vue 置回空串）
+const keyword = ref<string>('java 工程师')
 
 const emit = defineEmits<{
   (e: 'search', payload: { keyword?: string; city?: string }): void

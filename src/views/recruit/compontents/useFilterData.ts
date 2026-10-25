@@ -30,6 +30,11 @@ export function useFilterData() {
   const salaryType = ref(0)
   const clear = ref(false)
 
+  // 默认筛选：求职类型=社招（字典 recruit_type：1 校招 / 2 实习 / 3 社招）。
+  // queryParams 同步预设，保证首次查询不等字典接口就带上该条件；字典回来后再点亮 UI。
+  const DEFAULT_RECRUIT_TYPE = 3
+  queryParams.value.jobTypeList = [DEFAULT_RECRUIT_TYPE]
+
   const selectList = reactive<Record<string, FilterGroup>>({
     jobTypeList: {
       name: '求职类型',
@@ -100,8 +105,11 @@ export function useFilterData() {
       selectList.sizeList.data = result
     })
 
-    // 6. 招聘类型
+    // 6. 招聘类型（默认选中社招，见 DEFAULT_RECRUIT_TYPE）
     loadOptions('recruit_type', (result) => {
+      result.forEach((item) => {
+        if (item.id === DEFAULT_RECRUIT_TYPE) item.active = true
+      })
       selectList.jobTypeList.data = result
     })
   }
@@ -149,7 +157,7 @@ export function useFilterData() {
     clear.value = true
   }
 
-  const buildQueryParams = (keyword?: string): RecruitQueryParam => {
+  const buildQueryParams = (keyword?: string, jobCity?: string): RecruitQueryParam => {
     return {
       eduLevel: queryParams.value.degressList,
       graduateYear: queryParams.value.expList,
@@ -158,6 +166,8 @@ export function useFilterData() {
       scaleTag: queryParams.value.stageList,
       recruitType: queryParams.value.jobTypeList,
       salaryType: salaryType.value,
+      // 「全国」不是库里的城市值，视为不按城市过滤
+      jobCity: jobCity && jobCity !== '全国' ? jobCity : undefined,
       keyword
     }
   }
