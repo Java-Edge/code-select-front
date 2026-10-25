@@ -95,10 +95,17 @@ html.dark .condition-position-select .filter-select-dropdown {
   box-shadow: var(--dm-card-shadow);
 }
 
-/* 下拉选项（mySelect / positionSelect 的 ul li 与 .active / :hover） */
+/* positionSelect 左列 ul 在 SFC 里自带白底 + #ededed 边，容器规则罩不到它 */
+html.dark .condition-position-select .filter-select-dropdown ul {
+  background: transparent;
+  border-color: var(--dm-border-primary);
+}
+
+/* 下拉选项（mySelect / positionSelect 的 ul li 与 .active / :hover；positionSelect 的 li 还自带白底） */
 html.dark .condition-filter-select .filter-select-dropdown ul li,
 html.dark .condition-position-select .filter-select-dropdown ul li {
   color: var(--dm-text-primary);
+  background: transparent;
 }
 
 html.dark .condition-filter-select .filter-select-dropdown ul li.active,
@@ -193,6 +200,13 @@ html.dark .city-select-wrapper .city-list-hot li:hover {
 
 html.dark .city-select-wrapper .city-list-select li .city-char {
   color: #2dd4bf;
+}
+
+/* ---------- 空结果降级提示条（recruit.vue .search-fallback-tip） ---------- */
+html.dark .search-fallback-tip {
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.08);
+  border-color: rgba(251, 191, 36, 0.25);
 }
 
 /* ---------- 列表页标题（recruit.vue，SFC 路径 .floorhd .grid_c1 .floorhd_tit） ---------- */
