@@ -8,6 +8,7 @@
               v-for="item in data.hotCityList"
               :key="item.code"
               :class="{ active: item.name === currentCity }"
+              @click="selectCity(item.name)"
             >
               {{ item.name }}
             </li>
@@ -53,7 +54,12 @@ const emit = defineEmits<{
   (e: 'change', payload: { key: string; type?: boolean; id?: number; data?: number[] }): void
   (e: 'reset'): void
   (e: 'open-city-dialog'): void
+  (e: 'select-city', city: string): void
 }>()
+
+const selectCity = (city: string) => {
+  emit('select-city', city)
+}
 
 const handleChange = (key: string, data?: number[]) => {
   emit('change', { key, data })

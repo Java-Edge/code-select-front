@@ -12,6 +12,7 @@
       @change="handleFilterChange"
       @reset="handleReset"
       @open-city-dialog="openDialog"
+      @select-city="applyCity"
     />
   </div>
 </template>
@@ -46,8 +47,17 @@ const openDialog = () => {
   }
 }
 
+// 城市变更统一入口（热门城市点击 / 城市弹窗确认）：同步第一行城市标签并立即按新城市查询
+const applyCity = (city: string) => {
+  currentCity.value = city
+  if (searchFormRef.value) {
+    searchFormRef.value.name = city
+  }
+  emit('getRecruit', buildQueryParams(searchFormRef.value?.keyword, city))
+}
+
 const handleCityChange = (item: { name: string }) => {
-  currentCity.value = item.name
+  applyCity(item.name)
 }
 
 const handleFilterChange = ({
