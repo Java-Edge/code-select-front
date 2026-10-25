@@ -92,7 +92,9 @@ const getRecruitDetail = (id: string) => {
 
 // Deliver function
 const deliver = (sourceUrl: string | null) => {
-  if (sourceUrl === null) {
+  // 用 falsy 判断：接口异常时 selectedRecruit 为空对象，sourceUrl 是 undefined，
+  // window.open(undefined) 会打开 about:blank（旧代码只挡了 null 挡不住 undefined）
+  if (!sourceUrl) {
     ElMessage.warning('暂时无法投递，请联系管理员')
   } else {
     window.open(sourceUrl)
