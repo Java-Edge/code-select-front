@@ -91,7 +91,9 @@
             "Header",
             "Login",
             "pilot",
-            "index"
+            "index",
+            "recruit",
+            "filter"
           ]
         }
       ]

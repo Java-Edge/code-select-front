@@ -29,7 +29,10 @@ export const ROUTE_PATHS = {
   ARTICLE_DETAIL: '/intervieArticleDetail/:id',
   SPECIAL: '/special',
   LEARNING_PATH: '/learning-path',
-  PROFILE: '/profile'
+  COMPANY_DISCUSSION: '/company-discussion',
+  PROFILE: '/profile',
+  RECRUIT: '/recruit/index',
+  RECRUIT_DETAIL: '/recruit/:id'
 };
 
 // 需要登录才能访问的路由路径
@@ -38,7 +41,9 @@ export const AUTH_REQUIRED_PATHS = [
   '/special',            // 专栏页面
   '/article-interview',  // 面经页面
   '/intervieArticleDetail', // 面经详情页
-  '/learning-path'       // 学习路线页
+  '/learning-path',      // 学习路线页
+  '/company-discussion', // 公司舆情页
+  '/recruit/index'       // 招聘列表页（详情页 /recruit/:id 由路由 meta 控制）
 ];
 
 // 用户认证相关常量

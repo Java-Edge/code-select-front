@@ -51,9 +51,29 @@ const routes: RouteRecordRaw[] = [
   },
 
   {
+    path: ROUTE_PATHS.COMPANY_DISCUSSION,
+    name: 'company-discussion',
+    component: () => import('../views/company-discussion/index.vue'),
+    meta: { requiresAuth: true }
+  },
+
+  {
     path: ROUTE_PATHS.PROFILE,
     name: 'profile',
     component: () => import('../views/profile/profile-page.vue'),
+    meta: { requiresAuth: true }
+  },
+
+  {
+    path: ROUTE_PATHS.RECRUIT,
+    name: 'recruit',
+    component: () => import('../views/recruit/recruit.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: ROUTE_PATHS.RECRUIT_DETAIL,
+    name: 'recruitDetail',
+    component: () => import('../views/recruit/recruit-detail.vue'),
     meta: { requiresAuth: true }
   }
 ]

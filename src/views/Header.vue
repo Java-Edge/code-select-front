@@ -103,8 +103,10 @@ const store = useStore()
 const menus = ref<HeaderMenuItem[]>([
   { name: "首页", value: "home", path: "/index" },
   { name: "面经", value: "interview", path: "/article-interview" },
+  { name: "招聘", value: "recruit", path: "/recruit/index" },
   { name: "专栏", value: "special", path: "/special" },
   { name: "学习路线", value: "learning-path", path: "/learning-path" },
+  { name: "公司舆情", value: "company-discussion", path: "/company-discussion" },
 ])
 
 // Update active path based on current route（路由即事实源，不再读 localStorage）。

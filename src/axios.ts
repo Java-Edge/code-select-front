@@ -47,10 +47,16 @@ const handleError = (code: number, message?: string): boolean => {
 // 前置拦截 - 添加 Token 到请求头
 service.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    // 添加 Token 到请求头
-    const token = getToken()
-    if (token) {
-      config.headers['token'] = token
+    // 登录前接口（验证码等）可声明 skipAuth 跳过 token 注入：后端 JWT 过滤器对
+    // "带无效 token"的请求直接回 401 JSON，blob 响应会把 JSON 当图片渲染成裂图；
+    // 不带 token 时过滤器放行，可匿名获取。标记头在发出前摘除，不会透传给后端。
+    if (config.headers.skipAuth) {
+      config.headers.delete('skipAuth')
+    } else {
+      const token = getToken()
+      if (token) {
+        config.headers['token'] = token
+      }
     }
 
     return config
@@ -60,9 +66,18 @@ service.interceptors.request.use(
 
 // 响应拦截器（包络类型化为 ApiResponse<unknown>；二进制放行分支由 instanceof 窄化）
 service.interceptors.response.use(
-  (response: AxiosResponse<ApiResponse<unknown>>) => {
-    // 响应数据为二进制流处理(验证码图片、Excel导出等)
-    if (response.data instanceof ArrayBuffer || response.data instanceof Blob) {
+  async (response: AxiosResponse<ApiResponse<unknown>>) => {
+    // 后端对"带无效 token"的请求回 HTTP 200 + application/json 包络，而 blob 请求
+    // （验证码、导出）不会走到下方 code 检查——若 content-type 是 JSON，需解析出
+    // 包络走统一错误处理，否则 JSON 会被当二进制交付（验证码裂图、导出文件损坏）
+    if (response.data instanceof Blob && (response.headers['content-type'] || '').includes('application/json')) {
+      try {
+        response.data = JSON.parse(await response.data.text())
+      } catch {
+        // 声明为 JSON 但解析失败：按二进制原样放行，交由业务侧报错
+        return response
+      }
+    } else if (response.data instanceof ArrayBuffer || response.data instanceof Blob) {
       return response
     }
 
