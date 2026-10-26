@@ -44,7 +44,12 @@
     >
       <div class="card-header">
         <span class="company-badge">{{ item.companyName }}</span>
-        <span v-if="item.authDisplayInfo" class="source-badge">{{ item.authDisplayInfo }}</span>
+        <span v-if="item.source" class="source-badge" :class="sourceClass(item.source)">{{ item.source }}</span>
+        <span v-if="item.authDisplayInfo" class="auth-badge">{{ item.authDisplayInfo }}</span>
+        <span v-if="item.likeCount != null || item.commentCount != null" class="heat-info">
+          <template v-if="item.likeCount != null">👍 {{ item.likeCount }}</template>
+          <template v-if="item.commentCount != null">&nbsp;💬 {{ item.commentCount }}</template>
+        </span>
         <span class="create-time">{{ item.createTime }}</span>
       </div>
       <div v-if="item.title" class="discussion-title">{{ item.title }}</div>
@@ -103,6 +108,18 @@ const { page, total, list: tableData, load, changePage: handleCurrentChange } = 
     return { records: res.data.result.records, total: res.data.result.total };
   }
 );
+
+/**
+ * 来源平台徽标样式类（各平台品牌色区分）
+ */
+const sourceClass = (source: string): string => {
+  const map: Record<string, string> = {
+    牛客: 'source-nowcoder',
+    知乎: 'source-zhihu',
+    脉脉: 'source-maimai'
+  };
+  return map[source] || 'source-other';
+};
 
 // 首次加载（路由组件每次进入都会重新执行 setup，故此 load 同时覆盖「离开后回来」的刷新）
 load();
@@ -188,11 +205,41 @@ const onCardClick = (item: CompanyDiscussionItem): void => {
 
   .source-badge {
     margin-left: 8px;
+    color: #fff;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 4px;
+
+    &.source-nowcoder {
+      background-color: #00c261;
+    }
+
+    &.source-zhihu {
+      background-color: #0066ff;
+    }
+
+    &.source-maimai {
+      background-color: #2c7bf6;
+    }
+
+    &.source-other {
+      background-color: #909399;
+    }
+  }
+
+  .auth-badge {
+    margin-left: 8px;
     background-color: #f0f2f5;
     color: #606266;
     font-size: 12px;
     padding: 4px 8px;
     border-radius: 4px;
+  }
+
+  .heat-info {
+    margin-left: 8px;
+    font-size: 12px;
+    color: #9199a1;
   }
 
   .create-time {

@@ -32,9 +32,14 @@ html.dark .card-header .company-badge {
   color: var(--dm-btn-primary-text);
 }
 
-html.dark .card-header .source-badge {
+/* 来源徽标保留各平台品牌色（浅色 SFC 内已定义），暗色只调认证徽标与热度文字 */
+html.dark .card-header .auth-badge {
   background-color: var(--dm-bg-elevated);
   color: var(--dm-text-secondary);
+}
+
+html.dark .card-header .heat-info {
+  color: var(--dm-text-tertiary);
 }
 
 html.dark .card-header .create-time {

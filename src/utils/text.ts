@@ -7,10 +7,15 @@
 
 /**
  * 去除 HTML 标签、回车、换行与多余空白，返回纯文本。
+ * 另清理截断产生的残缺标签头（如 `<imgstyle="width:18px...`，牛客表情
+ * 图标在入库截断后留下无 `>` 闭合的片段，普通标签正则匹配不到）。
  * @param html 原始 HTML 字符串
  * @returns 清洗后的纯文本
  */
 export function stripHtml(html?: string | null): string {
   if (!html) return ''
-  return String(html).replace(/<\/?.+?\/?>|\r|\n|\s*/g, '')
+  return String(html)
+    .replace(/<\/?[a-zA-Z][^>]*>/g, '')
+    .replace(/<[a-zA-Z][^>]*$/g, '')
+    .replace(/\r|\n|\s*/g, '')
 }

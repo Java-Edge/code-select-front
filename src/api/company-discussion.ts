@@ -24,6 +24,12 @@ export interface CompanyDiscussionItem {
   authDisplayInfo: string | null
   /** 原文链接（可能为 null） */
   contentUrl: string | null
+  /** 数据来源平台（牛客/知乎/脉脉，旧数据可能为 null） */
+  source: string | null
+  /** 点赞数（可能为 null） */
+  likeCount: number | null
+  /** 评论数（可能为 null） */
+  commentCount: number | null
 }
 
 /** 舆情分页查询条件（对齐后端 InnerRecommendQueryDTO） */
