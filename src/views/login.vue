@@ -287,7 +287,7 @@ onMounted(() => {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #0a0e1a;
+  background: #0d1117;
   overflow: hidden;
   position: relative;
 
@@ -297,7 +297,7 @@ onMounted(() => {
     position: absolute;
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(88, 166, 255, 0.15) 0%, transparent 70%);
     top: -150px;
     left: -150px;
     animation: pulse 6s ease-in-out infinite;
@@ -308,7 +308,7 @@ onMounted(() => {
     position: absolute;
     width: 500px;
     height: 500px;
-    background: radial-gradient(circle, rgba(120, 0, 255, 0.18) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(188, 140, 255, 0.12) 0%, transparent 70%);
     bottom: -100px;
     right: -100px;
     animation: pulse 6s ease-in-out 3s infinite;
@@ -327,12 +327,12 @@ onMounted(() => {
   width: 440px;
   padding: 44px 40px;
   background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(0, 212, 255, 0.25);
+  border: 1px solid rgba(88, 166, 255, 0.25);
   border-radius: 20px;
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   box-shadow:
-    0 0 0 1px rgba(0, 212, 255, 0.08),
+    0 0 0 1px rgba(88, 166, 255, 0.08),
     0 8px 40px rgba(0, 0, 0, 0.6),
     inset 0 1px 0 rgba(255, 255, 255, 0.07);
 }
@@ -346,7 +346,7 @@ onMounted(() => {
     font-size: 26px;
     font-weight: 700;
     margin: 0;
-    background: linear-gradient(90deg, #00d4ff, #7b61ff);
+    background: linear-gradient(90deg, #58a6ff, #1f6feb);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -360,7 +360,7 @@ onMounted(() => {
     width: 48px;
     height: 3px;
     margin: 12px auto 0;
-    background: linear-gradient(90deg, #00d4ff, #7b61ff);
+    background: linear-gradient(90deg, #58a6ff, #1f6feb);
     border-radius: 2px;
   }
 }
@@ -374,45 +374,45 @@ onMounted(() => {
   /* 输入框整体覆盖为深色透明风格 */
   :deep(.el-input__wrapper) {
     background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(0, 212, 255, 0.3) !important;
+    border: 1px solid rgba(88, 166, 255, 0.3) !important;
     border-radius: 10px !important;
     box-shadow: none !important;
     transition: border-color 0.25s, box-shadow 0.25s;
 
     &:hover {
-      border-color: rgba(0, 212, 255, 0.6) !important;
+      border-color: rgba(88, 166, 255, 0.6) !important;
     }
 
     &.is-focus {
-      border-color: #00d4ff !important;
-      box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15) !important;
+      border-color: #58a6ff !important;
+      box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15) !important;
     }
   }
 
   :deep(.el-input__inner) {
-    color: #e8f4ff !important;
+    color: #e6edf3 !important;
     font-size: 15px;
     background: transparent !important;
 
     &::placeholder {
-      color: rgba(180, 210, 240, 0.45) !important;
+      color: rgba(125, 133, 144, 0.45) !important;
     }
   }
 
   /* 前缀图标颜色 */
   :deep(.el-input__prefix-inner .el-icon) {
-    color: rgba(0, 212, 255, 0.7);
+    color: rgba(88, 166, 255, 0.7);
   }
 
   /* 密码可见按钮 */
   :deep(.el-input__suffix-inner .el-icon) {
-    color: rgba(0, 212, 255, 0.6);
-    &:hover { color: #00d4ff; }
+    color: rgba(88, 166, 255, 0.6);
+    &:hover { color: #58a6ff; }
   }
 
   /* 表单校验错误文字 */
   :deep(.el-form-item__error) {
-    color: #ff6b9d;
+    color: #f778ba;
     font-size: 12px;
   }
 }
@@ -428,19 +428,19 @@ onMounted(() => {
   flex-shrink: 0;
   width: 118px;
   height: 40px;
-  border: 1px solid rgba(0, 212, 255, 0.45);
+  border: 1px solid rgba(88, 166, 255, 0.45);
   border-radius: 10px;
   cursor: pointer;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 212, 255, 0.06);
+  background: rgba(88, 166, 255, 0.06);
   transition: border-color 0.25s, box-shadow 0.25s;
 
   &:hover {
-    border-color: #00d4ff;
-    box-shadow: 0 0 8px rgba(0, 212, 255, 0.35);
+    border-color: #58a6ff;
+    box-shadow: 0 0 8px rgba(88, 166, 255, 0.35);
   }
 
   img {
@@ -452,7 +452,7 @@ onMounted(() => {
 
   span {
     font-size: 12px;
-    color: rgba(0, 212, 255, 0.7);
+    color: rgba(88, 166, 255, 0.7);
     letter-spacing: 0.5px;
   }
 }
@@ -466,13 +466,13 @@ onMounted(() => {
   letter-spacing: 2px;
   border: none !important;
   border-radius: 10px !important;
-  background: linear-gradient(90deg, #00aaff, #7b61ff) !important;
-  box-shadow: 0 4px 20px rgba(0, 170, 255, 0.4);
+  background: linear-gradient(90deg, #1f6feb, #1f6feb) !important;
+  box-shadow: 0 4px 20px rgba(31, 111, 235, 0.4);
   transition: transform 0.2s, box-shadow 0.2s;
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 28px rgba(0, 170, 255, 0.55) !important;
+    box-shadow: 0 6px 28px rgba(31, 111, 235, 0.55) !important;
   }
 
   &:active {
@@ -486,15 +486,15 @@ onMounted(() => {
   margin-top: 20px;
 
   span {
-    color: rgba(0, 212, 255, 0.8);
+    color: rgba(88, 166, 255, 0.8);
     cursor: pointer;
     font-size: 13px;
     letter-spacing: 0.5px;
     transition: color 0.2s, text-shadow 0.2s;
 
     &:hover {
-      color: #00d4ff;
-      text-shadow: 0 0 8px rgba(0, 212, 255, 0.6);
+      color: #58a6ff;
+      text-shadow: 0 0 8px rgba(88, 166, 255, 0.6);
     }
   }
 }

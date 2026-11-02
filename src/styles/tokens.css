@@ -126,41 +126,41 @@ html.dark {
    * C 套：暗色设计令牌系统 - Dark Theme Design System
    * ------------------------------------------------------------------------- */
   /* 基础颜色 - Base Colors */
-  --dm-bg-primary: #0b1120;      /* 页面主背景 - 最深 */
-  --dm-bg-secondary: #151e32;    /* 卡片/容器背景 */
-  --dm-bg-tertiary: #1e293b;     /* 输入框/次级背景 */
-  --dm-bg-elevated: #243347;     /* 悬浮/提升层 */
+  --dm-bg-primary: #0d1117;      /* 页面主背景 - 最深 */
+  --dm-bg-secondary: #161b22;    /* 卡片/容器背景 */
+  --dm-bg-tertiary: #21262d;     /* 输入框/次级背景 */
+  --dm-bg-elevated: #30363d;     /* 悬浮/提升层 */
 
   /* 文字颜色 - 确保对比度 >= 4.5:1 */
-  --dm-text-primary: #f8fafc;    /* 主文字 - 对比度 16.8:1 */
-  --dm-text-secondary: #cbd5e1;  /* 次级文字 - 对比度 10.4:1 */
-  --dm-text-tertiary: #94a3b8;   /* 辅助文字 - 对比度 7.2:1 */
-  --dm-text-disabled: #64748b;   /* 禁用文字 - 对比度 4.6:1 */
-  --dm-text-placeholder: #94a3b8;/* 占位符文字 */
+  --dm-text-primary: #e6edf3;    /* 主文字 - 对比度 16.8:1 */
+  --dm-text-secondary: #c9d1d9;  /* 次级文字 - 对比度 10.4:1 */
+  --dm-text-tertiary: #8b949e;   /* 辅助文字 - 对比度 7.2:1 */
+  --dm-text-disabled: #656d76;   /* 禁用文字 - 对比度 4.6:1 */
+  --dm-text-placeholder: #8b949e;/* 占位符文字 */
 
   /* 边框颜色 */
-  --dm-border-primary: #334155;   /* 主要边框 */
-  --dm-border-secondary: #475569; /* 次级边框/悬停 */
-  --dm-border-focus: #60a5fa;     /* 聚焦状态边框 */
+  --dm-border-primary: #30363d;   /* 主要边框 */
+  --dm-border-secondary: #3d444d; /* 次级边框/悬停 */
+  --dm-border-focus: #388bfd;     /* 聚焦状态边框 */
 
   /* 强调色系统 - Accent Colors */
   /* 主蓝色 */
-  --dm-accent-primary: #3b82f6;
-  --dm-accent-primary-hover: #60a5fa;
-  --dm-accent-primary-active: #2563eb;
-  --dm-accent-primary-subtle: rgba(59, 130, 246, 0.15);
+  --dm-accent-primary: #1f6feb;
+  --dm-accent-primary-hover: #388bfd;
+  --dm-accent-primary-active: #1158c7;
+  --dm-accent-primary-subtle: rgba(31, 111, 235, 0.15);
 
   /* 成功绿 */
-  --dm-accent-success: #10b981;
-  --dm-accent-success-subtle: rgba(16, 185, 129, 0.15);
+  --dm-accent-success: #3fb950;
+  --dm-accent-success-subtle: rgba(63, 185, 80, 0.15);
 
   /* 警告黄 */
-  --dm-accent-warning: #f59e0b;
-  --dm-accent-warning-subtle: rgba(245, 158, 11, 0.15);
+  --dm-accent-warning: #d29922;
+  --dm-accent-warning-subtle: rgba(210, 153, 34, 0.15);
 
   /* 错误红 */
-  --dm-accent-danger: #ef4444;
-  --dm-accent-danger-subtle: rgba(239, 68, 68, 0.15);
+  --dm-accent-danger: #f85149;
+  --dm-accent-danger-subtle: rgba(248, 81, 73, 0.15);
 
   /* 组件专用变量 - Component Variables */
   /* 卡片 */
@@ -208,15 +208,15 @@ html.dark {
   --dm-sidebar-bg-active: var(--dm-accent-primary-subtle);
 
   /* 筛选标签 - 面经tab按钮专用 */
-  --dm-filter-bg: #1e293b;           /* 未选中背景 */
-  --dm-filter-bg-hover: #243347;     /* 悬停背景 */
-  --dm-filter-bg-active: #3b82f6;    /* 选中背景 - 品牌蓝 */
-  --dm-filter-text: #e0e0e0;         /* 未选中文字 - 对比度 11.2:1 */
+  --dm-filter-bg: #21262d;           /* 未选中背景 */
+  --dm-filter-bg-hover: #30363d;     /* 悬停背景 */
+  --dm-filter-bg-active: #1f6feb;    /* 选中背景 - 品牌蓝 */
+  --dm-filter-text: #c9d1d9;         /* 未选中文字 - 对比度 11.2:1 */
   --dm-filter-text-hover: #ffffff;   /* 悬停文字 */
   --dm-filter-text-active: #ffffff;  /* 选中文字 - 纯白 */
-  --dm-filter-border: #475569;       /* 未选中边框 */
-  --dm-filter-border-hover: #64748b; /* 悬停边框 */
-  --dm-filter-border-active: #60a5fa; /* 选中边框 - 亮蓝 */
+  --dm-filter-border: #3d444d;       /* 未选中边框 */
+  --dm-filter-border-hover: #656d76; /* 悬停边框 */
+  --dm-filter-border-active: #388bfd; /* 选中边框 - 亮蓝 */
 
   /* 旧变量兼容 - 逐步迁移 */
   --app-bg-color: var(--dm-bg-primary);
@@ -269,74 +269,74 @@ html.dark {
    * Element Plus 1.1.0-beta.23 组件均消费 --el-* CSS 变量；本段在 html.dark 下
    * 覆写这些变量即可全局生效，无需逐组件 !important。变量名均已在
    * node_modules/element-plus/theme-chalk 中核实存在。品牌色与 --dm-accent-primary 保持一致。 */
-  /* 品牌主色 + 衍生色调（light-1~9 由 #3b82f6 按 EP 算法生成） */
-  --el-color-primary: #3b82f6;
-  --el-color-primary-light-1: #4f8ef7;
-  --el-color-primary-light-2: #69a0f9;
-  --el-color-primary-light-3: #76a8f9;
-  --el-color-primary-light-4: #8cb6fa;
-  --el-color-primary-light-5: #9dc1fb;
-  --el-color-primary-light-6: #b3cdfc;
-  --el-color-primary-light-7: #c4dafc;
-  --el-color-primary-light-8: #d8e6fd;
-  --el-color-primary-light-9: #ebf3fe;
+  /* 品牌主色 + 衍生色调（light-1~9 由 #1f6feb 按 EP 算法生成） */
+  --el-color-primary: #1f6feb;
+  --el-color-primary-light-1: #388bfd;
+  --el-color-primary-light-2: #4792fd;
+  --el-color-primary-light-3: #58a6ff;
+  --el-color-primary-light-4: #69b1ff;
+  --el-color-primary-light-5: #79c0ff;
+  --el-color-primary-light-6: #96ceff;
+  --el-color-primary-light-7: #b6e3ff;
+  --el-color-primary-light-8: #d0ecff;
+  --el-color-primary-light-9: #ddf4ff;
 
   /* 文字 */
-  --el-text-color-primary: #f8fafc;
-  --el-text-color-regular: #cbd5e1;
-  --el-text-color-secondary: #94a3b8;
-  --el-text-color-placeholder: #94a3b8;
-  --el-text-color-disabled: #64748b;
+  --el-text-color-primary: #e6edf3;
+  --el-text-color-regular: #c9d1d9;
+  --el-text-color-secondary: #8b949e;
+  --el-text-color-placeholder: #8b949e;
+  --el-text-color-disabled: #656d76;
 
   /* 边框 */
-  --el-border-color-base: #334155;
-  --el-border-color-light: #475569;
-  --el-border-color-lighter: #334155;
-  --el-border-color-extra-light: #334155;
-  --el-border-color-hover: #475569;
+  --el-border-color-base: #30363d;
+  --el-border-color-light: #3d444d;
+  --el-border-color-lighter: #30363d;
+  --el-border-color-extra-light: #30363d;
+  --el-border-color-hover: #3d444d;
 
   /* 注：--el-color-white / --el-background-color-base / --el-fill-base 在 EP 1.x 内部
      同时被用作文字色（如标签、plain 按钮），翻暗会导致文字不可读，故不在此翻暗；
      弹层暗色背景改由 theme.css 中针对性规则（html.dark 特异性）接管。 */
 
   /* 输入框（input / select / cascader 共用） */
-  --el-input-background-color: #1e293b;
-  --el-input-font-color: #f8fafc;
-  --el-input-border: #334155;
-  --el-input-hover-border: #475569;
-  --el-input-focus-border: #3b82f6;
-  --el-input-focus-border-color: #3b82f6; /* select-v2 聚焦边框变量名不同，防御性补齐 */
+  --el-input-background-color: #21262d;
+  --el-input-font-color: #e6edf3;
+  --el-input-border: #30363d;
+  --el-input-hover-border: #3d444d;
+  --el-input-focus-border: #1f6feb;
+  --el-input-focus-border-color: #1f6feb; /* select-v2 聚焦边框变量名不同，防御性补齐 */
   --el-input-border-radius: 8px;           /* 保持原 8px 圆角 */
-  --el-input-clear-hover-color: #3b82f6;
-  --el-select-border-color-hover: #475569;
-  --el-select-input-focus-border-color: #3b82f6;
-  --el-cascader-menu-fill: #1e293b;
+  --el-input-clear-hover-color: #1f6feb;
+  --el-select-border-color-hover: #3d444d;
+  --el-select-input-focus-border-color: #1f6feb;
+  --el-cascader-menu-fill: #21262d;
 
   /* 标签（复选框令牌已移除：checkbox 橙色品牌行为改由 base.css 中 .el-checkbox 作用域变量接管，
      此处若保留会与作用域 --el-color-primary:var(--app-accent) 冲突，并会改变未勾选白底外观） */
-  --el-tag-background-color: #1e293b;
-  --el-tag-border-color: #334155;
+  --el-tag-background-color: #21262d;
+  --el-tag-border-color: #30363d;
 
   /* 分页 */
-  --el-pagination-background-color: #1e293b;
-  --el-pagination-button-disabled-background-color: #1e293b;
+  --el-pagination-background-color: #21262d;
+  --el-pagination-button-disabled-background-color: #21262d;
 
   /* 弹层 */
-  --el-dialog-background-color: #151e32;
+  --el-dialog-background-color: #161b22;
   --el-popup-modal-background-color: rgba(0, 0, 0, 0.5);
-  --el-popover-background-color: #151e32;
-  --el-popover-border-color: #334155;
-  --el-tooltip-fill: #243347;
-  --el-tooltip-border-color: #334155;
-  --el-default-border-color: #334155;
-  --el-message-background-color: #151e32;
+  --el-popover-background-color: #161b22;
+  --el-popover-border-color: #30363d;
+  --el-tooltip-fill: #30363d;
+  --el-tooltip-border-color: #30363d;
+  --el-default-border-color: #30363d;
+  --el-message-background-color: #161b22;
 
-  /* dropdown 菜单项 hover：EP 默认 fill=var(--el-color-primary-light-9)=#ebf3fe（近白），暗色下改暗色提升层 */
+  /* dropdown 菜单项 hover：EP 默认 fill=var(--el-color-primary-light-9)=#ddf4ff（近白），暗色下改暗色提升层 */
   --el-dropdown-menuItem-hover-fill: var(--dm-bg-elevated);
   --el-dropdown-menuItem-hover-color: var(--dm-accent-primary-hover);
 
   /* datepicker 弹层边框 */
-  --el-datepicker-border-color: #334155;
+  --el-datepicker-border-color: #30363d;
 
   color-scheme: dark;
 }

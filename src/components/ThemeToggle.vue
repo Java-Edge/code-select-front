@@ -48,13 +48,13 @@ const { isDark, toggleTheme } = useTheme()
 
 /* 暗黑模式样式 */
 html.dark .theme-toggle-btn {
-  background: #334155;
-  border-color: #475569;
+  background: #21262d;
+  border-color: #30363d;
 }
 
 html.dark .theme-toggle-btn:hover {
-  background: #475569;
-  border-color: #64748b;
+  background: #30363d;
+  border-color: #656d76;
 }
 
 html.dark .theme-icon {
