@@ -5,7 +5,7 @@
       <div v-for="(item, index) in list" :key="index">
         <div class="item-class">
           <a :href="item.link" style="text-decoration:none;" @click="clickPilot(item.id)">
-            <img :src="item.img || 'https://www.svgrepo.com/show/277424/tool-screwdriver.svg'" />
+            <img :src="item.img || defaultIcon" :alt="item.name" @error="onImgError" />
             <span>{{ item.name }}</span>
           </a>
         </div>
@@ -17,6 +17,7 @@
 <script setup lang="ts">
 import { defineProps, ref } from 'vue';
 import axios from "@/axios";
+import defaultIcon from '@/assets/default-icon.svg';
 import type { ApiResponse } from '@/types/api';
 
 export interface PilotItem {
@@ -54,6 +55,13 @@ withDefaults(
     list: () => []
   }
 )
+
+const onImgError = (e: Event): void => {
+  const target = e.target as HTMLImageElement;
+  if (target.src !== defaultIcon) {
+    target.src = defaultIcon;
+  }
+};
 
 let clickPilot = (itemId: string | number): void => {
   queryParams.value.param.itemId = itemId

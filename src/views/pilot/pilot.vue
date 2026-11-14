@@ -35,6 +35,7 @@ import axios from '@/axios';
 import { Loading } from '@element-plus/icons-vue';
 import type { MenuItem } from '@/components/common/FloatMenu.vue';
 import type { ApiResponse } from '@/types/api';
+import { sanitizeIconUrl, fixMojibakeName } from '@/utils/iconMap';
 
 export interface PilotItem {
   id: string | number
@@ -68,7 +69,15 @@ const onMenuClick = (item: MenuItem): void => {
 const getPilotType = async (): Promise<void> => {
   try {
     const res = await axios.get<ApiResponse<Record<string, PilotItem[]>>>('/back/pilot/getList');
-    pilotList.value = res.data.result;
+    // 清洗图标 URL：替换 svgrepo.com 防盗链图标为可用 CDN 图标
+    const result = res.data.result;
+    for (const key of Object.keys(result)) {
+      result[key] = result[key].map(item => {
+        const name = fixMojibakeName(item.name);
+        return { ...item, name, img: sanitizeIconUrl(item.img || '', name) };
+      });
+    }
+    pilotList.value = result;
   } catch (err) {
     error.value = 'Failed to load pilot list';
     console.log('err', err);
