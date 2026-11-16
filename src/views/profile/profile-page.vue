@@ -2,10 +2,29 @@
   <div class="profile-page">
     <div class="profile-card">
       <div class="profile-header">
-        <img v-if="avatar" :src="avatar" class="profile-avatar" alt="avatar" />
-        <div v-else class="profile-avatar default">{{ displayName.charAt(0) || 'U' }}</div>
+        <div class="avatar-editor">
+          <img v-if="avatar" :src="avatar" class="profile-avatar" alt="avatar" />
+          <div v-else class="profile-avatar default">{{ displayName.charAt(0) || 'U' }}</div>
+          <button
+            class="avatar-upload-button"
+            type="button"
+            :disabled="uploading"
+            :title="uploading ? '正在上传头像' : '点击上传头像'"
+            @click="openFilePicker"
+          >
+            {{ uploading ? '上传中…' : '更换头像' }}
+          </button>
+          <input
+            ref="fileInput"
+            class="avatar-file-input"
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            @change="handleFileChange"
+          />
+        </div>
         <div class="profile-meta">
           <h2 class="profile-name">{{ displayName }}</h2>
+          <p class="avatar-hint">支持 JPG、PNG、WEBP，最大 5MB</p>
         </div>
       </div>
 
@@ -43,10 +62,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, defineOptions } from 'vue'
+import { computed, onMounted, defineOptions, ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import { ElMessageBox } from 'element-plus/es/components/message-box'
+import { ElMessage } from 'element-plus/es/components/message'
 
 defineOptions({
   name: 'ProfilePage'
@@ -54,6 +74,8 @@ defineOptions({
 
 const store = useStore()
 const router = useRouter()
+const fileInput = ref<HTMLInputElement | null>(null)
+const uploading = ref(false)
 
 const userInfo = computed(() => store.getters['user/userInfo'])
 const username = computed(() => store.getters['user/username'])
@@ -63,6 +85,38 @@ const growthPoints = computed(() => store.getters['user/growthPoints'] ?? 0)
 const growthLevel = computed(() => store.getters['user/growthLevel'] ?? 1)
 
 const displayName = computed<string>(() => nickname.value || username.value || '用户')
+
+const openFilePicker = (): void => {
+  fileInput.value?.click()
+}
+
+const handleFileChange = async (event: Event): Promise<void> => {
+  const input = event.target as HTMLInputElement
+  const file = input.files?.[0]
+  input.value = ''
+  if (!file) {
+    return
+  }
+  if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+    ElMessage.error('头像仅支持 JPG、PNG、WEBP 格式')
+    return
+  }
+  if (file.size > 5 * 1024 * 1024) {
+    ElMessage.error('头像大小不能超过 5MB')
+    return
+  }
+
+  uploading.value = true
+  try {
+    await store.dispatch('user/updateAvatar', file)
+    ElMessage.success('头像更新成功')
+  } catch (error) {
+    const message = error instanceof Error ? error.message : '头像上传失败，请重试'
+    ElMessage.error(message)
+  } finally {
+    uploading.value = false
+  }
+}
 
 // 进入个人中心即拉取最新成长快照（覆盖刷新后 state 未持久化场景）
 onMounted(() => {
@@ -123,12 +177,50 @@ const handleLogout = async (): Promise<void> => {
   }
 }
 
+.avatar-editor {
+  position: relative;
+  flex-shrink: 0;
+  width: 80px;
+}
+
+.avatar-upload-button {
+  position: absolute;
+  left: 50%;
+  bottom: -12px;
+  transform: translateX(-50%);
+  min-width: 88px;
+  padding: 5px 10px;
+  border: 1px solid var(--el-color-primary);
+  border-radius: 999px;
+  background: var(--el-color-primary);
+  color: #fff;
+  font-size: 12px;
+  line-height: 16px;
+  white-space: nowrap;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+}
+
+.avatar-file-input {
+  display: none;
+}
+
 .profile-meta {
   .profile-name {
     margin: 0;
     font-size: 22px;
     font-weight: 600;
     color: #1c1f21;
+  }
+
+  .avatar-hint {
+    margin: 8px 0 0;
+    color: #9199a1;
+    font-size: 13px;
   }
 }
 

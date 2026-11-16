@@ -1,7 +1,7 @@
 /**
  * 用户状态管理模块
  */
-import { login, logout, getUserInfo } from '@/api/user'
+import { login, logout, getUserInfo, uploadAvatar } from '@/api/user'
 import { signGrowth, getGrowth } from '@/api/growth'
 import { getToken, setToken, removeToken, setUserInfo, removeUserInfo, clearAuth } from '@/utils/auth'
 import type { Module, MutationTree, ActionTree, GetterTree } from 'vuex'
@@ -45,6 +45,17 @@ const mapUserInfo = (result: BackendUser): UserInfo => ({
   avatar: result.avatar ?? ''
 })
 
+const mapAvatarPayload = (payload: unknown): string => {
+  if (typeof payload === 'string') {
+    return payload
+  }
+  if (payload && typeof payload === 'object' && 'avatar' in payload) {
+    const avatar = (payload as { avatar?: unknown }).avatar
+    return typeof avatar === 'string' ? avatar : ''
+  }
+  return ''
+}
+
 const state: UserState = {
   token: getToken() || '',
   userInfo: null,
@@ -77,6 +88,12 @@ const mutations: MutationTree<UserState> = {
   },
   SET_GROWTH(state, growth) {
     state.growth = { ...state.growth, ...growth }
+  },
+  SET_AVATAR(state, avatar) {
+    if (state.userInfo) {
+      state.userInfo = { ...state.userInfo, avatar }
+      setUserInfo(state.userInfo)
+    }
   },
   CLEAR_USER(state) {
     state.token = ''
@@ -127,6 +144,17 @@ const actions: ActionTree<UserState, RootState> = {
     const userInfo = mapUserInfo(result)
     commit('SET_USER_INFO', userInfo)
     return userInfo
+  },
+
+  async updateAvatar({ commit }, file: File) {
+    const response = await uploadAvatar(file)
+    const result = response.data.result || response.data.data
+    const avatar = mapAvatarPayload(result)
+    if (!avatar) {
+      throw new Error('上传成功但未返回头像地址')
+    }
+    commit('SET_AVATAR', avatar)
+    return avatar
   },
 
   // 登录成功后触发：签到加积分（best-effort）+ 拉取最新成长快照

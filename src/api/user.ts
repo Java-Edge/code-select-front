@@ -53,3 +53,16 @@ export function getUserInfo(): Promise<AxiosResponse<ApiResponse<BackendUser>>> 
     method: 'get'
   })
 }
+
+export function uploadAvatar(file: File): Promise<AxiosResponse<ApiResponse<{ avatar: string }>>> {
+  const formData = new FormData()
+  formData.append('file', file)
+  return axios({
+    url: '/user/avatar',
+    method: 'post',
+    data: formData,
+    // axios 无法从 FormData 推断 multipart 边界，必须显式声明；
+    // Token 仍由统一请求拦截器注入。
+    headers: { 'Content-Type': 'multipart/form-data' }
+  })
+}

@@ -20,6 +20,10 @@ html.dark .profile-card .profile-meta .profile-name {
   color: var(--dm-text-primary);
 }
 
+html.dark .profile-card .profile-meta .avatar-hint {
+  color: var(--dm-text-tertiary);
+}
+
 html.dark .profile-card .profile-section .section-title {
   color: var(--dm-text-primary);
 }
