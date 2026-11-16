@@ -1,5 +1,6 @@
 import type { PilotItem, PilotList } from '@/types/pilot'
 import { sanitizeIconUrl, fixMojibakeName } from '@/utils/iconMap'
+import { subcategoryOf } from '@/data/pilotTaxonomy'
 import {
   CATEGORY_ORDER,
   HIDDEN_LINKS,
@@ -63,6 +64,7 @@ export function normalizePilotList(raw: PilotList): PilotList {
         name,
         link,
         img: sanitizeIconUrl(item.img || '', name),
+        subcategory: subcategoryOf(target, name),
       })
     }
   }
@@ -74,12 +76,14 @@ export function normalizePilotList(raw: PilotList): PilotList {
   }, {})
 }
 
-/** 名称 / 网址 / 分类 / 别名，多关键词按 AND 匹配。 */
+/** 名称 / 网址 / 分类 / 细分 / 别名，多关键词按 AND 匹配。 */
 export function matchesPilotQuery(item: PilotItem, category: string, query: string): boolean {
   const normalized = query.trim().toLowerCase()
   if (!normalized) return true
 
   const aliases = SEARCH_ALIASES[item.name.toLowerCase()] || []
-  const haystack = [item.name, item.link, category, ...aliases].join(' ').toLowerCase()
+  const haystack = [item.name, item.link, category, item.subcategory || '', ...aliases]
+    .join(' ')
+    .toLowerCase()
   return normalized.split(/\s+/).every((part) => haystack.includes(part))
 }

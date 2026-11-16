@@ -11,6 +11,8 @@ export interface PilotItem {
   img?: string
   pageView?: number
   pilotTypeName?: string
+  /** P1 三层模型：主题下的细分名称，由 normalizePilotList 统一写入。 */
+  subcategory?: string
 }
 
 export type PilotList = Record<string, PilotItem[]>

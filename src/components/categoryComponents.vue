@@ -1,6 +1,6 @@
 <template>
-  <section class="view-box">
-    <div class="head-line">
+  <section class="view-box" :class="{ compact }">
+    <div v-if="!hideHeader" class="head-line">
       <h2 class="head-title">{{ title }}</h2>
       <span class="head-count">{{ list.length }}</span>
     </div>
@@ -69,11 +69,15 @@ const props = withDefaults(
     title?: string
     list?: PilotItem[]
     category?: string
+    hideHeader?: boolean
+    compact?: boolean
   }>(),
   {
     title: '',
     list: () => [],
     category: '',
+    hideHeader: false,
+    compact: false,
   }
 )
 
@@ -119,6 +123,10 @@ const onToggleFavorite = (item: PilotItem): void => {
   margin: 0 0 24px;
   border-radius: 8px;
   padding: 0 2px;
+}
+
+.view-box.compact {
+  margin-bottom: 10px;
 }
 
 .head-line {

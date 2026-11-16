@@ -5,7 +5,7 @@
         <div class="hero-copy">
           <h1 class="hero-title">编程严选导航</h1>
           <p class="hero-subtitle">
-            {{ loading ? '正在加载站点…' : `已收录 ${totalCount} 个站点 · ${categoryCount} 个分类` }}
+            {{ loading ? '正在加载站点…' : `已收录 ${totalCount} 个站点 · ${categoryCount} 个主题 · ${SCENES.length} 个场景` }}
           </p>
         </div>
         <span class="hero-hint">按 <kbd>/</kbd> 快速搜索</span>
@@ -20,7 +20,7 @@
           ref="searchInput"
           v-model="query"
           type="search"
-          :placeholder="totalCount ? `搜索 ${totalCount} 个站点、网址或分类` : '搜索站点、网址或分类'"
+          :placeholder="totalCount ? `搜索 ${totalCount} 个站点、网址、分类或细分` : '搜索站点、网址、分类或细分'"
           aria-label="搜索导航站点"
           autocomplete="off"
           @focus="searchFocused = true"
@@ -41,7 +41,7 @@
 
       <div class="search-meta">
         <span v-if="isSearching">找到 <strong>{{ resultCount }}</strong> 个站点</span>
-        <span v-else>名称 / 网址 / 分类均可搜索</span>
+        <span v-else>名称 / 网址 / 分类 / 细分均可搜索</span>
         <button v-if="isSearching" class="link-btn" type="button" @click="clearSearch">清空搜索</button>
       </div>
 
@@ -81,6 +81,22 @@
           </a>
         </div>
       </div>
+
+      <nav v-if="!loading && !error" class="scene-tabs" aria-label="导航场景">
+        <button
+          v-for="tab in sceneTabs"
+          :key="tab.key"
+          class="scene-tab"
+          :class="{ active: activeScene === tab.key }"
+          type="button"
+          :title="tab.description"
+          :aria-pressed="activeScene === tab.key"
+          @click="selectScene(tab.key)"
+        >
+          <span class="scene-tab-name">{{ tab.name }}</span>
+          <span class="scene-tab-count">{{ tab.count }}</span>
+        </button>
+      </nav>
     </section>
 
     <FloatMenu
@@ -97,24 +113,44 @@
       </div>
       <div v-else-if="error" class="error-message">{{ error }}</div>
       <template v-else>
-        <div v-if="!resultCount" class="empty-state">
-          <p class="empty-title">{{ isSearching ? `没有找到“${query.trim()}”` : '暂无站点' }}</p>
+        <div v-if="!visibleCount" class="empty-state">
+          <p class="empty-title">
+            {{ isSearching ? `没有找到“${query.trim()}”` : '该场景暂无站点' }}
+          </p>
           <p class="empty-hint">试试英文名、拼音或分类名，比如 Kimi、qwen、云服务</p>
-          <button class="empty-reset" type="button" @click="clearSearch">清空搜索</button>
+          <button class="empty-reset" type="button" @click="isSearching ? clearSearch() : selectScene('all')">
+            {{ isSearching ? '清空搜索' : '查看全部' }}
+          </button>
         </div>
         <div
-          v-for="(value, key) in filteredList"
+          v-for="(value, key) in visibleList"
           :key="key"
           :id="generateId(key)"
           :data-category="key"
           class="category-section"
         >
-          <CategoryComponents
-            :list="value"
-            :title="key"
-            :category="key"
-            @open="recordRecent"
-          />
+          <div class="topic-head">
+            <h2 class="topic-title">{{ key }}</h2>
+            <span class="topic-count">{{ value.length }}</span>
+            <span v-if="activeScene === 'all'" class="topic-scene">{{ sceneNameOf(key) }}</span>
+          </div>
+          <div
+            v-for="group in subcategoryGroups(key, value)"
+            :key="`${key}-${group.name}`"
+            class="subcategory-group"
+          >
+            <div class="subcategory-head">
+              <span class="subcategory-name">{{ group.name }}</span>
+              <span class="subcategory-count">{{ group.items.length }}</span>
+            </div>
+            <CategoryComponents
+              :list="group.items"
+              :category="key"
+              hide-header
+              compact
+              @open="recordRecent"
+            />
+          </div>
         </div>
       </template>
     </div>
@@ -139,7 +175,14 @@ import axios from '@/axios'
 import { Loading } from '@element-plus/icons-vue'
 import type { MenuItem } from '@/components/common/FloatMenu.vue'
 import type { ApiResponse } from '@/types/api'
-import type { PilotList } from '@/types/pilot'
+import type { PilotItem, PilotList } from '@/types/pilot'
+import {
+  SCENES,
+  SCENE_BY_TOPIC,
+  SUBCATEGORY_ORDER,
+  TOPIC_ORDER,
+  subcategoryOf,
+} from '@/data/pilotTaxonomy'
 import { matchesPilotQuery, normalizePilotList } from '@/utils/pilotData'
 import { usePilotPrefs } from '@/composables/usePilotPrefs'
 
@@ -154,6 +197,7 @@ const searchInput = ref<HTMLInputElement | null>(null)
 const searchFocused = ref(false)
 const activeSection = ref('')
 const showBackTop = ref(false)
+const activeScene = ref('all')
 
 // 分类名可能含 /（培训/课程/机构），必须转成 querySelector 可用的安全 id。
 const generateId = (key: string): string => {
@@ -186,13 +230,85 @@ const resultCount = computed(() =>
   Object.values(filteredList.value).reduce((sum, items) => sum + items.length, 0)
 )
 
+/** 场景 -> 主题顺序；“全部”使用跨场景的统一顺序。 */
+const orderedTopics = computed<string[]>(() => {
+  const scene = SCENES.find((item) => item.key === activeScene.value)
+  return scene ? scene.topics : TOPIC_ORDER
+})
+
+/** 场景过滤后的列表，始终按场景内主题顺序输出。 */
+const visibleList = computed<PilotList>(() => {
+  const result: PilotList = {}
+  orderedTopics.value.forEach((topic) => {
+    const items = filteredList.value[topic]
+    if (items?.length) result[topic] = items
+  })
+  return result
+})
+
+const visibleCount = computed(() =>
+  Object.values(visibleList.value).reduce((sum, items) => sum + items.length, 0)
+)
+
+const sceneTabs = computed(() =>
+  [
+    { key: 'all', name: '全部', count: resultCount.value, description: '全部站点' },
+    ...SCENES.map((scene) => ({
+      key: scene.key,
+      name: scene.name,
+      count: scene.topics.reduce((sum, topic) => sum + (filteredList.value[topic]?.length || 0), 0),
+      description: scene.description,
+    })),
+  ].filter((tab) => !isSearching.value || tab.key === 'all' || tab.count > 0)
+)
+
+const sceneNameOf = (topic: string): string => {
+  const scene = SCENES.find((item) => item.key === SCENE_BY_TOPIC[topic])
+  return scene?.name || ''
+}
+
+interface SubcategoryGroup {
+  name: string
+  items: PilotItem[]
+}
+
+/** 主题内按细分分组；未登记的条目会以“其他”分组出现，不会丢数据。 */
+const subcategoryGroups = (topic: string, items: PilotItem[]): SubcategoryGroup[] => {
+  const buckets = new Map<string, PilotItem[]>()
+
+  items.forEach((item) => {
+    const name = item.subcategory || subcategoryOf(topic, item.name)
+    const bucket = buckets.get(name)
+    if (bucket) bucket.push(item)
+    else buckets.set(name, [item])
+  })
+
+  const order = SUBCATEGORY_ORDER[topic] || []
+  const groups: SubcategoryGroup[] = []
+  order.forEach((name) => {
+    const bucket = buckets.get(name)
+    if (bucket?.length) groups.push({ name, items: bucket })
+  })
+  buckets.forEach((bucket, name) => {
+    if (!order.includes(name)) groups.push({ name, items: bucket })
+  })
+  return groups
+}
+
 const menuItems = computed<MenuItem[]>(() =>
-  Object.entries(filteredList.value).map(([name, items]) => ({
+  Object.entries(visibleList.value).map(([name, items]) => ({
     name,
     id: `#${generateId(name)}`,
     count: items.length,
   }))
 )
+
+const selectScene = (key: string): void => {
+  activeScene.value = key
+  activeSection.value = ''
+  if (isSearching.value) query.value = ''
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
 
 const onMenuClick = (item: MenuItem): void => {
   activeSection.value = item.name
@@ -267,10 +383,13 @@ const getPilotType = async (): Promise<void> => {
 }
 
 watch(isSearching, (value) => {
-  if (value) window.scrollTo({ top: 0, behavior: 'smooth' })
+  if (value) {
+    activeScene.value = 'all'
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 })
 
-watch([pilotList, filteredList], () => {
+watch([pilotList, visibleList], () => {
   void refreshSections()
 })
 
@@ -524,6 +643,63 @@ kbd {
   color: var(--brand-ant);
 }
 
+.scene-tabs {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  padding-bottom: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.scene-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.scene-tab {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 6px;
+  padding: 7px 12px;
+  border: 1px solid var(--dm-border-primary, #e5e0d6);
+  border-radius: 999px;
+  background: var(--dm-bg-secondary, #fff);
+  color: var(--dm-text-secondary, #545c63);
+  font-size: 13px;
+  line-height: 18px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background-color 0.2s;
+}
+
+.scene-tab:hover {
+  border-color: var(--brand-ant);
+  color: var(--brand-ant);
+}
+
+.scene-tab.active {
+  border-color: var(--brand-ant);
+  background: rgba(24, 144, 255, 0.08);
+  color: var(--brand-ant);
+  font-weight: 600;
+}
+
+.scene-tab:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+}
+
+.scene-tab-count {
+  min-width: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: rgba(109, 114, 120, 0.1);
+  font-size: 11px;
+  line-height: 18px;
+  text-align: center;
+  opacity: 0.8;
+}
+
 :deep(.pilot-float-menu) {
   grid-area: menu;
   position: sticky !important;
@@ -531,8 +707,10 @@ kbd {
   left: auto !important;
   transform: none !important;
   width: 150px !important;
-  max-height: calc(100vh - 104px) !important;
+  // 侧栏在页面顶部时从 hero 下方开始，需要为 header + hero 预留高度。
+  max-height: calc(100vh - 320px) !important;
   overflow-y: auto !important;
+  padding-bottom: 4px;
   border-radius: 8px;
   background: var(--dm-bg-secondary, #fff);
   box-shadow: 0 4px 14px rgba(55, 99, 170, 0.08);
@@ -568,6 +746,74 @@ kbd {
 
 .category-section {
   scroll-margin-top: 88px;
+}
+
+.category-section + .category-section {
+  margin-top: 10px;
+}
+
+.topic-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0 10px;
+}
+
+.topic-title {
+  margin: 0;
+  color: var(--dm-text-primary, #1f2329);
+  font-size: 19px;
+  line-height: 26px;
+  font-weight: 700;
+}
+
+.topic-count {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: var(--dm-bg-tertiary, #eef1f5);
+  color: var(--dm-text-tertiary, #8a9099);
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.topic-scene {
+  margin-left: auto;
+  color: var(--dm-text-tertiary, #9aa0a6);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.subcategory-group + .subcategory-group {
+  margin-top: 14px;
+}
+
+.subcategory-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 2px 8px;
+}
+
+.subcategory-name {
+  color: var(--dm-text-secondary, #545c63);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.subcategory-count {
+  color: var(--dm-text-tertiary, #9aa0a6);
+  font-size: 11px;
+}
+
+.subcategory-head::after {
+  flex: 1;
+  height: 1px;
+  margin-left: 4px;
+  background: var(--dm-border-primary, #eee8dc);
+  content: '';
 }
 
 .loading-wrapper {
@@ -745,6 +991,23 @@ kbd {
 
   .quick-row {
     align-items: flex-start;
+  }
+
+  .scene-tabs {
+    margin-top: 10px;
+  }
+
+  .scene-tab {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .topic-title {
+    font-size: 18px;
+  }
+
+  .topic-scene {
+    display: none;
   }
 
   .quick-label {
