@@ -104,4 +104,11 @@ const hideSubMenu = (): void => {
   width: 200px;
   height: 200px;
 }
+
+/* 手机端没有足够留白，固定二维码会压住内容，直接隐藏。 */
+@media (max-width: 640px) {
+  .qr-code-container {
+    display: none;
+  }
+}
 </style>

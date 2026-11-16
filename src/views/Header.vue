@@ -71,8 +71,40 @@
 
           </ul>
         </div>
+        <button
+          class="mobile-menu-toggle"
+          type="button"
+          aria-label="打开导航菜单"
+          aria-controls="mobile-nav"
+          :aria-expanded="mobileMenuOpen"
+          @click="mobileMenuOpen = !mobileMenuOpen"
+        >
+          <el-icon :size="20"><MenuIcon /></el-icon>
+        </button>
       </div>
     </div>
+
+    <div v-if="mobileMenuOpen" class="mobile-menu-mask" @click="mobileMenuOpen = false"></div>
+    <transition name="mobile-menu-fade">
+      <nav
+        v-if="mobileMenuOpen"
+        id="mobile-nav"
+        class="mobile-menu"
+        aria-label="移动端导航"
+        @click.stop
+      >
+        <ul>
+          <li
+            v-for="item in menus"
+            :key="item.name"
+            :class="{ active: activeMenu === item.value }"
+            @click="handleMobileMenuSelect(item)"
+          >
+            {{ item.name }}
+          </li>
+        </ul>
+      </nav>
+    </transition>
   </header>
 </template>
 
@@ -81,7 +113,7 @@ import { ref, onMounted, computed, watch, defineOptions } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { ElMessageBox } from 'element-plus/es/components/message-box'
-import { User, SwitchButton } from '@element-plus/icons-vue'
+import { Menu as MenuIcon, User, SwitchButton } from '@element-plus/icons-vue'
 import ThemeToggle from '@/components/ThemeToggle.vue'
 
 interface HeaderMenuItem {
@@ -122,6 +154,7 @@ const handleUpdateActivePath = (path: string): string => {
 // 点 logo / 路由跳转回首页后高亮黏在旧菜单上（Header 不随 hash 路由重挂载）
 const activeMenu = ref(handleUpdateActivePath(route.path))
 const dropdownVisible = ref(false)
+const mobileMenuOpen = ref(false)
 let dropdownTimer: ReturnType<typeof setTimeout> | null = null
 
 // Computed properties
@@ -141,12 +174,18 @@ onMounted(() => {
 // watch route.path 而非 route.fullPath，query 变化如 ?roadMapId= 不触发）
 watch(() => route.path, (path) => {
   activeMenu.value = handleUpdateActivePath(path)
+  mobileMenuOpen.value = false
 })
 
 // Handle menu selection
 const handleMenuSelect = (item: HeaderMenuItem): void => {
   activeMenu.value = item.value
+  mobileMenuOpen.value = false
   router.push(item.path)
+}
+
+const handleMobileMenuSelect = (item: HeaderMenuItem): void => {
+  handleMenuSelect(item)
 }
 
 // Handle login click
@@ -456,6 +495,146 @@ const handleLogout = async (): Promise<void> => {
         }
       }
     }
+  }
+}
+
+.mobile-menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--nav-item-color, #545c63);
+  cursor: pointer;
+}
+
+.mobile-menu-toggle:hover {
+  background: var(--dm-bg-tertiary, #f3f5f6);
+  color: var(--nav-item-hover-color, #1c1f21);
+}
+
+.mobile-menu,
+.mobile-menu-mask {
+  display: none;
+}
+
+.mobile-menu-fade-enter-active,
+.mobile-menu-fade-leave-active {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.mobile-menu-fade-enter-from,
+.mobile-menu-fade-leave-to {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+@media (max-width: 1152px) {
+  .header {
+    .header-content {
+      width: 100%;
+      max-width: 100%;
+      padding: 0 12px;
+      box-sizing: border-box;
+    }
+
+    .header-content .index-menu {
+      display: flex;
+      align-items: center;
+      min-width: 0;
+      gap: 8px;
+    }
+
+    .header-content .index-menu .logo {
+      flex: 0 0 auto;
+      float: none;
+
+      a {
+        height: 72px;
+
+        img {
+          height: 54px;
+          margin-left: 0;
+        }
+      }
+    }
+
+    .header-content .index-menu .menu {
+      display: none;
+    }
+
+    .header-content .index-menu .login-area {
+      float: none;
+      margin-left: auto;
+
+      .theme-toggle-item,
+      .auth-item {
+        margin: 18px 0 18px 6px;
+      }
+    }
+
+    .mobile-menu-toggle {
+      display: inline-flex;
+    }
+  }
+
+  .mobile-menu {
+    position: absolute;
+    top: 72px;
+    right: 0;
+    left: 0;
+    z-index: 1002;
+    display: block;
+    padding: 10px 12px 14px;
+    border-bottom: 1px solid var(--dropdown-divider, #f3f5f6);
+    background: var(--dropdown-bg, #fff);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+
+    ul {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      list-style: none;
+    }
+
+    li {
+      padding: 12px 10px;
+      border-radius: 8px;
+      background: var(--dm-bg-tertiary, #f5f5f5);
+      color: var(--nav-item-color, #545c63);
+      font-size: 14px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    li.active {
+      color: var(--brand-primary);
+      font-weight: 600;
+      background: var(--dm-sidebar-bg-active, #e6f7ff);
+    }
+  }
+
+  .mobile-menu-mask {
+    position: absolute;
+    top: 72px;
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 72px);
+    z-index: 1001;
+    display: block;
+    background: rgba(0, 0, 0, 0.25);
+  }
+}
+
+@media (min-width: 1153px) {
+  .mobile-menu,
+  .mobile-menu-mask {
+    display: none !important;
   }
 }
 </style>
