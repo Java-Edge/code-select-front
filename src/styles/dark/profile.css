@@ -1,0 +1,46 @@
+/* ============================================================================
+ * dark/profile.css — 个人中心（views/profile/profile-page.vue）
+ * ============================================================================
+ * SFC 中卡片、文字与分隔线使用字面浅色值；暗色模式按项目约定以 html.dark
+ * 前缀覆盖，令牌统一来自 src/styles/tokens.css。
+ * ============================================================================ */
+
+html.dark .profile-card {
+  background: var(--dm-card-bg);
+  border: 1px solid var(--dm-card-border);
+  box-shadow: var(--dm-card-shadow);
+}
+
+html.dark .profile-card .profile-header,
+html.dark .profile-card .info-list .info-item {
+  border-bottom-color: var(--dm-border-primary);
+}
+
+html.dark .profile-card .profile-meta .profile-name {
+  color: var(--dm-text-primary);
+}
+
+html.dark .profile-card .profile-section .section-title {
+  color: var(--dm-text-primary);
+}
+
+html.dark .profile-card .info-list .info-item .info-value {
+  color: var(--dm-text-primary);
+}
+
+html.dark .profile-card .info-list .info-item .info-label {
+  color: var(--dm-text-tertiary);
+}
+
+html.dark .profile-actions .el-button--danger.is-plain {
+  background: var(--dm-accent-danger-subtle);
+  border-color: var(--dm-accent-danger);
+  color: var(--dm-accent-danger);
+}
+
+html.dark .profile-actions .el-button--danger.is-plain:hover,
+html.dark .profile-actions .el-button--danger.is-plain:focus {
+  background: var(--dm-accent-danger);
+  border-color: var(--dm-accent-danger);
+  color: #fff;
+}
