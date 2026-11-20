@@ -176,3 +176,25 @@ html.dark .interview-type:hover {
 html.dark .career-type {
   color: var(--dm-text-tertiary);
 }
+
+/* ---------- 列表状态（骨架 / 空结果 / 失败）暗黑适配 ---------- */
+html.dark .list-state {
+  color: var(--dm-text-secondary);
+}
+html.dark .state-btn {
+  color: var(--dm-text-primary);
+  background: var(--dm-input-bg);
+  border-color: var(--dm-card-border);
+}
+html.dark .state-btn:hover {
+  color: var(--dm-accent-primary);
+  border-color: var(--dm-border-focus);
+}
+html.dark .skeleton-card {
+  background-color: var(--dm-card-bg);
+  border-color: var(--dm-card-border);
+}
+html.dark .skeleton-line {
+  background: linear-gradient(90deg, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.12) 37%, rgba(255,255,255,0.06) 63%);
+  background-size: 400% 100%;
+}

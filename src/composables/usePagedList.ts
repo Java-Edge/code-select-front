@@ -10,7 +10,9 @@ import { ref, type Ref } from 'vue'
  * - fetchFn 签名：(pager: { pageNo, pageSize }, extraParam?: object)
  *     => Promise<{ records: any[], total: number }>
  *   由调用方在 fetchFn 内部把分页参数拼装进各自请求体；extraParam 用于筛选时
- *   透传额外条件，翻页动作不携带 extraParam（保持"筛选后保留当前页"的既有行为）。
+ *   透传额外条件。load/applyFilters 会记住最近一次 extraParam，changePage 复用
+ *   它，因此「筛选 → 翻页」不再丢失筛选；applyFilters 额外负责回到第一页。
+ *   load 内部捕获异常并落库 error 状态（不再向调用方抛出），页面据此展示失败与重试。
  */
 
 export interface Pager {
@@ -39,7 +41,11 @@ export interface UsePagedListReturn<T = unknown> {
   total: Ref<number>
   list: Ref<T[]>
   loading: Ref<boolean>
+  /** 最近一次请求的错误信息；成功后清空 */
+  error: Ref<string | null>
   load: (extraParam?: Record<string, unknown>) => Promise<void>
+  /** 应用新的筛选条件：回到第一页并加载（筛选必须走这里，而非直接 load） */
+  applyFilters: (extraParam?: Record<string, unknown>) => Promise<void>
   changePage: (currentPage: number) => Promise<void>
   reset: (currentPage?: number) => Promise<void>
 }
@@ -53,30 +59,59 @@ export function usePagedList<T = unknown>(
   const total: Ref<number> = ref(0)
   const list: Ref<T[]> = ref([])
   const loading: Ref<boolean> = ref(false)
+  const error: Ref<string | null> = ref(null)
+
+  // 最近一次筛选条件：翻页时复用，修复「翻页丢失筛选」的既有缺陷
+  let lastExtraParam: Record<string, unknown> = {}
+  // 请求序号：只应用最后一次请求的结果，防止慢响应覆盖新结果（竞态守卫）
+  let requestSeq = 0
 
   const load = async (extraParam: Record<string, unknown> = {}): Promise<void> => {
+    lastExtraParam = extraParam
+    const seq = ++requestSeq
     loading.value = true
     try {
       const { records, total: t } = await fetchFn(
         { pageNo: page.value, pageSize: size.value },
         extraParam
       )
+      // 过期响应：已有更新的请求在途，丢弃本次结果
+      if (seq !== requestSeq) return
       list.value = records
       total.value = t
+      error.value = null
+    } catch (e) {
+      // 不向上抛出：历史调用方（三个列表页）均未捕获 load 的 rejection，
+      // 改为落库 error 状态，由页面读取并展示「失败 + 重试」
+      if (seq === requestSeq) {
+        error.value = e instanceof Error ? e.message : '加载失败，请稍后重试'
+      }
     } finally {
-      loading.value = false
+      // 过期请求不回收 loading：仍由最新请求负责收尾
+      if (seq === requestSeq) {
+        loading.value = false
+      }
     }
+  }
+
+  /** 应用新的筛选条件：回到第一页并加载（筛选动作必须走这里） */
+  const applyFilters = (extraParam: Record<string, unknown> = {}): Promise<void> => {
+    page.value = 1
+    return load(extraParam)
   }
 
   const changePage = (currentPage: number): Promise<void> => {
     page.value = currentPage
-    return load()
+    // 复用最近一次筛选条件，翻页不再丢失筛选
+    return load(lastExtraParam)
   }
 
   const reset = (currentPage = 1): Promise<void> => {
     page.value = currentPage
-    return load()
+    // 清空筛选：丢弃最近一次筛选条件
+    lastExtraParam = {}
+    return load({})
   }
 
-  return { page, size, total, list, loading, load, changePage, reset }
+  return { page, size, total, list, loading, error, load, applyFilters, changePage, reset }
 }

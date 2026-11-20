@@ -3,7 +3,7 @@
  */
 import { login, logout, getUserInfo, uploadAvatar } from '@/api/user'
 import { signGrowth, getGrowth } from '@/api/growth'
-import { getToken, setToken, removeToken, setUserInfo, removeUserInfo, clearAuth } from '@/utils/auth'
+import { getToken, setToken, removeToken, getUserInfo as getCachedUserInfo, setUserInfo, removeUserInfo, clearAuth } from '@/utils/auth'
 import type { Module, MutationTree, ActionTree, GetterTree } from 'vuex'
 import type { BackendUser } from '@/types/api'
 
@@ -42,23 +42,36 @@ const mapUserInfo = (result: BackendUser): UserInfo => ({
   id: result.id,
   username: result.username ?? '',
   nickname: result.nickname ?? '',
-  avatar: result.avatar ?? ''
+  avatar: normalizeLegacyAvatarUrl(result.avatar ?? '')
 })
+
+/**
+ * 旧版本写入的头像 URL 前缀为 /api/user/avatar/，nginx 只有 /api/back/ 转发规则，
+ * 该前缀无法访问（404）。展示前改写为 /api/back/user/avatar/，兼容存量数据。
+ */
+const normalizeLegacyAvatarUrl = (url: string): string => {
+  const legacyPrefix = '/api/user/avatar/'
+  if (url.startsWith(legacyPrefix)) {
+    return '/api/back/user/avatar/' + url.slice(legacyPrefix.length)
+  }
+  return url
+}
 
 const mapAvatarPayload = (payload: unknown): string => {
   if (typeof payload === 'string') {
-    return payload
+    return normalizeLegacyAvatarUrl(payload)
   }
   if (payload && typeof payload === 'object' && 'avatar' in payload) {
     const avatar = (payload as { avatar?: unknown }).avatar
-    return typeof avatar === 'string' ? avatar : ''
+    return typeof avatar === 'string' ? normalizeLegacyAvatarUrl(avatar) : ''
   }
   return ''
 }
 
 const state: UserState = {
   token: getToken() || '',
-  userInfo: null,
+  // 刷新后先用 localStorage 里的用户信息兜底展示，再由 fetchUserInfo 拉取权威数据覆盖
+  userInfo: getCachedUserInfo<UserInfo>(),
   isAuthenticated: !!getToken(),
   // 会员成长快照（来自 /growth 子域）：登录后由签到动作写入，个人中心读取展示
   growth: {

@@ -1,5 +1,5 @@
 <template>
-  <div class="article-ranking-container">
+  <div class="article-ranking-container" :class="{ 'is-loading': loading && tableData.length > 0 }">
     <div class="filter-box">
       <div class="filter-box1">
         <el-cascader
@@ -69,27 +69,46 @@
       </div>
     </div>
 
-    <div
-      class="interview-card"
-      v-for="interview in tableData"
-      :key="interview.id"
-      @click="onShowClick(interview.id)"
-    >
-      <div class="interview-title">{{ interview.title }}</div>
-      <div class="interview-content">
-        {{
-          interview.content.length > 300
-            ? stripHtml(interview.content.slice(0, 30)) + "..."
-            : stripHtml(interview.content)
-        }}
-      </div>
-      <div class="interview-type">
-        <div class="interview-create-time">{{ interview.createAt }}</div>
-        <div class="career-type">分类：{{ interview.careerName }}</div>
+    <div v-if="error && tableData.length > 0" class="list-state list-state--inline">
+      <span class="list-state__text">列表刷新失败：{{ error }}</span>
+      <button type="button" class="state-btn" @click="retryLoad">重试</button>
+    </div>
+
+    <div v-if="loading && tableData.length === 0" class="list-state" aria-busy="true">
+      <div class="skeleton-card" v-for="n in 3" :key="n">
+        <div class="skeleton-line skeleton-line--title"></div>
+        <div class="skeleton-line"></div>
+        <div class="skeleton-line skeleton-line--short"></div>
       </div>
     </div>
 
-    <pagination :page="page" :total="total" @pageChange="handleCurrentChange"/>
+    <div v-else-if="error && tableData.length === 0" class="list-state">
+      <p class="list-state__text">列表加载失败：{{ error }}</p>
+      <button type="button" class="state-btn" @click="retryLoad">重新加载</button>
+    </div>
+
+    <div v-else-if="tableData.length === 0" class="list-state">
+      <p class="list-state__text">没有找到相关面经</p>
+      <button type="button" class="state-btn" @click="handleClearFilters">清空筛选</button>
+    </div>
+
+    <template v-else>
+      <div
+        class="interview-card"
+        v-for="interview in tableData"
+        :key="interview.id"
+        @click="onShowClick(interview.id)"
+      >
+        <div class="interview-title">{{ interview.title }}</div>
+        <div class="interview-content">{{ interview.summary || stripHtml(interview.content) }}</div>
+        <div class="interview-type">
+          <div class="interview-create-time">{{ interview.createAt }}</div>
+          <div class="career-type">分类：{{ interview.careerName }}</div>
+        </div>
+      </div>
+
+      <pagination :page="page" :total="total" @pageChange="handleCurrentChange"/>
+    </template>
   </div>
 </template>
 
@@ -106,6 +125,8 @@ export interface InterviewItem {
   id: number | string
   title: string
   content: string
+  /** 后端基于清洗后纯文本生成的列表摘要（可能为空，前端回退到 stripHtml(content)） */
+  summary?: string
   createAt: string
   careerName: string
 }
@@ -133,59 +154,9 @@ const getCompanyData = (): void => {
 };
 getCompanyData();
 
-// 公司筛选框
-const handleChangeCompany = debounce(() => {
-  load({
-    jobId: jobId.value,
-    content: activeMenu.value,
-    company: companyCondition.value,
-    keyword: keyword.value,
-  });
-}, 300);
-
-// 一面、二面单选框
-const handleFilterSelect = (selectedItem: string): void => {
-  if (activeMenu.value != selectedItem) {
-    activeMenu.value = selectedItem;
-    jobId.value = value[value.length - 1];
-    load({
-      jobId: jobId.value,
-      content: activeMenu.value,
-      company: companyCondition.value,
-      keyword: keyword.value,
-    });
-  } else {
-    activeMenu.value = "";
-    jobId.value = value[value.length - 1];
-    load({ jobId: jobId.value });
-  }
-};
-
-// 级联选择框
-const props: { expandTrigger: 'hover' | 'click' } = {
-  expandTrigger: "hover",
-};
-let value: number[] = [-1];
-const handleChange = (val: number[]): void => {
-  jobId.value = val[val.length - 1];
-  load({
-    jobId: jobId.value,
-    content: activeMenu.value != "" ? activeMenu.value : "",
-    company: companyCondition.value,
-    articleType: 1,
-    keyword: keyword.value
-  });
-};
-
-// 获取级联筛选框数据
-const options = ref<CareerOption[]>([]);
-axios.get<ApiResponse<CareerOption[]>>("/back/career/getData").then((res) => {
-  options.value = res.data.result;
-});
-
 // 数据相关：分页与列表由 usePagedList 统一管理
 // fetchFn 负责把分页参数 + 筛选条件拼装成后端契约的请求体（param.articleType 固定为 1）
-const { page, total, list: tableData, load, changePage: handleCurrentChange } = usePagedList<InterviewItem>(
+const { page, total, list: tableData, loading, error, load, applyFilters, changePage: handleCurrentChange } = usePagedList<InterviewItem>(
   async ({ pageNo, pageSize }, extraParam) => {
     const params = {
       pageNo,
@@ -197,8 +168,52 @@ const { page, total, list: tableData, load, changePage: handleCurrentChange } = 
   }
 );
 
+const currentFilter = (): Record<string, unknown> => ({
+  jobId: jobId.value,
+  content: activeMenu.value,
+  company: companyCondition.value,
+  keyword: keyword.value
+});
+
+// 公司筛选框
+const handleChangeCompany = debounce(() => {
+  applyFilters(currentFilter());
+}, 300);
+
+// 一面、二面单选框
+const handleFilterSelect = (selectedItem: string): void => {
+  if (activeMenu.value != selectedItem) {
+    activeMenu.value = selectedItem;
+    jobId.value = value[value.length - 1];
+    applyFilters(currentFilter());
+  } else {
+    activeMenu.value = "";
+    jobId.value = value[value.length - 1];
+    applyFilters(currentFilter());
+  }
+};
+
+// 级联选择框
+const props: { expandTrigger: 'hover' | 'click' } = {
+  expandTrigger: "hover",
+};
+let value: number[] = [-1];
+const handleChange = (val: number[]): void => {
+  jobId.value = val[val.length - 1];
+  applyFilters(currentFilter());
+};
+
+// 筛选项数据不参与首屏关键路径，列表先渲染后再加载，避免三个请求抢同一连接带宽
+const options = ref<CareerOption[]>([]);
+window.setTimeout(() => {
+  axios.get<ApiResponse<CareerOption[]>>("/back/career/getData").then((res) => {
+    options.value = res.data.result;
+  }).catch(() => {});
+}, 0);
+
 // 首次加载（路由组件每次进入都会重新执行 setup，故此 load 同时覆盖「离开后回来」的刷新；无需 onActivated）
-load();
+// 先渲染筛选骨架，再用微任务发请求，给浏览器一次绘制机会
+Promise.resolve().then(() => load());
 
 // 翻页由 usePagedList 的 changePage 接管（见上方 load 解构：changePage: handleCurrentChange）
 
@@ -209,9 +224,101 @@ load();
 const onShowClick = (articleId: number | string): void => {
   window.open(`/#/intervieArticleDetail/${articleId}`, '_blank');
 };
+
+// 请求失败后的重试：用当前筛选条件重新发起（load 会记住最近一次 extraParam）
+const retryLoad = (): void => {
+  load(currentFilter());
+};
+
+// 清空全部筛选并回到第一页
+const handleClearFilters = (): void => {
+  value = [-1];
+  activeMenu.value = "";
+  jobId.value = -1;
+  companyCondition.value = "";
+  keyword.value = "";
+  applyFilters({});
+};
 </script>
 
 <style lang="scss" scoped>
+/* 列表加载中：保留旧数据，半透明 + 禁点，避免闪烁 */
+.is-loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* ---------- 列表状态：骨架 / 空结果 / 失败 ---------- */
+.list-state {
+  padding: 48px 0;
+  text-align: center;
+  color: #606266;
+}
+/* 有旧数据时的刷新失败：窄条内联提示，不顶掉列表 */
+.list-state--inline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px 0;
+}
+.list-state__text {
+  margin: 0 0 12px;
+  font-size: 14px;
+}
+.list-state--inline .list-state__text {
+  margin: 0;
+}
+.state-btn {
+  padding: 6px 18px;
+  font-size: 14px;
+  color: #4d555d;
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(144, 147, 153, 0.4);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.state-btn:hover {
+  color: #1f6feb;
+  border-color: rgba(31, 111, 235, 0.5);
+}
+.skeleton-card {
+  margin: 20px auto;
+  max-width: 720px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(144, 147, 153, 0.25);
+  border-radius: 5px;
+}
+.skeleton-line {
+  height: 16px;
+  margin: 12px 0;
+  border-radius: 4px;
+  background: linear-gradient(90deg, rgba(144, 147, 153, 0.15) 25%, rgba(144, 147, 153, 0.3) 37%, rgba(144, 147, 153, 0.15) 63%);
+  background-size: 400% 100%;
+  animation: skeleton-loading 1.2s ease infinite;
+}
+.skeleton-line--title {
+  height: 22px;
+  width: 55%;
+}
+.skeleton-line--short {
+  width: 35%;
+}
+@keyframes skeleton-loading {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+
+/* 摘要固定两行：摘要由后端 summary 提供，前端只负责截断展示 */
+.interview-content {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .filter-box {
   display: flex;
 }

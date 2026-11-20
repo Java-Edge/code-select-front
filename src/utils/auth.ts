@@ -21,7 +21,19 @@ export function removeToken(): void {
   localStorage.removeItem(TOKEN_KEY)
 }
 
-export function setUserInfo(userInfo: Record<string, unknown>): void {
+export function getUserInfo<T = Record<string, unknown>>(): T | null {
+  const raw = localStorage.getItem(USER_KEY)
+  if (!raw) {
+    return null
+  }
+  try {
+    return JSON.parse(raw) as T
+  } catch {
+    return null
+  }
+}
+
+export function setUserInfo(userInfo: object): void {
   localStorage.setItem(USER_KEY, JSON.stringify(userInfo))
 }
 
