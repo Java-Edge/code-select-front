@@ -6,25 +6,28 @@ import type { PagedResult } from '@/composables/usePagedList'
 /**
  * 公司舆情条目契约（POST /back/company-discussion/selectByCondition -> CompanyDiscussionVO）
  * ----------------------------------------------------------------------------
- * 后端列表 SQL 当前只返回 contentId/companyName/content(前100字符)/createTime，
- * title/authDisplayInfo/contentUrl 可能为 null，消费侧需判空展示。
+ * companyName / topic 均为「多值逗号分隔」字符串，展示前需自行 split，
+ * 例如 companyName = '阿里云,阿里巴巴'、topic = '裁员,业务经营'。
+ * title/authDisplayInfo/contentUrl/source 旧数据可能为 null，消费侧需判空。
  */
 export interface CompanyDiscussionItem {
   /** 内容id */
   contentId: string
-  /** 公司名称 */
-  companyName: string
-  /** 标题（后端暂未返回，可能为 null） */
+  /** 公司名称，多值逗号分隔 */
+  companyName: string | null
+  /** 话题标签，多值逗号分隔（裁员/薪资/组织架构/业务经营/福利待遇） */
+  topic: string | null
+  /** 标题（可能为 null） */
   title: string | null
-  /** 正文摘要（后端截断至前 100 字符） */
+  /** 正文摘要（后端截断至前 300 字符） */
   content: string
   /** 创建时间 */
   createTime: string
-  /** 展示来源平台（脉脉/知乎/头条号/抖音等，可能为 null） */
+  /** 作者展示信息（认证头衔/媒体域名等，可能为 null） */
   authDisplayInfo: string | null
   /** 原文链接（可能为 null） */
   contentUrl: string | null
-  /** 数据来源平台（牛客/知乎/脉脉，旧数据可能为 null） */
+  /** 数据来源平台（牛客/知乎/脉脉/头条号/抖音，旧数据可能为 null） */
   source: string | null
   /** 点赞数（可能为 null） */
   likeCount: number | null
@@ -36,8 +39,22 @@ export interface CompanyDiscussionItem {
 export interface CompanyDiscussionQueryParam {
   /** 搜索内容（命中标题/正文/公司名） */
   keyword?: string
-  /** 公司筛选条件 */
+  /** 公司筛选条件（多选，任一命中即可） */
   company?: string[]
+  /** 话题筛选条件（单选） */
+  topic?: string
+  /** 内容起始时间（yyyy-MM-dd），用于剔除过期舆情；不传表示不限 */
+  startTime?: string
+}
+
+/** 公司热帖分组：一家公司 + 各平台近两年最热的 Top10 */
+export interface CompanyHotGroup {
+  /** 公司名 */
+  companyName: string
+  /** 本组实际返回条数 */
+  total: number
+  /** 各平台 Top10（按平台固定顺序、平台内按热度降序） */
+  items: CompanyDiscussionItem[]
 }
 
 export const companyDiscussionApi = {
@@ -54,10 +71,31 @@ export const companyDiscussionApi = {
     })
   },
 
-  /** 公司下拉选项（与面经页同一数据源） */
-  getCompanyList(): Promise<AxiosResponse<ApiResponse<string[]>>> {
+  /** 公司分组热帖墙（分页维度是公司数） */
+  getHotGroups(params: {
+    pageNo: number
+    pageSize: number
+    param: CompanyDiscussionQueryParam
+  }): Promise<AxiosResponse<ApiResponse<PagedResult<CompanyHotGroup>>>> {
     return request({
-      url: '/back/company/getList',
+      url: '/back/company-discussion/hotGroups',
+      method: 'post',
+      data: params
+    })
+  },
+
+  /** 公司下拉选项（取自舆情库实际出现过的公司，按热度降序） */
+  getCompanies(): Promise<AxiosResponse<ApiResponse<string[]>>> {
+    return request({
+      url: '/back/company-discussion/companies',
+      method: 'get'
+    })
+  },
+
+  /** 话题筛选项（裁员/薪资/组织架构/业务经营/福利待遇，按热度降序） */
+  getTopics(): Promise<AxiosResponse<ApiResponse<string[]>>> {
+    return request({
+      url: '/back/company-discussion/topics',
       method: 'get'
     })
   }
