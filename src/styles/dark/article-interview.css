@@ -31,6 +31,7 @@ html.dark .filter-box {
 /* 基础状态 - 未选中 */
 html.dark .filter-item {
   /* 视觉样式 */
+  padding: 0;
   background: linear-gradient(145deg, var(--dm-input-bg) 0%, #21262d 100%);
   border: 2px solid var(--dm-filter-border);
   border-radius: 10px;
@@ -137,6 +138,7 @@ html.dark .filter-item:disabled {
 /* 面经卡片优化 */
 html.dark .interview-card {
   background-color: var(--dm-card-bg);
+  padding: 20px;
   border: 1px solid var(--dm-card-border);
   box-shadow: var(--dm-card-shadow);
   border-radius: 12px;
@@ -160,6 +162,10 @@ html.dark .interview-title {
 html.dark .interview-content {
   color: var(--dm-text-secondary);
   line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 html.dark .interview-type {
@@ -175,6 +181,14 @@ html.dark .interview-type:hover {
 
 html.dark .career-type {
   color: var(--dm-text-tertiary);
+}
+
+html.dark .result-meta {
+  color: var(--dm-text-tertiary);
+}
+
+html.dark .article-ranking-container.is-loading {
+  opacity: 0.6;
 }
 
 /* ---------- 列表状态（骨架 / 空结果 / 失败）暗黑适配 ---------- */

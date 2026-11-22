@@ -12,34 +12,38 @@
         />
       </div>
       <div class="filter-box2">
-        <div
+        <button
+          type="button"
           class="filter-item"
           @click="handleFilterSelect('一面')"
           :class="{ active: activeMenu === '一面' }"
         >
           一面
-        </div>
-        <div
+        </button>
+        <button
+          type="button"
           class="filter-item"
           @click="handleFilterSelect('二面')"
           :class="{ active: activeMenu === '二面' }"
         >
           二面
-        </div>
-        <div
+        </button>
+        <button
+          type="button"
           class="filter-item"
           @click="handleFilterSelect('三面')"
           :class="{ active: activeMenu === '三面' }"
         >
           三面
-        </div>
-        <div
+        </button>
+        <button
+          type="button"
           class="filter-item"
           @click="handleFilterSelect('hr面')"
           :class="{ active: activeMenu === 'hr面' }"
         >
           hr面
-        </div>
+        </button>
       </div>
       <div class="company-filter-box">
         <el-select
@@ -88,7 +92,7 @@
     </div>
 
     <div v-else-if="tableData.length === 0" class="list-state">
-      <p class="list-state__text">没有找到相关面经</p>
+      <el-empty description="没有找到相关面经" />
       <button type="button" class="state-btn" @click="handleClearFilters">清空筛选</button>
     </div>
 
@@ -107,6 +111,7 @@
         </div>
       </div>
 
+      <div class="result-meta">共 {{ total }} 篇面经</div>
       <pagination :page="page" :total="total" @pageChange="handleCurrentChange"/>
     </template>
   </div>
@@ -139,18 +144,20 @@ interface CareerOption {
 }
 
 const companyOptions = ref<string[]>([]);
-let companyCondition = ref("");
-let activeMenu = ref("");
-let jobId = ref(-1);
-let keyword = ref("");
+const companyCondition = ref<string[]>([]);
+const activeMenu = ref("");
+const jobId = ref(-1);
+const keyword = ref("");
 
 /**
  * 获取公司数据
  */
 const getCompanyData = (): void => {
-  axios.get<ApiResponse<string[]>>("/back/company/getList").then((res) => {
-    companyOptions.value = res.data.result;
-  });
+  window.setTimeout(() => {
+    axios.get<ApiResponse<string[]>>("/back/company/getList").then((res) => {
+      companyOptions.value = res.data.result;
+    });
+  }, 0);
 };
 getCompanyData();
 
@@ -184,11 +191,11 @@ const handleChangeCompany = debounce(() => {
 const handleFilterSelect = (selectedItem: string): void => {
   if (activeMenu.value != selectedItem) {
     activeMenu.value = selectedItem;
-    jobId.value = value[value.length - 1];
+    jobId.value = value.value[value.value.length - 1];
     applyFilters(currentFilter());
   } else {
     activeMenu.value = "";
-    jobId.value = value[value.length - 1];
+    jobId.value = value.value[value.value.length - 1];
     applyFilters(currentFilter());
   }
 };
@@ -197,7 +204,7 @@ const handleFilterSelect = (selectedItem: string): void => {
 const props: { expandTrigger: 'hover' | 'click' } = {
   expandTrigger: "hover",
 };
-let value: number[] = [-1];
+const value = ref<number[]>([-1]);
 const handleChange = (val: number[]): void => {
   jobId.value = val[val.length - 1];
   applyFilters(currentFilter());
@@ -222,7 +229,7 @@ Promise.resolve().then(() => load());
  * 在新标签页打开
  */
 const onShowClick = (articleId: number | string): void => {
-  window.open(`/#/intervieArticleDetail/${articleId}`, '_blank');
+  window.open(`/#/intervieArticleDetail/${articleId}`, '_blank', 'noopener');
 };
 
 // 请求失败后的重试：用当前筛选条件重新发起（load 会记住最近一次 extraParam）
@@ -232,10 +239,10 @@ const retryLoad = (): void => {
 
 // 清空全部筛选并回到第一页
 const handleClearFilters = (): void => {
-  value = [-1];
+  value.value = [-1];
   activeMenu.value = "";
   jobId.value = -1;
-  companyCondition.value = "";
+  companyCondition.value = [];
   keyword.value = "";
   applyFilters({});
 };
@@ -331,6 +338,7 @@ const handleClearFilters = (): void => {
   color: white;
 }
 .filter-item {
+  padding: 0;
   background-color: white;
   width: 60px;
   height: 33px;
@@ -403,5 +411,12 @@ const handleClearFilters = (): void => {
   min-height: 800px;
   max-width: 1152px;
   margin: 0 auto;
+}
+
+.result-meta {
+  text-align: center;
+  margin-top: 4px;
+  font-size: 13px;
+  color: #606266;
 }
 </style>
