@@ -2,7 +2,7 @@
   <div class="course-navigation">
     <filterVue @getRecruit="getRecruit" />
     <!-- 内容区域 -->
-    <div class="content">
+    <div class="content" v-loading="loading">
       <!-- 内容区域 -->
       <div v-if="fallbackUsed" class="search-fallback-tip">
         当前筛选条件下没有找到相关职位，已为你展示全站搜索结果
@@ -13,6 +13,7 @@
         </div>
       </div>
       <RecruitList :recruits="recruits" />
+      <div v-if="error" class="list-error-tip">{{ error }}</div>
       <pagination
         :page="page"
         :total="total"
@@ -37,10 +38,14 @@ const page = ref(1)
 const size = ref(10)
 const recruits = ref<RecruitDisplayItem[]>([])
 const params = ref<RecruitQueryParam>({})
+const loading = ref(false)
+const error = ref<string | null>(null)
 // 关键词在当前筛选下搜空时自动放宽为全站搜索，此时置 true 显示提示条
 const fallbackUsed = ref(false)
 
 const fetchList = () => {
+  loading.value = true
+  error.value = null
   recruitApi
     .selectByCondition({
       pageNo: page.value,
@@ -52,6 +57,12 @@ const fetchList = () => {
       recruits.value = result.records.map(toDisplayItem)
       total.value = result.total
       fallbackToKeywordSearch(result.total)
+    })
+    .catch(() => {
+      error.value = '列表加载失败，请稍后重试'
+    })
+    .finally(() => {
+      loading.value = false
     })
 }
 
@@ -104,6 +115,18 @@ const handleCurrentChange = (currentPage: number) => {
   color: #94642a;
   background: #fdf6ec;
   border: 1px solid #f3d19e;
+  border-radius: 8px;
+}
+
+.list-error-tip {
+  width: 100%;
+  margin: 8px auto 0;
+  padding: 12px 16px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #c0392b;
+  background: #fdeceb;
+  border: 1px solid #f5b7b1;
   border-radius: 8px;
 }
 

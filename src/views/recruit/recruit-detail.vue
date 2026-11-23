@@ -97,7 +97,7 @@ const deliver = (sourceUrl: string | null) => {
   if (!sourceUrl) {
     ElMessage.warning('暂时无法投递，请联系管理员')
   } else {
-    window.open(sourceUrl)
+    window.open(sourceUrl, '_blank', 'noopener')
   }
 }
 </script>

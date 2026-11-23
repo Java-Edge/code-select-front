@@ -234,6 +234,12 @@ html.dark .course-group-tag-item-block {
   color: var(--dm-text-secondary);
 }
 
+html.dark .list-error-tip {
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
 /* ---------- 职位详情页（recruit-detail.vue） ---------- */
 html.dark .recruit-header {
   background-color: var(--dm-bg-secondary);

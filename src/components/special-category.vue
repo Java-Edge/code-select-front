@@ -12,6 +12,7 @@
               placeholder="搜索感兴趣的教程内容"
               type="text"
               autocomplete="off"
+              @keyup.enter="handleSearch"
               data-suggest-trigger="true"
             />
             <el-icon 
@@ -29,22 +30,31 @@
             <span>热搜：</span>
             <a
               target="_blank"
+              rel="noopener noreferrer"
+              href="//www.javaedge.cn/search/?words=Vue&type=course"
               >Vue</a
             >
             <a
               target="_blank"
+              rel="noopener noreferrer"
+              href="//www.javaedge.cn/search/?words=Java&type=course"
               >Java</a
             >
             <a
               target="_blank"
+              rel="noopener noreferrer"
+              href="//www.javaedge.cn/search/?words=SpringBoot&type=course"
               >SpringBoot</a
             >
             <a
               target="_blank"
+              rel="noopener noreferrer"
+              href="//www.javaedge.cn/search/?words=Netty&type=course"
               >Netty</a
             >
             <a
               target="_blank"
+              rel="noopener noreferrer"
               href="//www.javaedge.cn/search/?words=算法&amp;type=course"
               >算法</a
             >
@@ -140,8 +150,8 @@ const changeDirection = (item?: CategoryNode): void => {
   emits('callback', currentCategory.value)
 }
 const changeCategory = (item?: CategoryNode): void => {
-  // 保留既有行为：无 item 时取 currentDirection.value.id（原实现，运行时为 undefined 的既有边角路径）
-  currentCategory.value = item ? item.id : (currentDirection.value as unknown as CategoryNode).id
+  // 「不限」= 回到当前方向的父类；方向为「全部」时传 0，后端按全部分类处理
+  currentCategory.value = item ? item.id : currentDirection.value
   emits('callback', currentCategory.value)
 }
 

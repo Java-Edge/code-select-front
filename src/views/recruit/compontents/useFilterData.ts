@@ -3,7 +3,7 @@
  * 统一管理筛选条件的数据获取和状态，字典数据来自 /back/dictionary/list
  */
 import { reactive, ref } from 'vue'
-import { getDictList } from '@/api/common'
+import { getDictList, getDictListByMultiTypeKey } from '@/api/common'
 import type { RecruitQueryParam } from '@/api/recruit'
 
 export interface FilterOption {
@@ -34,6 +34,16 @@ export function useFilterData() {
   // queryParams 同步预设，保证首次查询不等字典接口就带上该条件；字典回来后再点亮 UI。
   const DEFAULT_RECRUIT_TYPE = 3
   queryParams.value.jobTypeList = [DEFAULT_RECRUIT_TYPE]
+
+  /** 批量字典 typeKey → 前端筛选分组 key */
+  const BATCH_GROUP_KEYS: Record<string, keyof typeof selectList> = {
+    education_level: 'degressList',
+    graduate_year: 'expList',
+    salary_range: 'salaryList',
+    finance_stage: 'stageList',
+    person_scale: 'sizeList',
+    recruit_type: 'jobTypeList'
+  }
 
   const selectList = reactive<Record<string, FilterGroup>>({
     jobTypeList: {
@@ -79,40 +89,24 @@ export function useFilterData() {
     })
   }
 
-  const getData = () => {
-    // 1. 学历要求
-    loadOptions('education_level', (result) => {
-      selectList.degressList.data = result
-    })
-
-    // 2. 毕业年限
-    loadOptions('graduate_year', (result) => {
-      selectList.expList.data = result
-    })
-
-    // 3. 薪资要求
-    loadOptions('salary_range', (result) => {
-      selectList.salaryList.data = result
-    })
-
-    // 4. 融资阶段
-    loadOptions('finance_stage', (result) => {
-      selectList.stageList.data = result
-    })
-
-    // 5. 公司规模
-    loadOptions('person_scale', (result) => {
-      selectList.sizeList.data = result
-    })
-
-    // 6. 招聘类型（默认选中社招，见 DEFAULT_RECRUIT_TYPE）
-    loadOptions('recruit_type', (result) => {
-      result.forEach((item) => {
-        if (item.id === DEFAULT_RECRUIT_TYPE) item.active = true
-      })
-      selectList.jobTypeList.data = result
+  /** 批量初始化首屏常用字典；单 key 切换（如实习薪资）仍走单查 */
+  const getBatchData = (typeKeys: string[]): void => {
+    getDictListByMultiTypeKey(typeKeys).then((response) => {
+      for (const dictType of response.data.result) {
+        const groupKey = BATCH_GROUP_KEYS[dictType.typeKey]
+        if (!groupKey) continue
+        selectList[groupKey].data = dictType.list.map((item) => ({
+          id: parseInt(item.value, 10),
+          name: item.label,
+          active: false
+        }))
+      }
+      const jobType = selectList.jobTypeList.data.find((item) => item.id === DEFAULT_RECRUIT_TYPE)
+      if (jobType) jobType.active = true
     })
   }
+
+  getBatchData(Object.keys(BATCH_GROUP_KEYS))
 
   // 切换招聘类型时联动薪资字典：实习用 internship_salary_range，社招/校招用 salary_range
   const handleSelectJobList = (key: string, id?: number) => {
@@ -171,9 +165,6 @@ export function useFilterData() {
       keyword
     }
   }
-
-  // 初始化数据
-  getData()
 
   return {
     selectList,

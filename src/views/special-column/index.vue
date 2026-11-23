@@ -23,24 +23,49 @@
         </div>
       </div>
 
-      <!-- 专栏列表 -->
-      <a
-        v-for="item in specialItems"
-        :key="item.id"
-        :href="item.sourceUrl"
-        target="_blank"
-        class="special-box"
-        @click="clickSpecial(item.id)"
-      >
-        <div class="box-head">
-          <!-- 专栏图片 -->
-          <img :src="item.image || columnCover" class="head-img" alt="专栏图片" />
+      <!-- 列表状态：骨架 / 失败 / 空结果（与面经页一致） -->
+      <div v-if="error && specialItems.length > 0" class="list-state list-state--inline">
+        <span class="list-state__text">列表刷新失败：{{ error }}</span>
+        <button type="button" class="state-btn" @click="retryLoad">重试</button>
+      </div>
+
+      <div v-if="loading && specialItems.length === 0" class="list-state" aria-busy="true">
+        <div class="skeleton-card" v-for="n in 3" :key="n">
+          <div class="skeleton-line skeleton-line--title"></div>
+          <div class="skeleton-line"></div>
+          <div class="skeleton-line skeleton-line--short"></div>
         </div>
-        <div class="box-bottom">
-          <div class="bottom-left">{{ item.name }}</div>
-          <div class="bottom-right">学习人数 {{ item.pageView }}</div>
-        </div>
-      </a>
+      </div>
+
+      <div v-else-if="error && specialItems.length === 0" class="list-state">
+        <p class="list-state__text">列表加载失败：{{ error }}</p>
+        <button type="button" class="state-btn" @click="retryLoad">重新加载</button>
+      </div>
+
+      <div v-else-if="specialItems.length === 0" class="list-state">
+        <el-empty description="没有找到相关专栏" />
+      </div>
+
+      <template v-else>
+        <a
+          v-for="item in specialItems"
+          :key="item.id"
+          :href="item.sourceUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="special-box"
+          @click="clickSpecial(item.id)"
+        >
+          <div class="box-head">
+            <!-- 专栏图片 -->
+            <img :src="item.image || columnCover" class="head-img" :alt="item.name" @error="onImgError" />
+          </div>
+          <div class="box-bottom">
+            <div class="bottom-left">{{ item.name }}</div>
+            <div class="bottom-right">学习人数 {{ item.pageView }}</div>
+          </div>
+        </a>
+      </template>
     </div>
   </div>
 </template>
@@ -101,7 +126,7 @@ const queryParams = ref<SpecialQuery>({
 });
 
 // 列表分页：page/size/total/specialItems/翻页 由 usePagedList 统一管理
-const { list: specialItems, load: getSpecialColumn } = usePagedList<SpecialItem>(
+const { list: specialItems, loading, error, load: getSpecialColumn, applyFilters } = usePagedList<SpecialItem>(
   async ({ pageNo, pageSize }) => {
     queryParams.value.pageNo = pageNo;
     queryParams.value.pageSize = pageSize;
@@ -118,14 +143,14 @@ const { list: specialItems, load: getSpecialColumn } = usePagedList<SpecialItem>
 const changeOrder = (item: OrderItem): void => {
   currentOrder.value = item;
   queryParams.value.param.order = item.name;
-  getSpecialColumn();
+  applyFilters();
 };
 
 // 记录专栏浏览量
 const clickSpecial = async (itemId: number | string): Promise<void> => {
   try {
-    queryParams.value.param.itemId = itemId;
-    await specialApi.updatePageView(queryParams.value);
+    // pv 接口只消费 param.itemId，避免把分页/排序条件一并发送
+    await specialApi.updatePageView({ param: { itemId } });
   } catch (error) {
     console.error('更新浏览量失败:', error);
   }
@@ -134,7 +159,18 @@ const clickSpecial = async (itemId: number | string): Promise<void> => {
 // 切换分类
 const changeCategory = (item: number): void => {
   queryParams.value.param.category = String(item);
+  applyFilters();
+};
+
+const retryLoad = (): void => {
   getSpecialColumn();
+};
+
+const onImgError = (event: Event): void => {
+  const target = event.target as HTMLImageElement
+  if (target.dataset.fallback === '1') return
+  target.dataset.fallback = '1'
+  target.src = columnCover
 };
 
 // 首次加载（路由组件每次进入都会重新挂载，故 onMounted 同时覆盖「离开后回来」的刷新；无需 onActivated）
@@ -155,14 +191,16 @@ onMounted(getSpecialColumn);
 
 /* 设置专栏列表中的图片的大小 */
 .head-img {
-  width: 250px;
-  height: 125px;
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  display: block;
+  object-fit: cover;
 }
 
 /* 设置专栏列表中的每个专栏的样式，包括背景颜色、高度、内边距、边框半径、对齐方式、文本颜色等 */
 .special-box {
   background-color: white;
-  width: 250px;
+  width: calc((100% - 84px) / 4);
   border-radius: 5px;
   display: flex;
   justify-content: space-around;
@@ -171,6 +209,9 @@ onMounted(getSpecialColumn);
   margin-top: 25px;
   text-decoration: none;
   color: #666666;
+}
+.special-box:nth-of-type(4n + 1) {
+  margin-left: 0;
 }
 .special-box:hover {
   transform: translateY(-2px);
@@ -207,6 +248,47 @@ onMounted(getSpecialColumn);
 
   100% {
     transform: translate(200px, 200px) rotate(45deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .box-head::after {
+    animation: none;
+  }
+  .special-box:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 1200px) {
+  .special-box {
+    width: calc((100% - 56px) / 3);
+  }
+  .special-box:nth-of-type(4n + 1) {
+    margin-left: 28px;
+  }
+  .special-box:nth-of-type(3n + 1) {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 860px) {
+  .special-box {
+    width: calc((100% - 28px) / 2);
+  }
+  .special-box:nth-of-type(4n + 1),
+  .special-box:nth-of-type(3n + 1) {
+    margin-left: 28px;
+  }
+  .special-box:nth-of-type(2n + 1) {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .special-box {
+    width: 100%;
+    margin-left: 0;
   }
 }
 
@@ -268,5 +350,68 @@ onMounted(getSpecialColumn);
 }
 .el-checkbox {
     height: 16px;
+}
+
+/* ---------- 列表状态：骨架 / 失败 / 空结果 ---------- */
+.list-state {
+  width: 100%;
+  padding: 48px 0;
+  text-align: center;
+  color: #606266;
+}
+.list-state--inline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px 0;
+}
+.list-state__text {
+  margin: 0 0 12px;
+  font-size: 14px;
+}
+.list-state--inline .list-state__text {
+  margin: 0;
+}
+.state-btn {
+  padding: 6px 18px;
+  font-size: 14px;
+  color: #4d555d;
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(144, 147, 153, 0.4);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.state-btn:hover {
+  color: var(--app-accent);
+  border-color: rgba(233, 142, 70, 0.5);
+}
+.skeleton-card {
+  margin: 20px auto;
+  max-width: 720px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(144, 147, 153, 0.25);
+  border-radius: 5px;
+}
+.skeleton-line {
+  height: 14px;
+  margin: 10px 0;
+  border-radius: 4px;
+  background: linear-gradient(90deg, rgba(144, 147, 153, 0.15) 25%, rgba(144, 147, 153, 0.3) 37%, rgba(144, 147, 153, 0.15) 63%);
+  background-size: 400% 100%;
+  animation: skeleton-loading 1.2s ease infinite;
+}
+.skeleton-line--title {
+  height: 20px;
+  width: 60%;
+}
+.skeleton-line--short {
+  width: 40%;
+}
+@keyframes skeleton-loading {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
 }
 </style>

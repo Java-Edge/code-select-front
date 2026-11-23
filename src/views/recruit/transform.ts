@@ -5,11 +5,10 @@
  * 转成展示文案；此前 recruit-list 与 recruit-detail 各自维护一份相同的转换逻辑，
  * 且薪资文案写死 "* 13 薪"，已收敛并改为按 salaryMonth 实际值渲染。
  */
-import type { RecruitDetail, RecruitDisplayItem, RecruitItem } from '@/api/recruit'
+import type { RecruitDetail, RecruitDetailItem, RecruitDisplayItem, RecruitItem } from '@/api/recruit'
 
-/** 公司 logo 兜底图（后端 pic_url 为 null 时使用） */
-export const DEFAULT_COMPANY_PIC =
-  'https://picx.zhimg.com/v2-d534f6d0948d7228b4173e6e1a7a3436_xl.jpg'
+/** 公司 logo 兜底图（后端 pic_url 为 null 时使用，本地资源避免外链防盗链） */
+export const DEFAULT_COMPANY_PIC = new URL('@/assets/column-logo.svg', import.meta.url).href
 
 /** 学历编码 → 文案（与后端 education_level 字典一致，0 视为不限） */
 const EDUCATION_LABELS: Record<number, string> = {
@@ -61,7 +60,18 @@ export function toDisplayItem(job: RecruitItem): RecruitDisplayItem {
 export function toDisplayDetail(job: RecruitDetail): RecruitDetailItem {
   return {
     ...toDisplayItem(job),
-    content: job.content?.replace(/\n/g, '<br/>') ?? null,
-    requirements: job.requirements?.replace(/\n/g, '<br/>') ?? null
+    graduationYear: job.graduationYear,
+    content: sanitizeRichText(job.content),
+    requirements: sanitizeRichText(job.requirements)
   }
+}
+
+/** v-html 内容最小安全处理：去 script/style 与事件属性，纯文本换行转 <br/> */
+function sanitizeRichText(html: string | null): string | null {
+  if (!html) return null
+  return html
+    .replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/gi, '')
+    .replace(/\son\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, '')
+    .replace(/javascript:/gi, '')
+    .replace(/\n/g, '<br/>')
 }

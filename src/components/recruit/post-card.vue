@@ -15,7 +15,7 @@
             </div>
             <div class="course-group-wrapper">
                 <div class="course-group-company-container">
-                    <img :src=recruit.picUrl :alt=recruit.companyName class="company-picture" />
+                    <img :src="recruit.picUrl ?? ''" :alt="recruit.companyName" class="company-picture" />
                     <span class="course-group-header-title company-name">{{ recruit.companyName }}</span>
                     <div class="course-group-company-status">
                         <div class="course-group-tag-item course-group-tag-item-block" v-if="recruit.recruitTypeLabel">

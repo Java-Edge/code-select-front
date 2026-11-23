@@ -23,11 +23,9 @@ defineProps<{
 }
 
 .course-box {
-  /* flex: 0 0 calc(50% - 20px); */
-
-  /* max-width: 100%; */
-  width: 850px;
-  height: 150px;
+  width: 100%;
+  max-width: 850px;
+  min-height: 150px;
   margin-bottom: 10px;
   background-color: #fff;
   border: 1px solid #e0e0e0;
@@ -40,6 +38,6 @@ defineProps<{
 }
 
 .course-box:hover {
-  transform: scale(1.05);
+  transform: translateY(-2px);
 }
 </style>

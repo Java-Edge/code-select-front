@@ -23,3 +23,17 @@ export function getDictList(typeKey: string): Promise<AxiosResponse<ApiResponse<
     method: "get"
   });
 }
+
+/** 字典类型条目（批量接口返回的 DictionaryType 形状，仅取前端所需字段） */
+export interface DictionaryTypeOption {
+  typeKey: string;
+  list: DictionaryOption[];
+}
+
+/** 按 typeKeys 批量查询字典选项（替代多次 /dictionary/list，减少首屏请求数） */
+export function getDictListByMultiTypeKey(typeKeys: string[]): Promise<AxiosResponse<ApiResponse<DictionaryTypeOption[]>>> {
+  return request({
+    url: "/back/dictionary/listByMultiTypeKey?typeKeys=" + typeKeys.join(","),
+    method: "get"
+  });
+}
