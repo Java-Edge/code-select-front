@@ -181,9 +181,10 @@ onMounted(getSpecialColumn);
 /* 设置专栏列表的宽度、间距和对齐方式 */
 .box-body {
   margin: 0 auto;
-  display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 28px;
+  row-gap: 25px;
 }
 .main-content {
   max-width: 1430px;
@@ -200,18 +201,14 @@ onMounted(getSpecialColumn);
 /* 设置专栏列表中的每个专栏的样式，包括背景颜色、高度、内边距、边框半径、对齐方式、文本颜色等 */
 .special-box {
   background-color: white;
-  width: calc((100% - 84px) / 4);
+  width: auto;
   border-radius: 5px;
   display: flex;
   justify-content: space-around;
   flex-direction: column;
-  margin-left: 28px;
-  margin-top: 25px;
+  margin: 0;
   text-decoration: none;
   color: #666666;
-}
-.special-box:nth-of-type(4n + 1) {
-  margin-left: 0;
 }
 .special-box:hover {
   transform: translateY(-2px);
@@ -261,34 +258,20 @@ onMounted(getSpecialColumn);
 }
 
 @media (max-width: 1200px) {
-  .special-box {
-    width: calc((100% - 56px) / 3);
-  }
-  .special-box:nth-of-type(4n + 1) {
-    margin-left: 28px;
-  }
-  .special-box:nth-of-type(3n + 1) {
-    margin-left: 0;
+  .box-body {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 860px) {
-  .special-box {
-    width: calc((100% - 28px) / 2);
-  }
-  .special-box:nth-of-type(4n + 1),
-  .special-box:nth-of-type(3n + 1) {
-    margin-left: 28px;
-  }
-  .special-box:nth-of-type(2n + 1) {
-    margin-left: 0;
+  .box-body {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 560px) {
-  .special-box {
-    width: 100%;
-    margin-left: 0;
+  .box-body {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -311,6 +294,7 @@ onMounted(getSpecialColumn);
   font-size: 14px;
 }
 .filter {
+  grid-column: 1 / -1;
   margin: 20px 0 0 0;
   width: 100%;
   .sort {
@@ -354,6 +338,7 @@ onMounted(getSpecialColumn);
 
 /* ---------- 列表状态：骨架 / 失败 / 空结果 ---------- */
 .list-state {
+  grid-column: 1 / -1;
   width: 100%;
   padding: 48px 0;
   text-align: center;
